@@ -16,9 +16,25 @@ var app = express();
 
 var server = require('http').createServer(app);
 
-var router = require("./routes");
+var apiRouter = express.Router();
 
-app.use('/api', router);
+// Bind routes on api router
+var routes = [
+	require("./routes/default").routes,
+	require("./routes/user").routes,
+	require("./routes/room").routes,
+	require("./routes/materiel").routes,
+];
+for (var i = 0; i < routes.length; i++)
+{
+  for (var j = 0; j < routes[i].length; j++)
+  {
+    var route = routes[i][j];
+    apiRouter[route.method](route.path, route.middlewares, route.handler);
+  }
+}
+
+app.use("/api", apiRouter);
 
 app.use(function(error, req, res, next) {
 	res.status(404);
