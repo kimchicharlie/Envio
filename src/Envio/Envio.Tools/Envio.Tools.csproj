@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>e7b78e48-abd2-4e03-b573-bbb54bd19ebd</ProjectGuid>
+    <ProjectGuid>{2DDBB97F-1D1D-4980-A4EA-1F12DEB92EAA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Envio.Tools</RootNamespace>

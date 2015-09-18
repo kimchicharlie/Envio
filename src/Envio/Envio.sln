@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envio.Maths", "Envio.Maths\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envio.Test", "Envio.Test\Envio.Test.csproj", "{B403B0CD-F243-48AD-94DE-E6F5ACFFAC49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envio.Tools", "Envio.Tools\Envio.Tools.csproj", "{2DDBB97F-1D1D-4980-A4EA-1F12DEB92EAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B403B0CD-F243-48AD-94DE-E6F5ACFFAC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B403B0CD-F243-48AD-94DE-E6F5ACFFAC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B403B0CD-F243-48AD-94DE-E6F5ACFFAC49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DDBB97F-1D1D-4980-A4EA-1F12DEB92EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DDBB97F-1D1D-4980-A4EA-1F12DEB92EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DDBB97F-1D1D-4980-A4EA-1F12DEB92EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DDBB97F-1D1D-4980-A4EA-1F12DEB92EAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
