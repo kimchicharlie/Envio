@@ -33,7 +33,7 @@ var login = function (options, cb) {
                                 result.error = "Problème de connection";
                                 cb(result);
                             } else {
-                                console.log("Login successull with email : " + options.email);
+                                console.log("Login successful with email : " + options.email);
                                 result.user = user;
                                 result.guid = connectedUser.guid;
                                 cb(result);

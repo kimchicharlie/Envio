@@ -10,7 +10,7 @@ exports.routes = [
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
         handler: function (req, res)
         {
-            res.send("Welcome on the envio API");
+            res.send("Envio API : Welcome !");
         }
     }
 ]
