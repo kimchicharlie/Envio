@@ -19,8 +19,6 @@ namespace Envio.Tools
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HTTPClientClass));
 
-        private string      _url;
-        private string      _port;
         private string      _uri;
         private HttpClient  _httpClient;
 
