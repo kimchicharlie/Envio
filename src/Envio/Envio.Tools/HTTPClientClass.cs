@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -19,8 +20,10 @@ namespace Envio.Tools
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HTTPClientClass));
 
-        private string      _uri;
-        private HttpClient  _httpClient;
+        private string _uri;
+        private HttpClient _httpClient;
+        private string _user;
+        private string _password;
 
         /// <summary>
         /// Constructeur
@@ -28,7 +31,9 @@ namespace Envio.Tools
         /// <param name="url">url ou ip du serveur sans http:// et sans le port</param>
         /// <param name="port">port du serveur à contacter. Par defaut : 80</param>
         /// <param name="timeout">temps avant d'annulé la requête en secondes. Par defaut : 60 </param>
-        public HTTPClientClass(string url, ushort port = 80, uint timeout = 60)
+        /// <param name="user">nom d'utilisateur en cas d'authentification</param>
+        /// <param name="password">mot de passe en cas d'authentification</param>
+        public HTTPClientClass(string url, ushort port = 80, uint timeout = 60, string user = null, string password = null)
         {
             try
             {
@@ -40,7 +45,9 @@ namespace Envio.Tools
                 sb.Append(port);
                 sb.Append("/");
                 this._uri = sb.ToString();
-                this._httpClient = new HttpClient {Timeout = Tools.Convert.ConvertUIntSecondToTimeSpan(timeout)};
+                this._httpClient = new HttpClient { Timeout = Tools.Convert.ConvertUIntSecondToTimeSpan(timeout) };
+                this._user = user;
+                this._password = password;
             }
             catch (Exception e)
             {
@@ -49,17 +56,46 @@ namespace Envio.Tools
         }
 
         /// <summary>
+        /// Applique l'authentification basic au client HTTP
+        /// </summary>
+        void BasicAuthSetup()
+        {
+            if (String.IsNullOrEmpty(this._user) || String.IsNullOrEmpty(this._password))
+                throw new Exception("Error authentification can't created, control user name and password");
+            var byteArray = Encoding.ASCII.GetBytes(this._user + ":" + this._password);
+            this._httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", System.Convert.ToBase64String(byteArray));
+        }
+
+        /// <summary>
+        /// Supprime l'authentification basic au client HTTP
+        /// </summary>
+        void AuthRemove()
+        {
+            this._httpClient.DefaultRequestHeaders.Remove("Authorization");
+        }
+
+        public Task<string> GetResponseContentOnString(HttpResponseMessage response)
+        {
+            return response.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
         /// Envoie de requêtes en get
         /// </summary>
         /// <param name="content">contenue à envoyer en get sans le http://server:port/</param>
+        /// <param name="auth">preciser si besoin d'authentification</param>
         /// <returns>le resultat de la requête avec message, code, ...</returns>
-        public HttpResponseMessage SendByGet(string content)
+        public HttpResponseMessage SendByGet(string content, bool auth = false)
         {
             var request = this._uri;
             request += content;
             try
             {
+                if (auth)
+                    BasicAuthSetup();
                 var response = this._httpClient.GetAsync(request);
+                if (auth)
+                    AuthRemove();
                 return response.Result;
             }
             catch (Exception e)
@@ -75,14 +111,19 @@ namespace Envio.Tools
         /// <param name="route">route sans le http://server:port/</param>
         /// <param name="content">contenue à envoyer, aucun parsing n'est fait dessus</param>
         /// <param name="application">selectionner l'application parmis les choix proposés</param>
+        /// <param name="auth">preciser si besoin d'authentification</param>
         /// <returns></returns>
-        public HttpResponseMessage SendByPost(string route, string content, ViewModel.Enums.HttpPostApplication application)
+        public HttpResponseMessage SendByPost(string route, string content, ViewModel.Enums.HttpPostApplication application, bool auth = false)
         {
             var request = this._uri;
             request += route;
             try
             {
+                if (auth)
+                    BasicAuthSetup();
                 HttpContent contentPost = new StringContent(content, Encoding.UTF8, application.ToString());
+                if (auth)
+                    AuthRemove();
                 var response = this._httpClient.PostAsync(request, contentPost);
             }
             catch (Exception e)
