@@ -11,6 +11,7 @@
 ##Routes :
 
 ###Default :
+Pour vérifier que l'api tourne bien :)
 ```json
 Route : "/"  
 Methode : "POST"
