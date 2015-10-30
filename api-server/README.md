@@ -20,30 +20,6 @@ Paramètres :
 	"api_key" : "Clé d'authentification"
 }
 ```
-###Materiel :
-Récupérer les matériels de la room 
-```json
-Route : "/getMaterielsFromRoom"  
-Methode : "POST"
-Paramètres :
-{
-	"api_key" : "Clé d'authentification",
-	"organisation" : "Organisation",
-	"roomId" : "ID de la room"
-}
-```
-Changer la température voulue de la room
-```json
-Route : "/changeTemperatureNeeded"  
-Methode : "POST"
-Paramètres :
-{
-	"api_key" : "Clé d'authentification",
-	"organisation" : "Organisation",
-	"roomId" : "ID de la room",
-	"temperature" : "Temperature voulue pour la room"
-}
-```
 ###Room
 Créer une room
 ```json
@@ -96,6 +72,30 @@ Methode : "POST"
 Paramètres :
 {
 	"api_key" : "Clé d'authentification",
+	"roomId" : "ID de la room",
+	"temperature" : "Temperature voulue pour la room"
+}
+```
+###Materiel :
+Récupérer les matériels de la room 
+```json
+Route : "/getMaterielsFromRoom"  
+Methode : "POST"
+Paramètres :
+{
+	"api_key" : "Clé d'authentification",
+	"organisation" : "Organisation",
+	"roomId" : "ID de la room"
+}
+```
+Changer la température voulue de la room
+```json
+Route : "/changeTemperatureNeeded"  
+Methode : "POST"
+Paramètres :
+{
+	"api_key" : "Clé d'authentification",
+	"organisation" : "Organisation",
 	"roomId" : "ID de la room",
 	"temperature" : "Temperature voulue pour la room"
 }
