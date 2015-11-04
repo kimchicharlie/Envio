@@ -58,20 +58,22 @@ namespace Envio.Tools
         /// <summary>
         /// Applique l'authentification basic au client HTTP
         /// </summary>
-        void BasicAuthSetup()
+        HttpClient basicAuthSetup()
         {
             if (String.IsNullOrEmpty(this._user) || String.IsNullOrEmpty(this._password))
                 throw new Exception("Error authentification can't created, control user name and password");
             var byteArray = Encoding.ASCII.GetBytes(this._user + ":" + this._password);
             this._httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", System.Convert.ToBase64String(byteArray));
+            return this._httpClient;
         }
 
         /// <summary>
         /// Supprime l'authentification basic au client HTTP
         /// </summary>
-        void AuthRemove()
+        HttpClient authRemove()
         {
-            this._httpClient.DefaultRequestHeaders.Remove("Authorization");
+            this._httpClient.DefaultRequestHeaders.Authorization = null;
+            return this._httpClient;
         }
 
         public Task<string> GetResponseContentOnString(HttpResponseMessage response)
@@ -92,10 +94,10 @@ namespace Envio.Tools
             try
             {
                 if (auth)
-                    BasicAuthSetup();
+                    basicAuthSetup();
                 var response = this._httpClient.GetAsync(request);
                 if (auth)
-                    AuthRemove();
+                    authRemove();
                 return response.Result;
             }
             catch (Exception e)
@@ -120,10 +122,10 @@ namespace Envio.Tools
             try
             {
                 if (auth)
-                    BasicAuthSetup();
+                    basicAuthSetup();
                 HttpContent contentPost = new StringContent(content, Encoding.UTF8, application.ToString());
                 if (auth)
-                    AuthRemove();
+                    authRemove();
                 var response = this._httpClient.PostAsync(request, contentPost);
             }
             catch (Exception e)
@@ -131,7 +133,6 @@ namespace Envio.Tools
                 log.Error(e.Message);
                 throw new Exception(e.Message);
             }
-
             return null;
         }
     }

@@ -21,7 +21,7 @@ namespace Envio.Test.Unit.Envio.Tools.Convert
             return true;
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ConvertUIntSecondToTimeSpan0d0h0m30s0msSuccess()
         {
             uint seconds = 30;
@@ -31,7 +31,7 @@ namespace Envio.Test.Unit.Envio.Tools.Convert
             Assert.IsTrue(this.CompareTimeSpan(compare, tmp), "Convertion fail");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ConvertUIntSecondToTimeSpan0d0h1m0s0msSuccess()
         {
             uint seconds = 60;
@@ -41,7 +41,7 @@ namespace Envio.Test.Unit.Envio.Tools.Convert
             Assert.IsTrue(this.CompareTimeSpan(compare, tmp), "Convertion fail");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ConvertUIntSecondToTimeSpan0d0h1m30s0msSuccess()
         {
             uint seconds = 90;
@@ -51,7 +51,7 @@ namespace Envio.Test.Unit.Envio.Tools.Convert
             Assert.IsTrue(this.CompareTimeSpan(compare, tmp), "Convertion fail");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ConvertUIntSecondToTimeSpan0d1h0m0s0msSuccess()
         {
             uint seconds = 3600;
@@ -61,7 +61,7 @@ namespace Envio.Test.Unit.Envio.Tools.Convert
             Assert.IsTrue(this.CompareTimeSpan(compare, tmp), "Convertion fail");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ConvertUIntSecondToTimeSpan1d0h0m0s0msSuccess()
         {
             uint seconds = 3600*24;
@@ -71,7 +71,7 @@ namespace Envio.Test.Unit.Envio.Tools.Convert
             Assert.IsTrue(this.CompareTimeSpan(compare, tmp), "Convertion fail");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ConvertUIntSecondToTimeSpan0d2h17m48s0msSuccess()
         {
             uint seconds = 8268;
