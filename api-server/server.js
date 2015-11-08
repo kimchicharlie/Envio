@@ -14,6 +14,18 @@ db.initDB();
 var port = 1337;
 var app = express();
 
+app.disable('x-powered-by');
+app.use(cors());
+app.use(bodyParser.json({
+	"limit": 50000000,
+	"defer": true
+}));
+app.use(bodyParser.urlencoded({
+	"limit": 50000000,
+	"extended": true,
+	"defer": true
+}));
+
 var server = require('http').createServer(app);
 
 var apiRouter = express.Router();
