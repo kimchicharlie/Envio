@@ -23,11 +23,10 @@ Paramètres :
 ###Room
 Créer une room
 ```json
-Route : "/createRoom"  
+Route : "/createRoom?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"organisation" : "Organisation",
 	"name" : "Nom voulu pour la room",
 	"volume" : "Volume de la room en mètres cubes"
@@ -35,11 +34,10 @@ Paramètres :
 ```
 Modifier une room
 ```json
-Route : "/modifyRoom"  
+Route : "/modifyRoom?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"newName" : "Nouveau nom de la room",
 	"name" : "Nom actuel de la room",
 	"volume" : "Nouveau volume de la room"
@@ -47,31 +45,28 @@ Paramètres :
 ```
 Récupérer les données d'une room
 ```json
-Route : "/getRoom"  
+Route : "/getRoom?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"_id" : "ID de la room à récupérer"
 }
 ```
 Récupérer toutes les rooms d'une organisation
 ```json
-Route : "/getRooms"  
+Route : "/getRooms?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"organisation" : "Organisation"
 }
 ```
 Changer la température d'une room
 ```json
-Route : "/changeTemperature"  
+Route : "/changeTemperature?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"roomId" : "ID de la room",
 	"temperature" : "Temperature voulue pour la room"
 }
@@ -79,22 +74,20 @@ Paramètres :
 ###Materiel :
 Récupérer les matériels de la room 
 ```json
-Route : "/getMaterielsFromRoom"  
+Route : "/getMaterielsFromRoom?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"organisation" : "Organisation",
 	"roomId" : "ID de la room"
 }
 ```
 Changer la température voulue de la room
 ```json
-Route : "/changeTemperatureNeeded"  
+Route : "/changeTemperatureNeeded?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"organisation" : "Organisation",
 	"roomId" : "ID de la room",
 	"temperature" : "Temperature voulue pour la room"
@@ -107,7 +100,6 @@ Route : "/login"
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"email" : "Adresse email",
 	"password" : "Mot de passe"
 }
@@ -118,7 +110,6 @@ Route : "/register"
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"email" : "Adresse email",
 	"password" : "Mot de passe",
 	"firstname" : "Prénom",
@@ -132,18 +123,16 @@ Route : "/passwordForgotten"
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"email" : "Adresse email",
 	"newPassword" : "Nouveau mot de passe"
 }
 ```
 Changer mot de passe
 ```json
-Route : "/changePassword"  
+Route : "/changePassword?api_key={key}"
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"email" : "Adresse email",
 	"newPassword" : "Nouveau mot de passe"
 }
@@ -154,27 +143,24 @@ Route : "/logout"
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"guid" : "GUID de l'utilisateur"
 }
 ```
 Connaitre le statut de connection de l'utilisateur
 ```json
-Route : "/isConnected"  
+Route : "/isConnected?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"guid" : "GUID de l'utilisateur"
 }
 ```
 Récupérer les données d'un utilisateur
 ```json
-Route : "/getUser"  
+Route : "/getUser?api_key={key}"  
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification",
 	"guid" : "GUID de l'utilisateur"
 }
 ```
