@@ -1,5 +1,3 @@
-/* global __dirname */
-
 //------------------------------ REQUIRE -------------------------------------//
 
 // npm modules
@@ -68,9 +66,17 @@ app.use("/info.json", express.static(__dirname + "/info.json"));
 app.use("/api", apiRouter);
 app.use("/", homeRouter);
 
-var server = require('http').createServer(app);
-server.listen(httpPort);
+app.use(function(error, req, res, next) {
+	res.status(404);
+});
+
+app.use(function(error, req, res, next) {
+	res.status(500);
+});
 
 //------------------------------ STARTED -------------------------------------//
 
-console.log('{"level":"INFO", "message":"API Server started, listening on port `' + httpPort + '`"}');
+var server = require('http').createServer(app);
+server.listen(httpPort, function () {
+	console.log("Server started, listening on port : " + httpPort);
+});
