@@ -10,7 +10,7 @@ var config = require('../config').config;
 
 exports.checkKey = function (req, res, next)
 {
-	if (req.body.api_key == config.envioApiAccessKey) {
+	if (req.query.api_key == config.envioApiAccessKey) {
 		next();
 	} else {
 		res.send("Error : Wrong API Access");
