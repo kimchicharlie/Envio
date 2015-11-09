@@ -1,0 +1,27 @@
+{
+  "name": "Envio",
+  "version": "0.0.1",
+  "description": "Envio API Server",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.9.6",
+    "mongoose": "~3.8.17",
+    "body-parser": "~1.9.0",
+    "socket.io": "latest",
+    "request": "~2.45.0",
+    "connect-multiparty": "latest",
+    "cors": "latest",
+    "cookie-parser": "latest",
+    "path": "latest",
+    "html" :"latest",
+    "ejs": "~0.8.5",
+    "async": "latest",
+    "bcrypt": "latest",
+    "ng-slider": "latest",
+    "nodemailer": "latest"
+    },
+    "env": {
+      "PYTHON": "C:/Python34/python"
+    },
+  "author": "Charlie HENIN"
+}
