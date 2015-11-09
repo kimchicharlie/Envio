@@ -5,7 +5,6 @@ var rest = require('../rest');
 
 var testDefault = function (options, cb)
 {
-	console.log('options : ', options)
 	rest.post(config.apiAddress, options, function (response) {
 		cb(response);
 	})

@@ -74,9 +74,3 @@ server.listen(httpPort);
 //------------------------------ STARTED -------------------------------------//
 
 console.log('{"level":"INFO", "message":"API Server started, listening on port `' + httpPort + '`"}');
-
-rest.post('http://localhost:8080/api', {
-	"api_key": config.envioApiAccessKey
-}, function (response) {
-	console.log('response : ', response);
-});
