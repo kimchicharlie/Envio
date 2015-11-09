@@ -5,10 +5,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var unirest = require('unirest');
+var webpack = require('webpack')
+var webpackDevMiddleware = require('webpack-dev-middleware')
 
 // personal modules
 var config = require("./config").config;
 var rest = require("./rest");
+var WebpackConfig = require('./webpack.config')
 
 //------------------------------ INIT -------------------------------------//
 
@@ -16,6 +19,14 @@ var httpPort = config.webServerHttpPort;
 var app = express();
 
 //------------------------------ EXPRESSJS -------------------------------------//
+
+app.use(webpackDevMiddleware(webpack(WebpackConfig), {
+ publicPath: '/assets/',
+ stats: {
+   colors: true
+    } 
+}))
+app.use(express.static('public'));
 
 app.disable('x-powered-by');
 app.use(cors());
