@@ -18,7 +18,8 @@
     "react": "^0.14.2",
     "react-router": "^1.0.0-rc4",
     "react-dom": "^0.14.2",
-    "react-cookie": "^0.4.2"
+    "react-cookie": "^0.4.2",
+    "history": "^1.13.0"
   },
   "devDependencies": {}
 }

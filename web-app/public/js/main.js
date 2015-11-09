@@ -1,10 +1,10 @@
-var React = require('../../server/node_modules/react')
-var Router = require('../../server/node_modules/react-router').Router
-var Route = require('../../server/node_modules/react-router').Route
-var Link = require('../../server/node_modules/react-router').Link
-var ReactDOM = require('../../server/node_modules/react-dom')
-var cookie = require('../../server/node_modules/react-cookie')
+var React = require('react');
+var Router = require('react-router').Router;
+var ReactDOM = require('react-dom');
+var cookie = require('react-cookie');
 
+var Route = Router.Route;
+var Link = Router.Link;
 
 var Header = React.createClass({
     render() {
