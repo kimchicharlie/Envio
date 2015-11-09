@@ -1,16 +1,24 @@
+//------------------------------ REQUIRE -------------------------------------//
+
+// npm modules
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var multipartMiddleware = require('connect-multiparty')();
 var cors = require('cors');
 
-var app = express();
+// personal modules
+var config = require("./config").config;
 var db = require("./database");
+
+//------------------------------ INIT -------------------------------------//
+
+var httpPort = config.webServerHttpPort;
+var app = express();
 
 db.initDB();
 
-var port = 1337;
-var app = express();
+//------------------------------ EXPRESSJS -------------------------------------//
 
 app.disable('x-powered-by');
 app.use(cors());
@@ -23,8 +31,6 @@ app.use(bodyParser.urlencoded({
 	"extended": true,
 	"defer": true
 }));
-
-var server = require('http').createServer(app);
 
 var apiRouter = express.Router();
 
@@ -54,6 +60,9 @@ app.use(function(error, req, res, next) {
 	res.status(500);
 });
 
-server.listen(port, function () {
-	console.log("Server started, listening on port : " + port);
+//------------------------------ STARTED -------------------------------------//
+
+var server = require('http').createServer(app);
+server.listen(httpPort, function () {
+	console.log("Server started, listening on port : " + httpPort);
 });

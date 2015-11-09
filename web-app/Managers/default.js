@@ -1,5 +1,4 @@
 var utils = require('../utils');
-var unirest = require('unirest');
 var config = require('../config').config;
 var rest = require('../rest');
 

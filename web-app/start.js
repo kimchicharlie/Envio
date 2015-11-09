@@ -1,16 +1,16 @@
-/* global __dirname */
-
 //------------------------------ REQUIRE -------------------------------------//
 
 // npm modules
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var unirest = require('unirest');
+var webpack = require('webpack')
+var webpackDevMiddleware = require('webpack-dev-middleware')
 
 // personal modules
 var config = require("./config").config;
 var rest = require("./rest");
+var WebpackConfig = require('./webpack.config')
 
 //------------------------------ INIT -------------------------------------//
 
@@ -18,6 +18,14 @@ var httpPort = config.webServerHttpPort;
 var app = express();
 
 //------------------------------ EXPRESSJS -------------------------------------//
+
+app.use(webpackDevMiddleware(webpack(WebpackConfig), {
+ publicPath: '/assets/',
+ stats: {
+   colors: true
+    } 
+}))
+app.use(express.static('public'));
 
 app.disable('x-powered-by');
 app.use(cors());
@@ -68,9 +76,17 @@ app.use("/info.json", express.static(__dirname + "/info.json"));
 app.use("/api", apiRouter);
 app.use("/", homeRouter);
 
-var server = require('http').createServer(app);
-server.listen(httpPort);
+app.use(function(error, req, res, next) {
+	res.status(404);
+});
+
+app.use(function(error, req, res, next) {
+	res.status(500);
+});
 
 //------------------------------ STARTED -------------------------------------//
 
-console.log('{"level":"INFO", "message":"API Server started, listening on port `' + httpPort + '`"}');
+var server = require('http').createServer(app);
+server.listen(httpPort, function () {
+	console.log("Server started, listening on port : " + httpPort);
+});
