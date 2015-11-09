@@ -4,7 +4,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var unirest = require('unirest');
 var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 

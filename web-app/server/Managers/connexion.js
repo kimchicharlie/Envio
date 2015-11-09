@@ -1,4 +1,3 @@
-var bcrypt = require("bcrypt-nodejs");
 var utils = require('../utils');
 var config = require('../config').config;
 var rest = require('./rest');
