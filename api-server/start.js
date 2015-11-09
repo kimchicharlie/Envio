@@ -1,10 +1,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 var multipartMiddleware = require('connect-multiparty')();
 var cors = require('cors');
-var path = require('path');
 
 var app = express();
 var db = require("./database");
