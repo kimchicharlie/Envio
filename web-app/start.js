@@ -58,14 +58,6 @@ for (var i = 0; i < routes.length; i++)
 var homeRouter = express.Router();
 
 // Default root page
-homeRouter.get('/', function(req, res) {
-	res.json({
-		'ok': true,
-		'status': 200,
-		'name': 'Web app server',
-		'url': 'http://envio.com'
-	});
-});
 
 app.use("/favicon.ico", express.static(__dirname + "/static/favicon.ico"));
 app.use("/robots.txt", express.static(__dirname + "/static/robots.txt"));
@@ -74,7 +66,6 @@ app.use("/robots.txt", express.static(__dirname + "/static/robots.txt"));
 app.use("/info.json", express.static(__dirname + "/info.json"));
 
 app.use("/api", apiRouter);
-app.use("/", homeRouter);
 
 app.use(function(error, req, res, next) {
 	res.status(404);

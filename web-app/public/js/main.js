@@ -19,7 +19,6 @@ var Header = React.createClass({
 var Sidemenu = React.createClass({
     render() {
         return (
-
             <ul className="table-view">
               <li className="table-view-cell media">
                 <a className="navigate-right">
@@ -51,17 +50,31 @@ var Sidemenu = React.createClass({
 });
 
 var Home = React.createClass({
+      handleClick: function(event) {
+      react = this
+       HttpPost('/logout', {
+            'guid': cookie.load('userId')
+        }, function(ret) {
+            //rep = jQuery.parseJSON(ret)
+             if(ret.error == null){
+                react.props.doLogout()
+             }
+        })
+    },
     render() {
-        /* HttpPost('/infoUser', {
+        /* HttpPost('/infoUserId', {
         //     }, function(ret) {
         //         console.log(ret)
         //     })*/
         return (
             <div className="content">
             <Sidemenu />
-                      <ul className="table-view">
-              <li className="table-view-cell media">
-              boum</li></ul>
+              <ul className="table-view">
+                <li className="table-view-cell media">
+                boum
+                </li>
+              </ul>
+              <button onClick={this.handleClick}>logout</button>
             </div>
         );
     }
@@ -76,10 +89,12 @@ var Login = React.createClass({
         HttpPost('/login', {
             'email': email,
             'password': pass,
-            'api_key' : "f8c5e1xx5f48e56s4x8",
-        }, function(ret) {
-            console.log(ret)
-            //react.props.doLogin(ret.name)
+        }, function(ret) {          
+            rep = jQuery.parseJSON(ret)
+            console.log(rep)
+             if(rep.error == null){
+              react.props.doLogin(rep.guid)            
+             }
         })
     },
     render() {
@@ -92,6 +107,7 @@ var Login = React.createClass({
                 </div>
                 <button type="submit" >Submit</button>
               </form>
+              <Link to="/Register">Register</Link>
         </div>
         );
     }
@@ -100,7 +116,7 @@ var Login = React.createClass({
 const Register = React.createClass({
     getInitialState: function() {
         return {
-            loged: false,
+            registered: false,
         }
     },
     handleSubmit(event) {
@@ -109,38 +125,44 @@ const Register = React.createClass({
             var pass = ReactDOM.findDOMNode(this.refs.pass).value
             var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
             var lastname = ReactDOM.findDOMNode(this.refs.lastname).value
+            var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
             react = this;
-            console.log(this.state.loged)
             HttpPost('/register', {
                 'email': email,
                 'password': pass,
                 'firstname': firstname,
-                'lastname': lastname            
+                'lastname': lastname,
+                'organisation' : organisation            
             }, function(ret) {
-                //console.log(ret)
-                react.setState({loged: true})
+                react.setState({registered: ret})
             })
         },
         render() {
-            var loged
-            if(this.state.loged){
-            return (
-                    <div className="bar bar-header-secondary">
-                        <Home />
-                    </div>
-                    );                    
+            if(this.state.registered){
+              if (this.state.registered.error == null) 
+              {            
+                return (
+                        <div className="bar bar-header-secondary">
+                            register success full!
+                        </div>
+                       );                    
+              }
             }
             return (
-            <div className="bar bar-header-secondary">
-                 <form role="form" onSubmit={this.handleSubmit}>
-                     <div className="form-group">
-                     <input ref="firstname" type="text" placeholder="firstname" />
-                     <input ref="lastname" type="text" placeholder="lastname" />
+              <div className={"page " + this.props.position}>
+               <Header text="Envio intranet" back="false"/>
+                <div className="bar bar-header-secondary">
+                   <form role="form" onSubmit={this.handleSubmit}>
+                      <div className="form-group">
+                      <input ref="firstname" type="text" placeholder="firstname" />
+                      <input ref="lastname" type="text" placeholder="lastname" />
                       <input ref="email" type="text" placeholder="email" />
                       <input ref="pass" type="password" placeholder="Password" />
-                    </div>
-                    <button type="submit" >Submit</button>
-                  </form>
+                      <input ref="organisation" type="text" placeholder="Organisation" />                     
+                      </div>
+                      <button type="submit" >Submit</button>
+                    </form>
+                </div>
             </div>
             );
     }
@@ -157,18 +179,22 @@ const App = React.createClass({
         this.setState({userId : userId});
         cookie.save('userId', userId);
     },
+    doLogout: function() {
+        cookie.remove('userId');            
+        this.setState({userId: false});
+    },
     render() {
           if(this.state.userId){
             return (
             <div className={"page " + this.props.position}>
-                <Header text="Envio intranet" back="false"/>
-                <Home />
+                <Header text="Envio intranet" />
+                <Home  doLogout={this.doLogout}/>
             </div>
                     );                    
             }
         return (
             <div className={"page " + this.props.position}>
-                <Header text="Envio intranet" back="false"/>
+                <Header text="Envio intranet"/>
                 <Login doLogin={this.doLogin}/>
             </div>
         );
