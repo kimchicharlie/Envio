@@ -37,12 +37,7 @@ var Sidemenu = React.createClass({
                 </a>
               </li>
               <li className="table-view-cell media">
-                <a className="navigate-right">
-                  <span className="media-object pull-left icon icon-pages"></span>
-                  <div className="media-body">
-                    Item 3
-                  </div>
-                </a>
+                    <Link to="/Rooms">Rooms</Link>
               </li>
             </ul>  
         );
@@ -60,22 +55,182 @@ var Home = React.createClass({
                 react.props.doLogout()
              }
         })
+      },
+      render() {
+          /* HttpPost('/infoUserId', {
+          //     }, function(ret) {
+          //         console.log(ret)
+          //     })*/
+          return (
+              <div className="content">
+              <Sidemenu />
+                <ul className="table-view">
+                  <li className="table-view-cell media">
+                  boum
+                  </li>
+                </ul>
+                <button onClick={this.handleClick}>logout</button>
+              </div>
+          );
+      }
+});
+
+
+var RoomListItem = React.createClass({
+    render: function () {
+            return (
+            <li className="table-view-cell media">
+            <div>name: {this.props.room.name}</div>
+            <div>Temperature actuel: {this.props.room.realTemperature}</div>
+            <div>Temperature voulus: {this.props.room.temperature}</div>
+            <div>m²: {this.props.room.volume}</div>
+            <Link to={`/Rooms/${this.props.room.name}`}>Modifier</Link>
+            </li>
+        );
+    }
+});
+
+var RoomList = React.createClass({
+    render: function () {
+        var items = this.props.rooms.map(function (room) {
+            return (
+                <RoomListItem key={room.id} room={room} />
+            );
+        });
+        return (
+            <ul  className="table-view">
+                {items}
+            </ul>
+        );
+    }
+});
+
+var Room = React.createClass({
+      getInitialState: function() {        
+        return {
+            rooms: []
+        }
+      },
+      componentDidMount: function() {
+        react = this
+          HttpPost('/getRooms', {
+            'organisation': 'Envio',// a changer avec les info users            
+        }, function(ret) {         
+            rep = jQuery.parseJSON(ret)
+            console.log(rep)
+            if (rep.error == null){              
+              react.setState({rooms: rep.rooms})
+            }
+            else{
+              react.setState({rooms: rep.error})
+            }            
+        })
+      },
+      render() {
+          return (
+              <div>
+                <Header text="Envio Room"/>
+                <div className="content">
+                    <RoomList rooms={this.state.rooms}/>
+                    <Link to="/CreatRoom">Creat room</Link>
+                </div>
+              </div>
+          );
+      }
+});
+
+var ModifRoom = React.createClass({
+    getInitialState: function() {
+        return {
+            status: false,
+        }
+    },
+    handleSubmit(event) {
+        event.preventDefault()
+        var name = ReactDOM.findDOMNode(this.refs.name).value
+        var volume = ReactDOM.findDOMNode(this.refs.volume).value
+        react = this;
+        HttpPost('/modifyRoom', {
+            'newName': name,
+            'name': react.props.params.RoomName,
+            'volume': volume,            
+        }, function(ret) {          
+            rep = jQuery.parseJSON(ret)
+            console.log(rep)
+            react.setState({status: rep})
+        })
     },
     render() {
-        /* HttpPost('/infoUserId', {
-        //     }, function(ret) {
-        //         console.log(ret)
-        //     })*/
+        if(this.state.status){
+          if (this.state.status.error == null) 
+          {            
+            return (
+                    <div className="bar bar-header-secondary">
+                        Modif success full!
+                    </div>
+                   );                    
+          }
+        }      
         return (
-            <div className="content">
-            <Sidemenu />
-              <ul className="table-view">
-                <li className="table-view-cell media">
-                boum
-                </li>
-              </ul>
-              <button onClick={this.handleClick}>logout</button>
-            </div>
+        <div className="bar bar-header-secondary">
+             <form role="form" onSubmit={this.handleSubmit}>
+                 <div className="form-group">
+                  <input ref="name" type="text" placeholder="new name" />
+                  <input ref="volume" type="text" placeholder="new volume" />
+                </div>
+                <button type="submit" >modif</button>
+              </form>
+        </div>
+        );
+    }
+});
+
+
+var CreatRoom = React.createClass({
+    getInitialState: function() {
+        return {
+            status: false,
+        }
+    },
+    handleSubmit(event) {
+        event.preventDefault()
+        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
+        var name = ReactDOM.findDOMNode(this.refs.name).value
+        var volume = ReactDOM.findDOMNode(this.refs.volume).value
+        react = this;
+        HttpPost('/createRoom', {
+            'organisation': organisation,
+            'name': name,
+            'volume': volume,
+            
+        }, function(ret) {          
+            rep = jQuery.parseJSON(ret)
+            console.log(rep)
+            react.setState({status: rep})
+        })
+    },
+    render() {
+        if(this.state.status){
+          if (this.state.status.error == null) 
+          {            
+            return (
+                    <div className="bar bar-header-secondary">
+                        Creat success full!
+                    </div>
+                   );                    
+          }
+        }      
+        return (
+        <div className="bar bar-header-secondary">
+             <form role="form" onSubmit={this.handleSubmit}>
+                 <div className="form-group">
+                  <input ref="organisation" type="text" placeholder="organisation" />
+                  <input ref="name" type="text" placeholder="name" />
+                  <input ref="volume" type="text" placeholder="volume" />
+                </div>
+                <button type="submit" >Creat</button>
+              </form>
+        </div>
         );
     }
 });
@@ -207,6 +362,9 @@ var Racine = React.createClass({
             <Router>
                 <Route path="/" component={App} />                
                 <Route path="/Register" component={Register}/>
+                <Route path="/CreatRoom" component={CreatRoom}/>
+                <Route path="/Rooms" component={Room}/>
+                <Route path="/Rooms/:RoomName" component={ModifRoom}/>
           </Router>
     )}
 })
