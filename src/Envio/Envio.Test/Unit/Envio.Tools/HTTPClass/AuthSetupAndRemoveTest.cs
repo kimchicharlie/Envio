@@ -16,7 +16,7 @@ namespace Envio.Test.Unit.Envio.Tools.HTTPClass
         [TestMethod]
         public void BasicAuthTest()
         {
-            var httpClient = new HTTPClientClass(url: "http://tekkharibo.eu", user: "user", password: "password");
+            var httpClient = new HTTPClientClass(domain: "tekkharibo.eu", user: "user", password: "password");
             var control = "Basic dXNlcjpwYXNzd29yZA==";
             var basicAuthSetup = httpClient.GetType().GetMethod("basicAuthSetup", BindingFlags.NonPublic | BindingFlags.Instance);
             if (basicAuthSetup == null)

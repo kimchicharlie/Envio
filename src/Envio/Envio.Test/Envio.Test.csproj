@@ -65,6 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\Envio.Tools\Convert\ConvertUIntSecondToTimeSpanTest.cs" />
     <Compile Include="Unit\Envio.Tools\HTTPClass\AuthSetupAndRemoveTest.cs" />
+    <Compile Include="Unit\Envio.Tools\HTTPClass\SendByGetTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Envio.Tools\Envio.Tools.csproj">

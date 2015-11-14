@@ -28,19 +28,19 @@ namespace Envio.Tools
         /// <summary>
         /// Constructeur
         /// </summary>
-        /// <param name="url">url ou ip du serveur sans http:// et sans le port</param>
+        /// <param name="domain">domain ou ip du serveur sans http:// et sans le port</param>
         /// <param name="port">port du serveur à contacter. Par defaut : 80</param>
         /// <param name="timeout">temps avant d'annulé la requête en secondes. Par defaut : 60 </param>
         /// <param name="user">nom d'utilisateur en cas d'authentification</param>
         /// <param name="password">mot de passe en cas d'authentification</param>
-        public HTTPClientClass(string url, ushort port = 80, uint timeout = 60, string user = null, string password = null)
+        public HTTPClientClass(string domain, ushort port = 80, uint timeout = 60, string user = null, string password = null)
         {
             try
             {
                 var sb = new StringBuilder("http://");
-                if (String.IsNullOrEmpty(url))
+                if (String.IsNullOrEmpty(domain))
                     throw new Exception("Url is null or empty");
-                sb.Append(url);
+                sb.Append(domain);
                 sb.Append(":");
                 sb.Append(port);
                 sb.Append("/");
@@ -87,18 +87,19 @@ namespace Envio.Tools
         /// <param name="content">contenue à envoyer en get sans le http://server:port/</param>
         /// <param name="auth">preciser si besoin d'authentification</param>
         /// <returns>le resultat de la requête avec message, code, ...</returns>
-        public HttpResponseMessage SendByGet(string content, bool auth = false)
+        public async Task<HttpResponseMessage> SendByGet(string content, bool auth = false)
         {
             var request = this._uri;
-            request += content;
+            if (!String.IsNullOrEmpty(content))
+                request += content;
             try
             {
                 if (auth)
                     basicAuthSetup();
-                var response = this._httpClient.GetAsync(request);
+                var response = await this._httpClient.GetAsync(request);
                 if (auth)
                     authRemove();
-                return response.Result;
+                return response;
             }
             catch (Exception e)
             {
@@ -115,7 +116,7 @@ namespace Envio.Tools
         /// <param name="application">selectionner l'application parmis les choix proposés</param>
         /// <param name="auth">preciser si besoin d'authentification</param>
         /// <returns></returns>
-        public HttpResponseMessage SendByPost(string route, string content, ViewModel.Enums.HttpPostApplication application, bool auth = false)
+        public async Task<object> SendByPost(string route, string content, ViewModel.Enums.HttpPostApplication application, bool auth = false)
         {
             var request = this._uri;
             request += route;
@@ -126,7 +127,8 @@ namespace Envio.Tools
                 HttpContent contentPost = new StringContent(content, Encoding.UTF8, application.ToString());
                 if (auth)
                     authRemove();
-                var response = this._httpClient.PostAsync(request, contentPost);
+                var response = await this._httpClient.PostAsync(request, contentPost);
+                return response;
             }
             catch (Exception e)
             {
