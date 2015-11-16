@@ -49,7 +49,7 @@ Route : "/getRoom?api_key={key}"
 Methode : "POST"
 Paramètres :
 {
-	"_id" : "ID de la room à récupérer"
+	"roomID" : "ID de la room à récupérer"
 }
 ```
 Récupérer toutes les rooms d'une organisation
