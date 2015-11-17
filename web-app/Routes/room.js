@@ -43,7 +43,7 @@ exports.routes = [
         handler: function (req, res)
         {
             roomManager.getRoom({
-			    "_id" : req.body.id
+			    "roomID" : req.body.roomID
 
             }, function (result)
             {
@@ -73,8 +73,8 @@ exports.routes = [
         handler: function (req, res)
         {
             roomManager.changeTemperature({
-			    "roomId" : req.body.organisation,
-			    "temperature" : req.body.name,
+			    "roomID" : req.body.roomID,
+			    "temperature" : req.body.temperature,
 
             }, function (result)
             {

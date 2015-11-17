@@ -84,7 +84,7 @@ var RoomListItem = React.createClass({
             <div>Temperature actuel: {this.props.room.realTemperature}</div>
             <div>Temperature voulus: {this.props.room.temperature}</div>
             <div>m²: {this.props.room.volume}</div>
-            <Link to={`/Rooms/${this.props.room.name}`}>Modifier</Link>
+            <Link to={`/Rooms/${this.props.room._id}`}>Modifier</Link>
             </li>
         );
     }
@@ -117,7 +117,6 @@ var Room = React.createClass({
             'organisation': 'Envio',// a changer avec les info users            
         }, function(ret) {         
             rep = jQuery.parseJSON(ret)
-            console.log(rep)
             if (rep.error == null){              
               react.setState({rooms: rep.rooms})
             }
@@ -143,8 +142,19 @@ var ModifRoom = React.createClass({
     getInitialState: function() {
         return {
             status: false,
+            room: null
         }
     },
+    componentDidMount: function() {
+       react = this;
+       HttpPost('/getRoom', {
+          'roomID': react.props.params.Id,         
+      }, function(ret) {          
+          rep = jQuery.parseJSON(ret)
+          console.log(rep)
+          react.setState({room: rep.room})
+      })
+    },    
     handleSubmit(event) {
         event.preventDefault()
         var name = ReactDOM.findDOMNode(this.refs.name).value
@@ -152,8 +162,20 @@ var ModifRoom = React.createClass({
         react = this;
         HttpPost('/modifyRoom', {
             'newName': name,
-            'name': react.props.params.RoomName,
+            'name': react.state.room.name,
             'volume': volume,            
+        }, function(ret) {          
+            rep = jQuery.parseJSON(ret)
+            console.log(rep)
+            react.setState({status: rep})
+        })
+    },
+    ChangeTemp(event) {
+        var newValue = ReactDOM.findDOMNode(this.refs.temperature).value
+        react = this;
+        HttpPost('/changeTemperature', {
+            'roomID': react.props.params.Id,
+            'temperature': newValue,
         }, function(ret) {          
             rep = jQuery.parseJSON(ret)
             console.log(rep)
@@ -180,6 +202,8 @@ var ModifRoom = React.createClass({
                 </div>
                 <button type="submit" >modif</button>
               </form>
+              <input ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5} />
+              <button onClick={this.ChangeTemp} >change temperature</button>
         </div>
         );
     }
@@ -364,7 +388,7 @@ var Racine = React.createClass({
                 <Route path="/Register" component={Register}/>
                 <Route path="/CreatRoom" component={CreatRoom}/>
                 <Route path="/Rooms" component={Room}/>
-                <Route path="/Rooms/:RoomName" component={ModifRoom}/>
+                <Route path="/Rooms/:Id" component={ModifRoom}/>
           </Router>
     )}
 })

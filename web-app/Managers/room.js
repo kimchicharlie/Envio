@@ -24,6 +24,7 @@ var modifyRoom = function (options, cb)
 
 var getRoom = function (options, cb)
 {
+
 	cb = (typeof cb == "function") ? cb : function (){};
 	options = (typeof options == "object") ? options : {};
 
