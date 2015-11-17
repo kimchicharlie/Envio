@@ -1,6 +1,6 @@
 function HttpPost(API, data, cb){
     
-        var baseURL = "http://localhost:8081/api";
+        var baseURL = "http://localhost:1337/api";
 
         $.ajax({
         url: baseURL + API,                      
@@ -15,7 +15,7 @@ function HttpPost(API, data, cb){
 
 function HttpGet(API, data, cb){
 
-        var baseURL = "http://localhost:8081/api";
+        var baseURL = "http://localhost:1337/api";
 
         $.ajax({
         url: baseURL + API,                      
