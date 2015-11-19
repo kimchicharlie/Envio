@@ -13,7 +13,8 @@ exports.routes = [
             roomManager.createRoom({
                 'name': req.body.name,
                 'organisation': req.body.organisation,
-                'volume': req.body.volume
+                'volume': req.body.volume,
+                'data': req.body.data
             }, function (rep)
             {
                 res.send(rep);
@@ -27,9 +28,24 @@ exports.routes = [
         handler: function (req, res)
         {
             roomManager.modifyRoom({
-                'newName': req.body.newName,
                 'name': req.body.name,
+                'newName': req.body.newName,
                 'volume': req.body.volume
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
+        "path": "/modifyData",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.modifyData({
+                'name': req.body.name,
+                'data': req.body.data
             }, function (rep)
             {
                 res.send(rep);

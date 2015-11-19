@@ -10,7 +10,8 @@ var roomSchema = new Schema({
     temperature : { type : Number, default : 0 },
     consumption : { type : Number, default : 0 },
     savedEnergy : { type : Number, default : 0 },
-    savedMoney : { type : Number, default : 0 }
+    savedMoney : { type : Number, default : 0 },
+    data : { type : Object, default : null }
 });
 
 exports.Rooms = mongoose.model('Rooms', roomSchema);
