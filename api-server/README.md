@@ -43,6 +43,16 @@ Paramètres :
 	"volume" : "Nouveau volume de la room"
 }
 ```
+Modifier la modélisation de la room
+```json
+Route : "/modifyData?api_key={key}"  
+Methode : "POST"
+Paramètres :
+{
+	"name" : "Nom actuel de la room",
+	"data" : "Objet '3JS' servant à la modélisation 3D"
+}
+```
 Récupérer les données d'une room
 ```json
 Route : "/getRoom?api_key={key}"  
