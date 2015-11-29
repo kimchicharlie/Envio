@@ -77,6 +77,47 @@ var modifyRoom = function (options, cb) {
                 });
             }
         })
+    } else {
+        result.error = "Requête incorrecte";
+        cb(result);
+    }
+}
+
+var modifyData = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.name && options.data) {
+        db.Rooms
+        .findOne({'name': options.name})
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else if (!room) {
+                result.error = "Cette salle n'existe pas";
+                cb(result);
+            } else {
+                room.data = options.data;
+
+                room.save(function (error) {
+                    if (error) {
+                        result.error = error;
+                        cb(result);
+                    } else {
+                        result.room = room;
+                        cb(result);
+                    }
+                });
+            }
+        })
+    } else {
+        result.error = "Requête incorrecte";
+        cb(result);
     }
 }
 
@@ -164,6 +205,7 @@ var changeTemperature = function (options, cb) {
 
 exports.createRoom = createRoom;
 exports.modifyRoom = modifyRoom;
+exports.modifyData = modifyData;
 exports.getRoom = getRoom;
 exports.getRooms = getRooms;
 exports.changeTemperature = changeTemperature;

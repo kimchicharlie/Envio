@@ -7,7 +7,7 @@ exports.routes = [
     {
         "path": "/login",
         "method": "post",
-        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        "middlewares": [multipartMiddleware],
         handler: function (req, res)
         {
             userManager.login({
@@ -22,7 +22,7 @@ exports.routes = [
     {
         "path": "/register",
         "method": "post",
-        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        "middlewares": [multipartMiddleware],
         handler: function (req, res)
         {
             userManager.register({
@@ -40,7 +40,7 @@ exports.routes = [
     {
         "path": "/passwordForgotten",
         "method": "post",
-        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        "middlewares": [multipartMiddleware],
         handler: function (req, res)
         {
             userManager.changePasswordRandom({
@@ -55,7 +55,7 @@ exports.routes = [
     {
         "path": "/changePassword",
         "method": "post",
-        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        "middlewares": [multipartMiddleware],
         handler: function (req, res)
         {
             userManager.changePassword({
