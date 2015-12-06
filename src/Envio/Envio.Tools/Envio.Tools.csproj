@@ -69,7 +69,6 @@
   <ItemGroup>
     <Compile Include="Convert.cs" />
     <Compile Include="HTTPClientClass.cs" />
-    <Compile Include="JSONHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Envio.ViewModel\Envio.ViewModel.csproj">
