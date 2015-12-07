@@ -20,3 +20,4 @@ exports.Users = require('./models/user').Users;
 exports.Rooms = require('./models/room').Rooms;
 exports.Materiels = require('./models/materiel').Materiels;
 exports.ConnectedUser = require('./models/connectedUser').ConnectedUser;
+exports.Modes = require('./models/mode').Modes;

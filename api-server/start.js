@@ -40,6 +40,7 @@ var routes = [
 	require("./routes/user").routes,
 	require("./routes/room").routes,
 	require("./routes/materiel").routes,
+	require("./routes/mode").routes
 ];
 for (var i = 0; i < routes.length; i++)
 {
