@@ -175,7 +175,7 @@ Paramètres :
 }
 ```
 ###Mode
-Crée un mode
+Créer un mode
 ```json
 Route : "/creatMode"  
 Methode : "POST"
@@ -185,7 +185,7 @@ Paramètres :
 	"name" : "Nom",
 	"Luminosity" : "Lumière",
 	"Opacity" : "Opicter",
-	"Temperature": "Température 
+	"Temperature" : "Température 
 }
 ```
 
@@ -195,11 +195,11 @@ Route : "/modifyMode"
 Methode : "POST"
 Paramètres :
 {
-	"modeID" : "ID du mode"
+	"modeID" : "ID du mode",
 	"newName" : "nom",
 	"luminosity" : "Lumière",
 	"opacity" : "Opicter",
-	"temperature": "Température 
+	"temperature" : "Température 
 }
 ```
 Supprimer un mode
@@ -211,17 +211,17 @@ Paramètres :
 	"modeID" : "ID du mode"
 }
 ```
-Récupérè les modes
+Récupérer les modes
 ```json
 Route : "/getModes"  
 Methode : "POST"
 Paramètres :
 {
-	"organisation" : "Organisation",
+	"organisation" : "Organisation"
 }
 ```
 
-Récupérè un mode
+Récupérer un mode
 ```json
 Route : "/getMode"  
 Methode : "POST"
@@ -231,16 +231,16 @@ Paramètres :
 }
 ```
 ###Planning
-Crée un event
+Créer un event
 ```json
 Route : "/creatEvent"  
 Methode : "POST"
 Paramètres :
 {
 	"organisation" : "Organisation",
-	"modeID" : "ID du mode"
-	"dateBegin": "date de debut"
-	"dateEnd": "date de fin"
+	"modeID" : "ID du mode",
+	"dateBegin" : "date de debut",
+	"dateEnd" : "date de fin",
 }
 ```
 
@@ -250,40 +250,40 @@ Route : "ModifyEvent"
 Methode : "POST"
 Paramètres :
 {
-	"eventID :  "ID de l'event" 
-	"modeID" : "ID du mode"
-	"dateBegin": "date de debut"
-	"dateEnd": "date de fin"
+	"eventID :  "ID de l'event",
+	"modeID" : "ID du mode",
+	"dateBegin" : "date de debut",
+	"dateEnd" : "date de fin", 
 }
 ```
 Supprimer un event
 ```json
-Route : "DeletEvent"  
+Route : "DeleteEvent"  
 Methode : "POST"
 Paramètres :
 {
-	"eventID :  "ID de l'event" 
+	"eventID" : "ID de l'event" 
 }
 ```
 
-Récupérè un event
+Récupérer un event
 ```json
 Route : "getEvent"  
 Methode : "POST"
 Paramètres :
 {
-	"eventID :  "ID de l'event" 
+	"eventID" : "ID de l'event"
 }
 ```
-Récupérè les event de la Date dateBegin à la Date dateEnd
+Récupérer les events de la Date dateBegin à la Date dateEnd
 ```json
 Route : "getEvents"  
 Methode : "POST"
 Paramètres :
 {
 	"organisation" : "Organisation",
-	"dateBegin": "date de debut"
-	"dateEnd": "date de fin"
+	"dateBegin" : "date de debut",
+	"dateEnd" : "date de fin",
 }
 ```
 
