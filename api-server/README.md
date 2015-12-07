@@ -174,3 +174,120 @@ Paramètres :
 	"guid" : "GUID de l'utilisateur"
 }
 ```
+###Mode
+Crée un mode
+```json
+Route : "/creatMode"  
+Methode : "POST"
+Paramètres :
+{
+	"organisation" : "Organisation",
+	"name" : "Nom",
+	"Luminosity" : "Lumière",
+	"Opacity" : "Opicter",
+	"Temperature": "Température 
+}
+```
+
+Modifier un mode
+```json
+Route : "/modifyMode"  
+Methode : "POST"
+Paramètres :
+{
+	"modeID" : "ID du mode"
+	"newName" : "nom",
+	"luminosity" : "Lumière",
+	"opacity" : "Opicter",
+	"temperature": "Température 
+}
+```
+Supprimer un mode
+```json
+Route : "/deleteMode"  
+Methode : "POST"
+Paramètres :
+{
+	"modeID" : "ID du mode"
+}
+```
+Récupérè les modes
+```json
+Route : "/getModes"  
+Methode : "POST"
+Paramètres :
+{
+	"organisation" : "Organisation",
+}
+```
+
+Récupérè un mode
+```json
+Route : "/getMode"  
+Methode : "POST"
+Paramètres :
+{
+	"modeID" : "ID du mode"
+}
+```
+###Planning
+Crée un event
+```json
+Route : "/creatEvent"  
+Methode : "POST"
+Paramètres :
+{
+	"organisation" : "Organisation",
+	"modeID" : "ID du mode"
+	"dateBegin": "date de debut"
+	"dateEnd": "date de fin"
+}
+```
+
+Modifier un event
+```json
+Route : "ModifyEvent"  
+Methode : "POST"
+Paramètres :
+{
+	"eventID :  "ID de l'event" 
+	"modeID" : "ID du mode"
+	"dateBegin": "date de debut"
+	"dateEnd": "date de fin"
+}
+```
+Supprimer un event
+```json
+Route : "DeletEvent"  
+Methode : "POST"
+Paramètres :
+{
+	"eventID :  "ID de l'event" 
+}
+```
+
+Récupérè un event
+```json
+Route : "getEvent"  
+Methode : "POST"
+Paramètres :
+{
+	"eventID :  "ID de l'event" 
+}
+```
+Récupérè les event de la Date dateBegin à la Date dateEnd
+```json
+Route : "getEvents"  
+Methode : "POST"
+Paramètres :
+{
+	"organisation" : "Organisation",
+	"dateBegin": "date de debut"
+	"dateEnd": "date de fin"
+}
+```
+
+
+
+
+
