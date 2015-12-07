@@ -250,7 +250,7 @@ Route : "ModifyEvent"
 Methode : "POST"
 Paramètres :
 {
-	"eventID :  "ID de l'event",
+	"eventID" :  "ID de l'event",
 	"modeID" : "ID du mode",
 	"dateBegin" : "date de debut",
 	"dateEnd" : "date de fin", 
