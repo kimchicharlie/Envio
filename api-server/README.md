@@ -238,6 +238,7 @@ Methode : "POST"
 Paramètres :
 {
 	"organisation" : "Organisation",
+	"roomID" : "ID de la room"
 	"modeID" : "ID du mode",
 	"dateBegin" : "date de debut",
 	"dateEnd" : "date de fin",
@@ -275,13 +276,14 @@ Paramètres :
 	"eventID" : "ID de l'event"
 }
 ```
-Récupérer les events de la Date dateBegin à la Date dateEnd
+Récupérer les events de la Date dateBegin à la Date dateEnd pour une room
 ```json
 Route : "getEvents"  
 Methode : "POST"
 Paramètres :
 {
 	"organisation" : "Organisation",
+	"roomID" : "ID de la room"
 	"dateBegin" : "date de debut",
 	"dateEnd" : "date de fin",
 }
