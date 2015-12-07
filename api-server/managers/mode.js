@@ -13,7 +13,7 @@ var createMode = function (options, cb) {
         var newMode = new db.Modes({
             "name" : options.name,
             "organisation" : options.organisation,
-            "light" : options.light
+            "light" : options.light,
             "opacity" : options.opacity,
             "temperature" : options.temperature
         });
