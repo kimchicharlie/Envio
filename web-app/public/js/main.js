@@ -29,12 +29,7 @@ var Sidemenu = React.createClass({
                 </a>
               </li>
               <li className="table-view-cell media">
-                <a className="navigate-right">
-                  <span className="media-object pull-left icon icon-gear"></span>
-                  <div className="media-body">
-                    Item 2
-                  </div>
-                </a>
+                    <Link to="/Planning">Planning</Link>
               </li>
               <li className="table-view-cell media">
                     <Link to="/Rooms">Rooms</Link>
@@ -105,7 +100,49 @@ var RoomList = React.createClass({
     }
 });
 
-var Room = React.createClass({
+var Planning = React.createClass({
+      getInitialState: function() {        
+        return {
+            rooms: []
+        }
+      },
+      componentDidMount: function() {
+        $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+          },
+            editable: true,
+            selectable: true,
+            select: function(start, end) {
+              var title = prompt('Event Title:');
+              var eventData;
+              if (title) {
+                eventData = {
+                  title: title,
+                  start: start,
+                  end: end
+                };
+                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+              }
+              $('#calendar').fullCalendar('unselect');
+            },
+        });
+      },
+      render() {
+          return (
+              <div>
+                <Header text="Envio Planning"/>
+                <div className="content">
+                  <div id='calendar'></div>
+                </div>
+              </div>
+          );
+      }
+});
+
+var Rooms = React.createClass({
       getInitialState: function() {        
         return {
             rooms: []
@@ -387,8 +424,9 @@ var Racine = React.createClass({
                 <Route path="/" component={App} />                
                 <Route path="/Register" component={Register}/>
                 <Route path="/CreatRoom" component={CreatRoom}/>
-                <Route path="/Rooms" component={Room}/>
+                <Route path="/Rooms" component={Rooms}/>
                 <Route path="/Rooms/:Id" component={ModifRoom}/>
+                <Route path="/Planning" component={Planning}/>
           </Router>
     )}
 })
