@@ -183,9 +183,9 @@ Paramètres :
 {
 	"organisation" : "Organisation",
 	"name" : "Nom",
-	"Luminosity" : "Lumière",
-	"Opacity" : "Opicter",
-	"Temperature" : "Température 
+	"luminosity" : "lumière",
+	"opacity" : "opicter",
+	"temperature" : "température" 
 }
 ```
 
@@ -199,7 +199,7 @@ Paramètres :
 	"newName" : "nom",
 	"luminosity" : "Lumière",
 	"opacity" : "Opicter",
-	"temperature" : "Température 
+	"temperature" : "Température" 
 }
 ```
 Supprimer un mode
@@ -238,7 +238,7 @@ Methode : "POST"
 Paramètres :
 {
 	"organisation" : "Organisation",
-	"roomID" : "ID de la room"
+	"roomID" : "ID de la room",
 	"modeID" : "ID du mode",
 	"dateBegin" : "date de debut",
 	"dateEnd" : "date de fin",
@@ -283,7 +283,7 @@ Methode : "POST"
 Paramètres :
 {
 	"organisation" : "Organisation",
-	"roomID" : "ID de la room"
+	"roomID" : "ID de la room",
 	"dateBegin" : "date de debut",
 	"dateEnd" : "date de fin",
 }
