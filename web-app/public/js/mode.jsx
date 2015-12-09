@@ -22,7 +22,7 @@ ModeListItem = React.createClass({
             return (
             <li className="table-view-cell media">
             <div>name: {this.props.mode.name}</div>
-            <div>Luminosité: {this.props.mode.luminosity}</div>
+            <div>Luminosité: {this.props.mode.light}</div>
             <div>Opacité : {this.props.mode.opacity}</div>
             <div>Temperature : {this.props.mode.temperature}</div>
             <Link to={`/Modes/${this.props.mode._id}`}>Modifier</Link>
@@ -99,14 +99,14 @@ ModifMode = React.createClass({
     handleSubmit(event) {
         event.preventDefault()
         var newName = ReactDOM.findDOMNode(this.refs.newName).value
-        var luminosity = ReactDOM.findDOMNode(this.refs.luminosity).value
+        var light = ReactDOM.findDOMNode(this.refs.light).value
         var opacity = ReactDOM.findDOMNode(this.refs.opacity).value
         var temperature = ReactDOM.findDOMNode(this.refs.temperature).value
         react = this;
         HttpPost('/modifyMode', {
-            'modeID' : modeID,
+            'modeID' : react.props.params.Id,
             'newName' : newName,
-            'luminosity' : luminosity,
+            'light' : light,
             'opacity' : opacity,
             'temperature' : temperature      
         }, function(ret) {          
@@ -131,13 +131,12 @@ ModifMode = React.createClass({
              <form role="form" onSubmit={this.handleSubmit}>
                  <div className="form-group">
                   <input ref="newName" type="text" placeholder="new name" />
-                  <input ref="luminosity" type="text" placeholder="new luminosity" />
+                  <input ref="light" type="text" placeholder="new light" />
                   <input ref="opacity" type="text" placeholder="new opacity" />
                   <input ref="temperature" type="text" placeholder="new temperature" />
                 </div>
                 <button type="submit" >modif</button>
-              </form>        
-              <button onClick={this.ChangeTemp} >change temperature</button>
+              </form>
         </div>
         );
     }
@@ -154,14 +153,14 @@ CreatMode = React.createClass({
         event.preventDefault()
         var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
         var name = ReactDOM.findDOMNode(this.refs.name).value
-        var luminosity = ReactDOM.findDOMNode(this.refs.luminosity).value
+        var light = ReactDOM.findDOMNode(this.refs.light).value
         var opacity = ReactDOM.findDOMNode(this.refs.opacity).value
         var temperature = ReactDOM.findDOMNode(this.refs.temperature).value
         react = this;
         HttpPost('/createMode', {
             'organisation': organisation,
             'name': name,
-            'luminosity': luminosity,
+            'light': light,
             'opacity': opacity,
             'temperature': temperature
             
@@ -188,7 +187,7 @@ CreatMode = React.createClass({
                  <div className="form-group">
                   <input ref="organisation" type="text" placeholder="organisation" />
                   <input ref="name" type="text" placeholder="name" />
-                  <input ref="luminosity" type="text" placeholder="luminosity" />
+                  <input ref="light" type="text" placeholder="light" />
                   <input ref="opacity" type="text" placeholder="opacity" />
                   <input ref="temperature" type="text" placeholder="temperature" />
                 </div>

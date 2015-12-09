@@ -8,8 +8,9 @@ var createMode = function (options, cb) {
         'error': null,
         'mode': null
     };
-
-    if (options.name && options.light && options.organisation & options.opacity & options.temperature) {
+    console.log("!!");
+    console.log(options);
+    if (options.name && options.light && options.organisation && options.opacity && options.temperature) {
         var newMode = new db.Modes({
             "name" : options.name,
             "organisation" : options.organisation,
@@ -49,7 +50,7 @@ var modifyMode = function (options, cb) {
                 result.error = err;
                 cb(result);
             } else if (!mode) {
-                result.error = "Cette salle n'existe pas";
+                result.error = "Ce mode n'existe pas";
                 cb(result);
             } else {
                 async.parallel([

@@ -11,7 +11,7 @@ exports.routes = [
             modeManager.createMode({
                 "organisation" : req.body.organisation,
                 "name" : req.body.name,
-                "luminosity" : req.body.luminosity,
+                "light" : req.body.light,
                 "opacity" : req.body.opacity,
                 "temperature" : req.body.temperature 
 
@@ -28,10 +28,10 @@ exports.routes = [
         handler: function (req, res)
         {
             modeManager.modifyMode({
-                "modeID" : req.body.modeID
-                "newName" : req.body.newName
-                "luminosity" : req.body.luminosity
-                "opacity" : req.body.opacity
+                "modeID" : req.body.modeID,
+                "newName" : req.body.newName,
+                "light" : req.body.light,
+                "opacity" : req.body.opacity,
                 "temperature" : req.body.temperature
 
             }, function (result)
