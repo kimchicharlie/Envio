@@ -1,16 +1,31 @@
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+
 module.exports = {
-    entry: "./public/js/main.js",
+    entry: {
+        main : "./public/js/main.jsx",
+        room : "./public/js/room.jsx",
+        mode : "./public/js/mode.jsx",
+     },
     output: {
         path: "/",
-        filename: "bundle.js"
+        filename: "[name].js"
     },
     module: {
         loaders: [
             {
-                //tell webpack to use jsx-loader for all *.js files
-                test: /\.js$/,
+                test: /\.jsx$/,
                 loader: 'jsx-loader?insertPragma=React.DOM&harmony'
+                // test: /\.jsx?$/,
+                // exclude: /(node_modules|bower_components)/,
+                // loader: 'babel', // 'babel-loader' is also a legal name to reference
+                // query:
+                // {
+                //     presets:['react']
+                // }
             }
         ]
-    }
+    },
+    plugins: [
+        new CommonsChunkPlugin("commons.js")
+    ]
 };
