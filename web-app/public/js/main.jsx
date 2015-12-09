@@ -29,15 +29,13 @@ var Sidemenu = React.createClass({
                 </a>
               </li>
               <li className="table-view-cell media">
-                <a className="navigate-right">
-                  <span className="media-object pull-left icon icon-gear"></span>
-                  <div className="media-body">
-                    Item 2
-                  </div>
-                </a>
+                    <Link to="/Planning">Planning</Link>
               </li>
               <li className="table-view-cell media">
                     <Link to="/Rooms">Rooms</Link>
+              </li>
+              <li className="table-view-cell media">
+                    <Link to="/Modes">Modes</Link>
               </li>
             </ul>  
         );
@@ -75,189 +73,48 @@ var Home = React.createClass({
       }
 });
 
-
-var RoomListItem = React.createClass({
-    render: function () {
-            return (
-            <li className="table-view-cell media">
-            <div>name: {this.props.room.name}</div>
-            <div>Temperature actuel: {this.props.room.realTemperature}</div>
-            <div>Temperature voulus: {this.props.room.temperature}</div>
-            <div>m²: {this.props.room.volume}</div>
-            <Link to={`/Rooms/${this.props.room._id}`}>Modifier</Link>
-            </li>
-        );
-    }
-});
-
-var RoomList = React.createClass({
-    render: function () {
-        var items = this.props.rooms.map(function (room) {
-            return (
-                <RoomListItem key={room.id} room={room} />
-            );
-        });
-        return (
-            <ul  className="table-view">
-                {items}
-            </ul>
-        );
-    }
-});
-
-var Room = React.createClass({
+var Planning = React.createClass({
       getInitialState: function() {        
         return {
             rooms: []
         }
       },
       componentDidMount: function() {
-        react = this
-          HttpPost('/getRooms', {
-            'organisation': 'Envio',// a changer avec les info users            
-        }, function(ret) {         
-            rep = jQuery.parseJSON(ret)
-            if (rep.error == null){              
-              react.setState({rooms: rep.rooms})
-            }
-            else{
-              react.setState({rooms: rep.error})
-            }            
-        })
+        $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+          },
+            editable: true,
+            selectable: true,
+            select: function(start, end) {
+              var title = prompt('Event Title:');
+              var eventData;
+              if (title) {
+                eventData = {
+                  title: title,
+                  start: start,
+                  end: end
+                };
+                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+              }
+              $('#calendar').fullCalendar('unselect');
+            },
+        });
       },
       render() {
           return (
               <div>
-                <Header text="Envio Room"/>
+                <Header text="Envio Planning"/>
                 <div className="content">
-                    <RoomList rooms={this.state.rooms}/>
-                    <Link to="/CreatRoom">Creat room</Link>
+                  <div id='calendar'></div>
                 </div>
               </div>
           );
       }
 });
 
-var ModifRoom = React.createClass({
-    getInitialState: function() {
-        return {
-            status: false,
-            room: null
-        }
-    },
-    componentDidMount: function() {
-       react = this;
-       HttpPost('/getRoom', {
-          'roomID': react.props.params.Id,         
-      }, function(ret) {          
-          rep = jQuery.parseJSON(ret)
-          console.log(rep)
-          react.setState({room: rep.room})
-      })
-    },    
-    handleSubmit(event) {
-        event.preventDefault()
-        var name = ReactDOM.findDOMNode(this.refs.name).value
-        var volume = ReactDOM.findDOMNode(this.refs.volume).value
-        react = this;
-        HttpPost('/modifyRoom', {
-            'newName': name,
-            'name': react.state.room.name,
-            'volume': volume,            
-        }, function(ret) {          
-            rep = jQuery.parseJSON(ret)
-            console.log(rep)
-            react.setState({status: rep})
-        })
-    },
-    ChangeTemp(event) {
-        var newValue = ReactDOM.findDOMNode(this.refs.temperature).value
-        react = this;
-        HttpPost('/changeTemperature', {
-            'roomID': react.props.params.Id,
-            'temperature': newValue,
-        }, function(ret) {          
-            rep = jQuery.parseJSON(ret)
-            console.log(rep)
-            react.setState({status: rep})
-        })
-    },
-    render() {
-        if(this.state.status){
-          if (this.state.status.error == null) 
-          {            
-            return (
-                    <div className="bar bar-header-secondary">
-                        Modif success full!
-                    </div>
-                   );                    
-          }
-        }      
-        return (
-        <div className="bar bar-header-secondary">
-             <form role="form" onSubmit={this.handleSubmit}>
-                 <div className="form-group">
-                  <input ref="name" type="text" placeholder="new name" />
-                  <input ref="volume" type="text" placeholder="new volume" />
-                </div>
-                <button type="submit" >modif</button>
-              </form>
-              <input ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5} />
-              <button onClick={this.ChangeTemp} >change temperature</button>
-        </div>
-        );
-    }
-});
-
-
-var CreatRoom = React.createClass({
-    getInitialState: function() {
-        return {
-            status: false,
-        }
-    },
-    handleSubmit(event) {
-        event.preventDefault()
-        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
-        var name = ReactDOM.findDOMNode(this.refs.name).value
-        var volume = ReactDOM.findDOMNode(this.refs.volume).value
-        react = this;
-        HttpPost('/createRoom', {
-            'organisation': organisation,
-            'name': name,
-            'volume': volume,
-            
-        }, function(ret) {          
-            rep = jQuery.parseJSON(ret)
-            console.log(rep)
-            react.setState({status: rep})
-        })
-    },
-    render() {
-        if(this.state.status){
-          if (this.state.status.error == null) 
-          {            
-            return (
-                    <div className="bar bar-header-secondary">
-                        Creat success full!
-                    </div>
-                   );                    
-          }
-        }      
-        return (
-        <div className="bar bar-header-secondary">
-             <form role="form" onSubmit={this.handleSubmit}>
-                 <div className="form-group">
-                  <input ref="organisation" type="text" placeholder="organisation" />
-                  <input ref="name" type="text" placeholder="name" />
-                  <input ref="volume" type="text" placeholder="volume" />
-                </div>
-                <button type="submit" >Creat</button>
-              </form>
-        </div>
-        );
-    }
-});
 
 var Login = React.createClass({
     handleSubmit(event) {
@@ -387,8 +244,12 @@ var Racine = React.createClass({
                 <Route path="/" component={App} />                
                 <Route path="/Register" component={Register}/>
                 <Route path="/CreatRoom" component={CreatRoom}/>
-                <Route path="/Rooms" component={Room}/>
+                <Route path="/Rooms" component={Rooms}/>
                 <Route path="/Rooms/:Id" component={ModifRoom}/>
+                <Route path="/CreatMode" component={CreatMode}/>
+                <Route path="/Modes" component={Modes}/>
+                <Route path="/Modes/:Id" component={ModifMode}/>
+                <Route path="/Planning" component={Planning}/>
           </Router>
     )}
 })
