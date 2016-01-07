@@ -203,9 +203,61 @@ var changeTemperature = function (options, cb) {
     }
 };
 
+var addEventPlanning = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    var eventPlanning = {
+        'name': null,
+        'mode': null,
+        'dateBegin': null,
+        'dateEnd': null  
+    }
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                if (options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
+                    eventPlanning.name = options.eventName;
+                    eventPlanning.mode = options.modeID;
+                    eventPlanning.dateBegin = options.dateBegin;
+                    eventPlanning.dateEnd = options.dateEnd;
+
+                    room.planning.push(eventPlanning);
+                    room.save(function (error) {
+                        if (error) {
+                            result.error = error;
+                            cb(result);
+                        } else {
+                            result.room = room;
+                            cb(result);
+                        }
+                    });
+                } else {
+                    result.error = "Des informations nécessaires sont manquantes";
+                    cb(result);
+                }
+            }
+        })
+    } else {
+        result.error = "Veuillez spécifier une roomID";
+        cb(result);
+    }
+};
+
 exports.createRoom = createRoom;
 exports.modifyRoom = modifyRoom;
 exports.modifyData = modifyData;
 exports.getRoom = getRoom;
 exports.getRooms = getRooms;
 exports.changeTemperature = changeTemperature;
+exports.addEventPlanning = addEventPlanning;

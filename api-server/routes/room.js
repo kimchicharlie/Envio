@@ -94,5 +94,23 @@ exports.routes = [
                 res.send(rep);
             });
         }
+    },
+    {
+        "path": "/addEventPlanning",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.addEventPlanning({
+                'roomID': req.body.roomID,
+                'eventName': req.body.eventName,
+                'modeID': req.body.modeID,
+                'dateBegin': req.body.dateBegin,
+                'dateEnd': req.body.dateEnd
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
     }
 ];
