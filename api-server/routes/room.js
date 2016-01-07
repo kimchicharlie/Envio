@@ -112,5 +112,21 @@ exports.routes = [
                 res.send(rep);
             });
         }
+    },
+    {
+        "path": "/removeEventPlanning",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.removeEventPlanning({
+                'roomID': req.body.roomID,
+                'eventName': req.body.eventName,
+                'dateBegin': req.body.dateBegin
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
     }
 ];
