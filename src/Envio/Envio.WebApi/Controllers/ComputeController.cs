@@ -9,9 +9,11 @@ namespace Envio.WebApi.Controllers
     public class ComputeController : Controller
     {
         // GET: Compute
-        public ActionResult Index()
+        public string Compute()
         {
-            return View();
+            //maths equation
+            //recupération valeurs des equipements
+            return null;
         }
     }
 }

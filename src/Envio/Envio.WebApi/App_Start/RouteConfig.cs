@@ -18,59 +18,59 @@ namespace Envio.WebApi
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-
-            routes.MapRoute(
-                name:"GetValEq",
-                url:"api/ValEq/GetValEq"
-                );
-
-            routes.MapRoute(
-                name: "GetValEq",
-                url: "api/ValEq/GetValEq/{id}"
-                );
-
-            routes.MapRoute(
-                name: "GetCustValEq",
-                url: "api/ValEq/GetCustValEq/{idCust}"
-                );
-
-            routes.MapRoute(
-                name: "GetCustValEq",
-                url: "api/ValEq/GetCustValEq/{idCust, idEq}"
-                );
-
-            routes.MapRoute(
-                name: "RoomValEq",
-                url: "api/ValEq/RoomValEq/{idRoom}"
-                );
-
-            routes.MapRoute(
-                name: "StairValEq",
-                url: "api/ValEq/RoomValEq/{idStair}"
-                );
-
-            routes.MapRoute(
-                name: "BuildValEq",
-                url: "api/ValEq/RoomValEq/{idBuild}"
-                );
-
-            routes.MapRoute(
-                name: "TimeValEq",
-                url: "api/ValEq/RoomValEq/{min, hour, day, month}"
-                );
             /*
-            routes.MapRoute(
-                name: "ValEq",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "ValEq", action = "GetValEq", id = UrlParameter.Optional }
-            );
+                        routes.MapRoute(
+                            name:"GetValEq",
+                            url:"api/ValEq/GetValEq"
+                            );
 
-            routes.MapRoute(
-                name: "Compute",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Compute", action = "Index", id = UrlParameter.Optional, customerId = UrlParameter.Optional }
-            );
-             */
+                        routes.MapRoute(
+                            name: "GetValEqById",
+                            url: "api/ValEq/GetValEqById/{id}"
+                            );
+
+                        routes.MapRoute(
+                            name: "GetCustValEq",
+                            url: "api/ValEq/GetCustValEq/{idCust}"
+                            );
+
+                        routes.MapRoute(
+                            name: "GetCustValEqById",
+                            url: "api/ValEq/GetCustValEqById/{idCust}/{idEq}"
+                            );
+
+                        routes.MapRoute(
+                            name: "RoomValEq",
+                            url: "api/ValEq/RoomValEq/{idRoom}"
+                            );
+
+                        routes.MapRoute(
+                            name: "StairValEq",
+                            url: "api/ValEq/RoomValEq/{idStair}"
+                            );
+
+                        routes.MapRoute(
+                            name: "BuildValEq",
+                            url: "api/ValEq/RoomValEq/{idBuild}"
+                            );
+
+                        routes.MapRoute(
+                            name: "TimeValEq",
+                            url: "api/ValEq/RoomValEq/{month:int}/{day:int}/{hour:int}/{min:int}"
+                            );
+                        /*
+                        routes.MapRoute(
+                            name: "ValEq",
+                            url: "{controller}/{action}/{id}",
+                            defaults: new { controller = "ValEq", action = "GetValEq", id = UrlParameter.Optional }
+                        );
+
+                        routes.MapRoute(
+                            name: "Compute",
+                            url: "{controller}/{action}/{id}",
+                            defaults: new { controller = "Compute", action = "Index", id = UrlParameter.Optional, customerId = UrlParameter.Optional }
+                        );
+                         */
         }
     }
 }

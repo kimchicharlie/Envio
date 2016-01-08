@@ -14,34 +14,34 @@ namespace Envio.WebApi
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
+/*            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            );*/
 
-            config.Routes.MapHttpRoute("GetValEq", "api/ValEq/",
+            config.Routes.MapHttpRoute("GetValEq", "api/ValEq/GetValEq",
             new { controller = "ValEq", action = "GetValEq" });
 
-            config.Routes.MapHttpRoute("GetValEq", "api/ValEq/{productId:int}",
-            new { controller = "ValEq", action = "GetValEq" });
-
-            config.Routes.MapHttpRoute("CustValEq", "api/ValEq/{idCust:int}",
+            config.Routes.MapHttpRoute("CustValEq", "api/ValEq/GetCustValEq/{idCust:int}",
             new { controller = "ValEq", action = "GetCustValEq" });
 
-            config.Routes.MapHttpRoute("GetCustValEq", "api/ValEq/{idCust:int, idEq:int}",
-            new { controller = "ValEq", action = "GetCustValEq" });
+            config.Routes.MapHttpRoute("GetValEqById", "api/ValEq/GetValEqById/{id:int}",
+            new { controller = "ValEq", action = "GetValEqById" });
 
-            config.Routes.MapHttpRoute("RoomValEq", "api/ValEq/{idRoom:int}",
+            config.Routes.MapHttpRoute("GetCustValEqById", "api/ValEq/GetCustValEqById/{idCust:int}/{idEq:int}",
+            new { controller = "ValEq", action = "GetCustValEqById" });
+
+            config.Routes.MapHttpRoute("RoomValEq", "api/ValEq/GetRoomValEq/{idRoom:int}",
             new { controller = "ValEq", action = "GetRoomValEq" });
 
-            config.Routes.MapHttpRoute("StairValEq", "api/ValEq/{idStair:int}",
+            config.Routes.MapHttpRoute("StairValEq", "api/ValEq/GetStairValEq/{idStair:int}",
             new { controller = "ValEq", action = "GetStairValEq" });
 
-            config.Routes.MapHttpRoute("BuildValEq", "api/ValEq/{idBuild:int}",
+            config.Routes.MapHttpRoute("BuildValEq", "api/ValEq/GetBuildValEq/{idBuild:int}",
             new { controller = "ValEq", action = "GetBuildValEq" });
 
-            config.Routes.MapHttpRoute("TimeValEq", "api/ValEq/{min:int, hour:int, day:int, month:int}",
+            config.Routes.MapHttpRoute("TimeValEq", "api/ValEq/GetTimeValEq/{month:int}/{day:int}/{hour:int}/{min:int}",
             new { controller = "ValEq", action = "GetTimeValEq" });
 
 

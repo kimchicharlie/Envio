@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envio.ServeurTraitement", "Envio.ServeurTraitement\Envio.ServeurTraitement\Envio.ServeurTraitement.csproj", "{B05D8EC5-049D-4BFF-8113-264D659417B7}"
 EndProject
@@ -12,6 +11,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envio.ViewModel", "Envio.ViewModel\Envio.ViewModel.csproj", "{C5F0A479-E0AC-49E6-BCB0-C72A13A0AFA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envio.Test", "Envio.Test\Envio.Test.csproj", "{D47A15F8-5CCF-4A74-B23C-F8B904706493}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DAE67AD1-F102-4263-932D-CA135FDF81F7} = {DAE67AD1-F102-4263-932D-CA135FDF81F7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Envio.WebApi", "Envio.WebApi\Envio.WebApi.csproj", "{DAE67AD1-F102-4263-932D-CA135FDF81F7}"
 EndProject
