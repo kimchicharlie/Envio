@@ -12,6 +12,7 @@ var roomSchema = new Schema({
     savedEnergy : { type : Number, default : 0 },
     savedMoney : { type : Number, default : 0 },
     data : { type : Object, default : null },
+    planning : [],
     created : { type : Number, default : Date.now() }
 });
 
