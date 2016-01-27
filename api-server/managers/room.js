@@ -298,6 +298,67 @@ var removeEventPlanning = function (options, cb) {
     }
 };
 
+var modifyEventPlanning = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
+
+        var planning = {
+            "name": options.eventName,
+            "mode": null,
+            "dateBegin": null,
+            "dateEnd": null
+        }
+
+        if (options.newName) {
+            planning.name = options.newName;
+        }
+        planning.mode = options.modeID;
+        planning.dateBegin = Number(options.dateBegin);
+        planning.dateEnd = Number(options.dateEnd);
+
+        if (options.roomID != null) {
+            db.Rooms
+            .findOne({'_id': options.roomID})
+            .exec(function (err, room) {
+                if (err) {
+                    result.error = err;
+                    cb(result);
+                } else {
+                    
+                    for (var i = 0; i < room.planning.length; i++) {
+                        if (room.planning[i].name == options.eventName) {
+                            room.planning.splice(i, 1);
+                        }
+                    };
+
+                    room.planning.push(planning);
+                    room.save(function (error, res) {
+                        if (error) {
+                            result.error = error;
+                            cb(result);
+                        } else {
+                            result.room = room;
+                            cb(result);
+                        }
+                    });
+                }
+            })
+        } else {
+            result.error = "Veuillez spécifier une roomID";
+            cb(result);
+        }
+    } else {
+        result.error = "Des informations nécessaires sont manquantes";
+        cb(result);
+    }
+};
+
 exports.createRoom = createRoom;
 exports.modifyRoom = modifyRoom;
 exports.modifyData = modifyData;
@@ -306,3 +367,4 @@ exports.getRooms = getRooms;
 exports.changeTemperature = changeTemperature;
 exports.addEventPlanning = addEventPlanning;
 exports.removeEventPlanning = removeEventPlanning;
+exports.modifyEventPlanning = modifyEventPlanning;

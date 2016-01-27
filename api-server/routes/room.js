@@ -128,5 +128,23 @@ exports.routes = [
                 res.send(rep);
             });
         }
+    },{
+        "path": "/modifyEventPlanning",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.modifyEventPlanning({
+                'roomID': req.body.roomID,
+                'eventName': req.body.eventName,
+                'newName': req.body.newName,
+                'modeID': req.body.modeID,
+                'dateBegin': req.body.dateBegin,
+                'dateEnd': req.body.dateEnd
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
     }
 ];
