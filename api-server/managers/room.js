@@ -261,7 +261,6 @@ var removeEventPlanning = function (options, cb) {
         'error': null,
         'room': null
     };
-
     if (options.roomID != null) {
         db.Rooms
         .findOne({'_id': options.roomID})

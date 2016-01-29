@@ -8,8 +8,6 @@ var createMode = function (options, cb) {
         'error': null,
         'mode': null
     };
-    console.log("!!");
-    console.log(options);
     if (options.name && options.light && options.organisation && options.opacity && options.temperature) {
         var newMode = new db.Modes({
             "name" : options.name,

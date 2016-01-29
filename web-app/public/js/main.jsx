@@ -4,6 +4,8 @@ var Route = require('react-router').Route;
 var Link = require('react-router').Link;
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
+var Modal = require('react-modal');
+var Select = require('react-select');
 
 var Header = React.createClass({
     render() {
@@ -72,49 +74,6 @@ var Home = React.createClass({
           );
       }
 });
-
-var Planning = React.createClass({
-      getInitialState: function() {        
-        return {
-            rooms: []
-        }
-      },
-      componentDidMount: function() {
-        $('#calendar').fullCalendar({
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-          },
-            editable: true,
-            selectable: true,
-            select: function(start, end) {
-              var title = prompt('Event Title:');
-              var eventData;
-              if (title) {
-                eventData = {
-                  title: title,
-                  start: start,
-                  end: end
-                };
-                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-              }
-              $('#calendar').fullCalendar('unselect');
-            },
-        });
-      },
-      render() {
-          return (
-              <div>
-                <Header text="Envio Planning"/>
-                <div className="content">
-                  <div id='calendar'></div>
-                </div>
-              </div>
-          );
-      }
-});
-
 
 var Login = React.createClass({
     handleSubmit(event) {
