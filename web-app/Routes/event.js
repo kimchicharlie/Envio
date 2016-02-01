@@ -45,10 +45,14 @@ exports.routes = [
         handler: function (req, res)
         {
             eventManager.modifyEvent({
-			    "newName" : req.body.newName,
-			    "name" : req.body.name,
-			    "volume" : req.body.volume
-
+                'roomID': req.body.roomID,
+                'eventName': req.body.eventName,
+                'newName': req.body.newName,
+                'modeID': req.body.modeID,
+                'dateBegin': req.body.dateBegin,
+                'dateEnd': req.body.dateEnd,
+                'newDateBegin': req.body.newDateBegin,
+                'newDateEnd': req.body.newDateEnd
             }, function (result)
             {
                 res.send(result);

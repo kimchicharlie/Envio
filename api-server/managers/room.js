@@ -51,7 +51,6 @@ var modifyRoom = function (options, cb) {
         'error': null,
         'room': null
     };
-
     if (options.name && options.volume && options.newName) {
         db.Rooms
         .findOne({'name': options.name})
@@ -304,9 +303,9 @@ var modifyEventPlanning = function (options, cb) {
         'error': null,
         'room': null
     };
-
-    if (options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
-
+console.log(options)
+    if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
+        
         var planning = {
             "name": options.eventName,
             "mode": null,
@@ -318,8 +317,8 @@ var modifyEventPlanning = function (options, cb) {
             planning.name = options.newName;
         }
         planning.mode = options.modeID;
-        planning.dateBegin = Number(options.dateBegin);
-        planning.dateEnd = Number(options.dateEnd);
+        planning.dateBegin = options.newDateBegin;
+        planning.dateEnd = options.newDateEnd;
 
         if (options.roomID != null) {
             db.Rooms
@@ -331,7 +330,7 @@ var modifyEventPlanning = function (options, cb) {
                 } else {
                     
                     for (var i = 0; i < room.planning.length; i++) {
-                        if (room.planning[i].name == options.eventName) {
+                        if (room.planning[i].name == options.eventName && room.planning[i].dateBegin == options.dateBegin && room.planning[i].dateEnd == options.dateEnd ) {
                             room.planning.splice(i, 1);
                         }
                     };

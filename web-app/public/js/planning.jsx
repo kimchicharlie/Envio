@@ -8,10 +8,19 @@ var Modal = require('react-modal');
 var Select = require('react-select');
 
 
-function findLabelByValue(list, value){
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].value === value) {
-        return list[i].label;
+function findLabelByValue(list, value, reverse){
+    if(reverse)
+    {
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].label === value) {
+            return list[i].value;
+          }
+        }
+    }else{
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].value === value) {
+          return list[i].label;
+        }
       }
     }
   return "Couldn't find object with id: " + value;
@@ -35,7 +44,8 @@ Planning = React.createClass({
             modalCreatIsOpen: false,
             modalDeleteIsOpen: false,
             start: 0,
-            end: 0,            
+            end: 0,
+            name: null,            
             ListOfRooms: [],
             ListOfModes: [],
             selectedRoom: {},
@@ -90,8 +100,9 @@ Planning = React.createClass({
           header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'month,agendaWeek,agendaDay',
           },
+            timezone: 'local',
             defaultView: 'agendaWeek',
             editable: true,
             selectable: true,
@@ -100,7 +111,65 @@ Planning = React.createClass({
             },        
             select: function(start, end) {
               react.openModal(start, end, true);
-            },            
+            },
+            eventDragStart: function(event, delta, revertFunc) {
+                react.setState({start: event});
+            },
+            eventDrop: function(event, delta, revertFunc) {
+                start = new Date((event.start._d - delta))
+                end = new Date((event.end._d - delta))
+                console.log(end)
+                var id=findLabelByValue(react.state.ListOfModes, event.title, true)
+                HttpPost('/modifyEvent', {
+                  organisation : "Envio", //a changer plus tard
+                  roomID : react.state.selectedRoom,
+                  modeID : id,
+                  eventName: react.state.start.title,
+                  newName: event.title,
+                  dateBegin : start,
+                  dateEnd : end,
+                  newDateBegin : event.start._d,
+                  newDateEnd : event.end._d,
+                }, function(ret) {
+                  rep = jQuery.parseJSON(ret)
+                    react.setState({modalDeleteIsOpen: false});
+                    for (var i = 0; i < react.state.rooms.length; i++) {
+                      if (react.state.rooms[i]._id === rep.room._id) {
+                        react.state.rooms[i].planning = rep.room.planning
+                        react.setCalendar(react.state.rooms[i].planning)
+                      }
+                    }
+                })                        
+            },
+            eventResizeStart: function(event, delta, revertFunc) {
+                react.setState({start: event});
+            },
+            eventResize: function(event, delta, revertFunc) {
+                console.log(event)
+                start = new Date((event.start._d))
+                end = new Date((event.end._d - delta))
+                var id=findLabelByValue(react.state.ListOfModes, event.title, true)
+                HttpPost('/modifyEvent', {
+                  organisation : "Envio", //a changer plus tard
+                  roomID : react.state.selectedRoom,
+                  modeID : id,
+                  eventName: react.state.start.title,
+                  newName: event.title,
+                  dateBegin : start,
+                  dateEnd : end,
+                  newDateBegin : event.start._d,
+                  newDateEnd : event.end._d,
+                }, function(ret) {
+                  rep = jQuery.parseJSON(ret)
+                    react.setState({modalDeleteIsOpen: false});
+                    for (var i = 0; i < react.state.rooms.length; i++) {
+                      if (react.state.rooms[i]._id === rep.room._id) {
+                        react.state.rooms[i].planning = rep.room.planning
+                        react.setCalendar(react.state.rooms[i].planning)
+                      }
+                    }
+                })                        
+            },                                    
         });
       },
       openModal: function(start , end, key) {
@@ -110,20 +179,50 @@ Planning = React.createClass({
         this.setState({modalDeleteIsOpen: true});  
         this.setState({start: start});
         this.setState({end: end});
+        console.log
       },     
       creatEvent: function(val) {
         react=this
+        trueDateBegin = new Date(this.state.start._d).toISOString()
+        trueDateEnd = new Date(this.state.end._d).toISOString()
+        console.log(trueDateBegin)
         var label= findLabelByValue(this.state.ListOfModes, val)
         HttpPost('/createEvent', {
           organisation : "Envio", //a changer plus tard
           roomID : this.state.selectedRoom,
           modeID : val,
           eventName: label,
-          dateBegin : this.state.start._d,
-          dateEnd : this.state.end._d,     
+          dateBegin : trueDateBegin,
+          dateEnd : trueDateEnd,     
         }, function(ret) {
           rep = jQuery.parseJSON(ret)
             react.setState({modalCreatIsOpen: false});
+            for (var i = 0; i < react.state.rooms.length; i++) {
+              if (react.state.rooms[i]._id === rep.room._id) {
+                react.state.rooms[i].planning = rep.room.planning
+                react.setCalendar(react.state.rooms[i].planning)
+                console.log(react.state.rooms[i].planning)
+              }
+            }
+
+        })        
+      },
+      modifyEvent: function(val) {
+        react=this
+        var label= findLabelByValue(react.state.ListOfModes, val)
+        HttpPost('/modifyEvent', {
+          organisation : "Envio", //a changer plus tard
+          roomID : this.state.selectedRoom,
+          modeID : val,
+          eventName: this.state.start.title,
+          newName: label,
+          dateBegin : this.state.start.start._d,
+          dateEnd : this.state.start.end._d,
+          newDateBegin : this.state.start.start._d,
+          newDateEnd : this.state.start.end._d,     
+        }, function(ret) {
+          rep = jQuery.parseJSON(ret)
+            react.setState({modalDeleteIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
               if (react.state.rooms[i]._id === rep.room._id) {
                 react.state.rooms[i].planning = rep.room.planning
@@ -185,10 +284,10 @@ Planning = React.createClass({
                 <Modal isOpen={this.state.modalCreatIsOpen}>          
                     <Select simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
                 </Modal>
-                <Modal isOpen={this.state.modalDeleteIsOpen}>          
-                    Voulez-vous supprimer cette planification de mode? 
-                    <button onClick={this.deleteEvent}>oui</button>
-                    <button onClick={this.closeModal}>non</button>
+                <Modal isOpen={this.state.modalDeleteIsOpen}>
+                  <Select simpleValue options={this.state.ListOfModes} onChange={this.modifyEvent}/>
+                    <button onClick={this.deleteEvent}>supprimer cet event</button>
+                    <button onClick={this.closeModal}>annuler</button>
                 </Modal>                  
               </div>
           );

@@ -140,7 +140,9 @@ exports.routes = [
                 'newName': req.body.newName,
                 'modeID': req.body.modeID,
                 'dateBegin': req.body.dateBegin,
-                'dateEnd': req.body.dateEnd
+                'dateEnd': req.body.dateEnd,
+                'newDateBegin': req.body.newDateBegin,
+                'newDateEnd': req.body.newDateEnd
             }, function (rep)
             {
                 res.send(rep);
