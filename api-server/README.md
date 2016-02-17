@@ -81,6 +81,50 @@ Paramètres :
 	"temperature" : "Temperature voulue pour la room"
 }
 ```
+
+Ajouter un Mode au Planning de la Room
+```json
+Route : "/addEventPlanning?api_key={key}"  
+Methode : "POST"
+Paramètres :
+{
+	"roomId" : "ID de la room",
+        "eventName": "Nom (généralement le nom du mode)",
+        "modeID": "ID du mode",
+        "dateBegin": "Date de debut du mode(un object javascript date)",
+        "dateEnd": "Date de fin du mode(un object javascript date)"
+}
+```
+
+Suprimer un Mode du Planning de la Room
+```json
+Route : "/removeEventPlanning?api_key={key}"  
+Methode : "POST"
+Paramètres :
+{
+	"roomId" : "ID de la room",
+        "eventName": "Nom (généralement le nom du mode)",
+        "dateBegin": "Date de debut du mode(un object javascript date)",
+}
+```
+Modifier un Mode au Planning de la Room
+```json
+Route : "/modifyEventPlanning?api_key={key}"  
+Methode : "POST"
+Paramètres :
+{
+	"roomId" : "ID de la room",
+        "eventName": "Nom (généralement le nom du mode)",
+        "newName": "Nouveau nom",
+        "modeID": "ID du mode",
+        "dateBegin": "Date de debut du mode(un object javascript date)",
+        "dateEnd": "Date de fin du mode(un object javascript date)"
+	"newDateBegin": "Nouvelle date de debut",
+	"newDateEnd": "Nouvelle date de fin"        
+}
+```
+
+
 ###Materiel :
 Récupérer les matériels de la room 
 ```json
@@ -228,64 +272,6 @@ Methode : "POST"
 Paramètres :
 {
 	"modeID" : "ID du mode"
-}
-```
-###Planning
-Créer un event
-```json
-Route : "/creatEvent"  
-Methode : "POST"
-Paramètres :
-{
-	"organisation" : "Organisation",
-	"roomID" : "ID de la room",
-	"modeID" : "ID du mode",
-	"dateBegin" : "date de debut",
-	"dateEnd" : "date de fin",
-}
-```
-
-Modifier un event
-```json
-Route : "ModifyEvent"  
-Methode : "POST"
-Paramètres :
-{
-	"eventID" :  "ID de l'event",
-	"modeID" : "ID du mode",
-	"dateBegin" : "date de debut",
-	"dateEnd" : "date de fin", 
-}
-```
-Supprimer un event
-```json
-Route : "DeleteEvent"  
-Methode : "POST"
-Paramètres :
-{
-	"eventID" : "ID de l'event" 
-}
-```
-
-Récupérer un event
-```json
-Route : "getEvent"  
-Methode : "POST"
-Paramètres :
-{
-	"eventID" : "ID de l'event"
-}
-```
-Récupérer les events de la Date dateBegin à la Date dateEnd pour une room
-```json
-Route : "getEvents"  
-Methode : "POST"
-Paramètres :
-{
-	"organisation" : "Organisation",
-	"roomID" : "ID de la room",
-	"dateBegin" : "date de debut",
-	"dateEnd" : "date de fin",
 }
 ```
 
