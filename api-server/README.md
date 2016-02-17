@@ -118,9 +118,9 @@ Paramètres :
         "newName": "Nouveau nom",
         "modeID": "ID du mode",
         "dateBegin": "Date de debut du mode(un object javascript date)",
-        "dateEnd": "Date de fin du mode(un object javascript date)"
+        "dateEnd": "Date de fin du mode(un object javascript date)",
 	"newDateBegin": "Nouvelle date de debut",
-	"newDateEnd": "Nouvelle date de fin"        
+	"newDateEnd": "Nouvelle date de fin"
 }
 ```
 
