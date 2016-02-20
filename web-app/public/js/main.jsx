@@ -20,117 +20,118 @@ var Sidemenu = React.createClass({
     render() {
         return (
             <ul className="table-view">
-              <li className="table-view-cell media">
-                <a className="navigate-right">
-                  <span className="media-object pull-left icon icon-trash"></span>
-                  <div className="media-body">
-                    Item 1
-                  </div>
-                </a>
-              </li>
-              <li className="table-view-cell media">
+                <li className="table-view-cell media">
+                    <a className="navigate-right">
+                        <span className="media-object pull-left icon icon-trash"></span>
+                        <div className="media-body">
+                            Item 1
+                        </div>
+                    </a>
+                </li>
+                <li className="table-view-cell media">
                     <Link to="/Planning">Planning</Link>
-              </li>
-              <li className="table-view-cell media">
+                </li>
+                <li className="table-view-cell media">
                     <Link to="/Rooms">Rooms</Link>
-              </li>
-              <li className="table-view-cell media">
+                </li>
+                <li className="table-view-cell media">
                     <Link to="/Modes">Modes</Link>
-              </li>
+                </li>
             </ul>  
         );
     }
 });
 
 var Home = React.createClass({
-      handleClick: function(event) {
-      react = this
-       HttpPost('/logout', {
+    handleClick: function(event) {
+        var that = this
+
+        HttpPost('/logout', {
             'guid': cookie.load('userId')
         }, function(ret) {
             //rep = jQuery.parseJSON(ret)
-             if(ret.error == null){
-                react.props.doLogout()
-             }
+            if(ret.error == null){
+                that.props.doLogout()
+            }
         })
-      },
-      render() {
-          /* HttpPost('/infoUserId', {
-          //     }, function(ret) {
-          //         console.log(ret)
-          //     })*/
-          return (
-              <div className="content">
-              <Sidemenu />
+    },
+    render() {
+        return (
+            <div className="content">
+                <Sidemenu />
                 <ul className="table-view">
-                  <li className="table-view-cell media">
-                  boum
-                  </li>
+                    <li className="table-view-cell media">
+                        boum
+                    </li>
                 </ul>
                 <button onClick={this.handleClick}>logout</button>
-              </div>
+            </div>
           );
       }
 });
 
 var Planning = React.createClass({
-      getInitialState: function() {        
+    getInitialState: function() {        
         return {
             rooms: []
         }
-      },
-      componentDidMount: function() {
+    },
+    componentDidMount: function() {
         $('#calendar').fullCalendar({
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-          },
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
             editable: true,
             selectable: true,
             select: function(start, end) {
-              var title = prompt('Event Title:');
-              var eventData;
-              if (title) {
-                eventData = {
-                  title: title,
-                  start: start,
-                  end: end
-                };
-                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-              }
-              $('#calendar').fullCalendar('unselect');
+                var title = prompt('Event Title:');
+                var eventData;
+                if (title) {
+                    eventData = {
+                        title: title,
+                        start: start,
+                        end: end
+                    };
+                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                }
+                $('#calendar').fullCalendar('unselect');
             },
         });
-      },
-      render() {
-          return (
-              <div>
+    },
+    render() {
+        return (
+            <div>
                 <Header text="Envio Planning"/>
                 <div className="content">
-                  <div id='calendar'></div>
+                    <div id='calendar'></div>
                 </div>
-              </div>
-          );
-      }
+            </div>
+        );
+    }
 });
 
 
 var Login = React.createClass({
     handleSubmit(event) {
         event.preventDefault()
+
+        var that = this;
         var email = ReactDOM.findDOMNode(this.refs.email).value
-        var pass = ReactDOM.findDOMNode(this.refs.pass).value
-        react = this;
+        var pass = ReactDOM.findDOMNode(this.refs.pass).value        
+
         HttpPost('/login', {
             'email': email,
             'password': pass,
         }, function(ret) {          
-            rep = jQuery.parseJSON(ret)
-            console.log(rep)
-             if(rep.error == null){
-              react.props.doLogin(rep.guid)            
-             }
+            var rep = jQuery.parseJSON(ret)
+
+            console.log("reponse : ", rep);
+
+            if(rep.error == null){
+                that.props.doLogin(rep.guid)            
+            }
         })
     },
     render() {
@@ -156,51 +157,54 @@ const Register = React.createClass({
         }
     },
     handleSubmit(event) {
-            event.preventDefault()
-            var email = ReactDOM.findDOMNode(this.refs.email).value
-            var pass = ReactDOM.findDOMNode(this.refs.pass).value
-            var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
-            var lastname = ReactDOM.findDOMNode(this.refs.lastname).value
-            var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
-            react = this;
-            HttpPost('/register', {
-                'email': email,
-                'password': pass,
-                'firstname': firstname,
-                'lastname': lastname,
-                'organisation' : organisation            
-            }, function(ret) {
-                react.setState({registered: ret})
-            })
-        },
-        render() {
-            if(this.state.registered){
-              if (this.state.registered.error == null) 
-              {            
+        event.preventDefault()
+
+        var email = ReactDOM.findDOMNode(this.refs.email).value
+        var pass = ReactDOM.findDOMNode(this.refs.pass).value
+        var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
+        var lastname = ReactDOM.findDOMNode(this.refs.lastname).value
+        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
+        var that = this;
+
+        HttpPost('/register', {
+            'email': email,
+            'password': pass,
+            'firstname': firstname,
+            'lastname': lastname,
+            'organisation' : organisation            
+        }, function(ret) {
+            that.setState({registered: ret})
+        })
+    },
+    render() {
+        if(this.state.registered){
+            if (this.state.registered.error == null) 
+            {            
                 return (
-                        <div className="bar bar-header-secondary">
-                            register success full!
-                        </div>
-                       );                    
-              }
+                    <div className="bar bar-header-secondary">
+                        register success full!
+                    </div>
+                );                    
             }
-            return (
-              <div className={"page " + this.props.position}>
-               <Header text="Envio intranet" back="false"/>
+        }
+        
+        return (
+            <div className={"page " + this.props.position}>
+                <Header text="Envio intranet" back="false"/>
                 <div className="bar bar-header-secondary">
-                   <form role="form" onSubmit={this.handleSubmit}>
-                      <div className="form-group">
-                      <input ref="firstname" type="text" placeholder="firstname" />
-                      <input ref="lastname" type="text" placeholder="lastname" />
-                      <input ref="email" type="text" placeholder="email" />
-                      <input ref="pass" type="password" placeholder="Password" />
-                      <input ref="organisation" type="text" placeholder="Organisation" />                     
-                      </div>
-                      <button type="submit" >Submit</button>
+                    <form role="form" onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                        <input ref="firstname" type="text" placeholder="firstname" />
+                        <input ref="lastname" type="text" placeholder="lastname" />
+                        <input ref="email" type="text" placeholder="email" />
+                        <input ref="pass" type="password" placeholder="Password" />
+                        <input ref="organisation" type="text" placeholder="Organisation" />                     
+                    </div>
+                    <button type="submit" >Submit</button>
                     </form>
                 </div>
             </div>
-            );
+        );
     }
 });
 
@@ -220,20 +224,21 @@ const App = React.createClass({
         this.setState({userId: false});
     },
     render() {
-          if(this.state.userId){
+        if (this.state.userId) {
             return (
-            <div className={"page " + this.props.position}>
-                <Header text="Envio intranet" />
-                <Home  doLogout={this.doLogout}/>
-            </div>
-                    );                    
-            }
-        return (
-            <div className={"page " + this.props.position}>
-                <Header text="Envio intranet"/>
-                <Login doLogin={this.doLogin}/>
-            </div>
-        );
+                <div className={"page " + this.props.position}>
+                    <Header text="Envio intranet" />
+                    <Home doLogout={this.doLogout}/>
+                </div>
+            );                    
+        } else {   
+            return (
+                <div className={"page " + this.props.position}>
+                    <Header text="Envio intranet"/>
+                    <Login doLogin={this.doLogin}/>
+                </div>
+            );
+        }
     }
 });
 
