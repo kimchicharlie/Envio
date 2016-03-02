@@ -4,6 +4,8 @@ var Route = require('react-router').Route;
 var Link = require('react-router').Link;
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
+var Modal = require('react-modal');
+var Select = require('react-select');
 
 var Header = React.createClass({
     render() {
@@ -112,7 +114,6 @@ var Planning = React.createClass({
     }
 });
 
-
 var Login = React.createClass({
     handleSubmit(event) {
         event.preventDefault()
@@ -136,16 +137,20 @@ var Login = React.createClass({
     },
     render() {
         return (
-        <div className="bar bar-header-secondary">
-             <form role="form" onSubmit={this.handleSubmit}>
-                 <div className="form-group">
-                  <input ref="email" type="text" placeholder="email" />
-                  <input ref="pass" type="password" placeholder="Password" />
-                </div>
-                <button type="submit" >Submit</button>
-              </form>
-              <Link to="/Register">Register</Link>
-        </div>
+            <div className="form-big">
+                <form role="form" onSubmit={this.handleSubmit}>
+                    <div className="input-list">
+                        <div className="input-container">
+                            <input className="input-medium" ref="email" type="text" placeholder="email" />
+                        </div>
+                        <div className="input-container">
+                            <input className="input-medium" ref="pass" type="password" placeholder="Password" />
+                        </div>
+                    </div>
+                    <button className="button-medium" type="submit" >Valider</button>
+                </form>
+                <Link className="button-medium no-decoration" to="/Register">S'enregistrer</Link>
+            </div>
         );
     }
 });
@@ -157,7 +162,7 @@ const Register = React.createClass({
         }
     },
     handleSubmit(event) {
-        event.preventDefault()
+        event.preventDefault();
 
         var email = ReactDOM.findDOMNode(this.refs.email).value
         var pass = ReactDOM.findDOMNode(this.refs.pass).value
@@ -176,32 +181,48 @@ const Register = React.createClass({
             that.setState({registered: ret})
         })
     },
+    backToLogin(event) {
+        event.preventDefault();
+
+
+    },
     render() {
         if(this.state.registered){
             if (this.state.registered.error == null) 
             {            
                 return (
                     <div className="bar bar-header-secondary">
-                        register success full!
+                        register successfull!
                     </div>
                 );                    
             }
         }
         
         return (
-            <div className={"page " + this.props.position}>
-                <Header text="Envio intranet" back="false"/>
+            <div className="form-big">
+                <Header text="Envio" back="false"/>
                 <div className="bar bar-header-secondary">
                     <form role="form" onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <input ref="firstname" type="text" placeholder="firstname" />
-                        <input ref="lastname" type="text" placeholder="lastname" />
-                        <input ref="email" type="text" placeholder="email" />
-                        <input ref="pass" type="password" placeholder="Password" />
-                        <input ref="organisation" type="text" placeholder="Organisation" />                     
-                    </div>
-                    <button type="submit" >Submit</button>
+                        <div className="form-group">
+                            <div className="input-container">
+                                <input className="input-medium" ref="firstname" type="text" placeholder="firstname"/>
+                            </div>
+                            <div className="input-container">
+                                <input className="input-medium" ref="lastname" type="text" placeholder="lastname"/>
+                            </div>
+                            <div className="input-container">
+                                <input className="input-medium" ref="email" type="text" placeholder="email"/>
+                            </div>
+                            <div className="input-container">
+                                <input className="input-medium" ref="pass" type="password" placeholder="Password"/>
+                            </div>
+                            <div className="input-container">
+                                <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
+                            </div>
+                        </div>
+                        <button className="button-medium" type="submit">Valider</button>
                     </form>
+                    <Link className="button-medium no-decoration" to="/">Retour</Link>
                 </div>
             </div>
         );
@@ -226,15 +247,19 @@ const App = React.createClass({
     render() {
         if (this.state.userId) {
             return (
-                <div className={"page " + this.props.position}>
-                    <Header text="Envio intranet" />
+                <div className="main-content">
+                    <div className="header-container">
+                        <span className="title-big">Envio</span>
+                    </div>
                     <Home doLogout={this.doLogout}/>
                 </div>
             );                    
         } else {   
             return (
-                <div className={"page " + this.props.position}>
-                    <Header text="Envio intranet"/>
+                <div className="main-content">
+                    <div className="header-container">
+                        <span className="title-big">Envio</span>
+                    </div>
                     <Login doLogin={this.doLogin}/>
                 </div>
             );

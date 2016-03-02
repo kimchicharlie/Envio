@@ -46,6 +46,7 @@ var routes = [
 	require("./Routes/connexion").routes,
 	require("./Routes/room").routes,
 	require("./Routes/mode").routes,
+	require("./Routes/event").routes,
 	require("./Routes/default").routes
 ];
 for (var i = 0; i < routes.length; i++)
