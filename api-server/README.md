@@ -124,6 +124,50 @@ Paramètres :
 	"temperature" : "Temperature voulue pour la room"
 }
 ```
+
+Ajouter un Mode au Planning de la Room
+```json
+Route : "/addEventPlanning?api_key={key}"  
+Methode : "POST"
+Paramètres :
+{
+	"roomId" : "ID de la room",
+        "eventName": "Nom (généralement le nom du mode)",
+        "modeID": "ID du mode",
+        "dateBegin": "Date de debut du mode(un object javascript date)",
+        "dateEnd": "Date de fin du mode(un object javascript date)"
+}
+```
+
+Suprimer un Mode du Planning de la Room
+```json
+Route : "/removeEventPlanning?api_key={key}"  
+Methode : "POST"
+Paramètres :
+{
+	"roomId" : "ID de la room",
+        "eventName": "Nom (généralement le nom du mode)",
+        "dateBegin": "Date de debut du mode(un object javascript date)",
+}
+```
+Modifier un Mode au Planning de la Room
+```json
+Route : "/modifyEventPlanning?api_key={key}"  
+Methode : "POST"
+Paramètres :
+{
+	"roomId" : "ID de la room",
+        "eventName": "Nom (généralement le nom du mode)",
+        "newName": "Nouveau nom",
+        "modeID": "ID du mode",
+        "dateBegin": "Date de debut du mode(un object javascript date)",
+        "dateEnd": "Date de fin du mode(un object javascript date)",
+	"newDateBegin": "Nouvelle date de debut",
+	"newDateEnd": "Nouvelle date de fin"
+}
+```
+
+
 ###Materiel :
 Récupérer les matériels de la room 
 ```json
@@ -273,3 +317,64 @@ Paramètres :
 	"guid" : "GUID de l'utilisateur"
 }
 ```
+###Mode
+Créer un mode
+```json
+Route : "/creatMode"  
+Methode : "POST"
+Paramètres :
+{
+	"organisation" : "Organisation",
+	"name" : "Nom",
+	"luminosity" : "lumière",
+	"opacity" : "opicter",
+	"temperature" : "température" 
+}
+```
+
+Modifier un mode
+```json
+Route : "/modifyMode"  
+Methode : "POST"
+Paramètres :
+{
+	"modeID" : "ID du mode",
+	"newName" : "nom",
+	"luminosity" : "Lumière",
+	"opacity" : "Opicter",
+	"temperature" : "Température" 
+}
+```
+Supprimer un mode
+```json
+Route : "/deleteMode"  
+Methode : "POST"
+Paramètres :
+{
+	"modeID" : "ID du mode"
+}
+```
+Récupérer les modes
+```json
+Route : "/getModes"  
+Methode : "POST"
+Paramètres :
+{
+	"organisation" : "Organisation"
+}
+```
+
+Récupérer un mode
+```json
+Route : "/getMode"  
+Methode : "POST"
+Paramètres :
+{
+	"modeID" : "ID du mode"
+}
+```
+
+
+
+
+
