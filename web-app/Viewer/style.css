@@ -1,0 +1,56 @@
+html, body { margin: 0px; padding: 0px; border: 0px; }
+
+body {
+	margin: 0px;
+	overflow: hidden;
+}
+
+#full {
+	width: 100%;
+	height: 100%;
+}
+
+#help {
+	font-family: "Courier";
+	color: black;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	z-index: 10;
+}
+
+#rotateLeft {
+	position: absolute;
+	bottom: 52px;
+	right: 94px;
+}
+
+#moveForward {
+	position: absolute;
+	bottom: 52px;
+	right: 52px;
+}
+
+#rotateRight {
+	position: absolute;
+	bottom: 52px;
+	right: 10px;
+}
+
+#moveLeft {
+	position: absolute;
+	bottom: 10px;
+	right: 94px;
+}
+
+#moveBackward {
+	position: absolute;
+	bottom: 10px;
+	right: 52px;
+}
+
+#moveRight {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+}
