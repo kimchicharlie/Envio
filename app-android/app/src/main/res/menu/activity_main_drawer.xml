@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/places_ic_search"
+            android:title="Manage Rooms" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@android:drawable/ic_menu_today"
+            android:title="Planner" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_setting_light"
+            android:title="More Options" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/common_full_open_on_phone"
+            android:title="Disconnect" />
+    </group>
+
+    <item android:title="Contact">
+        <menu>
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Contact support" />
+        </menu>
+    </item>
+
+</menu>
