@@ -2,7 +2,10 @@
 
 RoomState::RoomState()
 {
-
+    // récupérer les vrais valeurs dans la DB
+    _temp = 20.0;
+    _lum = 60;
+    _opac = 20;
 }
 
 RoomState::~RoomState()

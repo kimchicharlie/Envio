@@ -5,7 +5,9 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QDateTime>
+#include <QString>
 #include "temperatureWindow.h"
+#include "roomstate.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +21,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    TemperatureWindow* getTempWin();
+/*
+    TemperatureWindow MainWindow::getTempWin();
+    LumWindow MainWindow::getLumWin();
+    OpacWindow MainWindow::getOpacWin();
+    PlanningWindow MainWindow::getPlanWin();
+    ConfigWindow MainWindow::getConfigWin();
+*/
 private slots:
     void on_TempEditButton_clicked();
 
@@ -26,17 +36,22 @@ private slots:
 
     void on_OpacEditButton_clicked();
 
-    void on_PlanningEditButton_2_clicked();
+    void on_PlanningEditButton_clicked();
 
     void on_ConfigEditButton_clicked();
 
     // make signals and slots to update
     // the state when values change
+    void tempValChanged(double newVal);
+
+    // slot to return to the mainWindow
+    void    backToMainFromTemp();
 
 private:
     Ui::MainWindow  *ui;
 
     QPixmap         *_logo;
+    RoomState       *_curRoom;
 
     // Label to display state
     QLabel          *_tempLbl;

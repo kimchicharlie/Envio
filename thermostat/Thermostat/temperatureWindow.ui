@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>240</height>
+    <width>324</width>
+    <height>241</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,21 +27,21 @@
      <item row="1" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="AccueilBtn">
          <property name="text">
           <string>Accueil</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="LumEditBtn">
          <property name="text">
           <string>Lumiere</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="OpacEditBtn">
          <property name="text">
           <string>Vitres</string>
          </property>
@@ -52,14 +52,14 @@
      <item row="2" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="PlanningEditBtn">
          <property name="text">
           <string>Planning</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="ConfigEditBtn">
          <property name="text">
           <string>Configuration</string>
          </property>
@@ -81,19 +81,32 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="5" column="1">
       <widget class="QSlider" name="TempHorizontalSlider">
        <property name="minimum">
-        <number>-10</number>
+        <number>160</number>
        </property>
        <property name="maximum">
-        <number>40</number>
+        <number>400</number>
+       </property>
+       <property name="singleStep">
+        <number>5</number>
+       </property>
+       <property name="pageStep">
+        <number>5</number>
        </property>
        <property name="sliderPosition">
-        <number>20</number>
+        <number>200</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="TempLabel">
+       <property name="text">
+        <string>TextLabel</string>
        </property>
       </widget>
      </item>
@@ -105,7 +118,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>320</width>
+     <width>324</width>
      <height>25</height>
     </rect>
    </property>

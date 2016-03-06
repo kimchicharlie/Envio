@@ -2,7 +2,9 @@
 #define TEMPERATUREWINDOW_H
 
 #include <QMainWindow>
-//#include "mainwindow.h"
+#include <QLabel>
+#include "QSlider.h"
+#include <iostream>
 
 namespace Ui {
 class TemperatureWindow;
@@ -18,12 +20,21 @@ public:
 
 signals:
     // signal to handle the temp has changed
+    void tempChange(double temp);
+    void returnToMain();
 
 private slots:
+//    void updateLabelValue(double value);
     //
 
+    void on_TempHorizontalSlider_valueChanged(int value);
+
+    void on_AccueilBtn_clicked();
+
 private:
-    Ui::TemperatureWindow *ui;
+    Ui::TemperatureWindow   *ui;
+    QSlider                 *_slider;
+    QLabel                  *_label;
 };
 
 #endif // TEMPERATUREWINDOW_H
