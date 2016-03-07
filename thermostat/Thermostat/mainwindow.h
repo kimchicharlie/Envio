@@ -7,6 +7,7 @@
 #include <QDateTime>
 #include <QString>
 #include "temperatureWindow.h"
+#include "LumWindow.h"
 #include "roomstate.h"
 
 namespace Ui {
@@ -22,9 +23,8 @@ public:
     ~MainWindow();
 
     TemperatureWindow* getTempWin();
+    LumWindow* getLumWin();
 /*
-    TemperatureWindow MainWindow::getTempWin();
-    LumWindow MainWindow::getLumWin();
     OpacWindow MainWindow::getOpacWin();
     PlanningWindow MainWindow::getPlanWin();
     ConfigWindow MainWindow::getConfigWin();
@@ -43,9 +43,10 @@ private slots:
     // make signals and slots to update
     // the state when values change
     void tempValChanged(double newVal);
+    void lumValChanged(int newVal);
 
     // slot to return to the mainWindow
-    void    backToMainFromTemp();
+    void    backToMain();
 
 private:
     Ui::MainWindow  *ui;
@@ -67,6 +68,7 @@ private:
 
     // Other windows
     TemperatureWindow   *_tempWin;
+    LumWindow           *_lumWin;
 };
 
 #endif // MAINWINDOW_H

@@ -1,26 +1,25 @@
-#ifndef TEMPERATUREWINDOW_H
-#define TEMPERATUREWINDOW_H
+#ifndef LUMWINDOW_H
+#define LUMWINDOW_H
 
 #include <QMainWindow>
 #include <QLabel>
-#include "QSlider.h"
-#include <iostream>
+#include <QSlider>
 
 namespace Ui {
-class TemperatureWindow;
+class LumWindow;
 }
 
-class TemperatureWindow : public QMainWindow
+class LumWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit TemperatureWindow(QWidget *parent = 0);
-    ~TemperatureWindow();
+    explicit LumWindow(QWidget *parent = 0);
+    ~LumWindow();
 
 signals:
     // signal to handle the temp has changed
-    void tempChange(double temp);
+    void lumChange(int lum);
     void returnToMain();
 
 private slots:
@@ -29,10 +28,10 @@ private slots:
     void on_AccueilBtn_clicked();
 
 private:
-    Ui::TemperatureWindow   *ui;
+    Ui::LumWindow *ui;
     QPixmap                 *_logo;
     QSlider                 *_slider;
     QLabel                  *_label;
 };
 
-#endif // TEMPERATUREWINDOW_H
+#endif // LUMWINDOW_H
