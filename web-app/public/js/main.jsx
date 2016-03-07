@@ -1,7 +1,4 @@
 var React = require('react');
-var Router = require('react-router').Router;
-var Route = require('react-router').Route;
-var Link = require('react-router').Link;
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
 var Modal = require('react-modal');
@@ -23,21 +20,13 @@ var Sidemenu = React.createClass({
         return (
             <ul className="table-view">
                 <li className="table-view-cell media">
-                    <a className="navigate-right">
-                        <span className="media-object pull-left icon icon-trash"></span>
-                        <div className="media-body">
-                            Item 1
-                        </div>
-                    </a>
+                    <p onClick={this.props.changeCat}>Planning</p>
                 </li>
                 <li className="table-view-cell media">
-                    <Link to="/Planning">Planning</Link>
+                    <p onClick={this.props.changeCat}>Rooms</p>
                 </li>
                 <li className="table-view-cell media">
-                    <Link to="/Rooms">Rooms</Link>
-                </li>
-                <li className="table-view-cell media">
-                    <Link to="/Modes">Modes</Link>
+                    <p  onClick={this.props.changeCat}>Modes</p>
                 </li>
             </ul>  
         );
@@ -45,9 +34,13 @@ var Sidemenu = React.createClass({
 });
 
 var Home = React.createClass({
+    getInitialState: function() {
+        return {
+              selectedCat : null
+        };
+    },
     handleClick: function(event) {
-        var that = this
-
+        var that = this;        
         HttpPost('/logout', {
             'guid': cookie.load('userId')
         }, function(ret) {
@@ -57,10 +50,29 @@ var Home = React.createClass({
             }
         })
     },
+    changeCat: function(event){
+        this.setState({selectedCat:event.target.textContent});
+    },
     render() {
+        var cat = null;
+        switch (this.state.selectedCat) 
+        {
+            case "Rooms" :
+                cat = <Rooms/>;
+                break;
+            case "Modes" :
+                cat = <Modes/>;
+                break;
+            case "Planning" :
+                cat = <Planning/>;
+                break;
+             default:
+                 cat = null;
+         }
         return (
             <div className="content">
-                <Sidemenu />
+                <Sidemenu changeCat={this.changeCat}/>
+                {cat}
                 <ul className="table-view">
                     <li className="table-view-cell media">
                         boum
@@ -115,7 +127,12 @@ var Planning = React.createClass({
 });
 
 var Login = React.createClass({
-    handleSubmit(event) {
+    getInitialState : function() {
+        return {
+            selectedCat : false  
+        };
+    },
+    handleSubmit : function(event) {
         event.preventDefault()
 
         var that = this;
@@ -127,15 +144,19 @@ var Login = React.createClass({
             'password': pass,
         }, function(ret) {          
             var rep = jQuery.parseJSON(ret)
-
             console.log("reponse : ", rep);
-
             if(rep.error == null){
                 that.props.doLogin(rep.guid)            
             }
         })
     },
+    changeCat : function()
+    {
+        this.setState({selectedCat : true})
+    },
     render() {
+        if (this.state.selectedCat)
+            return (<Register/>)
         return (
             <div className="form-big">
                 <form role="form" onSubmit={this.handleSubmit}>
@@ -149,7 +170,7 @@ var Login = React.createClass({
                     </div>
                     <button className="button-medium" type="submit" >Valider</button>
                 </form>
-                <Link className="button-medium no-decoration" to="/Register">S'enregistrer</Link>
+                <button className="button-medium no-decoration" onClick={this.changeCat}>S&#39;enregistrer</button>
             </div>
         );
     }
@@ -181,10 +202,11 @@ const Register = React.createClass({
             that.setState({registered: ret})
         })
     },
+    reloadPage : function (){
+        document.location.reload()
+    },
     backToLogin(event) {
         event.preventDefault();
-
-
     },
     render() {
         if(this.state.registered){
@@ -193,6 +215,7 @@ const Register = React.createClass({
                 return (
                     <div className="bar bar-header-secondary">
                         register successfull!
+                        <button onClick={this.reloadPage}>Se loger</button>
                     </div>
                 );                    
             }
@@ -267,21 +290,5 @@ const App = React.createClass({
     }
 });
 
-var Racine = React.createClass({
-    render() {
-        return (
-            <Router>
-                <Route path="/" component={App} />                
-                <Route path="/Register" component={Register}/>
-                <Route path="/CreatRoom" component={CreatRoom}/>
-                <Route path="/Rooms" component={Rooms}/>
-                <Route path="/Rooms/:Id" component={ModifRoom}/>
-                <Route path="/CreatMode" component={CreatMode}/>
-                <Route path="/Modes" component={Modes}/>
-                <Route path="/Modes/:Id" component={ModifMode}/>
-                <Route path="/Planning" component={Planning}/>
-          </Router>
-    )}
-})
 
-ReactDOM.render(<Racine />, document.getElementById('content'));
+ReactDOM.render(<App />, document.getElementById('content'));

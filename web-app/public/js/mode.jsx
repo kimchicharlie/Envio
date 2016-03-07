@@ -1,7 +1,4 @@
 var React = require('react');
-var Router = require('react-router').Router;
-var Route = require('react-router').Route;
-var Link = require('react-router').Link;
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
 
@@ -18,6 +15,9 @@ var Header = React.createClass({
 });
 
 ModeListItem = React.createClass({
+    handleClick : function (){
+      this.props.changeToModif(this.props.mode._id);
+    },	
 	render: function () {
 			return (
 			<li className="table-view-cell media">
@@ -25,7 +25,7 @@ ModeListItem = React.createClass({
 			<div>Luminosité: {this.props.mode.light}</div>
 			<div>Opacité : {this.props.mode.opacity}</div>
 			<div>Temperature : {this.props.mode.temperature}</div>
-			<Link to={`/Modes/${this.props.mode._id}`}>Modifier</Link>
+			<button onClick={this.handleClick}>Modifier</button>
 			</li>
 		);
 	}
@@ -33,9 +33,10 @@ ModeListItem = React.createClass({
 
 ModeList = React.createClass({
 	render: function () {
+		var react = this
 		var items = this.props.modes.map(function (mode) {
 			return (
-				<ModeListItem key={mode.id} mode={mode} />
+				<ModeListItem key={mode.id} mode={mode} changeToModif={react.props.changeToModif}/>
 			);
 		});
 		return (
@@ -49,30 +50,66 @@ ModeList = React.createClass({
 Modes = React.createClass({
 	  getInitialState: function() {        
 		return {
-			modes: []
-		}
+			modes: [],
+			selectedCat :null,
+		};
 	  },
-	  componentDidMount: function() {
-		react = this
+  	  changeToCreat: function(){
+          this.setState({selectedCat:"creat"});
+      },
+      changeToModif: function(Id){
+      		console.log("la");
+      		console.log(Id);
+          this.setState({selectedCat:Id});
+      },
+      changeToModeList: function(){
+      	react = this;
 		  HttpPost('/getModes', {
 			'organisation': 'Envio',// a changer avec les info users            
 		}, function(ret) {         
-			rep = jQuery.parseJSON(ret)
-			if (rep.error == null){              
-			  react.setState({modes: rep.modes})
+			rep = jQuery.parseJSON(ret);
+			if (rep.error === null){
+			  react.setState({modes: rep.modes});
+			  react.setState({selectedCat:null});
 			}
 			else{
-			  react.setState({modes: rep.error})
+			  react.setState({modes: rep.error});
+			  react.setState({selectedCat:null});
 			}            
-		})
+		});          
+      },  
+	  componentDidMount: function() {
+		react = this;
+		  HttpPost('/getModes', {
+			'organisation': 'Envio',// a changer avec les info users            
+		}, function(ret) {         
+			rep = jQuery.parseJSON(ret);
+			if (rep.error === null){
+			  react.setState({modes: rep.modes});
+			}
+			else{
+			  react.setState({modes: rep.error});
+			}            
+		});
 	  },
 	  render() {
+          var cat = <ModeList modes={this.state.modes} changeToModif={this.changeToModif}/>;
+          var creatbutton = <button onClick={this.changeToCreat}>Creat Mode</button>;
+          if (this.state.selectedCat == "creat") 
+          {
+              cat = <CreatMode changeToModeList={this.changeToModeList}/>;
+              creatbutton = null
+          }                  
+          if(this.state.selectedCat != "creat" && this.state.selectedCat !== null )
+          {
+              cat = <ModifMode Id={this.state.selectedCat} changeToModeList={this.changeToModeList}/>;
+          }	  	  
 		  return (
 			  <div>
 				<Header text="Envio Mode"/>
 				<div className="content">
-					<ModeList modes={this.state.modes}/>
-					<Link to="/CreatMode">Creat mode</Link>
+					{cat}                   
+                    {creatbutton}
 				</div>
 			  </div>
 		  );
@@ -89,7 +126,7 @@ ModifMode = React.createClass({
 	componentDidMount: function() {
 	   react = this;
 	   HttpPost('/getMode', {
-		  'modeID': react.props.params.Id,         
+		  'modeID': react.props.Id,         
 	  }, function(ret) {          
 		  rep = jQuery.parseJSON(ret)
 		  console.log(rep)
@@ -104,11 +141,11 @@ ModifMode = React.createClass({
 		var temperature = ReactDOM.findDOMNode(this.refs.temperature).value
 		react = this;
 		HttpPost('/modifyMode', {
-			'modeID' : react.props.params.Id,
+			'modeID' : react.props.Id,
 			'newName' : newName,
 			'light' : light,
 			'opacity' : opacity,
-			'temperature' : temperature      
+			'temperature' : temperature
 		}, function(ret) {          
 			rep = jQuery.parseJSON(ret)
 			console.log(rep)
@@ -122,6 +159,7 @@ ModifMode = React.createClass({
 			return (
 					<div className="bar bar-header-secondary">
 						Modif success full!
+						<button onClick={this.props.changeToModeList} >Retour</button>
 					</div>
 				   );                    
 		  }
@@ -137,6 +175,7 @@ ModifMode = React.createClass({
 				</div>
 				<button type="submit" >modif</button>
 			  </form>
+			  <button onClick={this.props.changeToModeList} >Retour</button>
 		</div>
 		);
 	}
@@ -147,7 +186,7 @@ CreatMode = React.createClass({
 	getInitialState: function() {
 		return {
 			status: false,
-		}
+		};
 	},
 	handleSubmit(event) {
 		event.preventDefault()
@@ -177,6 +216,7 @@ CreatMode = React.createClass({
 			return (
 					<div className="bar bar-header-secondary">
 						Creat success full!
+						<button onClick={this.props.changeToModeList} >Retour</button>
 					</div>
 				   );                    
 		  }
@@ -193,6 +233,7 @@ CreatMode = React.createClass({
 				</div>
 				<button type="submit" >Creat</button>
 			  </form>
+			  <button onClick={this.props.changeToModeList} >Retour</button>
 		</div>
 		);
 	}
