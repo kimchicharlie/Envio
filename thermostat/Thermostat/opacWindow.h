@@ -1,37 +1,37 @@
-#ifndef LUMWINDOW_H
-#define LUMWINDOW_H
+#ifndef OPACWINDOW_H
+#define OPACWINDOW_H
 
 #include <QMainWindow>
-#include <QLabel>
 #include <QSlider>
+#include <QLabel>
 
 namespace Ui {
-class LumWindow;
+class OpacWindow;
 }
 
-class LumWindow : public QMainWindow
+class OpacWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit LumWindow(QWidget *parent = 0);
-    ~LumWindow();
+    explicit OpacWindow(QWidget *parent = 0);
+    ~OpacWindow();
 
 signals:
     // signal to handle the temp has changed
-    void lumChange(int lum);
+    void opacChange(int opac);
     void returnToMain();
 
 private slots:
-    void on_LumHorizontalSlider_valueChanged(int value);
+    void on_OpacHorizontalSlider_valueChanged(int value);
 
     void on_AccueilBtn_clicked();
 
 private:
-    Ui::LumWindow *ui;
+    Ui::OpacWindow          *ui;
     QPixmap                 *_logo;
     QSlider                 *_slider;
     QLabel                  *_label;
 };
 
-#endif // LUMWINDOW_H
+#endif // OPACWINDOW_H

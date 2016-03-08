@@ -7,7 +7,10 @@ RoomState::RoomState()
     _lum = 60;
     _opac = 20;
     _tempDisp = "°C";
+    _tempDispVal = 1;
     _hourDisp = 2;
+    connect(this, SIGNAL(changeTempDisp()),
+                      this, SLOT(convertTemp()));
 }
 
 RoomState::~RoomState()
@@ -28,8 +31,9 @@ void RoomState::setOpac(int opac) {
 }
 
 
-// 1 for celcius, 2 for farenheit
+// 1 for celcius, 2 for fahrenheit
 void    RoomState::setTempDisp(int change) {
+    _tempDispVal = change;
     if (change == 1)
         _tempDisp = "°C";
     else
@@ -40,7 +44,6 @@ void    RoomState::setTempDisp(int change) {
 // 1 for 12 hours, 2 for 24 hours
 void    RoomState::setHourDisp(int change) {
         _hourDisp = change;
-
 }
 
 double RoomState::getTemp() {
@@ -64,5 +67,10 @@ int     RoomState::getHourDisp() {
 }
 
 void    RoomState::convertTemp() {
-    //convert celcius to farenheit or invert
+    //convert celcius to fahrenheit or invert
+    // T(°C) = (T(°F) - 32) × 5/9
+    if (_tempDispVal == 1)
+        _temp = (_temp - 32) * 5 / 9;
+    else
+        _temp = _temp * 9 / 5 + 32;
 }

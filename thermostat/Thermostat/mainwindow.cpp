@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // temperature window and associated signals/slots
     _tempWin = new TemperatureWindow(this);
+//    _tempWin->_slider->setValue(_curRoom->getTemp() * 10);
     connect(_tempWin, SIGNAL(tempChange(double)),
             this, SLOT(tempValChanged(double)));
     connect(_tempWin, SIGNAL(returnToMain()),
@@ -41,14 +42,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // lum window and associated signals/slots
     _lumWin = new LumWindow(this);
+//    _lumWin->_slider->setValue(_curRoom->getLum());
     connect(_lumWin, SIGNAL(lumChange(int)),
             this, SLOT(lumValChanged(int)));
     connect(_lumWin, SIGNAL(returnToMain()),
             this, SLOT(backToMain()));
 
-    /*
+
     // opac window and associated signals/slots
     _opacWin = new OpacWindow(this);
+//    _opacWin->_slider->setValue(_curRoom->getOpac());
     connect(_opacWin, SIGNAL(opacChange(int)),
             this, SLOT(opacValChanged(int)));
     connect(_opacWin, SIGNAL(returnToMain()),
@@ -67,7 +70,6 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(hourDispChanged(int)));
     connect(_configWin, SIGNAL(returnToMain()),
             this, SLOT(backToMain()));
-    */
 }
 
 MainWindow::~MainWindow()
@@ -81,6 +83,8 @@ MainWindow::~MainWindow()
     delete _lumBtn;
     delete _opacBtn;
     delete _tempWin;
+    delete _lumWin;
+    delete _opacWin;
     delete ui;
 }
 
@@ -92,10 +96,11 @@ LumWindow* MainWindow::getLumWin() {
     return (_lumWin);
 }
 
-/*
+
 OpacWindow* MainWindow::getOpacWin() {
     return (_opacWin);
 }
+
 
 PlanningWindow* MainWindow::getPlanWin() {
     return (_planWin);
@@ -104,12 +109,16 @@ PlanningWindow* MainWindow::getPlanWin() {
 ConfigWindow* MainWindow::getConfigWin() {
     return (_configWin);
 }
-*/
+
 
 void MainWindow::on_TempEditButton_clicked()
 {
     // change window to TemperatureWindow
     this->hide();
+    _tempWin->hide();
+    _lumWin->hide();
+    _planWin->hide();
+    _configWin->hide();
     this->_tempWin->show();
 }
 
@@ -118,11 +127,9 @@ void MainWindow::on_LumEditButton_clicked()
     // change window to TemperatureWindow
     this->hide();
     _tempWin->hide();
-    /*
     _opacWin->hide();
     _planWin->hide();
     _configWin->hide();
-    */
     this->_lumWin->show();
 }
 
@@ -131,11 +138,9 @@ void MainWindow::on_OpacEditButton_clicked()
     this->hide();
     _tempWin->hide();
     _lumWin->hide();
-    /*
     _planWin->hide();
     _configWin->hide();
-    _opacWin->show();
-    */
+    this->_opacWin->show();
 }
 
 void MainWindow::on_PlanningEditButton_clicked()
@@ -143,11 +148,9 @@ void MainWindow::on_PlanningEditButton_clicked()
     this->hide();
     _tempWin->hide();
     _lumWin->hide();
-    /*
     _opacWin->hide();
     _configWin->hide();
     _planWin->show();
-    */
 }
 
 void MainWindow::on_ConfigEditButton_clicked()
@@ -155,21 +158,17 @@ void MainWindow::on_ConfigEditButton_clicked()
     this->hide();
     _tempWin->hide();
     _lumWin->hide();
-    /*
     _opacWin->hide();
     _planWin->hide();
     _configWin->show();
-    */
 }
 
 void    MainWindow::backToMain() {
     _tempWin->hide();
     _lumWin->hide();
-    /*
     _opacWin->hide();
     _planWin->hide();
     _configWin->hide();
-    */
     this->show();
 }
 
@@ -181,4 +180,9 @@ void MainWindow::tempValChanged(double newVal) {
 void MainWindow::lumValChanged(int newVal) {
     _curRoom->setLum(newVal);
     _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
+}
+
+void MainWindow::opacValChanged(int newVal) {
+    _curRoom->setOpac(newVal);
+    _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
 }

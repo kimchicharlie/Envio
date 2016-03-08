@@ -6,7 +6,7 @@ LumWindow::LumWindow(QWidget *parent) :
     ui(new Ui::LumWindow)
 {
     ui->setupUi(this);
-    _slider = ui->TempHorizontalSlider;
+    _slider = ui->LumHorizontalSlider;
     _label = ui->LumLabel;
     _label->setText(QString::number(_slider->value()) + "%");
 }
@@ -16,7 +16,7 @@ LumWindow::~LumWindow()
     delete ui;
 }
 
-void LumWindow::on_TempHorizontalSlider_valueChanged(int value)
+void LumWindow::on_LumHorizontalSlider_valueChanged(int value)
 {
     _label->setText(QString::number(value) + "%");
     emit lumChange(value);

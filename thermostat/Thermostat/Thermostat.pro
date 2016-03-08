@@ -13,16 +13,25 @@ TEMPLATE = app
 RC_FILE = thermostat.rc
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    roomstate.cpp \
     temperatureWindow.cpp \
-    lumWindow.cpp
+    lumWindow.cpp \
+    opacWindow.cpp \
+    mainwindow.cpp \
+    roomstate.cpp \
+    planningWindow.cpp \
+    configWindow.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += temperatureWindow.h \
+    lumWindow.h \
+    opacWindow.h \
+    mainwindow.h \
     roomstate.h \
-    temperatureWindow.h \
-    lumWindow.h
+    planningWindow.h \
+    configWindow.h
 
 FORMS    += mainwindow.ui \
     temperatureWindow.ui \
-    lumWindow.ui
+    lumWindow.ui \
+    opacWindow.ui \
+    planningWindow.ui \
+    configWindow.ui
