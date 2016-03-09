@@ -1,37 +1,29 @@
 package com.example.ilyesabdlillah.envio00114;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.survivingwithandroid.weather.lib.client.okhttp.WeatherDefaultClient;
 import com.survivingwithandroid.weather.lib.exception.WeatherProviderInstantiationException;
-import com.survivingwithandroid.weather.lib.provider.openweathermap.OpenweathermapProviderType;
 import com.survivingwithandroid.weather.lib.WeatherClient;
 import com.survivingwithandroid.weather.lib.WeatherConfig;
 import com.survivingwithandroid.weather.lib.exception.WeatherLibException;
@@ -42,154 +34,41 @@ import com.survivingwithandroid.weather.lib.request.WeatherRequest;
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.w3c.dom.Text;
 
-import java.util.zip.Inflater;
-
-
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    private LocationManager locationManager;
+{
     private LocationAdress locationAddress;
+    private LocationManager locationManager;
     private String provider;
+    private Toolbar toolbar;
+    private DrawerLayout mDrawer;
     protected ScrollView mainLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        // Save the main screen
-        mainLayout = (ScrollView)this.findViewById(R.id.scrollView);
-        // GPS location for weather condition @// TODO: 04/02/16 replace this code by the externals sensors.
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // User preferences conditions
-        final Location Util = UtilLocation.getLastKnownLocation(isNetworkAvailable(), getBaseContext());
-
-        final DiscreteSeekBar SeekBarTemp = (DiscreteSeekBar) findViewById(R.id.SeekbarTemp);
-        final DiscreteSeekBar SeekBarLum = (DiscreteSeekBar) findViewById(R.id.SeekbarLum);
-
-        final TextView TextTemp = (TextView) findViewById(R.id.Temperature);
-        final TextView TextLuminosity = (TextView) findViewById(R.id.Luminosity);
-        final TextView CityName = (TextView) findViewById(R.id.locationCity);
-        final UtilLocation Loc = new UtilLocation();
-        assert Util != null;
-
-        final TextView CurrTemp = (TextView) findViewById(R.id.currentTemp);
-        final TextView CurrUv = (TextView) findViewById(R.id.uvLevel);
-        final TextView CurrCond = (TextView) findViewById(R.id.currCondtions);
-        // GPS location for weather condition @// TODO: 04/02/16 replace this code by the externals sensors.
-        CityName.setText(String.format("%s %s %s", String.valueOf("Location: " + "Lat." + Util.getLatitude()), "Lon. " + String.valueOf(Util.getLongitude()), Loc.getAddressString(Util.getLatitude(), Util.getLongitude())));
-        // Sample WeatherLib client init
-
-        WeatherClient.ClientBuilder builder = new WeatherClient.ClientBuilder();
-        WeatherConfig config = new WeatherConfig();
-        config.ApiKey = "4d59e4bf7f4cff2886da5340194d96f9";
-        try {
-            WeatherClient client = new WeatherClient.ClientBuilder().attach(this)
-                    .provider(new ForecastIOProviderType())
-                    .httpClient(WeatherDefaultClient.class)
-                    .config(config)
-                    .build();
-            client.getCurrentCondition(new WeatherRequest(Util.getLongitude(), Util.getLatitude()), new WeatherClient.WeatherEventListener() {
-                @Override
-                public void onWeatherRetrieved(CurrentWeather currentWeather) {
-                    float currentTemp = currentWeather.weather.temperature.getTemp();
-                    Log.d("WL", "City ["+currentWeather.weather.location.getCity()+"] Current temp ["+currentTemp+"]");
-                    // Print results
-                    CurrTemp.setText(String.valueOf(currentTemp) + "°");
-                    CurrUv.setText(String.valueOf(currentWeather.weather.currentCondition.getUV()) + "");
-                    CurrCond.setText(currentWeather.weather.currentCondition.getDescr());
-                }
-
-                @Override
-                public void onWeatherError(WeatherLibException e) {
-                    Log.d("WL", "Weather Error - parsing data");
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onConnectionError(Throwable throwable) {
-                    Log.d("WL", "Connection error");
-                    throwable.printStackTrace();
-                }
-            });
-
-        } catch (WeatherProviderInstantiationException e) {
-            e.printStackTrace();
-        }
-
-        // Init User Configuration
-        TextTemp.setText(String.format("%s°", Integer.toString(SeekBarTemp.getProgress())));
-        TextLuminosity.setText(String.format("%s%%", Integer.toString(SeekBarLum.getProgress())));
-        TextTemp.setTextColor(Color.rgb(255, 145 - (SeekBarTemp.getProgress() - SeekBarTemp.getMin()) * 5, 34));
+        // Set a Toolbar to replace the ActionBar.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Envio Mods: (WIP)", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        // Change format of the popup of the bubble in the seek bar
-        // Connect the current value to the string
-        // Temperature
-        SeekBarTemp.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
-            @Override
-            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                TextTemp.setText(Integer.toString(SeekBarTemp.getProgress()) + "°");
-                SeekBarTemp.setIndicatorFormatter(Integer.toString(SeekBarTemp.getProgress()) + "°");
-                SeekBarTemp.setScrubberColor(Color.rgb(255, 145 - (SeekBarTemp.getProgress() - SeekBarTemp.getMin()) * 5, 83));
-                TextTemp.setTextColor(Color.rgb(255, 145 - (SeekBarTemp.getProgress() - SeekBarTemp.getMin()) * 5, 83));
-            }
 
-            @Override
-            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
-                SeekBarTemp.setIndicatorFormatter(Integer.toString(SeekBarTemp.getProgress()) + "°");
-                SeekBarTemp.setScrubberColor(Color.rgb(255, 145 - (SeekBarTemp.getProgress() - SeekBarTemp.getMin()) * 5, 83));
-                TextTemp.setTextColor(Color.rgb(255, 145 - (SeekBarTemp.getProgress() - SeekBarTemp.getMin()) * 5, 83));
-            }
+        // Call the main fragment
+        firstFragmentOnStart();
 
-            @Override
-            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
-                SeekBarTemp.setIndicatorFormatter(Integer.toString(SeekBarTemp.getProgress()) + "°");
-                SeekBarTemp.setScrubberColor(Color.rgb(255, 145 - (SeekBarTemp.getProgress() - SeekBarTemp.getMin()) * 5, 83));
-                TextTemp.setTextColor(Color.rgb(255, 145 - (SeekBarTemp.getProgress() - SeekBarTemp.getMin()) * 5, 83));
-            }
-        });
-        // Luminosity
-        SeekBarLum.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
-            @Override
-            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                int c = (SeekBarLum.getProgress() - SeekBarLum.getMin());
-                TextLuminosity.setText(Integer.toString(SeekBarLum.getProgress()) + "%");
-                SeekBarLum.setIndicatorFormatter(Integer.toString(SeekBarLum.getProgress()));
-                SeekBarLum.setScrubberColor(Color.rgb(0, 55 + c * 2, 55 + c * 2));
-                TextLuminosity.setTextColor(Color.rgb(0, 55 + c * 2, 55 + c * 2));
-            }
+        // Find our drawer view
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-            @Override
-            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
-                int c = (SeekBarLum.getProgress() - SeekBarLum.getMin());
-                SeekBarLum.setIndicatorFormatter(Integer.toString(SeekBarLum.getProgress()));
-                SeekBarLum.setScrubberColor(Color.rgb(0, 55 + c * 2, 55 + c * 2));
-                TextLuminosity.setTextColor(Color.rgb(0, 55 + c * 2, 55 + c * 2));
-            }
-
-            @Override
-            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
-
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // O/I Toolbar
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        // Setup drawer view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        setupDrawerContent(navigationView);
+        // Locating Function & Current condition
+        //currentCondition(CityName, Loc, Util);
     }
 
 
@@ -207,19 +86,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -227,35 +103,70 @@ public class MainActivity extends AppCompatActivity
 
 
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_slideshow) {
-            Intent myIntent = new Intent(MainActivity.this, Planner.class);
-            MainActivity.this.startActivity(myIntent);
-        } else if (id == R.id.nav_manage) {
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
 
-        } else if (id == R.id.nav_share) {
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Create a new fragment and specify the planet to show based on
+        // position
+        Fragment fragment = null;
 
-        } else if (id == R.id.nav_send) {
-
+        Class fragmentClass = null;
+        switch(menuItem.getItemId()) {
+            case R.id.nav_slideshow:
+                fragmentClass = Planner.class;
+                Log.v("Envio Fragment", "Passed");
+                break;
+            default:
+                fragmentClass = EnvioStart.class;
+                Log.v("Envio Fragment", "Default");
+        }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        // Highlight the selected item, update the title, and close the drawer
+        // Highlight the selected item has been done by NavigationView
+        // menuItem.setChecked(true);
+        setTitle(menuItem.getTitle());
+        mDrawer.closeDrawers();
     }
 
+    // Shows the first screen when the app is opened
+    public void firstFragmentOnStart()
+    {
+        Fragment fragment = null;
+        Class fragmentClass = null;
 
-    public boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-
+        // Here you choose the first fragment you want to display;
+        fragmentClass = EnvioStart.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        // Highlight the selected item, update the title, and close the drawer
+        // Highlight the selected item has been done by NavigationView
+        // menuItem.setChecked(true);
+        setTitle("Envio 0.0.1.14");
     }
+
 }

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mainviewandroid="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#000000">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +20,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.ilyesabdlillah.envio00114.MainActivity"
-    android:background="#212121">
+    android:background="#212121"
+    android:clickable="true"
+    android:translationZ="2dp"
+    android:elevation="2dp">
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +71,6 @@
     </LinearLayout>
 
 </ScrollView>
-
+</LinearLayout>
 
 

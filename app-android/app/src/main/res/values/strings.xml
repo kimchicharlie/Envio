@@ -5,4 +5,16 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="titreCalendrier">Calendrier</string>
     <string name="action_settings">Settings</string>
+    <string name="roomname">Living Room</string>
+    <string name="temperatureUnit">Temperature selected (°C)</string>
+    <string name="room">Living Room</string>
+    <string name="tempValue">--.-</string>
+    <string name="LumValue">--.-</string>
+    <string name="lumTitle">Luminosity (%)</string>
+    <string name="ActualConditionTitle">Actual conditions</string>
+    <string name="LocationValue">Location</string>
+    <string name="TempOutsideValue">--.-</string>
+    <string name="LumOutsideTitle">Luminosity (%)</string>
+    <string name="TempOutsideTitle">Temperature Outside (°C)</string>
+    <string name="LumOutsideValue">--.-</string>
 </resources>
