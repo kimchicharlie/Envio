@@ -21,11 +21,11 @@ ModeListItem = React.createClass({
 	render: function () {
 			return (
 			<li className="table-view-cell media">
-			<div>name: {this.props.mode.name}</div>
-			<div>Luminosité: {this.props.mode.light}</div>
-			<div>Opacité : {this.props.mode.opacity}</div>
-			<div>Temperature : {this.props.mode.temperature}</div>
-			<button onClick={this.handleClick}>Modifier</button>
+				<div>name: {this.props.mode.name}</div>
+				<div>Luminosité: {this.props.mode.light}</div>
+				<div>Opacité : {this.props.mode.opacity}</div>
+				<div>Temperature : {this.props.mode.temperature}</div>
+				<button onClick={this.handleClick}>Modifier</button>
 			</li>
 		);
 	}
@@ -36,7 +36,7 @@ ModeList = React.createClass({
 		var react = this
 		var items = this.props.modes.map(function (mode) {
 			return (
-				<ModeListItem key={mode.id} mode={mode} changeToModif={react.props.changeToModif}/>
+				<ModeListItem key={mode._id} mode={mode} changeToModif={react.props.changeToModif}/>
 			);
 		});
 		return (
