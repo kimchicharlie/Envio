@@ -21,11 +21,11 @@ RoomListItem = React.createClass({
     render: function () {
             return (
             <li className="table-view-cell media">
-            <div>name: {this.props.room.name}</div>
-            <div>Temperature actuel: {this.props.room.realTemperature}</div>
-            <div>Temperature voulus: {this.props.room.temperature}</div>
-            <div>m²: {this.props.room.volume}</div>
-            <button onClick={this.handleClick}>Modifier</button>
+              <div>name: {this.props.room.name}</div>
+              <div>Temperature actuel: {this.props.room.realTemperature}</div>
+              <div>Temperature voulus: {this.props.room.temperature}</div>
+              <div>m²: {this.props.room.volume}</div>
+              <button onClick={this.handleClick}>Modifier</button>
             </li>
         );
     }
@@ -36,7 +36,7 @@ RoomList = React.createClass({
         var react = this;
         var items = this.props.rooms.map(function (room) {
             return (
-                <RoomListItem key={room.id} room={room} changeToModif={react.props.changeToModif}/>
+                <RoomListItem key={room._id} room={room} changeToModif={react.props.changeToModif}/>
             );
         });
         return (

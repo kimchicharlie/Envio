@@ -24,15 +24,13 @@ signals:
     void returnToMain();
 
 private slots:
-//    void updateLabelValue(double value);
-    //
-
     void on_TempHorizontalSlider_valueChanged(int value);
 
     void on_AccueilBtn_clicked();
 
 private:
     Ui::TemperatureWindow   *ui;
+    QPixmap                 *_logo;
     QSlider                 *_slider;
     QLabel                  *_label;
 };

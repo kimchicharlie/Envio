@@ -10,16 +10,28 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Thermostat
 TEMPLATE = app
-
+RC_FILE = thermostat.rc
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    temperatureWindow.cpp \
+    lumWindow.cpp \
+    opacWindow.cpp \
+    mainwindow.cpp \
     roomstate.cpp \
-    temperatureWindow.cpp
+    planningWindow.cpp \
+    configWindow.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += temperatureWindow.h \
+    lumWindow.h \
+    opacWindow.h \
+    mainwindow.h \
     roomstate.h \
-    temperatureWindow.h
+    planningWindow.h \
+    configWindow.h
 
 FORMS    += mainwindow.ui \
-    temperatureWindow.ui
+    temperatureWindow.ui \
+    lumWindow.ui \
+    opacWindow.ui \
+    planningWindow.ui \
+    configWindow.ui

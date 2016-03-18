@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var cookie = require('react-cookie');
 var Modal = require('react-modal');
 var Select = require('react-select');
+var Cookie = require('react-cookie');
 
 var Header = React.createClass({
     render() {
@@ -20,16 +20,16 @@ var Sidemenu = React.createClass({
         return (
             <ul className="table-view">
                 <li className="table-view-cell media">
-                    <p onClick={this.props.changeCat}>Planning</p>
+                    <p onClick={this.props.setRoute.bind(null, "Planning")}>Planning</p>
                 </li>
                 <li className="table-view-cell media">
-                    <p onClick={this.props.changeCat}>Rooms</p>
+                    <p onClick={this.props.setRoute.bind(null, "Rooms")}>Rooms</p>
                 </li>
                 <li className="table-view-cell media">
-                    <p  onClick={this.props.changeCat}>Modes</p>
+                    <p  onClick={this.props.setRoute.bind(null, "Modes")}>Modes</p>
                 </li>
                 <li className="table-view-cell media">
-                    <p  onClick={this.props.changeCat}>Simulateur</p>
+                    <p  onClick={this.props.setRoute.bind(null, "Simulateur")}>Simulateur</p>
                 </li>
             </ul>  
         );
@@ -37,68 +37,75 @@ var Sidemenu = React.createClass({
 });
 
 var Home = React.createClass({
-    getInitialState: function() {
-        return {
-              selectedCat : null
-        };
-    },
-    handleClick: function(event) {
-        var that = this;        
-        HttpPost('/logout', {
-            'guid': cookie.load('userId')
-        }, function(ret) {
-            //rep = jQuery.parseJSON(ret)
-            if(ret.error == null){
-                that.props.doLogout()
-            }
-        })
-    },
-    changeCat: function(event){
-        this.setState({selectedCat:event.target.textContent});
+    componentWillMount : function () {
     },
     render() {
-        var cat = null;
-        switch (this.state.selectedCat) 
+        var route = null;
+        var content = "";
+
+        switch (this.props.selectedRoute) 
         {
             case "Rooms" :
-                cat = <Rooms/>;
+                content = (
+                    <div>
+                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <Rooms/>
+                        <button onClick={this.props.doLogout}>logout</button>
+                    </div>
+                )
                 break;
             case "Modes" :
-                cat = <Modes/>;
+                content = (
+                    <div>
+                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <Modes/>
+                        <button onClick={this.props.doLogout}>logout</button>
+                    </div>
+                )
                 break;
             case "Planning" :
-                cat = <Planning/>;
+                content = (
+                    <div>
+                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <Planning/>
+                        <button onClick={this.props.doLogout}>logout</button>
+                    </div>
+                )
                 break;
             case "Simulateur" :
-                cat = <Simulateur/>;
-                break;                
+                content = (
+                    <div>
+                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <Simulateur/>
+                        <button onClick={this.props.doLogout}>logout</button>
+                    </div>
+                )
+                break;
+            case "Login" :                
+                content = (
+                    <div>
+                        <Login setRoute={this.props.setRoute}
+                            doLogin={this.props.doLogin}/>
+                    </div>
+                )
+                break;
+            case "Register" :
+                content = (
+                    <div>
+                        <Register setRoute={this.props.setRoute}/>
+                    </div>
+                )
+                break;
              default:
-                 cat = null;
-         }
+                route = null;
+        }
+
         return (
             <div className="content">
-                <Sidemenu changeCat={this.changeCat}/>
-                {cat}
-                <ul className="table-view">
-                    <li className="table-view-cell media">
-                        boum
-                    </li>
-                </ul>
-                <button onClick={this.handleClick}>logout</button>
+                {content}
             </div>
           );
       }
-});
-
-const Simulateur = React.createClass({
-    componentDidMount : function() {
-        viewer();
-    },
-    render : function() {
-        return (
-            <div id="container" >Simulateur</div>
-        );
-    }
 });
 
 var Planning = React.createClass({
@@ -143,12 +150,18 @@ var Planning = React.createClass({
     }
 });
 
-var Login = React.createClass({
-    getInitialState : function() {
-        return {
-            selectedCat : false  
-        };
+var Simulateur = React.createClass({
+    componentDidMount : function() {
+        viewer();
     },
+    render : function() {
+        return (
+            <div id="container">Simulateur</div>
+        );
+    }
+});
+
+var Login = React.createClass({
     handleSubmit : function(event) {
         event.preventDefault()
 
@@ -163,17 +176,12 @@ var Login = React.createClass({
             var rep = jQuery.parseJSON(ret)
             console.log("reponse : ", rep);
             if(rep.error == null){
-                that.props.doLogin(rep.guid)            
+                that.props.doLogin(rep.guid);       
             }
         })
     },
-    changeCat : function()
-    {
-        this.setState({selectedCat : true})
-    },
     render() {
-        if (this.state.selectedCat)
-            return (<Register/>)
+        console.log("this : ", this)
         return (
             <div className="form-big">
                 <form role="form" onSubmit={this.handleSubmit}>
@@ -185,15 +193,15 @@ var Login = React.createClass({
                             <input className="input-medium" ref="pass" type="password" placeholder="Password" />
                         </div>
                     </div>
-                    <button className="button-medium" type="submit" >Valider</button>
+                    <button className="button-medium" type="submit">Valider</button>
                 </form>
-                <button className="button-medium no-decoration" onClick={this.changeCat}>S&#39;enregistrer</button>
+                <button className="button-medium no-decoration" onClick={this.props.setRoute.bind(null, "Register")}>S&#39;enregistrer</button>
             </div>
         );
     }
 });
 
-const Register = React.createClass({
+var Register = React.createClass({
     getInitialState: function() {
         return {
             registered: false,
@@ -202,6 +210,7 @@ const Register = React.createClass({
     handleSubmit(event) {
         event.preventDefault();
 
+        console.log("submit")
         var email = ReactDOM.findDOMNode(this.refs.email).value
         var pass = ReactDOM.findDOMNode(this.refs.pass).value
         var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
@@ -216,6 +225,7 @@ const Register = React.createClass({
             'lastname': lastname,
             'organisation' : organisation            
         }, function(ret) {
+            console.log("ret : ", ret)
             that.setState({registered: ret})
         })
     },
@@ -224,6 +234,8 @@ const Register = React.createClass({
     },
     backToLogin(event) {
         event.preventDefault();
+
+        this.props.setRoute("Login");
     },
     render() {
         if(this.state.registered){
@@ -232,7 +244,7 @@ const Register = React.createClass({
                 return (
                     <div className="bar bar-header-secondary">
                         register successfull!
-                        <button onClick={this.reloadPage}>Se loger</button>
+                        <button onClick={this.reloadPage}>Se connecter</button>
                     </div>
                 );                    
             }
@@ -240,7 +252,6 @@ const Register = React.createClass({
         
         return (
             <div className="form-big">
-                <Header text="Envio" back="false"/>
                 <div className="bar bar-header-secondary">
                     <form role="form" onSubmit={this.handleSubmit}>
                         <div className="form-group">
@@ -262,48 +273,62 @@ const Register = React.createClass({
                         </div>
                         <button className="button-medium" type="submit">Valider</button>
                     </form>
-                    <Link className="button-medium no-decoration" to="/">Retour</Link>
+                    <button className="button-medium no-decoration" onClick={this.backToLogin}>Retour</button>
                 </div>
             </div>
         );
     }
 });
 
-
-const App = React.createClass({
+var App = React.createClass({
     getInitialState: function() {
         return {
-            userId: cookie.load('userId')
-        }
-    },  
+            userId: Cookie.load('userId'),
+            selectedRoute: null
+        };
+    },
+    setRoute: function (route) {
+        this.setState({
+            selectedRoute : route
+        });
+    },
     doLogin: function(userId) {
         this.setState({userId : userId});
-        cookie.save('userId', userId);
+        Cookie.save('userId', userId);
+        this.setRoute('Rooms');
     },
-    doLogout: function() {
-        cookie.remove('userId');            
-        this.setState({userId: false});
+    doLogout: function(event) {
+        var that = this;  
+
+        HttpPost('/logout', {
+            'guid': Cookie.load('userId')
+        }, function(ret) {
+            //rep = jQuery.parseJSON(ret)
+            if(ret.error === null){
+                Cookie.remove('userId');            
+                this.setState({userId: false});
+            }
+        });
+    },
+    componentWillMount: function () {
+        if (this.state.userId) {
+            this.setRoute("Rooms");                 
+        } else {   
+            this.setRoute("Login");
+        }
     },
     render() {
-        if (this.state.userId) {
-            return (
-                <div className="main-content">
-                    <div className="header-container">
-                        <span className="title-big">Envio</span>
-                    </div>
-                    <Home doLogout={this.doLogout}/>
+        return (
+            <div className="main-content">
+                <div className="header-container">
+                    <span className="title-big">Envio</span>
                 </div>
-            );                    
-        } else {   
-            return (
-                <div className="main-content">
-                    <div className="header-container">
-                        <span className="title-big">Envio</span>
-                    </div>
-                    <Login doLogin={this.doLogin}/>
-                </div>
-            );
-        }
+                <Home selectedRoute={this.state.selectedRoute}
+                    doLogout={this.doLogout} 
+                    doLogin={this.doLogin}
+                    setRoute={this.setRoute}/>
+            </div>
+        ); 
     }
 });
 

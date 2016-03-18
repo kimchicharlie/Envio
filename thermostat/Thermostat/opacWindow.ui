@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TemperatureWindow</class>
- <widget class="QMainWindow" name="TemperatureWindow">
+ <class>OpacWindow</class>
+ <widget class="QMainWindow" name="OpacWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -34,44 +34,47 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="LumEditBtn">
+        <widget class="QPushButton" name="TempEditBtn">
          <property name="text">
-          <string>Lumiere</string>
+          <string>Température</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="OpacEditBtn">
+        <widget class="QPushButton" name="LumEditBtn">
          <property name="text">
-          <string>Vitres</string>
+          <string>Lumières</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item row="2" column="1">
-      <widget class="QLabel" name="TempFixLabel">
+      <widget class="QLabel" name="LumFixLabel">
        <property name="text">
-        <string>Temperature</string>
+        <string>Lumière</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QSlider" name="TempHorizontalSlider">
+      <widget class="QSlider" name="OpacHorizontalSlider">
        <property name="minimum">
-        <number>160</number>
+        <number>0</number>
        </property>
        <property name="maximum">
-        <number>400</number>
+        <number>100</number>
        </property>
        <property name="singleStep">
-        <number>5</number>
+        <number>1</number>
        </property>
        <property name="pageStep">
-        <number>5</number>
+        <number>1</number>
+       </property>
+       <property name="value">
+        <number>70</number>
        </property>
        <property name="sliderPosition">
-        <number>200</number>
+        <number>70</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -97,7 +100,7 @@
       </layout>
      </item>
      <item row="3" column="1">
-      <widget class="QLabel" name="TempLabel">
+      <widget class="QLabel" name="LumLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>

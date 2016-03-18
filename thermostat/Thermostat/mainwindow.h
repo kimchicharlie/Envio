@@ -7,6 +7,10 @@
 #include <QDateTime>
 #include <QString>
 #include "temperatureWindow.h"
+#include "lumWindow.h"
+#include "opacWindow.h"
+#include "planningWindow.h"
+#include "configWindow.h"
 #include "roomstate.h"
 
 namespace Ui {
@@ -22,13 +26,11 @@ public:
     ~MainWindow();
 
     TemperatureWindow* getTempWin();
-/*
-    TemperatureWindow MainWindow::getTempWin();
-    LumWindow MainWindow::getLumWin();
-    OpacWindow MainWindow::getOpacWin();
-    PlanningWindow MainWindow::getPlanWin();
-    ConfigWindow MainWindow::getConfigWin();
-*/
+    LumWindow* getLumWin();
+    OpacWindow* getOpacWin();
+    PlanningWindow* getPlanWin();
+    ConfigWindow* getConfigWin();
+
 private slots:
     void on_TempEditButton_clicked();
 
@@ -43,9 +45,11 @@ private slots:
     // make signals and slots to update
     // the state when values change
     void tempValChanged(double newVal);
+    void lumValChanged(int newVal);
+    void opacValChanged(int newVal);
 
     // slot to return to the mainWindow
-    void    backToMainFromTemp();
+    void    backToMain();
 
 private:
     Ui::MainWindow  *ui;
@@ -67,6 +71,10 @@ private:
 
     // Other windows
     TemperatureWindow   *_tempWin;
+    LumWindow           *_lumWin;
+    OpacWindow          *_opacWin;
+    PlanningWindow      *_planWin;
+    ConfigWindow        *_configWin;
 };
 
 #endif // MAINWINDOW_H
