@@ -28,6 +28,9 @@ var Sidemenu = React.createClass({
                 <li className="table-view-cell media">
                     <p  onClick={this.props.changeCat}>Modes</p>
                 </li>
+                <li className="table-view-cell media">
+                    <p  onClick={this.props.changeCat}>Simulateur</p>
+                </li>
             </ul>  
         );
     }
@@ -66,6 +69,9 @@ var Home = React.createClass({
             case "Planning" :
                 cat = <Planning/>;
                 break;
+            case "Simulateur" :
+                cat = <Simulateur/>;
+                break;                
              default:
                  cat = null;
          }
@@ -82,6 +88,17 @@ var Home = React.createClass({
             </div>
           );
       }
+});
+
+const Simulateur = React.createClass({
+    componentDidMount : function() {
+        viewer();
+    },
+    render : function() {
+        return (
+            <div id="container" >Simulateur</div>
+        );
+    }
 });
 
 var Planning = React.createClass({
