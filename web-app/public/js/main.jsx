@@ -28,9 +28,84 @@ var Sidemenu = React.createClass({
                 <li className="table-view-cell media">
                     <p  onClick={this.props.setRoute.bind(null, "Modes")}>Modes</p>
                 </li>
+                <li className="table-view-cell media">
+                    <p  onClick={this.props.setRoute.bind(null, "Simulateur")}>Simulateur</p>
+                </li>
             </ul>  
         );
     }
+});
+
+var Home = React.createClass({
+    componentWillMount : function () {
+    },
+    render() {
+        var route = null;
+        var content = "";
+
+        switch (this.props.selectedRoute) 
+        {
+            case "Rooms" :
+                content = (
+                    <div>
+                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <Rooms/>
+                        <button onClick={this.props.doLogout}>logout</button>
+                    </div>
+                )
+                break;
+            case "Modes" :
+                content = (
+                    <div>
+                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <Modes/>
+                        <button onClick={this.props.doLogout}>logout</button>
+                    </div>
+                )
+                break;
+            case "Planning" :
+                content = (
+                    <div>
+                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <Planning/>
+                        <button onClick={this.props.doLogout}>logout</button>
+                    </div>
+                )
+                break;
+            case "Simulateur" :
+                content = (
+                    <div>
+                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <Simulateur/>
+                        <button onClick={this.props.doLogout}>logout</button>
+                    </div>
+                )
+                break;
+            case "Login" :                
+                content = (
+                    <div>
+                        <Login setRoute={this.props.setRoute}
+                            doLogin={this.props.doLogin}/>
+                    </div>
+                )
+                break;
+            case "Register" :
+                content = (
+                    <div>
+                        <Register setRoute={this.props.setRoute}/>
+                    </div>
+                )
+                break;
+             default:
+                route = null;
+        }
+
+        return (
+            <div className="content">
+                {content}
+            </div>
+          );
+      }
 });
 
 var Planning = React.createClass({
@@ -75,6 +150,17 @@ var Planning = React.createClass({
     }
 });
 
+var Simulateur = React.createClass({
+    componentDidMount : function() {
+        viewer();
+    },
+    render : function() {
+        return (
+            <div id="container">Simulateur</div>
+        );
+    }
+});
+
 var Login = React.createClass({
     handleSubmit : function(event) {
         event.preventDefault()
@@ -109,7 +195,7 @@ var Login = React.createClass({
                     </div>
                     <button className="button-medium" type="submit">Valider</button>
                 </form>
-                <button className="button-medium no-decoration" onClick={this.props.setRoute.bind(null, "Register")}>S'enregistrer</button>
+                <button className="button-medium no-decoration" onClick={this.props.setRoute.bind(null, "Register")}>S&#39;enregistrer</button>
             </div>
         );
     }
@@ -194,76 +280,12 @@ var Register = React.createClass({
     }
 });
 
-var Home = React.createClass({
-    componentWillMount : function () {
-
-    },
-    render() {
-        var route = null;
-        var content = "";
-
-        switch (this.props.selectedRoute) 
-        {
-            case "Rooms" :
-                content = (
-                    <div>
-                        <Sidemenu setRoute={this.props.setRoute}/>
-                        <Rooms/>
-                        <button onClick={this.props.doLogout}>logout</button>
-                    </div>
-                )
-                break;
-            case "Modes" :
-                content = (
-                    <div>
-                        <Sidemenu setRoute={this.props.setRoute}/>
-                        <Modes/>
-                        <button onClick={this.props.doLogout}>logout</button>
-                    </div>
-                )
-                break;
-            case "Planning" :
-                content = (
-                    <div>
-                        <Sidemenu setRoute={this.props.setRoute}/>
-                        <Planning/>
-                        <button onClick={this.props.doLogout}>logout</button>
-                    </div>
-                )
-                break;
-            case "Login" :                
-                content = (
-                    <div>
-                        <Login setRoute={this.props.setRoute}
-                            doLogin={this.props.doLogin}/>
-                    </div>
-                )
-                break;
-            case "Register" :
-                content = (
-                    <div>
-                        <Register setRoute={this.props.setRoute}/>
-                    </div>
-                )
-                break;
-             default:
-                route = null;
-        }
-
-        return (
-            <div className="content">
-                {content}
-            </div>
-          );
-      }
-});
-
 var App = React.createClass({
     getInitialState: function() {
         return {
             userId: Cookie.load('userId'),
             selectedRoute: null
-        }
+        };
     },
     setRoute: function (route) {
         this.setState({
@@ -282,11 +304,11 @@ var App = React.createClass({
             'guid': Cookie.load('userId')
         }, function(ret) {
             //rep = jQuery.parseJSON(ret)
-            if(ret.error == null){
+            if(ret.error === null){
                 Cookie.remove('userId');            
                 this.setState({userId: false});
             }
-        })
+        });
     },
     componentWillMount: function () {
         if (this.state.userId) {
