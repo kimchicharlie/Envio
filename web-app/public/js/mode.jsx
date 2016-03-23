@@ -17,15 +17,15 @@ var Header = React.createClass({
 ModeListItem = React.createClass({
     handleClick : function (){
       this.props.changeToModif(this.props.mode._id);
-    },	
+    },
 	render: function () {
-			return (
-			<li className="table-view-cell media">
-				<div>name: {this.props.mode.name}</div>
-				<div>Luminosité: {this.props.mode.light}</div>
-				<div>Opacité : {this.props.mode.opacity}</div>
-				<div>Temperature : {this.props.mode.temperature}</div>
-				<button onClick={this.handleClick}>Modifier</button>
+		return (
+			<li className="mode-elem">
+				<span className="w_20p">Nom : {this.props.mode.name}</span>
+				<span className="w_20p">Luminosité: {this.props.mode.light}</span>
+				<span className="w_20p">Opacité : {this.props.mode.opacity}</span>
+				<span className="w_20p">Température : {this.props.mode.temperature}</span>
+				<button className="list-button w_15p" onClick={this.handleClick}>Modifier</button>
 			</li>
 		);
 	}
@@ -40,7 +40,7 @@ ModeList = React.createClass({
 			);
 		});
 		return (
-			<ul  className="table-view">
+			<ul className="modes-list">
 				{items}
 			</ul>
 		);
@@ -54,12 +54,10 @@ Modes = React.createClass({
 			selectedCat :null,
 		};
 	  },
-  	  changeToCreat: function(){
-          this.setState({selectedCat:"creat"});
+  	  changeToCreate: function(){
+          this.setState({selectedCat:"create"});
       },
       changeToModif: function(Id){
-      		console.log("la");
-      		console.log(Id);
           this.setState({selectedCat:Id});
       },
       changeToModeList: function(){
@@ -94,22 +92,21 @@ Modes = React.createClass({
 	  },
 	  render() {
           var cat = <ModeList modes={this.state.modes} changeToModif={this.changeToModif}/>;
-          var creatbutton = <button onClick={this.changeToCreat}>Creat Mode</button>;
-          if (this.state.selectedCat == "creat") 
+          var createButton = <button className="button-medium" onClick={this.changeToCreate}>Créer Mode</button>;
+          if (this.state.selectedCat == "create") 
           {
-              cat = <CreatMode changeToModeList={this.changeToModeList}/>;
-              creatbutton = null
+              cat = <CreateMode changeToModeList={this.changeToModeList}/>;
+              createButton = null
           }                  
-          if(this.state.selectedCat != "creat" && this.state.selectedCat !== null )
+          if(this.state.selectedCat != "create" && this.state.selectedCat !== null )
           {
               cat = <ModifMode Id={this.state.selectedCat} changeToModeList={this.changeToModeList}/>;
           }	  	  
 		  return (
 			  <div>
-				<Header text="Envio Mode"/>
 				<div className="content">
 					{cat}                   
-                    {creatbutton}
+                    {createButton}
 				</div>
 			  </div>
 		  );
@@ -129,7 +126,6 @@ ModifMode = React.createClass({
 		  'modeID': react.props.Id,         
 	  }, function(ret) {          
 		  rep = jQuery.parseJSON(ret)
-		  console.log(rep)
 		  react.setState({mode: rep.mode})
 	  })
 	},    
@@ -148,7 +144,6 @@ ModifMode = React.createClass({
 			'temperature' : temperature
 		}, function(ret) {          
 			rep = jQuery.parseJSON(ret)
-			console.log(rep)
 			react.setState({status: rep})
 		})
 	},
@@ -168,21 +163,29 @@ ModifMode = React.createClass({
 		<div className="bar bar-header-secondary">
 			 <form role="form" onSubmit={this.handleSubmit}>
 				 <div className="form-group">
-				  <input ref="newName" type="text" placeholder="new name" />
-				  <input ref="light" type="text" placeholder="new light" />
-				  <input ref="opacity" type="text" placeholder="new opacity" />
-				  <input ref="temperature" type="text" placeholder="new temperature" />
+					<div className="input-container">
+		            	<input className="input-medium" ref="newName" type="text" placeholder="Nom"/>
+		            </div>
+		            <div className="input-container">
+		            	<input className="input-medium" ref="light" type="text" placeholder="Luminosité"/>
+		            </div>
+		            <div className="input-container">
+		            	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		            </div>
+		            <div className="input-container">
+		            	<input className="input-medium" ref="temperature" type="text" placeholder="Température"/>
+		            </div>
 				</div>
-				<button type="submit" >modif</button>
+				<button className="button-medium" type="submit">Modifier</button>
 			  </form>
-			  <button onClick={this.props.changeToModeList} >Retour</button>
+			  <button className="button-medium" onClick={this.props.changeToModeList}>Retour</button>
 		</div>
 		);
 	}
 });
 
 
-CreatMode = React.createClass({
+CreateMode = React.createClass({
 	getInitialState: function() {
 		return {
 			status: false,
@@ -205,7 +208,6 @@ CreatMode = React.createClass({
 			
 		}, function(ret) {          
 			rep = jQuery.parseJSON(ret)
-			console.log(rep)
 			react.setState({status: rep})
 		})
 	},
@@ -215,26 +217,36 @@ CreatMode = React.createClass({
 		  {            
 			return (
 					<div className="bar bar-header-secondary">
-						Creat success full!
+						Création réussie !
 						<button onClick={this.props.changeToModeList} >Retour</button>
 					</div>
 				   );                    
 		  }
 		}      
 		return (
-		<div className="bar bar-header-secondary">
-			 <form role="form" onSubmit={this.handleSubmit}>
-				 <div className="form-group">
-				  <input ref="organisation" type="text" placeholder="organisation" />
-				  <input ref="name" type="text" placeholder="name" />
-				  <input ref="light" type="text" placeholder="light" />
-				  <input ref="opacity" type="text" placeholder="opacity" />
-				  <input ref="temperature" type="text" placeholder="temperature" />
-				</div>
-				<button type="submit" >Creat</button>
-			  </form>
-			  <button onClick={this.props.changeToModeList} >Retour</button>
-		</div>
+			<div className="bar bar-header-secondary">
+				<form role="form" onSubmit={this.handleSubmit}>
+					<div className="form-group">
+						<div className="input-container">
+		                	<input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>
+		                </div>
+		                <div className="input-container">
+		                	<input className="input-medium" ref="name" type="text" placeholder="Nom"/>
+		                </div>
+		                <div className="input-container">
+		                	<input className="input-medium" ref="light" type="text" placeholder="Luminosité"/>
+		                </div>
+		                <div className="input-container">
+		                	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		                </div>
+		                <div className="input-container">
+		                	<input className="input-medium" ref="temperature" type="text" placeholder="Température"/>
+		                </div>
+					</div>
+					<button className="button-medium" type="submit" >Créer</button>
+				</form>
+				<button className="button-medium" onClick={this.props.changeToModeList} >Retour</button>
+			</div>
 		);
 	}
 });
