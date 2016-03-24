@@ -13,10 +13,13 @@ var Header = React.createClass({
         );
     }
 });
-//this.props.room._id
+
 RoomListItem = React.createClass({
     handleClick : function (){
       this.props.changeToModif(this.props.room._id);
+    },
+    deleteRoom : function (){
+      this.props.changeToDelete(this.props.room._id, this.props.index);
     },
     render: function () {
             return (
@@ -26,6 +29,7 @@ RoomListItem = React.createClass({
               <div>Temperature voulus: {this.props.room.temperature}</div>
               <div>m²: {this.props.room.volume}</div>
               <button onClick={this.handleClick}>Modifier</button>
+              <button onClick={this.deleteRoom}>Supprimer</button>
             </li>
         );
     }
@@ -36,7 +40,7 @@ RoomList = React.createClass({
         var react = this;
         var items = this.props.rooms.map(function (room) {
             return (
-                <RoomListItem key={room._id} room={room} changeToModif={react.props.changeToModif}/>
+                <RoomListItem key={room._id} room={room} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
             );
         });
         return (
@@ -48,70 +52,90 @@ RoomList = React.createClass({
 });
 
 Rooms = React.createClass({
-      getInitialState: function() {        
-        return {
-            rooms: [],
-            selectedCat :null,
-        };
-      },
+    getInitialState: function() {        
+    return {
+      rooms: [],
+      creat :null,
+      modif :null,
+      delete :null,
+    };
+    },
       changeToCreat: function(){
-          this.setState({selectedCat:"creat"});
+          this.setState({creat: true});
+          this.setState({modif: null});
+          this.setState({delete: null});
       },
       changeToModif: function(Id){
-          this.setState({selectedCat:Id});
+          this.setState({modif: Id});
+          this.setState({creat: null});
+          this.setState({delete: null});          
+      },
+      changeToDelete: function(Id){
+          this.setState({delete: Id});
+          this.setState({modif: null});
+          this.setState({creat: null});          
       },
       changeToRoomList: function(){
         react = this;
-          HttpPost('/getRooms', {
-            'organisation': 'Envio',// a changer avec les info users            
-        }, function(ret) {         
-            rep = jQuery.parseJSON(ret);
-            if (rep.error == null){              
-              react.setState({rooms: rep.rooms});
-              react.setState({selectedCat:null});
-            }
-            else{
-              react.setState({rooms: rep.error});
-              react.setState({selectedCat:null});
-            }            
-        });                  
+      HttpPost('/getRooms', {
+      'organisation': 'Envio',// a changer avec les info users            
+    }, function(ret) {         
+      rep = jQuery.parseJSON(ret);
+      if (rep.error === null){
+            react.setState({modif: null});
+            react.setState({delete: null});
+            react.setState({creat: null});        
+        react.setState({rooms: rep.rooms});
+      }
+      else{
+        react.setState({rooms: rep.error});
+            react.setState({modif: null});
+            react.setState({delete: null});
+            react.setState({creat: null});
+      }            
+    });          
       },  
-      componentDidMount: function() {
-        react = this;
-          HttpPost('/getRooms', {
-            'organisation': 'Envio',// a changer avec les info users            
-        }, function(ret) {         
-            rep = jQuery.parseJSON(ret);
-            if (rep.error == null){              
-              react.setState({rooms: rep.rooms});
-            }
-            else{
-              react.setState({rooms: rep.error});
-            }            
-        });
-      },
-      render() {
-          var cat = <RoomList rooms={this.state.rooms} changeToModif={this.changeToModif}/>;
-          var creatbutton = <button onClick={this.changeToCreat}>Creat room</button>;
-          if (this.state.selectedCat == "creat") 
+    componentDidMount: function() {
+    react = this;
+      HttpPost('/getRooms', {
+      'organisation': 'Envio',// a changer avec les info users            
+    }, function(ret) {         
+      rep = jQuery.parseJSON(ret);
+      if (rep.error === null){
+        react.setState({rooms: rep.rooms});
+      }
+      else{
+        react.setState({rooms: rep.error});
+      }            
+    });
+    },
+    render() {
+          var cat = <RoomList rooms={this.state.rooms} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
+          var creatbutton = <button onClick={this.changeToCreat}>Creat Room</button>;
+          if (this.state.creat !== null) 
           {
               cat = <CreatRoom changeToRoomList={this.changeToRoomList}/>;
-              creatbutton = null
+              creatbutton = null;
           }                  
-          if(this.state.selectedCat != "creat" && this.state.selectedCat !== null )
+          if(this.state.modif !== null )
           {
-              cat = <ModifRoom Id={this.state.selectedCat} changeToRoomList={this.changeToRoomList}/>;
+              cat = <ModifRoom Id={this.state.modif} changeToRoomList={this.changeToRoomList}/>;
           }
-          return (
-              <div>
-                <Header text="Envio Room"/>
-                <div className="content">
-                    {cat}                   
+          if(this.state.delete !== null )
+          {
+              cat = <DeleteRoom Id={this.state.delete} changeToRoomList={this.changeToRoomList}/>;
+              creatbutton = null;
+          }         
+      return (
+        <div>
+        <Header text="Envio Room"/>
+        <div className="content">
+          {cat}                   
                     {creatbutton}
-                </div>
-              </div>
-          );
-      }
+        </div>
+        </div>
+      );
+    }
 });
 
 ModifRoom = React.createClass({
@@ -132,44 +156,35 @@ ModifRoom = React.createClass({
       })
     },    
     handleSubmit(event) {
-        event.preventDefault()
-        var name = ReactDOM.findDOMNode(this.refs.name).value
-        var volume = ReactDOM.findDOMNode(this.refs.volume).value
+        event.preventDefault();
+        var name = ReactDOM.findDOMNode(this.refs.name).value;
+        var volume = ReactDOM.findDOMNode(this.refs.volume).value;
         react = this;
         HttpPost('/modifyRoom', {
             'newName': name,
             'name': react.state.room.name,
             'volume': volume,            
         }, function(ret) {          
-            rep = jQuery.parseJSON(ret)
-            console.log(rep)
-            react.setState({status: rep})
-        })
+            rep = jQuery.parseJSON(ret);
+            console.log(rep);
+            react.setState({status: rep});
+            react.props.changeToRoomList();
+        });
     },
     ChangeTemp(event) {
-        var newValue = ReactDOM.findDOMNode(this.refs.temperature).value
+        var newValue = ReactDOM.findDOMNode(this.refs.temperature).value;
         react = this;
         HttpPost('/changeTemperature', {
             'roomID': react.props.Id,
             'temperature': newValue,
         }, function(ret) {          
-            rep = jQuery.parseJSON(ret)
-            console.log(rep)
-            react.setState({status: rep})
-        })
+            rep = jQuery.parseJSON(ret);
+            console.log(rep);
+            react.setState({status: rep});
+            react.props.changeToRoomList();
+        });
     },
-    render() {
-        if(this.state.status){
-          if (this.state.status.error == null) 
-          {            
-            return (
-                    <div className="bar bar-header-secondary">
-                        Modif success full!
-                        <button onClick={this.props.changeToRoomList} >Retour</button>
-                    </div>
-                   );                    
-          }
-        }      
+    render() {    
         return (
         <div className="bar bar-header-secondary">
              <form role="form" onSubmit={this.handleSubmit}>
@@ -195,10 +210,10 @@ CreatRoom = React.createClass({
         }
     },
     handleSubmit(event) {
-        event.preventDefault()
-        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
-        var name = ReactDOM.findDOMNode(this.refs.name).value
-        var volume = ReactDOM.findDOMNode(this.refs.volume).value
+        event.preventDefault();
+        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
+        var name = ReactDOM.findDOMNode(this.refs.name).value;
+        var volume = ReactDOM.findDOMNode(this.refs.volume).value;
         react = this;
         HttpPost('/createRoom', {
             'organisation': organisation,
@@ -206,23 +221,12 @@ CreatRoom = React.createClass({
             'volume': volume,
             
         }, function(ret) {          
-            rep = jQuery.parseJSON(ret)
-            console.log(rep)
-            react.setState({status: rep})
-        })
+            rep = jQuery.parseJSON(ret);
+            react.setState({status: rep});
+            react.props.changeToRoomList();
+        });
     },
-    render() {
-        if(this.state.status){
-          if (this.state.status.error == null) 
-          {            
-            return (
-                    <div className="bar bar-header-secondary">
-                        Creat success full!
-                        <button onClick={this.props.changeToRoomList} >Retour</button>
-                    </div>
-                   );                    
-          }
-        }      
+    render() {   
         return (
         <div className="bar bar-header-secondary">
              <form role="form" onSubmit={this.handleSubmit}>
@@ -237,4 +241,26 @@ CreatRoom = React.createClass({
         </div>
         );
     }
+});
+
+DeleteRoom = React.createClass({
+    deleteRoom : function (){
+            var react = this;
+    HttpPost('/deleteRoom', {
+      'roomID': react.props.Id,         
+    }, function(ret) {
+      rep = jQuery.parseJSON(ret);
+      
+      react.props.changeToRoomList();
+    }); 
+    },
+  render: function () {
+      return (
+      <div>
+      Êtes-vous sûr ?
+      <button onClick={this.deleteRoom}>Oui</button>
+      <button onClick={this.props.changeToRoomList} >Non</button>
+      </div>
+    );
+  }
 });

@@ -41,6 +41,21 @@ exports.routes = [
         }
     },
     {
+        "path": "/deleteMode",
+        "method": "post",
+        "middlewares": [multipartMiddleware],
+        handler: function (req, res)
+        {
+            modeManager.deleteMode({
+                "modeID" : req.body.modeID,
+
+            }, function (result)
+            {
+                res.send(result);
+            });
+        }
+    },
+    {
         "path": "/getMode",
         "method": "post",
         "middlewares": [multipartMiddleware],

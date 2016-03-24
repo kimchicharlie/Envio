@@ -37,6 +37,21 @@ exports.routes = [
         }
     },
     {
+        "path": "/deleteRoom",
+        "method": "post",
+        "middlewares": [multipartMiddleware],
+        handler: function (req, res)
+        {
+            roomManager.deleteRoom({
+                "roomID" : req.body.roomID,
+
+            }, function (result)
+            {
+                res.send(result);
+            });
+        }
+    },    
+    {
         "path": "/getRoom",
         "method": "post",
         "middlewares": [multipartMiddleware],

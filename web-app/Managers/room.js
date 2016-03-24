@@ -52,8 +52,21 @@ var changeTemperature = function (options, cb)
 		cb(response);
 	})
 };
+
+var deleteRoom = function (options, cb)
+{
+	cb = (typeof cb == "function") ? cb : function (){};
+	options = (typeof options == "object") ? options : {};
+
+	rest.post(config.apiAddress + '/deleteRoom?api_key='+config.envioApiAccessKey, options, function (response) {
+		cb(response);
+	})
+};
+
+
 exports.createRoom = createRoom;
 exports.modifyRoom = modifyRoom;
 exports.getRoom = getRoom;
 exports.getRooms = getRooms;
 exports.changeTemperature = changeTemperature;
+exports.deleteRoom = deleteRoom;

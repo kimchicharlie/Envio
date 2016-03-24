@@ -4,7 +4,6 @@ var cookie = require('react-cookie');
 var Modal = require('react-modal');
 var Select = require('react-select');
 
-
 function findLabelByValue(list, value, reverse){
     if(reverse)
     {
@@ -46,10 +45,10 @@ Planning = React.createClass({
             ListOfRooms: [],
             ListOfModes: [],
             selectedRoom: {},
-        }
+        };
       },
       componentDidMount: function() {
-        react = this
+        react = this;
         HttpPost('/getModes', {
                'organisation': 'Envio',// a changer avec les info users            
                 }, function(ret) {         
@@ -66,9 +65,9 @@ Planning = React.createClass({
                 else{
                   react.setState({modes: rep.error})
                 }            
-        })      
-        this.getRooms(0)             
-        this.creatCalendar()
+        });
+        this.getRooms(0);
+        this.creatCalendar();
       },
       getRooms: function(index){
                 HttpPost('/getRooms', {
@@ -89,10 +88,10 @@ Planning = React.createClass({
                 else{
                   react.setState({rooms: rep.error})
                 }            
-        })
+        });
       },
       creatCalendar: function(){
-        react = this
+        react = this;
         $('#calendar').fullCalendar({
           header: {
             left: 'prev,next today',
@@ -176,14 +175,13 @@ Planning = React.createClass({
         this.setState({modalDeleteIsOpen: true});  
         this.setState({start: start});
         this.setState({end: end});
-        console.log
       },     
       creatEvent: function(val) {
         react=this
-        trueDateBegin = new Date(this.state.start._d).toISOString()
-        trueDateEnd = new Date(this.state.end._d).toISOString()
-        console.log(trueDateBegin)
-        var label= findLabelByValue(this.state.ListOfModes, val)
+        trueDateBegin = new Date(this.state.start._d).toISOString();
+        trueDateEnd = new Date(this.state.end._d).toISOString();
+        console.log(trueDateBegin);
+        var label= findLabelByValue(this.state.ListOfModes, val);
         HttpPost('/createEvent', {
           organisation : "Envio", //a changer plus tard
           roomID : this.state.selectedRoom,
@@ -192,21 +190,21 @@ Planning = React.createClass({
           dateBegin : trueDateBegin,
           dateEnd : trueDateEnd,     
         }, function(ret) {
-          rep = jQuery.parseJSON(ret)
+          rep = jQuery.parseJSON(ret);
             react.setState({modalCreatIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
               if (react.state.rooms[i]._id === rep.room._id) {
-                react.state.rooms[i].planning = rep.room.planning
-                react.setCalendar(react.state.rooms[i].planning)
-                console.log(react.state.rooms[i].planning)
+                react.state.rooms[i].planning = rep.room.planning;
+                react.setCalendar(react.state.rooms[i].planning);
+                console.log(react.state.rooms[i].planning);
               }
             }
 
         })        
       },
       modifyEvent: function(val) {
-        react=this
-        var label= findLabelByValue(react.state.ListOfModes, val)
+        react=this;
+        var label= findLabelByValue(react.state.ListOfModes, val);
         HttpPost('/modifyEvent', {
           organisation : "Envio", //a changer plus tard
           roomID : this.state.selectedRoom,
@@ -218,12 +216,12 @@ Planning = React.createClass({
           newDateBegin : this.state.start.start._d,
           newDateEnd : this.state.start.end._d,     
         }, function(ret) {
-          rep = jQuery.parseJSON(ret)
+          rep = jQuery.parseJSON(ret);
             react.setState({modalDeleteIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
               if (react.state.rooms[i]._id === rep.room._id) {
-                react.state.rooms[i].planning = rep.room.planning
-                react.setCalendar(react.state.rooms[i].planning)
+                react.state.rooms[i].planning = rep.room.planning;
+                react.setCalendar(react.state.rooms[i].planning);
               }
             }
 

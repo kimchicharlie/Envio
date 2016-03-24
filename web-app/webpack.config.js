@@ -6,6 +6,7 @@ module.exports = {
         room : "./public/js/room.jsx",
         mode : "./public/js/mode.jsx",
         planning : "./public/js/planning.jsx",
+        modal : "./public/js/modal.jsx",
      },
     output: {
         path: "/",

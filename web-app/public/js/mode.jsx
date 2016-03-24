@@ -15,9 +15,12 @@ var Header = React.createClass({
 });
 
 ModeListItem = React.createClass({
-    handleClick : function (){
+    ModifMode : function (){
       this.props.changeToModif(this.props.mode._id);
-    },	
+    },
+    deleteMode : function (){
+      this.props.changeToDelete(this.props.mode._id);
+    },
 	render: function () {
 			return (
 			<li className="table-view-cell media">
@@ -25,7 +28,8 @@ ModeListItem = React.createClass({
 				<div>Luminosité: {this.props.mode.light}</div>
 				<div>Opacité : {this.props.mode.opacity}</div>
 				<div>Temperature : {this.props.mode.temperature}</div>
-				<button onClick={this.handleClick}>Modifier</button>
+				<button onClick={this.ModifMode}>Modifier</button>
+				<button onClick={this.deleteMode}>Supprimer</button>
 			</li>
 		);
 	}
@@ -33,10 +37,10 @@ ModeListItem = React.createClass({
 
 ModeList = React.createClass({
 	render: function () {
-		var react = this
+		var react = this;
 		var items = this.props.modes.map(function (mode) {
 			return (
-				<ModeListItem key={mode._id} mode={mode} changeToModif={react.props.changeToModif}/>
+				<ModeListItem key={mode._id} mode={mode} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
 			);
 		});
 		return (
@@ -51,17 +55,39 @@ Modes = React.createClass({
 	  getInitialState: function() {        
 		return {
 			modes: [],
-			selectedCat :null,
+			creat :null,
+			modif :null,
+			delete :null,
 		};
 	  },
   	  changeToCreat: function(){
-          this.setState({selectedCat:"creat"});
+          this.setState({creat: true});
+          this.setState({modif: null});
+          this.setState({delete: null});
       },
       changeToModif: function(Id){
-      		console.log("la");
-      		console.log(Id);
-          this.setState({selectedCat:Id});
+          this.setState({modif: Id});
+          this.setState({creat: null});
+          this.setState({delete: null});          
       },
+      changeToDelete: function(Id){
+      	  this.setState({delete: Id});
+          this.setState({modif: null});
+          this.setState({creat: null});          
+      },      
+	  deleteMode : function (modeID, index){
+	  	var react = this;
+		HttpPost('/deleteMode', {
+		  'modeID': modeID,         
+		}, function(ret) {          
+		  rep = jQuery.parseJSON(ret);
+		  //console.log(rep);
+		  if(rep.error === null){
+		  	react.state.modes.splice(index,1);
+		  }
+		  react.changeToModeList();
+		});		
+	  },
       changeToModeList: function(){
       	react = this;
 		  HttpPost('/getModes', {
@@ -69,12 +95,16 @@ Modes = React.createClass({
 		}, function(ret) {         
 			rep = jQuery.parseJSON(ret);
 			if (rep.error === null){
+	          react.setState({modif: null});
+	          react.setState({delete: null});
+	          react.setState({creat: null});			  
 			  react.setState({modes: rep.modes});
-			  react.setState({selectedCat:null});
 			}
 			else{
 			  react.setState({modes: rep.error});
-			  react.setState({selectedCat:null});
+	          react.setState({modif: null});
+	          react.setState({delete: null});
+	          react.setState({creat: null});
 			}            
 		});          
       },  
@@ -93,17 +123,22 @@ Modes = React.createClass({
 		});
 	  },
 	  render() {
-          var cat = <ModeList modes={this.state.modes} changeToModif={this.changeToModif}/>;
+          var cat = <ModeList modes={this.state.modes} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
           var creatbutton = <button onClick={this.changeToCreat}>Creat Mode</button>;
-          if (this.state.selectedCat == "creat") 
+          if (this.state.creat !== null) 
           {
               cat = <CreatMode changeToModeList={this.changeToModeList}/>;
-              creatbutton = null
+              creatbutton = null;
           }                  
-          if(this.state.selectedCat != "creat" && this.state.selectedCat !== null )
+          if(this.state.modif !== null )
           {
-              cat = <ModifMode Id={this.state.selectedCat} changeToModeList={this.changeToModeList}/>;
-          }	  	  
+              cat = <ModifMode Id={this.state.modif} changeToModeList={this.changeToModeList}/>;
+          }
+          if(this.state.delete !== null )
+          {
+              cat = <DeleteMode Id={this.state.delete} changeToModeList={this.changeToModeList}/>;
+              creatbutton = null;
+          }		  	  
 		  return (
 			  <div>
 				<Header text="Envio Mode"/>
@@ -128,10 +163,10 @@ ModifMode = React.createClass({
 	   HttpPost('/getMode', {
 		  'modeID': react.props.Id,         
 	  }, function(ret) {          
-		  rep = jQuery.parseJSON(ret)
-		  console.log(rep)
-		  react.setState({mode: rep.mode})
-	  })
+		  rep = jQuery.parseJSON(ret);
+		  console.log(rep);
+		  react.setState({mode: rep.mode});
+	  });
 	},    
 	handleSubmit(event) {
 		event.preventDefault()
@@ -150,20 +185,10 @@ ModifMode = React.createClass({
 			rep = jQuery.parseJSON(ret)
 			console.log(rep)
 			react.setState({status: rep})
+			react.props.changeToModeList()
 		})
 	},
-	render() {
-		if(this.state.status){
-		  if (this.state.status.error == null) 
-		  {            
-			return (
-					<div className="bar bar-header-secondary">
-						Modif success full!
-						<button onClick={this.props.changeToModeList} >Retour</button>
-					</div>
-				   );                    
-		  }
-		}      
+	render() {    
 		return (
 		<div className="bar bar-header-secondary">
 			 <form role="form" onSubmit={this.handleSubmit}>
@@ -189,7 +214,7 @@ CreatMode = React.createClass({
 		};
 	},
 	handleSubmit(event) {
-		event.preventDefault()
+		event.preventDefault();
 		var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
 		var name = ReactDOM.findDOMNode(this.refs.name).value
 		var light = ReactDOM.findDOMNode(this.refs.light).value
@@ -204,23 +229,13 @@ CreatMode = React.createClass({
 			'temperature': temperature
 			
 		}, function(ret) {          
-			rep = jQuery.parseJSON(ret)
-			console.log(rep)
-			react.setState({status: rep})
-		})
+			rep = jQuery.parseJSON(ret);
+			console.log(rep);
+			react.setState({status: rep});
+			react.props.changeToModeList()
+		});
 	},
-	render() {
-		if(this.state.status){
-		  if (this.state.status.error == null) 
-		  {            
-			return (
-					<div className="bar bar-header-secondary">
-						Creat success full!
-						<button onClick={this.props.changeToModeList} >Retour</button>
-					</div>
-				   );                    
-		  }
-		}      
+	render() {    
 		return (
 		<div className="bar bar-header-secondary">
 			 <form role="form" onSubmit={this.handleSubmit}>
@@ -235,6 +250,29 @@ CreatMode = React.createClass({
 			  </form>
 			  <button onClick={this.props.changeToModeList} >Retour</button>
 		</div>
+		);
+	}
+});
+
+
+DeleteMode = React.createClass({
+    deleteMode : function (){
+      	  	var react = this;
+		HttpPost('/deleteMode', {
+		  'modeID': react.props.Id,         
+		}, function(ret) {          
+		  rep = jQuery.parseJSON(ret);
+		  //console.log(rep);
+		  react.props.changeToModeList();
+		});	
+    },
+	render: function () {
+			return (
+			<div>
+			Êtes-vous sûr ?
+			<button onClick={this.deleteMode}>Oui</button>
+			<button onClick={this.props.changeToModeList} >Non</button>
+			</div>
 		);
 	}
 });

@@ -38,6 +38,20 @@ exports.routes = [
         }
     },
     {
+        "path": "/deleteRoom",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.deleteRoom({
+                'roomID': req.body.roomID
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },    
+    {
         "path": "/modifyData",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
@@ -104,7 +118,7 @@ exports.routes = [
             roomManager.addEventPlanning({
                 "roomID": req.body.roomID,
                 "eventName": req.body.eventName,
-                "modeID": req.body.modeID,
+                "roomID": req.body.roomID,
                 "dateBegin": req.body.dateBegin,
                 "dateEnd": req.body.dateEnd
             }, function (rep)
@@ -138,7 +152,7 @@ exports.routes = [
                 'roomID': req.body.roomID,
                 'eventName': req.body.eventName,
                 'newName': req.body.newName,
-                'modeID': req.body.modeID,
+                'roomID': req.body.roomID,
                 'dateBegin': req.body.dateBegin,
                 'dateEnd': req.body.dateEnd,
                 'newDateBegin': req.body.newDateBegin,

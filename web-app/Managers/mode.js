@@ -43,8 +43,19 @@ var getModes = function (options, cb)
 	})
 };
 
+var deleteMode = function (options, cb)
+{
+	cb = (typeof cb == "function") ? cb : function (){};
+	options = (typeof options == "object") ? options : {};
+
+	rest.post(config.apiAddress + '/deleteMode?api_key='+config.envioApiAccessKey, options, function (response) {
+		cb(response);
+	})
+};
+
 
 exports.createMode = createMode;
 exports.modifyMode = modifyMode;
 exports.getMode = getMode;
 exports.getModes = getModes;
+exports.deleteMode = deleteMode;

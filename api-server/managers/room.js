@@ -82,6 +82,41 @@ var modifyRoom = function (options, cb) {
     }
 }
 
+var deleteRoom = function (options, cb) {
+    cb = cb || function () {};
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else if (!room) {
+                result.error = "Ce room n'existe pas";
+                cb(result);
+            } else {
+                room.remove(function (error) {
+                    if (error) {
+                        result.error = error;
+                        cb(result);
+                    } else {
+                        cb(result);
+                    }
+                });
+            }
+        })
+    } else {
+        result.error = "Requête incorrecte";
+        cb(result);
+    }
+}
+
+
 var modifyData = function (options, cb) {
     cb = cb || function () {};
 
@@ -303,7 +338,6 @@ var modifyEventPlanning = function (options, cb) {
         'error': null,
         'room': null
     };
-console.log(options)
     if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
         
         var planning = {
@@ -351,14 +385,15 @@ console.log(options)
             result.error = "Veuillez spécifier une roomID";
             cb(result);
         }
-    } else {
-        result.error = "Des informations nécessaires sont manquantes";
-        cb(result);
-    }
+        } else {
+            result.error = "Des informations nécessaires sont manquantes";
+            cb(result);
+        }
 };
 
 exports.createRoom = createRoom;
 exports.modifyRoom = modifyRoom;
+exports.deleteRoom = deleteRoom
 exports.modifyData = modifyData;
 exports.getRoom = getRoom;
 exports.getRooms = getRooms;
