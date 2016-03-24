@@ -167,6 +167,7 @@ Planning = React.createClass({
                 })                        
             },                                    
         });
+        $('#calendar').fullCalendar( 'changeView', 'agendaWeek' );
       },
       openModal: function(start , end, key) {
         if (key == true) 
@@ -271,7 +272,6 @@ Planning = React.createClass({
       render() {
           return (
               <div>
-                <Header text="Envio Planning"/>
                 <div className="content">
                   <Select simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
                   <div id='calendar'></div>

@@ -18,18 +18,18 @@ ModeListItem = React.createClass({
     ModifMode : function (){
       this.props.changeToModif(this.props.mode._id);
     },
-    deleteMode : function (){
+    DeleteMode : function (){
       this.props.changeToDelete(this.props.mode._id);
     },
 	render: function () {
-			return (
-			<li className="table-view-cell media">
-				<div>name: {this.props.mode.name}</div>
-				<div>Luminosité: {this.props.mode.light}</div>
-				<div>Opacité : {this.props.mode.opacity}</div>
-				<div>Temperature : {this.props.mode.temperature}</div>
-				<button onClick={this.ModifMode}>Modifier</button>
-				<button onClick={this.deleteMode}>Supprimer</button>
+		return (
+			<li className="mode-elem">
+				<span className="w_20p">Nom : {this.props.mode.name}</span>
+				<span className="w_20p">Luminosité: {this.props.mode.light}</span>
+				<span className="w_20p">Opacité : {this.props.mode.opacity}</span>
+				<span className="w_20p">Température : {this.props.mode.temperature}</span>
+				<button className="list-button w_15p" onClick={this.ModifMode}>Modifier</button>
+				<button className="list-button w_15p" onClick={this.DeleteMode}>Supprimer</button>
 			</li>
 		);
 	}
@@ -44,7 +44,7 @@ ModeList = React.createClass({
 			);
 		});
 		return (
-			<ul  className="table-view">
+			<ul className="modes-list">
 				{items}
 			</ul>
 		);
@@ -60,7 +60,7 @@ Modes = React.createClass({
 			delete :null,
 		};
 	  },
-  	  changeToCreat: function(){
+  	  changeToCreate: function(){
           this.setState({creat: true});
           this.setState({modif: null});
           this.setState({delete: null});
@@ -68,26 +68,13 @@ Modes = React.createClass({
       changeToModif: function(Id){
           this.setState({modif: Id});
           this.setState({creat: null});
-          this.setState({delete: null});          
+          this.setState({delete: null});
       },
       changeToDelete: function(Id){
       	  this.setState({delete: Id});
           this.setState({modif: null});
           this.setState({creat: null});          
-      },      
-	  deleteMode : function (modeID, index){
-	  	var react = this;
-		HttpPost('/deleteMode', {
-		  'modeID': modeID,         
-		}, function(ret) {          
-		  rep = jQuery.parseJSON(ret);
-		  //console.log(rep);
-		  if(rep.error === null){
-		  	react.state.modes.splice(index,1);
-		  }
-		  react.changeToModeList();
-		});		
-	  },
+      },
       changeToModeList: function(){
       	react = this;
 		  HttpPost('/getModes', {
@@ -124,10 +111,10 @@ Modes = React.createClass({
 	  },
 	  render() {
           var cat = <ModeList modes={this.state.modes} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
-          var creatbutton = <button onClick={this.changeToCreat}>Creat Mode</button>;
+          var createButton = <button className="button-medium" onClick={this.changeToCreate}>Créer Mode</button>;
           if (this.state.creat !== null) 
           {
-              cat = <CreatMode changeToModeList={this.changeToModeList}/>;
+              cat = <CreateMode changeToModeList={this.changeToModeList}/>;
               creatbutton = null;
           }                  
           if(this.state.modif !== null )
@@ -138,13 +125,12 @@ Modes = React.createClass({
           {
               cat = <DeleteMode Id={this.state.delete} changeToModeList={this.changeToModeList}/>;
               creatbutton = null;
-          }		  	  
+          }	  	  
 		  return (
 			  <div>
-				<Header text="Envio Mode"/>
 				<div className="content">
 					{cat}                   
-                    {creatbutton}
+                    {createButton}
 				</div>
 			  </div>
 		  );
@@ -163,10 +149,9 @@ ModifMode = React.createClass({
 	   HttpPost('/getMode', {
 		  'modeID': react.props.Id,         
 	  }, function(ret) {          
-		  rep = jQuery.parseJSON(ret);
-		  console.log(rep);
-		  react.setState({mode: rep.mode});
-	  });
+		  rep = jQuery.parseJSON(ret)
+		  react.setState({mode: rep.mode})
+	  })
 	},    
 	handleSubmit(event) {
 		event.preventDefault()
@@ -183,7 +168,6 @@ ModifMode = React.createClass({
 			'temperature' : temperature
 		}, function(ret) {          
 			rep = jQuery.parseJSON(ret)
-			console.log(rep)
 			react.setState({status: rep})
 			react.props.changeToModeList()
 		})
@@ -193,21 +177,29 @@ ModifMode = React.createClass({
 		<div className="bar bar-header-secondary">
 			 <form role="form" onSubmit={this.handleSubmit}>
 				 <div className="form-group">
-				  <input ref="newName" type="text" placeholder="new name" />
-				  <input ref="light" type="text" placeholder="new light" />
-				  <input ref="opacity" type="text" placeholder="new opacity" />
-				  <input ref="temperature" type="text" placeholder="new temperature" />
+					<div className="input-container">
+		            	<input className="input-medium" ref="newName" type="text" placeholder="Nom"/>
+		            </div>
+		            <div className="input-container">
+		            	<input className="input-medium" ref="light" type="text" placeholder="Luminosité"/>
+		            </div>
+		            <div className="input-container">
+		            	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		            </div>
+		            <div className="input-container">
+		            	<input className="input-medium" ref="temperature" type="text" placeholder="Température"/>
+		            </div>
 				</div>
-				<button type="submit" >modif</button>
+				<button className="button-medium" type="submit">Modifier</button>
 			  </form>
-			  <button onClick={this.props.changeToModeList} >Retour</button>
+			  <button className="button-medium" onClick={this.props.changeToModeList}>Retour</button>
 		</div>
 		);
 	}
 });
 
 
-CreatMode = React.createClass({
+CreateMode = React.createClass({
 	getInitialState: function() {
 		return {
 			status: false,
@@ -228,28 +220,37 @@ CreatMode = React.createClass({
 			'opacity': opacity,
 			'temperature': temperature
 			
-		}, function(ret) {          
+		}, function(ret) {
 			rep = jQuery.parseJSON(ret);
-			console.log(rep);
 			react.setState({status: rep});
-			react.props.changeToModeList()
+			react.props.changeToModeList();
 		});
 	},
-	render() {    
+	render() {
 		return (
-		<div className="bar bar-header-secondary">
-			 <form role="form" onSubmit={this.handleSubmit}>
-				 <div className="form-group">
-				  <input ref="organisation" type="text" placeholder="organisation" />
-				  <input ref="name" type="text" placeholder="name" />
-				  <input ref="light" type="text" placeholder="light" />
-				  <input ref="opacity" type="text" placeholder="opacity" />
-				  <input ref="temperature" type="text" placeholder="temperature" />
-				</div>
-				<button type="submit" >Creat</button>
-			  </form>
-			  <button onClick={this.props.changeToModeList} >Retour</button>
-		</div>
+			<div className="bar bar-header-secondary">
+				<form role="form" onSubmit={this.handleSubmit}>
+					<div className="form-group">
+						<div className="input-container">
+		                	<input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>
+		                </div>
+		                <div className="input-container">
+		                	<input className="input-medium" ref="name" type="text" placeholder="Nom"/>
+		                </div>
+		                <div className="input-container">
+		                	<input className="input-medium" ref="light" type="text" placeholder="Luminosité"/>
+		                </div>
+		                <div className="input-container">
+		                	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		                </div>
+		                <div className="input-container">
+		                	<input className="input-medium" ref="temperature" type="text" placeholder="Température"/>
+		                </div>
+					</div>
+					<button className="button-medium" type="submit" >Créer</button>
+				</form>
+				<button className="button-medium" onClick={this.props.changeToModeList} >Retour</button>
+			</div>
 		);
 	}
 });
@@ -262,7 +263,6 @@ DeleteMode = React.createClass({
 		  'modeID': react.props.Id,         
 		}, function(ret) {          
 		  rep = jQuery.parseJSON(ret);
-		  //console.log(rep);
 		  react.props.changeToModeList();
 		});	
     },
@@ -270,8 +270,8 @@ DeleteMode = React.createClass({
 			return (
 			<div>
 			Êtes-vous sûr ?
-			<button onClick={this.deleteMode}>Oui</button>
-			<button onClick={this.props.changeToModeList} >Non</button>
+			<button className="button-medium" onClick={this.deleteMode}>Oui</button>
+			<button className="button-medium" onClick={this.props.changeToModeList} >Non</button>
 			</div>
 		);
 	}

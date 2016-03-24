@@ -18,20 +18,20 @@ var Header = React.createClass({
 var Sidemenu = React.createClass({
     render() {
         return (
-            <ul className="table-view">
-                <li className="table-view-cell media">
-                    <p onClick={this.props.setRoute.bind(null, "Planning")}>Planning</p>
-                </li>
-                <li className="table-view-cell media">
-                    <p onClick={this.props.setRoute.bind(null, "Rooms")}>Rooms</p>
-                </li>
-                <li className="table-view-cell media">
-                    <p  onClick={this.props.setRoute.bind(null, "Modes")}>Modes</p>
-                </li>
-                <li className="table-view-cell media">
-                    <p  onClick={this.props.setRoute.bind(null, "Simulateur")}>Simulateur</p>
-                </li>
-            </ul>  
+            <div className="head-menu-container">
+                <div className={"menu-button" + (this.props.route == "Planning" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Planning")}>
+                    <span>Planning</span>
+                </div>
+                <div className={"menu-button" + (this.props.route == "Rooms" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Rooms")}>
+                    <span>Rooms</span>
+                </div>
+                <div className={"menu-button" + (this.props.route == "Modes" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Modes")}>
+                    <span>Modes</span>
+                </div>
+                <div className={"menu-button" + (this.props.route == "Simulateur" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Simulateur")}>
+                    <span>Simulateur</span>
+                </div>
+            </div>  
         );
     }
 });
@@ -42,42 +42,51 @@ var Home = React.createClass({
     render() {
         var route = null;
         var content = "";
+        var logoutButton = <button className="button-big" onClick={this.props.doLogout}>logout</button>
 
         switch (this.props.selectedRoute) 
         {
             case "Rooms" :
                 content = (
                     <div>
-                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <div className="top-menu">
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            {logoutButton}
+                        </div>
                         <Rooms/>
-                        <button onClick={this.props.doLogout}>logout</button>
                     </div>
                 )
                 break;
             case "Modes" :
                 content = (
                     <div>
-                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <div className="top-menu">
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            {logoutButton}
+                        </div>
                         <Modes/>
-                        <button onClick={this.props.doLogout}>logout</button>
                     </div>
                 )
                 break;
             case "Planning" :
                 content = (
                     <div>
-                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <div className="top-menu">
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            {logoutButton}
+                        </div>
                         <Planning/>
-                        <button onClick={this.props.doLogout}>logout</button>
                     </div>
                 )
                 break;
             case "Simulateur" :
                 content = (
                     <div>
-                        <Sidemenu setRoute={this.props.setRoute}/>
+                        <div className="top-menu">
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            {logoutButton}
+                        </div>
                         <Simulateur/>
-                        <button onClick={this.props.doLogout}>logout</button>
                     </div>
                 )
                 break;
@@ -141,7 +150,6 @@ var Planning = React.createClass({
     render() {
         return (
             <div>
-                <Header text="Envio Planning"/>
                 <div className="content">
                     <div id='calendar'></div>
                 </div>
@@ -156,7 +164,7 @@ var Simulateur = React.createClass({
     },
     render : function() {
         return (
-            <div id="container">Simulateur</div>
+            <div id="container"></div>
         );
     }
 });
@@ -174,14 +182,13 @@ var Login = React.createClass({
             'password': pass,
         }, function(ret) {          
             var rep = jQuery.parseJSON(ret)
-            console.log("reponse : ", rep);
+
             if(rep.error == null){
                 that.props.doLogin(rep.guid);       
             }
         })
     },
     render() {
-        console.log("this : ", this)
         return (
             <div className="form-big">
                 <form role="form" onSubmit={this.handleSubmit}>
@@ -210,7 +217,6 @@ var Register = React.createClass({
     handleSubmit(event) {
         event.preventDefault();
 
-        console.log("submit")
         var email = ReactDOM.findDOMNode(this.refs.email).value
         var pass = ReactDOM.findDOMNode(this.refs.pass).value
         var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
@@ -225,7 +231,6 @@ var Register = React.createClass({
             'lastname': lastname,
             'organisation' : organisation            
         }, function(ret) {
-            console.log("ret : ", ret)
             that.setState({registered: ret})
         })
     },
@@ -303,10 +308,12 @@ var App = React.createClass({
         HttpPost('/logout', {
             'guid': Cookie.load('userId')
         }, function(ret) {
-            //rep = jQuery.parseJSON(ret)
-            if(ret.error === null){
+            if(ret.error){
+                console.error("Error : " + ret.error)
+            } else {
                 Cookie.remove('userId');            
-                this.setState({userId: false});
+                that.setState({userId: false});
+                that.setRoute("Login");                
             }
         });
     },

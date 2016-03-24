@@ -15,21 +15,21 @@ var Header = React.createClass({
 });
 
 RoomListItem = React.createClass({
-    handleClick : function (){
+    ModifMode : function (){
       this.props.changeToModif(this.props.room._id);
     },
-    deleteRoom : function (){
+    DeleteRoom : function (){
       this.props.changeToDelete(this.props.room._id, this.props.index);
     },
     render: function () {
-            return (
-            <li className="table-view-cell media">
-              <div>name: {this.props.room.name}</div>
-              <div>Temperature actuel: {this.props.room.realTemperature}</div>
-              <div>Temperature voulus: {this.props.room.temperature}</div>
-              <div>m²: {this.props.room.volume}</div>
-              <button onClick={this.handleClick}>Modifier</button>
-              <button onClick={this.deleteRoom}>Supprimer</button>
+          return (
+            <li className="room-elem">
+              <span className="w_20p">Nom : {this.props.room.name}</span>
+              <span className="w_20p">Température actuelle : {this.props.room.realTemperature + "°"}</span>
+              <span className="w_20p">Temperature voulue : {this.props.room.temperature + "°"}</span>
+              <span className="w_20p">Volume: {this.props.room.volume + "m3"}</span>
+              <button className="list-button w_15p" onClick={this.ModifMode}>Modifier</button>
+              <button className="list-button w_15p" onClick={this.DeleteRoom}>Supprimer</button>
             </li>
         );
     }
@@ -44,7 +44,7 @@ RoomList = React.createClass({
             );
         });
         return (
-            <ul  className="table-view">
+            <ul className="rooms-list">
                 {items}
             </ul>
         );
@@ -94,7 +94,7 @@ Rooms = React.createClass({
             react.setState({creat: null});
       }            
     });          
-      },  
+      },
     componentDidMount: function() {
     react = this;
       HttpPost('/getRooms', {
@@ -111,10 +111,10 @@ Rooms = React.createClass({
     },
     render() {
           var cat = <RoomList rooms={this.state.rooms} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
-          var creatbutton = <button onClick={this.changeToCreat}>Creat Room</button>;
+          var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Creat Room</button>;
           if (this.state.creat !== null) 
           {
-              cat = <CreatRoom changeToRoomList={this.changeToRoomList}/>;
+              cat = <CreateRoom changeToRoomList={this.changeToRoomList}/>;
               creatbutton = null;
           }                  
           if(this.state.modif !== null )
@@ -125,17 +125,16 @@ Rooms = React.createClass({
           {
               cat = <DeleteRoom Id={this.state.delete} changeToRoomList={this.changeToRoomList}/>;
               creatbutton = null;
-          }         
-      return (
-        <div>
-        <Header text="Envio Room"/>
-        <div className="content">
-          {cat}                   
+          }
+          return (
+              <div>
+                <div className="content">
+                    {cat}                   
                     {creatbutton}
-        </div>
-        </div>
-      );
-    }
+                </div>
+              </div>
+          );
+      }
 });
 
 ModifRoom = React.createClass({
@@ -151,7 +150,6 @@ ModifRoom = React.createClass({
           'roomID': react.props.Id,         
       }, function(ret) {          
           rep = jQuery.parseJSON(ret)
-          console.log(rep)
           react.setState({room: rep.room})
       })
     },    
@@ -164,7 +162,7 @@ ModifRoom = React.createClass({
             'newName': name,
             'name': react.state.room.name,
             'volume': volume,            
-        }, function(ret) {          
+        }, function(ret) {
             rep = jQuery.parseJSON(ret);
             console.log(rep);
             react.setState({status: rep});
@@ -179,7 +177,6 @@ ModifRoom = React.createClass({
             'temperature': newValue,
         }, function(ret) {          
             rep = jQuery.parseJSON(ret);
-            console.log(rep);
             react.setState({status: rep});
             react.props.changeToRoomList();
         });
@@ -187,23 +184,31 @@ ModifRoom = React.createClass({
     render() {    
         return (
         <div className="bar bar-header-secondary">
-             <form role="form" onSubmit={this.handleSubmit}>
-                 <div className="form-group">
-                  <input ref="name" type="text" placeholder="new name" />
-                  <input ref="volume" type="text" placeholder="new volume" />
-                </div>
-                <button type="submit" >modif</button>
-              </form>
-              <input ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5} />
-              <button onClick={this.ChangeTemp} >change temperature</button>
-              <button onClick={this.props.changeToRoomList} >Retour</button>
+          <form role="form" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <div className="input-container">
+                <input className="input-medium" ref="name" type="text" placeholder="Name"/>
+              </div>
+              <div className="input-container">
+                <input className="input-medium" ref="volume" type="text" placeholder="Volume"/>
+              </div>
+            </div>
+            <button className="button-medium" type="submit">Modifier</button>
+          </form>
+          <div className="input-container">
+            <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5}/>
+          </div>
+          <div>
+            <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
+            <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>
+          </div>
         </div>
         );
     }
 });
 
 
-CreatRoom = React.createClass({
+CreateRoom = React.createClass({
     getInitialState: function() {
         return {
             status: false,
@@ -220,7 +225,7 @@ CreatRoom = React.createClass({
             'name': name,
             'volume': volume,
             
-        }, function(ret) {          
+        }, function(ret) {
             rep = jQuery.parseJSON(ret);
             react.setState({status: rep});
             react.props.changeToRoomList();
@@ -231,13 +236,19 @@ CreatRoom = React.createClass({
         <div className="bar bar-header-secondary">
              <form role="form" onSubmit={this.handleSubmit}>
                  <div className="form-group">
-                  <input ref="organisation" type="text" placeholder="organisation" />
-                  <input ref="name" type="text" placeholder="name" />
-                  <input ref="volume" type="text" placeholder="volume" />
+                  <div className="input-container">
+                    <input className="input-medium" ref="organisation" type="text" placeholder="organisation"/>
+                  </div>
+                  <div className="input-container">
+                    <input className="input-medium" ref="name" type="text" placeholder="name"/>
+                  </div>
+                  <div className="input-container">
+                    <input className="input-medium" ref="volume" type="text" placeholder="volume"/>
+                  </div>
                 </div>
-                <button type="submit" >Creat</button>
+                <button className="button-medium" type="submit" >Créer</button>
               </form>
-              <button onClick={this.props.changeToRoomList} >Retour</button>
+              <button className="button-medium" onClick={this.props.changeToRoomList} >Retour</button>
         </div>
         );
     }
@@ -258,8 +269,8 @@ DeleteRoom = React.createClass({
       return (
       <div>
       Êtes-vous sûr ?
-      <button onClick={this.deleteRoom}>Oui</button>
-      <button onClick={this.props.changeToRoomList} >Non</button>
+      <button className="button-medium" onClick={this.deleteRoom}>Oui</button>
+      <button  className="button-medium" onClick={this.props.changeToRoomList} >Non</button>
       </div>
     );
   }
