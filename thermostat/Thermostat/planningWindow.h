@@ -2,6 +2,7 @@
 #define PLANNINGWINDOW_H
 
 #include <QMainWindow>
+#include <QCalendarWidget>
 
 namespace Ui {
 class PlanningWindow;
@@ -23,7 +24,8 @@ private slots:
     void on_AccueilBtn_clicked();
 
 private:
-    Ui::PlanningWindow *ui;
+    Ui::PlanningWindow  *ui;
+    QCalendarWidget     *_calendar;
 };
 
 #endif // PLANNINGWINDOW_H

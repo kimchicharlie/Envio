@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QMainWindow>
+#include "Planning.h"
 
 class RoomState : QWidget
 {
@@ -10,6 +11,7 @@ class RoomState : QWidget
 
 public:
     RoomState();
+    RoomState(QString name, QString pin);
     ~RoomState();
 
     void    setTemp(double temp);
@@ -20,7 +22,8 @@ public:
     double  getTemp();
     int     getLum();
     int     getOpac();
-    QString gettempDisp();
+    QString getTempDisp();
+    int     getTempDispVal();
     int     getHourDisp();
 
 signals:
@@ -28,14 +31,21 @@ signals:
 
 private slots:
     void    convertTemp();
+    void    TempDispChange();
+    void    HourDispChange();
 
 private:
-    double      _temp;
-    int         _lum;
-    int         _opac;
-    QString     _tempDisp; // 1 for celcius, 2 for fahrenheit
-    int         _tempDispVal; // 1 for celcius, 2 for fahrenheit
-    int         _hourDisp; // 1 for 12 hours, 2 for 24 hours
+    double          _temp;
+    int             _lum;
+    int             _opac;
+    QString         _name;
+    QString         _code;
+
+    QList<Planning> _plan;
+
+    QString         _tempDisp; // 1 for celcius, 2 for fahrenheit
+    int             _tempDispVal; // 1 for celcius, 2 for fahrenheit
+    int             _hourDisp; // 1 for 12 hours, 2 for 24 hours
 };
 
 #endif // ROOMSTATE_H

@@ -6,6 +6,8 @@ PlanningWindow::PlanningWindow(QWidget *parent) :
     ui(new Ui::PlanningWindow)
 {
     ui->setupUi(this);
+    _calendar = ui->calendarWidget;
+
 }
 
 PlanningWindow::~PlanningWindow()
