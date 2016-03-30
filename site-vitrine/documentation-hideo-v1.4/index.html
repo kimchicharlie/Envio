@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Documentation Little Neko</title>
+<!-- Mobile viewport optimized -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<!-- styles -->
+<!-- Bootstrap  -->
+<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<!-- web font  -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700' rel='stylesheet' type='text/css'>
+<!-- highlighter  -->
+<link href="js/prism/prism.css" rel="stylesheet" type="text/css">
+<link href="css/jquery.tocify.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+  <header id="mainHeader">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <nav class="navbar navbar-default">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="img/logo.png" alt="Little Neko"></a>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="http://www.little-neko.com/" target="_blank">About us</a></li>
+            <li><a href="http://www.little-neko.com/portfolio-little-neko-website-templates/" target="_blank">Templates</a></li>
+            <li><a href="http://www.little-neko.com/support/" target="_blank">Support</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+    </div>
+  </header>
+  <section id="home">
+    <div class="container">
+      <div class="col-md-12">
+        <h1>Hideo | HTML5 Bootstrap Website Template<br />
+          <small>Documentation by “LITTLE NEKO“</small></h1>
+        </div>
+      </div>
+    </section>
+    <div class="container">
+      <div class="row">
+        <div class="tocify col-sm-3 col-md-3">
+          <div id="toc">
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="col-sm-9 col-md-9 content">
+          <section class="alert alert-heading">
+            <h1>Thank you for purchasing our template!</h1>
+            <p>
+              If you have any questions that are beyond the scope of this help file, please contact us via our support forum.<br />Thanks so much!
+            </p>
+          </section>
+          <section class="slice">
+            <h2>Installing the Template</h2>
+
+            <p>
+              You can view this template in any web browser from your desktop computer. Because the files are written in HTML, you do not need an internet connection in order to display or edit the template.
+            </p>
+
+            <h3> Setting the base color scheme</h3>
+            <ol>
+              <li> Locate css folder, you have all the colors in there</li>
+              <li> Choose your color</li>
+              <li> Open the file, copy the content</li>
+              <li> Open &ldquo;colors.css&rdquo;, replace content with the content of your color file</li>
+            </ol>
+
+            <h3> Getting the Template Online</h3>
+            <ol>
+              <li> It&#39;s important to understand that you must either have your own server space or use someone elses. The server space can be purchased at many different places around the internet. You need somewhere to put the files that you purchased so others can find them online.</li>
+              <li> The template folder will have several files with the extension labeled <code>.html</code>. This is where all your content will. It&#39;s very important to keep the css and js-plugin folders with the HTML or the HTML will not look how the design is meant to look. Along with the HTML files, you will also have four additional folders to upload: css, font-icons, bootstrap, js-plugin, images, and js.</li>
+              <li> Start your FTP client (we personally use <a href="http://filezilla-project.org/">Filezila</a> which is free) and login. Login to your server. You will need your server name (often times this will be your domain name), username, and password that you setup with the hosting company.</li>
+              <li> Locate the domain folder you wish to upload your template files to on your server. You are going to want to click and drag every file into your FTP client.</li>
+              <li> Once the files are done uploading, rename the file you want to be your home page as &#39;index.html&#39;.</li>
+            </ol>
+          </section>
+          <section class="slice">
+            <h2>Files Structure</h2>
+            <ul>
+              <li><strong>bootstrap</strong>
+               <ul>
+                <li>Bootstrap framework</li>
+              </ul>
+            </li>
+            <li><strong>css</strong>
+              <ul>
+                <li>layout.css (structure styles),</li>
+                <li>colors.css (color styles)</li>
+                <li>custom.css (put your CSS customisations in there)</li>
+              </ul>
+            </li>
+            <li><strong>documentation</strong></li>
+            <li><strong>font-icons</strong>
+              <ul>
+                <li>Fontello font set</li>
+              </ul>
+            </li>
+            <li><strong>images</strong>
+              <ul>
+                <li>Templates images
+                </li>
+              </ul>
+            </li>
+            <li><strong>js</strong>
+              <ul>
+                <li>custom.js</li>
+              </ul>
+              <li><strong>js-plugin</strong>
+               <ul>
+                <li>External javascripts plugin and Contact form folder
+                </li>
+              </li>
+            </ul>
+          </section>
+          <section class="slice">
+            <h2>Customization</h2>
+
+            <h3>HTML Structure</h3>
+            <p>
+              This theme has a responsive layout with a variation of column layouts depending on the page. This theme uses TWITTER BOOTSTRAP 3 Framework (12 columns) which will help streamline any customization you wish to make.
+            </p>
+            <p>
+              Bootstrap includes a responsive, mobile first fluid grid system that appropriately scales up to 12 columns as the device or viewport size increases. It includes predefined classes for easy layout options.
+            </p>
+            <p>
+              Grid systems are used for creating page layouts through a series of rows and columns that house your content. Here's how the Bootstrap grid system works:
+            </p>
+
+            <ul>
+              <li>Rows must be placed within a <code>.container</code> for proper alignment and padding.</li>
+              <li>Use rows to create horizontal groups of columns.</li>
+              <li>Content should be placed within columns, and only columns may be immediate children of rows.</li>
+              <li>Columns create gutters (gaps between column content) via <code>padding</code>. That padding is offset in rows for the first and last column via negative margin on <code>.row</code>s.</li>
+              <li>Grid columns are created by specifying the number of twelve available columns you wish to span. For example, three equal columns would use three <code>.col-xs-4</code>.</li>
+            </ul>
+            <div class="alert alert-info">
+              If you&#39;re unfamiliar with the Bootstrap system, be sure to read about it <strong><a href="http://getbootstrap.com/css/#grid" targetç="_blank">here</a></strong>.
+            </div>
+          </p>
+          <p>
+            The main structure of this site is wrapped in a &#39;.gobalWrapper&#39; div. Inside of that div you will find:
+          </p>
+
+          <ul>
+            <li>a &#39;header&#39; with menu inside</li>
+            <li>each major sections of the site wrapped into 'sections'.</li>
+            <li>a &#39;footer&#39;</li>
+          </ul>
+
+          Each section follow the bootstrap logic.
+
+          <pre class="language-markup">
+            <code>
+              &lt;section>
+
+              &lt;div class="container">
+
+              &lt;div class="row">
+
+              &lt;div class="col-md-12">
+
+              The content
+
+              &lt;/div>
+
+              &lt;/div>
+
+              &lt;/div>
+
+              &lt;/section>
+            </code>
+          </pre>
+
+
+          <h3>CSS files</h3>
+          <p> We are using a set of 3 main CSS files:</p>
+          <ul>
+            <li><strong>layout.css:</strong> handles the structures</li>
+            <li><strong>colors.css:</strong> this file contains all colors and styles for the color scheme you choosed. </li>
+            <li><strong>custom.css:</strong> put your customization here. This file is where you would make any changes to the main look of the theme since it overrides all css rules found in layout.css and colors.css.</li>
+          </ul>
+          <p> If you would like to edit any style elements of the page, you would do the following in custom.css:</p>
+          <pre class="language-css">
+            <code>
+              #mainLogo {
+              color: #someColor;
+            }
+          </code>
+        </pre>
+        <p> If you find that your new style is not overriding, it is most likely because of a specificity problem. Scroll down in your CSS file and make sure that there isn&#39;t a similar style that has more weight.</p>
+        <p> I.E.</p>
+        <pre class="language-css">
+          <code>
+            header #mainLogo {
+            color: #someColor;
+          }
+        </code>
+      </pre>
+      <p>
+        So, to ensure that your new styles are applied, make sure that they carry enough &quot;weight&quot; and that there isn&#39;t a style lower in the CSS file that is being applied after yours.
+      </p>
+      <h3>Where to start</h3>
+      You get a lot of templates layout in the package, you can use one of them to start designing your page.
+      Each part of layout are organised in section, that can be copied from one template to another.
+
+      <pre class="language-markup">
+        <code>
+          &lt;!-- Team -->
+          &lt;section>
+
+          Code of the team section of the page
+
+          &lt;/section>
+          &lt;!-- Team -->
+        </code>
+      </pre>
+
+
+      <h3>Layouts</h3>
+      <p>Default general layout of the page is "Full width". To set the boxed layout, add "boxedLayout" to the "body" element like this:</p>
+      <pre class="language-markup">
+        <code>
+          &lt;body id="boxedLayout">
+        </code>
+      </pre>
+
+      <h3>Headers</h3>
+      <p>To change the header, add a simple class (header1, header2, header3, etc...) to the "body" element like this:</p>
+      <pre class="language-markup">
+        <code>
+          &lt;body class="header3">
+        </code>
+      </pre>
+      <h3>Font</h3>
+      <p>Template uses google font, you'll find the code in the header.</p>
+
+      <pre class="language-markup">
+        <code>
+          &lt;link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700' rel='stylesheet' type='text/css'>
+        </code>
+      </pre>
+      <p>If you wish to change the font:</p>
+      <ol>
+        <li>Go to <a href="http://www.google.com/fonts">http://www.google.com/fonts</a></li>
+        <li>On the Choose page, find and select fonts that you like.</li>
+        <li>Then on the Review page, have a closer look at your Collection and finalize the font families that you'll want to use on your website.</li>
+        <li>Finally, on the Use page, get the code to use the fonts on your website.</li>
+      </ol>
+      <p>Then override the "font family" declaration from layout.css</p>
+      <h3>Icons</h3>
+      <p>
+        Icon fonts magic will make your icons always look great no matter which screen they are displayed on. We have included a custom icon font pack. Here is a example on how to use these icons fonts
+      </p>
+      <pre class="language-markup">
+        <code> 
+          &lt;i class="icon-left-circle"></i>
+        </code>
+      </pre>
+      <p>
+        Just change the class name to switch the icon inside you html element. <a href="../files/font-icons/custom-icons/demo.html" target="_blank">Here</a> is a link showing the complete custom pack included with your theme.
+      </p>
+      <p> You can extend the icons with the Fontello library. To add more icons to the set:
+      </p>
+      <ol>
+        <li> Go to <a href="http://fontello.com/">http://fontello.com/</a></li>
+        <li> Click on the settings and choose &quot;import config.json&quot;</li>
+        <li> Import the file from font-icons/custom-icons. This will highlight the icons of the set</li>
+        <li> Choose the icons you want, download, unzip and replace the files</li>
+      </ol>
+      <div class="alert">
+        The Neko Framework allows you to simply change size and look of your icons. Check this page for reference:
+        <a href="http://hideo-html5-css3-bootstrap-website-template.little-neko.com/files/features-icons.html" target="_blank">http://hideo-html5-css3-bootstrap-website-template.little-neko.com/files/features-icons.html</a>
+      </div>
+
+      <h3>Contact form</h3>
+      <p>
+        <strong>Neko Contact AJAX Form</strong> allows you to easily place a self-contained Contact Form on any HTML or PHP page of your existing website. You will need a server running php. To set up your mail address, simply modify the following file in:<br /><strong>js-plugin/neko-contact-ajax-plugin/php/form-handler.php</strong>
+      </p>
+    </section>
+    <section class="slice">
+
+      <h2>Jquery plugins</h2>
+
+      <p>
+        This template uses several javascript files, all of them are placed a folder called &quot;js-plugin&quot; and on googleapis servers. All javascript files are called in the bottom of the page to speed up the loading time. The custom.js file, which is located in the js folder, is where we have placed all plugin calls and custom functions such as flexslider &quot;captions&quot; custom animations.
+      </p>
+      <pre class="language-markup">
+        <code>
+          &lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">...
+          &lt;script src="//maps.google.com/maps/api/js?sensor=false">...
+          &lt;script src="js-plugin/respond/respond.min.js">...
+          &lt;script src="js-plugin/jquery-ui/jquery-ui-1.8.23.custom.min.js">...
+          &lt;script src="js-plugin/isotope/jquery.isotope.min.js">...
+          &lt;script src="js-plugin/easing/jquery.easing.1.3.js">...
+          &lt;script src="js-plugin/pretty-photo/js/jquery.prettyPhoto.js">...
+          &lt;script src="js-plugin/flexslider/jquery.flexslider.js">...
+          &lt;script src="js-plugin/jquery-validation/jquery.validate.js">...
+          &lt;script src="js/custom.js">...
+        </code>
+      </pre>
+
+      <h3>Revolution slider</h3>
+      <p>
+        Turn simple HTML markup into a responsive(mobile friendly) or fullwidth slider with must-see-effects and meanwhile keep or build your SEO optimization (all content always readable for search engines). See the heaps of custom transitions/animations for each object on the page! Customize this slider with just a little HTML and CSS to your very needs. The documentation can be found here. <a href="../files/js-plugin/revolution-slider/documentation/documentation.html">here</a>:
+      </p>
+
+      <h3>Animations</h3>
+      To use animations, make sure the appear.js script is loaded in the footer:
+
+      <pre class="language-markup">
+        <code>
+          &lt;script src="js-plugin/appear/jquery.appear.js" >;
+        </code>
+      </pre>
+
+      make sure the nekoAnim.css  is loaded in the header:
+      <pre class="language-markup">
+        <code>
+          &lt;link rel="stylesheet" type="text/css" href="js-plugin/appear/nekoAnim.css">
+        </code>
+      </pre>
+
+      To animate an element, you will need to add to property to it:
+      <ul>
+        <li><strong>data-nekoanim</strong> defines the animation type</li>
+        <li><strong>data-nekodelay</strong> defines the delay before animation starts</li>
+      </ul>
+      <strong>Example with an image:</strong>
+      <pre class="language-markup">
+        <code>
+          &lt;img src="xxxx" data-nekoanim="fadeIn" data-nekodelay="10">
+        </code>
+      </pre>
+
+      The following animations are available:
+
+      <ul>
+        <li>fadeIn</li>
+        <li>fadeInUp</li>
+        <li>fadeInDown</li>
+        <li>fadeInLeft</li>
+        <li>fadeInRight</li>
+        <li>fadeInUpBig</li>
+        <li>fadeInDownBig</li>
+        <li>fadeInLeftBig</li>
+        <li>fadeInRightBig</li>
+        <li>fadeInDownBig</li>
+        <li>slideInDown</li>
+        <li>slideInLeft</li>
+        <li>slideInRight</li>
+        <li>bounceIn</li>
+        <li>bounceInUp</li>
+        <li>bounceInDown</li>
+        <li>bounceInLeft</li>
+        <li>bounceInRight</li>
+      </ul>
+
+
+      <h3>OWL Carousel</h3>
+      <p>
+        Touch enabled jQuery plugin that lets you create beautiful responsive carousel slider. The documentation for this plugin can be found <a href="http://owlgraphic.com/owlcarousel/">here</a>.
+        We added an extra layer to make use of multiples carousel easier.
+        See markup example:
+
+        <pre class="language-markup">
+          <code>
+            &lt;div class="owl-carousel nekoDataOwl"  data-neko_items="3" data-neko_singleitem="true">
+            &lt;img src="images/portfolio/carousel-1.jpg" class="img-responsive" alt="image"/>
+            &lt;img src="images/portfolio/carousel-2.jpg" class="img-responsive" alt="image"/>
+            &lt;img src="images/portfolio/carousel-2.jpg" class="img-responsive" alt="image"/>    
+            &lt;/div>
+          </code>
+        </pre>
+        <p>
+          List of the data options available:
+        </p>
+
+        <ul>
+          <li><strong>data-neko_items: </strong>This variable allows you to set the maximum amount of items displayed at a time with the widest browser width</li>
+          <li><strong>data-neko_navigation: </strong>Display "next" and "prev" buttons</li>
+          <li><strong>data-neko_singleitem: </strong>Display only one item</li>
+          <li><strong>data-neko_autoplay: </strong>Change to any integrer for example autoPlay : 5000 to play every 5 seconds. If you set autoPlay: true default speed will be 5 seconds</li>
+          <li><strong>data-neko_itemsscaleup: </strong>Option to not stretch items when it is less than the supplied items</li>
+          <li><strong>data-neko_pagination: </strong>Show pagination</li>
+          <li><strong>data-neko_paginationnumbers: </strong>Show numbers inside pagination buttons</li>
+          <li><strong>data-neko_autoheight: </strong>Add height to owl-wrapper-outer so you can use diffrent heights on slides. Use it only for one item per page setting.</li>
+          <li><strong>data-neko_mousedrag: </strong>Turn off/on mouse events</li>
+        </ul>
+
+        <h3>Isotope</h3>
+        <p>
+          This plugin is used to layout the portfolio section and animate each columns depending on the filter the user select. The documentation can be found <a href="http://isotope.metafizzy.co/">here</a>.
+        </p>
+
+        <h3>Easing</h3>
+        <p>
+          This plugin is used to add easing methods for jquery animation such as Bounce or Elastic animations. The documentation can be found <a href="http://gsgd.co.uk/sandbox/jquery/easing/">here</a>.
+        </p>
+
+        <h3>Magnific popup</h3>
+        <p>
+          Magnific Popup is a responsive jQuery lightbox plugin that is focused on performance and providing best experience for user with any device (Zepto.js compatible). Not only does it support images, it also support for videos, flash, YouTube, iframes and ajax. It&rsquo;s a full blown media lightbox. The documentation can be found <a href="http://dimsemenov.com/plugins/magnific-popup/documentation.html">here</a>. We added an option for galleries, simply add a data-gallery tag with the list of the images you want inside your gallery:<br>
+        </p>
+
+        <pre class="language-markup">
+          <code>
+            data-gallery="images/portfolio/carousel-2.jpg,images/portfolio/carousel-3.jpg"
+          </code>
+        </pre>
+
+        <h3>Neko Contact AJAX Form</h3>
+        <p>
+          This plugin allows you to easily place a self-contained Contact Form on any HTML or PHP page of your existing website. You will need a server running php. To set up your mail address, simply modify the following file: js-plugin/neko-contact-ajax-plugin/php/form-handler.php
+        </p>
+
+        <h3>Custom light-weight Jquery-ui</h3>
+        <p>
+          We have also included a light-weight version of jquery-ui. jQuery UI provides abstractions for low-level interaction and animation, advanced effects and high-level, themeable widgets, built on top of the jQuery JavaScript Library, that you can use to build highly interactive web applications. The documentation can be found <a href="http://jqueryui.com/">here</a>.
+        </p>
+        <h3>Sharre plugin</h3>
+        <p>
+          Sharrre is a jQuery plugin that allows you to create nice widgets sharing for Facebook, Twitter, Google Plus (with PHP script) and more... See documentation <a href="http://sharrre.com/#documentation">here</a>
+        </p>
+        <h3>Google map</h3>
+        <p>
+          Google map will let you easily include a dynamic map for your contact page.
+        </p>
+        <h4> Setting your address</h4>
+        <p>
+          The initializer code is in custom.js. Locate &ldquo;function initialize( id )&rdquo;. You will see an array of locations, put your infos there. If needed, you can put gps coordinates (optionnal) for more precision. Then remove the items you don't need from the array.
+        </p>
+        <pre class="language-js">
+          <code>
+            var locations = [
+            //point number 1
+            ['Madison Square Garden', '4 Pennsylvania Plaza, New York, NY'],
+            //point number 2
+            ['Best town ever', 'Santa Cruz', 36.986021, -122.02216399999998],
+          </code>
+        </pre>
+        <h4>Replace the default icon with your own</h4>
+        <p>
+          Put the path to your custom icon in the intialize(id) function.</p>
+          <pre class="language-js">
+            <code>
+              var image = 'images/icon-map.png';
+            </code>
+          </pre>
+          <h4>Google Analytics</h4>
+          <p>
+            We include the Google Analytics code in every footer of the template dynamically. You need to create a google account to use it. Once you are done, open "custom.js" and locate "YOUR UA NUMBER" at the top of the file, and put your UA there. If you dont want to use Google Analytics, just remove the following line of code in custom.js :
+            <pre class="language-js">
+              <code>
+                window.onload = function () { "use strict"; gaSSDSLoad(""); };
+              </code>
+            </pre>
+
+          </section>
+
+          <section class="slice">
+
+            <h2>Twitter timeline</h2>
+            <p>
+              witter's decision to discontinue their unauthenticated v1.0 API means that javascripts widgets using it stopped working in 2013 -- Twitter wants your only option for on-page widgets to be their own Embedded Timelines and follow their display requirements (<a href="https://dev.twitter.com/terms/display-requirements"> https://dev.twitter.com/terms/display-requirements</a> ) . That is why we decided to not include Twitter JS widget in our templates, knowing that it will break sooner or later and not follow the twitter guidelines.You may find alternatives (most using a php script) to display the tweets in a different way, violating the Twitter's TOS, but we rather provide a safe solution for our buyers.
+            </p>
+
+            <h4>How to set up your Twitter timeline?</h4>
+            <p>
+              We included our own Twitter timeline in this template
+            </p>
+            <p>
+              To create a timeline you must be signed in to twitter.com and visit the widgets section of your settings page. From this page you can see a list of the timelines you've configured and create new timelines. Click the “Create new” button to build a new timeline for your website, choose the type, and complete the fields in the form; most fields are optional. The configuration is stored on our server, so once you've saved the timeline a small piece of JavaScript is generated to paste into your page, which will load the timeline. Here's an example embed code:
+            </p>
+            <pre class="language-markup">
+              <code>
+                &lt;a class="twitter-timeline" width="300" height="500" href="https://twitter.com/twitterapi" data-widget-id="YOUR-WIDGET-ID-HERE">Tweets by @twitterapi</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+              </code>
+            </pre>
+            <p>
+              Twitter embed timeline comes with a set of option to customize the look and feel. See online documentation for more info about them. <a href="https://dev.twitter.com/docs/embedded-timelines">https://dev.twitter.com/docs/embedded-timelines</a>
+            </p>
+
+          </section>
+
+          <section class="slice">
+
+            <h2>Shortcodes and components</h2>
+            <p>
+              We have included all bootstrap shortcodes, classes and javascript plugins so that you can easly customize your theme. You can find a complete explanation of how it works <a href="http://twitter.github.com/bootstrap">here</a>
+            </p>
+
+            <strong>Neko Framework</strong>
+            <p> Along with all the Bootstraps components, we added some extra shortcode to help you customize your website. Most components classes can be mixed with colors classes.</p>
+            <div class="alert">
+              Please refer to this demo page for more details and usage demonstration:
+              <a href="../files/features-neko-shortcodes.html" target="_blank">features-neko-shortcodes.html</a>
+            </div>
+            <p>The most important shortcode are probably the spacing utilities, wich will be very handy to handle the vertical padding and margins of your elements:
+            </p>
+            <ul>
+              <li>
+                <strong>&#39;mb15, mb30 and mb40&#39;:</strong> Adds a margin bottom to content (1.5em, 3em, or 4em).
+              </li>
+              <li>
+                <strong>&#39;mt15, mt30 and mt40&#39;:</strong> Adds a margin top to content (1.5em, 3em, or 4em).
+              </li>
+              <li>
+                <strong>&#39;color1 and color2&#39;:</strong> adds a background color on sections or components.
+              </li>
+            </ul>
+
+          </section>
+
+          <section class="slice">
+            <h2>Credits</h2>
+            <p> Demo images (NOT included in the package) <a href="http://www.shutterstock.com/">http://www.shutterstock.com/</a></p>
+            <hr>
+            <p> Once again, thank you so much for purchasing this template. As we said at the beginning, we'd be glad to help you if you have any questions relating to this template. Please contact us via our <a href="http://support.little-neko.com/">support forum</a>. We'll do our best to assist you!</p>
+
+            <a href="">Back to top</a>
+          </section>
+
+
+
+        </div><!--/row-->
+
+      </div><!--/.fluid-container-->
+
+<!-- Le javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script type="text/javascript" src="js/jquery/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui/jquery-ui-1.8.23.custom.min.js"></script>
+  <script src="js/jquery.tocify.min.js"></script>
+  <script src="js/prism/prism.js"></script>
+  <script src="js/main.js"></script>
+
+</div></body></html>
