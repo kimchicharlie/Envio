@@ -1,0 +1,21 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (SFML_TEMPLATE.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  CoreGraphical.cpp
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(47): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(48): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(49): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(50): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(51): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(76): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: voir la déclaration de 'inet_addr'
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(364): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(334): warning C4101: 'status' : variable locale non référencée
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(329): warning C4101: 'socketBuff' : variable locale non référencée
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(393): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(401): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+..\..\..\OneDrive\Documents\EnvioSimulator\EnvioGlassSimulator\CoreGraphical.cpp(403): warning C4244: '=' : conversion de 'double' en 'int', perte possible de données
+  Génération de code en cours
+  1 of 455 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Fin de la génération du code
+  SFML_TEMPLATE.vcxproj -> C:\Users\Ilyes Abd-Lillah\Documents\Git Repositories\EnvioSimulator\Release\EnvioSimulator.exe
