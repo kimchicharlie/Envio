@@ -6,7 +6,20 @@ PlanningWindow::PlanningWindow(QWidget *parent) :
     ui(new Ui::PlanningWindow)
 {
     ui->setupUi(this);
-    _calendar = ui->calendarWidget;
+
+    _planModel = new PlanningModel(this, QString(QDate::currentDate().toString()));
+
+    _planning = ui->tableView;
+    _prevBtn = ui->PrevButton;
+    _nextBtn = ui->NextButton;
+    _addModeBtn = ui->AddModeButton;
+//    ui->DateLabel->setText(QDate::currentDate().toString());
+
+    _planning->setModel(_planModel);
+   // QHeaderView *hdView = _planning->horizontalHeader();
+   // hdView->setDefaultSectionSize(280);
+  //  hdView->setObjectName(QString(QDate::currentDate().toString()));
+    //_planning->setHorizontalHeader(hdView);
 
 }
 

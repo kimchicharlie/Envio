@@ -30,6 +30,8 @@ private slots:
     void on_TempDispButton_clicked();
     void on_HourDispButton_clicked();
 
+    void on_listView_clicked(const QModelIndex &index);
+
 private:
     Ui::ConfigWindow    *ui;
     //list of rooms to display

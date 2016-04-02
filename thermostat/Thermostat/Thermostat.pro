@@ -20,8 +20,9 @@ SOURCES += main.cpp\
     roomstate.cpp \
     planningWindow.cpp \
     configWindow.cpp \
+    roomlistmodel.cpp \
     planning.cpp \
-    roomlistmodel.cpp
+    planningmodel.cpp
 
 HEADERS  += temperatureWindow.h \
     lumWindow.h \
@@ -30,8 +31,9 @@ HEADERS  += temperatureWindow.h \
     roomstate.h \
     planningWindow.h \
     configWindow.h \
+    roomlistmodel.h \
     planning.h \
-    roomlistmodel.h
+    planningmodel.h
 
 FORMS    += mainwindow.ui \
     temperatureWindow.ui \

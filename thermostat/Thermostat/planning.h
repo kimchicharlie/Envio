@@ -2,16 +2,21 @@
 #define PLANNING_H
 
 #include <QString>
+#include <QDate>
 
 class Planning
 {
 public:
-    Planning(QString type, int day, int month, int hour, int min, int duration);
+    Planning(QString type, QDate date, int hour, int min, int duration);
 
+    QString     getType();
+    QDate       getDate();
+    int         getHour();
+    int         getMinute();
+    int         getDuration();
 private:
     QString _type;
-    int     _day;
-    int     _month;
+    QDate   _date;
     int     _hour;
     int     _minute;
     int     _duration;

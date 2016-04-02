@@ -38,9 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
                 this->_date->currentDateTime().toString(Qt::TextDate));
 
     // temperature window and associated signals/slots
-    _tempWin = new TemperatureWindow(this, 1);
+    _tempWin = new TemperatureWindow(this, _curRoom->getTempDispVal(), _curRoom->getTemp());
 //    _tempWin = new TemperatureWindow(this, 2);
-    _tempWin->setSliderVal(_curRoom->getTemp() * 10);
     connect(_tempWin, SIGNAL(tempChange(double)),
             this, SLOT(tempValChanged(double)));
     connect(_tempWin, SIGNAL(returnToMain()),

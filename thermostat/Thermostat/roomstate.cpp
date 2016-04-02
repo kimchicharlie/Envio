@@ -1,4 +1,5 @@
 #include "roomstate.h"
+#include <iostream>
 
 RoomState::RoomState()
 {
@@ -7,9 +8,9 @@ RoomState::RoomState()
     _lum = 60;
     _opac = 20;
     _hourDisp = 2;
-    //get the name of the roomm
+    //get the name of the room
     _name = "Large Room";
-    //get the pin of the roomm
+    //get the pin of the room
     _code = "0000";
 /**/
     _tempDisp = "°C";
@@ -17,6 +18,8 @@ RoomState::RoomState()
 /*
     _tempDisp = "°F";
     _tempDispVal = 2;
+    //convert celcius to fahrenheit
+    // T(°C) = (T(°F) - 32) × 5/9
     _temp = _temp * 9 / 5 + 32;
 /**/
     connect(this, SIGNAL(changeTempDisp()),
@@ -111,7 +114,7 @@ void    RoomState::convertTemp() {
     //convert celcius to fahrenheit or invert
     // T(°C) = (T(°F) - 32) × 5/9
     if (_tempDispVal == 1)
-        _temp = (_temp - 32) * 5 / 9;
+        _temp = (_temp - 32) * 5.0 / 9.0;
     else
-        _temp = _temp * 9 / 5 + 32;
+        _temp = _temp * 9.0 / 5.0 + 32;
 }

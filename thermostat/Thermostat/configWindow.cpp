@@ -6,10 +6,6 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
     ui(new Ui::ConfigWindow)
 {
     ui->setupUi(this);
-    _model = new RoomListModel(this);
-//    _model = new QStringListModel(this);
-    _listView = ui->listView;
-    _listView->setModel(_model);
     //get the rooms attach to the thermostat and put them in the list
     _rooms = new QList<RoomState*>();
 
@@ -17,6 +13,10 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
     _rooms->append(new RoomState("test2", "1234"));
     _rooms->append(new RoomState("test3", "1234"));
     _rooms->append(new RoomState("test4", "1234"));
+
+    _model = new RoomListModel(this);
+    _listView = ui->listView;
+    _listView->setModel(_model);
 }
 
 ConfigWindow::~ConfigWindow()

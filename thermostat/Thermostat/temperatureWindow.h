@@ -15,7 +15,7 @@ class TemperatureWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit TemperatureWindow(QWidget *parent = 0, int tempDisp = 1);
+    explicit TemperatureWindow(QWidget *parent = 0, int tempDisp = 1, double temp = 20.0);
     ~TemperatureWindow();
     void setSliderVal(int val);
 
