@@ -1406,7 +1406,12 @@ function initialize(id) {
 	var image = 'images/icon-map.png';
 
 	var overlayTitle = 'Agencies';
-
+     var zoom= $('#map_canvas').gmap('option', 'zoom');
+      
+      $('#map_canvas').gmap().bind('init', function(ev, map) {
+        $('#map_canvas').gmap('addMarker', {'position': '43.600000,1.433333', 'bounds': true});
+        $('#map_canvas').gmap('option', 'zoom', 13);
+      });
 	var locations = [
         //point number 1
         ['Madison Square Garden', '4 Pennsylvania Plaza, New York, NY'],

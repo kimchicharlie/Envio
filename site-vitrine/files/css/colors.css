@@ -32,7 +32,7 @@
 
 /** tabs and accordion**/
 
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {background:#22aba6;}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {background:#2ecc71;}
 .nav-tabs > li > a {border-left:1px dashed #eee; border-top:1px dashed #eee; border-right:1px dashed #eee;}
 
 
@@ -92,7 +92,7 @@
 ================================================== */
 
 body {
-	color:#777;
+	color:#fff;
 	background: #fefefe;
 }
 
@@ -100,7 +100,7 @@ blockquote small {
 	color:inherit;
 }
 h1, h2, h3, h4, h5, h6 {
-	color:#333;
+	color:#ecf0f1;
 }
 
 h1 strong {
@@ -163,7 +163,7 @@ h2 i {color:#999}
 
 a {color:#22aba6;}
 
-a:hover, .scrollspyNav .active a {color:#22aba6;}
+a:hover, .scrollspyNav .active a {color:#34495e;}
 
 ul.iconsList li a {color:#555;}
 
@@ -272,12 +272,12 @@ ul.iconsList li a:hover, ul.iconsList i {color:#22aba6;}
 	color:#aaa;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, #resMainMenu li.active>a {
-	color:#22aba6;
+	color:#2ecc71;
 	background:none;
 }
 .navbar-nav > li.sep:before  {color:#eee;}
 .navbar-default .navbar-nav > li > a.active {color:#22aba6;}
-.navbar-nav ul li a{color:#999;}
+.navbar-nav ul li a{color:#fff;}
 .navbar-nav li.hover>a, .navbar-nav ul li a:hover{color:#22aba6;}
 .navbar-nav ul li.hover>a {color:#fff;}
 
@@ -296,7 +296,7 @@ ul.iconsList li a:hover, ul.iconsList i {color:#22aba6;}
 	.navbar-nav ul li a:hover, .navbar-nav ul li.hover>a{background:#22aba6; color:#fff;}
 
 	#mainMenu .navbar-nav li{border-bottom:none;}
-	#mainMenu .navbar-nav ul li a{border-bottom:1px solid #444;}
+	#mainMenu .navbar-nav ul li a{border-bottom:1px solid #ecf0f1;}
 
 	.nekoMegaMenu {background:#444;}
 	.nekoMegaMenu h2 {color:#eee;}
@@ -414,11 +414,11 @@ ul.iconsList li a:hover, ul.iconsList i {color:#22aba6;}
 ================================================== */
 
 footer {
-	color:#777;
+	color:#34495e;
 	background:#f7f7f7;
 	border-top:1px solid #ddd;
 }
-footer h1,footer h2,footer h3,footer h4{color:#777; font-weight:300;}
+footer h1,footer h2,footer h3,footer h4{color:#ecf0f1; font-weight:300;}
 #footerRights {
 	background-color:#eee;
 	color:#999;
@@ -600,7 +600,7 @@ section#projectDescription {
 
 /** focus color ***/
 ::-moz-selection {
-	background: #22aba6;
+	background: #2ecc71;
 	color: #fff;
 	text-shadow: none;
 }
@@ -641,7 +641,7 @@ section#projectDescription {
 }
 .pricingBloc h3 {
 	background-color:#fff;
-	color:#777;
+	color:#ecf0f1;
 
 }
 .pricingBloc p {
@@ -696,7 +696,7 @@ section#projectDescription {
 ================================================== */
 .boxContent {border: 1px dashed rgba(0,0,0,0.15); border-top: none;}
 
-.boxContent h2, .boxContent h3 {color:#22aba6;}
+.boxContent h2, .boxContent h3 {color:#fff; font-weight: 600;}
 /*** Feature box **/
 
 .boxFeature i {color:#22aba6 ;} 
@@ -707,7 +707,7 @@ section#projectDescription {
 
 /*** Icon box **/
 
-.boxIcon a p {color:#777;}
+.boxIcon a p {color:#ecf0f1;}
 .boxIcon a:hover h2, .boxIcon a:hover p {color:#22ABA6;}
 
 /*** testimonial ***/
@@ -732,24 +732,24 @@ section#projectDescription {
 }
 /*color0*/
 .color0{
-	background-color:#fff;
+	background-color:#27ae60;
 }
 
 /*color1*/
 .color1, .ctaBox.color1{
-	background-color:#F7F7F7;
+	background-color:#21759b;
 	color:#444;
 }
 
 .color1 h1, .color1 h2, .color1 h3, .color1 h4, .color1 blockquote, .color1 a{
-	color:#444;
+	color:#ecf0f1;
 }
 .color1 a.btn{color:#111;}
 .color1 a.btn:hover{color:#fff;}
 .color1 .subTitle  {color:#999;}
 /*color2*/
 .color2, .slice.color2, .bulle.color2, .ctaBox.color2{
-	background-color:#22aba6 ;
+	background-color:#DC4E41;
 	color:#fff;
 }
 
@@ -766,7 +766,7 @@ section#projectDescription {
 .color2 h1:before,.color2 h1:after{color:#6bb8be;}
 /*** icons ***/
 .iconRounded {color:#22aba6; border: 1px dashed #22aba6;}
-.iconRounded:hover, .color1 .iconRounded:hover, .boxIcon a:hover i{background-color:#6bb8be;color:#fff;text-shadow: 0 0 5px #FFF; border-style: solid;}
+.iconRounded:hover, .color1 .iconRounded:hover, .boxIcon a:hover i{background-color:#1abc9c;color:#fff;text-shadow: 0 0 5px #FFF; border-style: solid;}
 
 .color2 .iconRounded {background-color:#FFF;color:#22aba6 ;}
 

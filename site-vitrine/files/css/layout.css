@@ -556,7 +556,7 @@ hr.lineSmall {
 body {
 	font-size:14px;
 	line-height: 22px;
-	font-family: 'Roboto',sans-serif;
+	font-family: 'Montserrat',sans-serif;
 	-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
 	-webkit-text-size-adjust: 100%;
 	margin: 0;
@@ -564,7 +564,7 @@ body {
 	padding-top: 81px;
 }
 h1, h2, h3, h4, h5, h6, legend {
-	font-family: 'Roboto',sans-serif;
+	font-family: 'Montserrat',sans-serif;
 	font-weight: 300;
 	line-height: 1.25em;
 	margin: 0 0 0.75em 0;
@@ -1251,7 +1251,7 @@ ul.quickMenu li a.linkLeft {
 	display: block;
 	padding: 11px;
 	text-decoration: none;
-	font-family: 'Roboto',sans-serif;
+	font-family: 'Montserrat',sans-serif;
 	-webkit-transition: all 0.3s ease-out;
 	-moz-transition: all 0.3s ease-out;
 	-o-transition: all 0.3s ease-out;
@@ -2059,11 +2059,13 @@ textarea#comments {height:87px;}
 ================================================== */
 /* Preloader one page */
 #preloader {
-	position: fixed;
+	position: absolute;
 	top:0;
 	left:0;
 	right:0;
+	background-color:#2c3e50 !important; 
 	bottom:0;
+	color:#fff;
 	z-index:10000; /* makes sure it stays on top */
 }
 
@@ -2128,7 +2130,7 @@ a.btnSwitcher {
 }
 .btnSwitcher.active, .btnSwitcher:hover {
 	border-color:#eee;
-	background:#eee;
+	background:#fff;
 } 
 /* font icon test */
 ul.iconsTest {
