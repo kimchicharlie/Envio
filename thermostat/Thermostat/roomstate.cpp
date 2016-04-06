@@ -1,4 +1,5 @@
 #include "roomstate.h"
+#include <iostream>
 
 RoomState::RoomState()
 {
@@ -6,9 +7,36 @@ RoomState::RoomState()
     _temp = 20.0;
     _lum = 60;
     _opac = 20;
+    _hourDisp = 2;
+    //get the name of the room
+    _name = "Large Room";
+    //get the pin of the room
+    _code = "0000";
+/**/
     _tempDisp = "°C";
     _tempDispVal = 1;
+/*
+    _tempDisp = "°F";
+    _tempDispVal = 2;
+    //convert celcius to fahrenheit
+    // T(°C) = (T(°F) - 32) × 5/9
+    _temp = _temp * 9 / 5 + 32;
+/**/
+    connect(this, SIGNAL(changeTempDisp()),
+                      this, SLOT(convertTemp()));
+}
+
+RoomState::RoomState(QString name, QString pin)
+{
+    // récupérer les vrais valeurs dans la DB
+    _temp = 20.0;
+    _lum = 60;
+    _opac = 20;
     _hourDisp = 2;
+    _name = name;
+    _code = pin;
+    _tempDisp = "°C";
+    _tempDispVal = 1;
     connect(this, SIGNAL(changeTempDisp()),
                       this, SLOT(convertTemp()));
 }
@@ -46,6 +74,17 @@ void    RoomState::setHourDisp(int change) {
         _hourDisp = change;
 }
 
+void    RoomState::TempDispChange() {
+    if (_tempDispVal == 1)
+        setTempDisp(2);
+    else
+        setTempDisp(1);
+}
+
+void    RoomState::HourDispChange() {
+
+}
+
 double RoomState::getTemp() {
     return(_temp);
 }
@@ -58,8 +97,13 @@ int RoomState::getOpac() {
     return(_opac);
 }
 
-QString RoomState::gettempDisp() {
+QString RoomState::getTempDisp() {
     return (_tempDisp);
+}
+
+
+int RoomState::getTempDispVal() {
+    return (_tempDispVal);
 }
 
 int     RoomState::getHourDisp() {
@@ -70,7 +114,7 @@ void    RoomState::convertTemp() {
     //convert celcius to fahrenheit or invert
     // T(°C) = (T(°F) - 32) × 5/9
     if (_tempDispVal == 1)
-        _temp = (_temp - 32) * 5 / 9;
+        _temp = (_temp - 32) * 5.0 / 9.0;
     else
-        _temp = _temp * 9 / 5 + 32;
+        _temp = _temp * 9.0 / 5.0 + 32;
 }

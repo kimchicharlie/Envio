@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setStyleSheet("./style/thermostatStyleSheet.");
 
     _curRoom = new RoomState();
     // get the logo and display it
@@ -18,7 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //get the label to display the state and fill them
     _tempLbl = this->ui->TempLabel;
-    _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
+    _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
+    if (_curRoom->getTempDispVal() == 1)
+        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
+    else
+        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°F");
     _lumLbl = this->ui->LumLabel;
     _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
     _opacLbl = this->ui->OpacLabel;
@@ -33,29 +38,41 @@ MainWindow::MainWindow(QWidget *parent) :
                 this->_date->currentDateTime().toString(Qt::TextDate));
 
     // temperature window and associated signals/slots
-    _tempWin = new TemperatureWindow(this);
-//    _tempWin->_slider->setValue(_curRoom->getTemp() * 10);
+    _tempWin = new TemperatureWindow(this, _curRoom->getTempDispVal(), _curRoom->getTemp());
+//    _tempWin = new TemperatureWindow(this, 2);
     connect(_tempWin, SIGNAL(tempChange(double)),
             this, SLOT(tempValChanged(double)));
     connect(_tempWin, SIGNAL(returnToMain()),
             this, SLOT(backToMain()));
+    connect(_tempWin, SIGNAL(goToLum()),
+            this, SLOT(on_LumEditButton_clicked()));
+    connect(_tempWin, SIGNAL(goToOpac()),
+            this, SLOT(on_OpacEditButton_clicked()));
 
     // lum window and associated signals/slots
     _lumWin = new LumWindow(this);
-//    _lumWin->_slider->setValue(_curRoom->getLum());
+    _lumWin->setSliderVal(_curRoom->getLum());
     connect(_lumWin, SIGNAL(lumChange(int)),
             this, SLOT(lumValChanged(int)));
     connect(_lumWin, SIGNAL(returnToMain()),
             this, SLOT(backToMain()));
+    connect(_lumWin, SIGNAL(goToTemp()),
+            this, SLOT(on_TempEditButton_clicked()));
+    connect(_lumWin, SIGNAL(goToOpac()),
+            this, SLOT(on_OpacEditButton_clicked()));
 
 
     // opac window and associated signals/slots
     _opacWin = new OpacWindow(this);
-//    _opacWin->_slider->setValue(_curRoom->getOpac());
+    _opacWin->setSliderVal(_curRoom->getOpac());
     connect(_opacWin, SIGNAL(opacChange(int)),
             this, SLOT(opacValChanged(int)));
     connect(_opacWin, SIGNAL(returnToMain()),
             this, SLOT(backToMain()));
+    connect(_opacWin, SIGNAL(goToTemp()),
+            this, SLOT(on_TempEditButton_clicked()));
+    connect(_opacWin, SIGNAL(goToLum()),
+            this, SLOT(on_LumEditButton_clicked()));
 
     // planning window and associated signals/slots
     _planWin = new PlanningWindow(this);
@@ -64,10 +81,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // config window and associated signals/slots
     _configWin = new ConfigWindow(this);
-    connect(_configWin, SIGNAL(tempDispChange(int)),
-            this, SLOT(tempDispChanged(int)));
-    connect(_configWin, SIGNAL(hourDispChange(int)),
-            this, SLOT(hourDispChanged(int)));
+/*
+    connect(_configWin, SIGNAL(TempDispChange(int)),
+            _curRoom, SLOT(TempDispChange(int)));
+    connect(_configWin, SIGNAL(HourDispChange(int)),
+            _curRoom, SLOT(HourDispChange(int)));
+*/
     connect(_configWin, SIGNAL(returnToMain()),
             this, SLOT(backToMain()));
 }
@@ -174,7 +193,12 @@ void    MainWindow::backToMain() {
 
 void MainWindow::tempValChanged(double newVal) {
     _curRoom->setTemp(newVal);
-    _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
+    _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
+/*    if (_curRoom->gettempDispVal() == 1)
+        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
+    else
+        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°F");
+    */
 }
 
 void MainWindow::lumValChanged(int newVal) {

@@ -2,6 +2,11 @@
 #define PLANNINGWINDOW_H
 
 #include <QMainWindow>
+#include <QTableView>
+#include <QTableWidget>
+#include <QPushButton>
+#include "planningmodel.h"
+
 
 namespace Ui {
 class PlanningWindow;
@@ -23,7 +28,13 @@ private slots:
     void on_AccueilBtn_clicked();
 
 private:
-    Ui::PlanningWindow *ui;
+    Ui::PlanningWindow  *ui;
+    QTableView          *_planning;
+    QPushButton         *_prevBtn;
+    QPushButton         *_nextBtn;
+    QPushButton         *_addModeBtn;
+
+    PlanningModel       *_planModel;
 };
 
 #endif // PLANNINGWINDOW_H
