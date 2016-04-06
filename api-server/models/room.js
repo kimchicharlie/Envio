@@ -11,7 +11,9 @@ var roomSchema = new Schema({
     consumption : { type : Number, default : 0 },
     savedEnergy : { type : Number, default : 0 },
     savedMoney : { type : Number, default : 0 },
-    data : { type : Object, default : null }
+    data : { type : Object, default : null },
+    planning : [],
+    created : { type : Number, default : Date.now() }
 });
 
 exports.Rooms = mongoose.model('Rooms', roomSchema);

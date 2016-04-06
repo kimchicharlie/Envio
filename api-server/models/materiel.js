@@ -9,7 +9,8 @@ var materielSchema = new Schema({
     level : { type : Number, default : 0 },
     min : { type : Number, default : 0 },
     max : { type : Number, default : 100 },
-    type : { type: String, required : true }
+    type : { type: String, required : true },
+    created : { type : Number, default : Date.now() }
 });
 
 exports.Materiels = mongoose.model('Materiels', materielSchema);
