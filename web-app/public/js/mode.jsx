@@ -58,6 +58,7 @@ Modes = React.createClass({
 			creat :null,
 			modif :null,
 			delete :null,
+			error : false
 		};
 	  },
   	  changeToCreate: function(){
@@ -81,17 +82,18 @@ Modes = React.createClass({
 			'organisation': 'Envio',// a changer avec les info users            
 		}, function(ret) {         
 			rep = jQuery.parseJSON(ret);
-			if (rep.error === null){
+			if (rep.error == null){
 	          react.setState({modif: null});
 	          react.setState({delete: null});
 	          react.setState({creat: null});			  
 			  react.setState({modes: rep.modes});
 			}
 			else{
-			  react.setState({modes: rep.error});
+			  react.setState({modes: []});
 	          react.setState({modif: null});
 	          react.setState({delete: null});
 	          react.setState({creat: null});
+	          react.setState({error : ret.error.message || rep.error});
 			}            
 		});          
       },  
@@ -105,7 +107,8 @@ Modes = React.createClass({
 			  react.setState({modes: rep.modes});
 			}
 			else{
-			  react.setState({modes: rep.error});
+			  react.setState({error: ret.error.message || rep.error});
+			  react.setState({modes: []});
 			}            
 		});
 	  },
@@ -132,6 +135,7 @@ Modes = React.createClass({
 					{cat}                   
                     {createButton}
 				</div>
+				<ErrorMessage content={this.state.error}/>
 			  </div>
 		  );
 	  }
@@ -149,16 +153,21 @@ ModifMode = React.createClass({
 	   HttpPost('/getMode', {
 		  'modeID': react.props.Id,         
 	  }, function(ret) {          
-		  rep = jQuery.parseJSON(ret)
-		  react.setState({mode: rep.mode})
-	  })
+			rep = jQuery.parseJSON(ret);
+			if(rep.error == null){
+				react.setState({mode: rep.mode});
+			}
+			else if(react.state.status == false){
+				react.setState({status : ret.error.message || rep.error});
+			}		  
+	  });
 	},    
 	handleSubmit(event) {
-		event.preventDefault()
-		var newName = ReactDOM.findDOMNode(this.refs.newName).value
-		var light = ReactDOM.findDOMNode(this.refs.light).value
-		var opacity = ReactDOM.findDOMNode(this.refs.opacity).value
-		var temperature = ReactDOM.findDOMNode(this.refs.temperature).value
+		event.preventDefault();
+		var newName = ReactDOM.findDOMNode(this.refs.newName).value;
+		var light = ReactDOM.findDOMNode(this.refs.light).value;
+		var opacity = ReactDOM.findDOMNode(this.refs.opacity).value;
+		var temperature = ReactDOM.findDOMNode(this.refs.temperature).value;
 		react = this;
 		HttpPost('/modifyMode', {
 			'modeID' : react.props.Id,
@@ -168,8 +177,13 @@ ModifMode = React.createClass({
 			'temperature' : temperature
 		}, function(ret) {          
 			rep = jQuery.parseJSON(ret)
-			react.setState({status: rep})
-			react.props.changeToModeList()
+			if(rep.error == null){
+				react.setState({status: rep})
+				react.props.changeToModeList()
+			}
+			else {
+				react.setState({status : ret.error.message || rep.error});
+			}			
 		})
 	},
 	render() {    
@@ -193,6 +207,7 @@ ModifMode = React.createClass({
 				<button className="button-medium" type="submit">Modifier</button>
 			  </form>
 			  <button className="button-medium" onClick={this.props.changeToModeList}>Retour</button>
+			  <ErrorMessage content={this.state.status}/>
 		</div>
 		);
 	}
@@ -222,8 +237,13 @@ CreateMode = React.createClass({
 			
 		}, function(ret) {
 			rep = jQuery.parseJSON(ret);
-			react.setState({status: rep});
-			react.props.changeToModeList();
+			if(rep.error == null){
+				react.setState({status: rep});
+				react.props.changeToModeList();
+			}
+			else{
+				react.setState({status : ret.error.message || rep.error});
+			}
 		});
 	},
 	render() {
@@ -250,6 +270,7 @@ CreateMode = React.createClass({
 					<button className="button-medium" type="submit" >Créer</button>
 				</form>
 				<button className="button-medium" onClick={this.props.changeToModeList} >Retour</button>
+				<ErrorMessage content={this.state.status}/>
 			</div>
 		);
 	}
@@ -257,21 +278,32 @@ CreateMode = React.createClass({
 
 
 DeleteMode = React.createClass({
+    getInitialState : function() {
+        return {
+            error : false
+        };
+    },
     deleteMode : function (){
-      	  	var react = this;
+	  	var react = this;
 		HttpPost('/deleteMode', {
 		  'modeID': react.props.Id,         
 		}, function(ret) {          
-		  rep = jQuery.parseJSON(ret);
-		  react.props.changeToModeList();
+		  	rep = jQuery.parseJSON(ret);
+			if(rep.error == null){
+				react.props.changeToModeList();     
+			}
+			else{
+				react.setState({error : ret.error.message || rep.error});
+			}		  
 		});	
     },
-	render: function () {
+	render: function () {x
 			return (
 			<div>
 			Êtes-vous sûr ?
 			<button className="button-medium" onClick={this.deleteMode}>Oui</button>
 			<button className="button-medium" onClick={this.props.changeToModeList} >Non</button>
+			<ErrorMessage content={this.state.error}/>
 			</div>
 		);
 	}

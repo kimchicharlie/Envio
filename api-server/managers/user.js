@@ -109,7 +109,7 @@ var register = function (options, cb) {
                             callback();
                         } else {
                             result.error = 'Le champ email est vide';
-                            cb(result)
+                            callback();
                         }
                     }, 
                     function (callback) {
@@ -118,7 +118,7 @@ var register = function (options, cb) {
                             callback();
                         } else {
                             result.error = 'Le champ prénom est vide';
-                            cb(result)
+                            callback();
                         }
                     }, 
                     function (callback) {
@@ -127,7 +127,7 @@ var register = function (options, cb) {
                             callback();
                         } else {
                             result.error = 'Le champ nom est vide';
-                            cb(result)
+                            callback();
                         }
                     }, 
                     function (callback) {
@@ -135,7 +135,7 @@ var register = function (options, cb) {
                             callback();
                         } else {
                             result.error = 'Le champ mot de passe est vide';
-                            cb(result)
+                            callback();
                         }
                     }, 
                     function (callback) {
@@ -144,10 +144,14 @@ var register = function (options, cb) {
                             callback();
                         } else {
                             result.error = 'Le champ organisation est vide';
-                            cb(result)
+                            callback();
                         }
                     }
                 ], function () {
+                    if (result.error){
+                        cb(result);
+                        return;
+                    }                
                     bcrypt.genSalt(10, function(err, salt) {
                         bcrypt.hash(options.password, salt, function(err, hash) {
 

@@ -54,11 +54,12 @@ RoomList = React.createClass({
 Rooms = React.createClass({
     getInitialState: function() {        
     return {
-      rooms: [],
-      creat :null,
-      modif :null,
-      delete :null,
-    };
+          rooms: [],
+          creat :null,
+          modif :null,
+          delete :null,
+          error : false
+      };
     },
       changeToCreat: function(){
           this.setState({creat: true});
@@ -88,10 +89,11 @@ Rooms = React.createClass({
         react.setState({rooms: rep.rooms});
       }
       else{
-        react.setState({rooms: rep.error});
+            react.setState({error: rep.error.message || rep.error});
             react.setState({modif: null});
             react.setState({delete: null});
             react.setState({creat: null});
+            react.setState({rooms: []});
       }            
     });          
       },
@@ -105,7 +107,8 @@ Rooms = React.createClass({
         react.setState({rooms: rep.rooms});
       }
       else{
-        react.setState({rooms: rep.error});
+        react.setState({error: rep.error.message || rep.error});
+        react.setState({rooms: []});
       }            
     });
     },
@@ -132,6 +135,7 @@ Rooms = React.createClass({
                     {cat}                   
                     {creatbutton}
                 </div>
+                <ErrorMessage content={this.state.error}/>
               </div>
           );
       }
@@ -146,12 +150,17 @@ ModifRoom = React.createClass({
     },
     componentDidMount: function() {
        react = this;
-       HttpPost('/getRoom', {
-          'roomID': react.props.Id,         
-      }, function(ret) {          
-          rep = jQuery.parseJSON(ret)
-          react.setState({room: rep.room})
-      })
+           HttpPost('/getRoom', {
+              'roomID': react.props.Id,         
+          }, function(ret) {          
+            rep = jQuery.parseJSON(ret);
+            if(rep.error == null){
+              react.setState({room: rep.room});
+            }
+            else if(react.state.status == false){
+              react.setState({status : rep.error.message || rep.error});
+            } 
+      });
     },    
     handleSubmit(event) {
         event.preventDefault();
@@ -164,9 +173,13 @@ ModifRoom = React.createClass({
             'volume': volume,            
         }, function(ret) {
             rep = jQuery.parseJSON(ret);
-            console.log(rep);
-            react.setState({status: rep});
-            react.props.changeToRoomList();
+            if(rep.error == null){
+              react.setState({status: rep});
+              react.props.changeToRoomList();
+            }
+            else {
+              react.setState({status : rep.error.message || rep.error});
+            }             
         });
     },
     ChangeTemp(event) {
@@ -177,8 +190,13 @@ ModifRoom = React.createClass({
             'temperature': newValue,
         }, function(ret) {          
             rep = jQuery.parseJSON(ret);
-            react.setState({status: rep});
-            react.props.changeToRoomList();
+            if(rep.error == null){
+              react.setState({status: rep});
+              react.props.changeToRoomList();
+            }
+            else {
+              react.setState({status : rep.error.message || rep.error});
+            }
         });
     },
     render() {    
@@ -200,8 +218,9 @@ ModifRoom = React.createClass({
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
-            <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>
+            <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>            
           </div>
+          <ErrorMessage content={this.state.status}/>
         </div>
         );
     }
@@ -227,8 +246,13 @@ CreateRoom = React.createClass({
             
         }, function(ret) {
             rep = jQuery.parseJSON(ret);
-            react.setState({status: rep});
-            react.props.changeToRoomList();
+            if(rep.error == null){
+              react.setState({status: rep});
+              react.props.changeToRoomList();
+            }
+            else{
+              react.setState({status : rep.error.message || rep.error});
+            }            
         });
     },
     render() {   
@@ -249,28 +273,40 @@ CreateRoom = React.createClass({
                 <button className="button-medium" type="submit" >Créer</button>
               </form>
               <button className="button-medium" onClick={this.props.changeToRoomList} >Retour</button>
+              <ErrorMessage content={this.state.status}/>
         </div>
         );
     }
 });
 
 DeleteRoom = React.createClass({
-    deleteRoom : function (){
-            var react = this;
-    HttpPost('/deleteRoom', {
-      'roomID': react.props.Id,         
-    }, function(ret) {
-      rep = jQuery.parseJSON(ret);
-      
-      react.props.changeToRoomList();
-    }); 
+    getInitialState : function() {
+        return {
+            error : false
+        };
     },
+    deleteRoom : function (){
+      var react = this;
+      HttpPost('/deleteRoom', {
+        'roomID': react.props.Id,         
+      }, function(ret) {
+          rep = jQuery.parseJSON(ret);
+          if(rep.error == null){
+            react.props.changeToRoomList();  
+          }
+          else{
+            react.setState({error : rep.error.message || rep.error});
+          }             
+
+      }); 
+  },
   render: function () {
       return (
       <div>
       Êtes-vous sûr ?
       <button className="button-medium" onClick={this.deleteRoom}>Oui</button>
       <button  className="button-medium" onClick={this.props.changeToRoomList} >Non</button>
+      <ErrorMessage content={this.state.error}/>
       </div>
     );
   }

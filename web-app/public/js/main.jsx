@@ -117,47 +117,6 @@ var Home = React.createClass({
       }
 });
 
-var Planning = React.createClass({
-    getInitialState: function() {        
-        return {
-            rooms: []
-        }
-    },
-    componentDidMount: function() {
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            editable: true,
-            selectable: true,
-            select: function(start, end) {
-                var title = prompt('Event Title:');
-                var eventData;
-                if (title) {
-                    eventData = {
-                        title: title,
-                        start: start,
-                        end: end
-                    };
-                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                }
-                $('#calendar').fullCalendar('unselect');
-            },
-        });
-    },
-    render() {
-        return (
-            <div>
-                <div className="content">
-                    <div id='calendar'></div>
-                </div>
-            </div>
-        );
-    }
-});
-
 var Simulateur = React.createClass({
     componentDidMount : function() {
         viewer();
@@ -169,28 +128,55 @@ var Simulateur = React.createClass({
     }
 });
 
+
+ErrorMessage = React.createClass({
+    getInitialState : function() {
+        return {
+            ErrorMessage : false
+        };
+    },
+    componentWillReceiveProps : function(nextProps) {
+        this.setState({ErrorMessage : nextProps.content}) //castage en bolean
+    },
+    render (){
+        var message = null;
+        return (
+            <div>
+                    <p>{this.state.ErrorMessage}</p>
+            </div>
+        );
+    }
+});
+
 var Login = React.createClass({
+    getInitialState() {
+        return {
+            error : false  
+        };
+    },
     handleSubmit : function(event) {
-        event.preventDefault()
+        event.preventDefault();
 
         var that = this;
-        var email = ReactDOM.findDOMNode(this.refs.email).value
-        var pass = ReactDOM.findDOMNode(this.refs.pass).value        
+        var email = ReactDOM.findDOMNode(this.refs.email).value;
+        var pass = ReactDOM.findDOMNode(this.refs.pass).value;     
 
         HttpPost('/login', {
             'email': email,
             'password': pass,
         }, function(ret) {          
-            var rep = jQuery.parseJSON(ret)
-
+            var rep = jQuery.parseJSON(ret);
             if(rep.error == null){
                 that.props.doLogin(rep.guid);       
             }
-        })
+            else{
+                that.setState({error : rep.error.message || rep.error});
+            }
+        });
     },
     render() {
         return (
-            <div className="form-big">
+            <div className="form-big">  
                 <form role="form" onSubmit={this.handleSubmit}>
                     <div className="input-list">
                         <div className="input-container">
@@ -203,6 +189,7 @@ var Login = React.createClass({
                     <button className="button-medium" type="submit">Valider</button>
                 </form>
                 <button className="button-medium no-decoration" onClick={this.props.setRoute.bind(null, "Register")}>S&#39;enregistrer</button>
+                <ErrorMessage content={this.state.error}/>
             </div>
         );
     }
@@ -212,6 +199,7 @@ var Register = React.createClass({
     getInitialState: function() {
         return {
             registered: false,
+            error : false
         }
     },
     handleSubmit(event) {
@@ -231,7 +219,12 @@ var Register = React.createClass({
             'lastname': lastname,
             'organisation' : organisation            
         }, function(ret) {
-            that.setState({registered: ret})
+            if(rep.error == null){
+                that.setState({registered: ret})      
+            }
+            else{
+                that.setState({error : rep.error.message || rep.error});
+            }
         })
     },
     reloadPage : function (){
@@ -279,6 +272,7 @@ var Register = React.createClass({
                         <button className="button-medium" type="submit">Valider</button>
                     </form>
                     <button className="button-medium no-decoration" onClick={this.backToLogin}>Retour</button>
+                    <ErrorMessage content={this.state.error}/>
                 </div>
             </div>
         );
@@ -289,7 +283,8 @@ var App = React.createClass({
     getInitialState: function() {
         return {
             userId: Cookie.load('userId'),
-            selectedRoute: null
+            selectedRoute: null,
+            error : false
         };
     },
     setRoute: function (route) {
@@ -308,12 +303,12 @@ var App = React.createClass({
         HttpPost('/logout', {
             'guid': Cookie.load('userId')
         }, function(ret) {
-            if(ret.error){
-                console.error("Error : " + ret.error)
+            if(rep.error){
+                that.setState({error : rep.error.message || rep.error});
             } else {
                 Cookie.remove('userId');            
                 that.setState({userId: false});
-                that.setRoute("Login");                
+                that.setRoute("Login");
             }
         });
     },
@@ -329,15 +324,15 @@ var App = React.createClass({
             <div className="main-content">
                 <div className="header-container">
                     <span className="title-big">Envio</span>
-                </div>
+                </div>                
                 <Home selectedRoute={this.state.selectedRoute}
                     doLogout={this.doLogout} 
                     doLogin={this.doLogin}
                     setRoute={this.setRoute}/>
-            </div>
+                <ErrorModal content={this.state.error} title="logout"/>
+                </div>
         ); 
     }
 });
-
 
 ReactDOM.render(<App />, document.getElementById('content'));
