@@ -10,6 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setStyleSheet("./style/thermostatStyleSheet.");
 
     _curRoom = new RoomState();
+    // function which will be called every seconds to update de time label
+    _timer = new QTimer(this);
+    connect(_timer, SIGNAL(timeout()), this, SLOT(updateVals()));
+    _timer->start(1000);
     // get the logo and display it
 /*
      _logo = new QPixmap("./2017_logo_envio2.png");
@@ -34,12 +38,10 @@ MainWindow::MainWindow(QWidget *parent) :
     _opacBtn = this->ui->OpacEditButton;
 
     this->_date = new QDateTime();
-    this->ui->DateLabel->setText(
-                this->_date->currentDateTime().toString(Qt::TextDate));
+    this->updateVals();
 
     // temperature window and associated signals/slots
     _tempWin = new TemperatureWindow(this, _curRoom->getTempDispVal(), _curRoom->getTemp());
-//    _tempWin = new TemperatureWindow(this, 2);
     connect(_tempWin, SIGNAL(tempChange(double)),
             this, SLOT(tempValChanged(double)));
     connect(_tempWin, SIGNAL(returnToMain()),
@@ -81,12 +83,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // config window and associated signals/slots
     _configWin = new ConfigWindow(this);
-/*
+
     connect(_configWin, SIGNAL(TempDispChange(int)),
-            _curRoom, SLOT(TempDispChange(int)));
+            this, SLOT(tempDispChanged(int)));
     connect(_configWin, SIGNAL(HourDispChange(int)),
-            _curRoom, SLOT(HourDispChange(int)));
-*/
+            this, SLOT(hourDispChanged(int)));
+
     connect(_configWin, SIGNAL(returnToMain()),
             this, SLOT(backToMain()));
 }
@@ -104,6 +106,9 @@ MainWindow::~MainWindow()
     delete _tempWin;
     delete _lumWin;
     delete _opacWin;
+    delete _planWin;
+    delete _configWin;
+    delete _timer;
     delete ui;
 }
 
@@ -182,6 +187,13 @@ void MainWindow::on_ConfigEditButton_clicked()
     _configWin->show();
 }
 
+void    MainWindow::updateVals() {
+    if (_curRoom->getHourDisp() == 2)
+        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm:ss"));
+    else
+        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("h:m:s AP"));
+}
+
 void    MainWindow::backToMain() {
     _tempWin->hide();
     _lumWin->hide();
@@ -209,4 +221,19 @@ void MainWindow::lumValChanged(int newVal) {
 void MainWindow::opacValChanged(int newVal) {
     _curRoom->setOpac(newVal);
     _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
+}
+
+void MainWindow::tempDispChanged(int val) {
+    _curRoom->setTempDisp(val);
+    if (val == 1)
+        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
+    else
+        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°F");
+    _tempWin->setTempDisp(val);
+    _tempWin->setSliderVal(_curRoom->getTemp());
+}
+
+void MainWindow::hourDispChanged(int val) {
+    _curRoom->setHourDisp(val);
+    updateVals();
 }

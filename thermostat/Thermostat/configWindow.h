@@ -22,8 +22,8 @@ public:
 signals:
     // signal to handle the temp has changed
     void returnToMain();
-    void TempDispChange();
-    void HourDispChange();
+    void TempDispChange(int);
+    void HourDispChange(int);
 
 private slots:
     void on_AccueilBtn_clicked();

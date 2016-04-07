@@ -35,13 +35,18 @@ TemperatureWindow::~TemperatureWindow()
 
 
 void TemperatureWindow::setSliderVal(int val) {
+    std::cout << "coucou ---- " << val << std::endl;
     if (_tempDisp == 1) {
-        this->_slider->setValue(val);
+        _label->setText(QString::number(val) + "°C");
     } else {
-        this->_slider->setValue((val / 10 * 5.0 / 9.0 - 32) * 10);
+        _label->setText(QString::number(val) + "°F");
     }
 }
 
+void TemperatureWindow::setTempDisp(int val) {
+    std::cout << val << std::endl;
+    _tempDisp = val;
+}
 
 void TemperatureWindow::on_TempHorizontalSlider_valueChanged(int value)
 {
@@ -61,19 +66,21 @@ void TemperatureWindow::on_TempHorizontalSlider_valueChanged(int value)
 
     _slider->setValue(tmpTemp);
 
+    std::cout << "value = " << value << std::endl;
+    std::cout << "tmpTemp = " << tmpTemp << std::endl;
     //convert celcius to fahrenheit
     // T(°C) = (T(°F) - 32) × 5/9
     // T(°F) = T(°C) × 9 / 5 + 32
     // 1 for celcius, 2 for fahrenheit
-    if (_tempDisp == 1)
+    if (_tempDisp == 1) {
         _label->setText(QString::number((double)(_slider->value()) / 10) + "°C");
-    else
-        _label->setText(QString::number((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32) + "°F");
-
-    if (_tempDisp != 1)
-        emit tempChange((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32);
-    else
         emit tempChange((double)(_slider->value()) / 10);
+    }
+    else {
+        std::cout << "value = " << value << std::endl;
+        _label->setText(QString::number((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32) + "°F");
+        emit tempChange((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32);
+    }
 }
 
 void TemperatureWindow::on_AccueilBtn_clicked()

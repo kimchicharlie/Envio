@@ -7,7 +7,8 @@ RoomState::RoomState()
     _temp = 20.0;
     _lum = 60;
     _opac = 20;
-    _hourDisp = 2;
+    _hourDisp = 1;
+//    _hourDisp = 2;
     //get the name of the room
     _name = "Large Room";
     //get the pin of the room
@@ -72,17 +73,25 @@ void    RoomState::setTempDisp(int change) {
 // 1 for 12 hours, 2 for 24 hours
 void    RoomState::setHourDisp(int change) {
         _hourDisp = change;
+//        emit changeHourDisp();
 }
 
-void    RoomState::TempDispChange() {
-    if (_tempDispVal == 1)
+void    RoomState::TempDispChange(int change) {
+    _tempDispVal = change;
+    if (change == 1)
+        _tempDisp = "°C";
+    else
+        _tempDisp = "°F";
+    emit changeTempDisp();
+/*    if (_tempDispVal == 1)
         setTempDisp(2);
     else
         setTempDisp(1);
+*/
 }
 
-void    RoomState::HourDispChange() {
-
+void    RoomState::HourDispChange(int val) {
+    _hourDisp = val;
 }
 
 double RoomState::getTemp() {

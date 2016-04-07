@@ -18,6 +18,7 @@ public:
     explicit TemperatureWindow(QWidget *parent = 0, int tempDisp = 1, double temp = 20.0);
     ~TemperatureWindow();
     void setSliderVal(int val);
+    void setTempDisp(int val);
 
 signals:
     // signal to handle the temp has changed
