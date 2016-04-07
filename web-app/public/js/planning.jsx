@@ -63,7 +63,7 @@ Planning = React.createClass({
                   react.setState({modes: rep.modes})
                 }
                 else{
-                  react.setState({modes: rep.error})
+                  react.setState({modes: rep.error.message || rep.error})
                 }            
         });
         this.getRooms(0);
@@ -86,7 +86,7 @@ Planning = React.createClass({
                   react.setCalendar(rep.rooms[index].planning)
                 }
                 else{
-                  react.setState({rooms: rep.error})
+                  react.setState({rooms: rep.error.message || rep.error})
                 }            
         });
       },
