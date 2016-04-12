@@ -52,7 +52,7 @@ ModeList = React.createClass({
 });
 
 Modes = React.createClass({
-	  getInitialState: function() {        
+	  getInitialState: function() {
 		return {
 			modes: [],
 			creat :null,
@@ -80,8 +80,8 @@ Modes = React.createClass({
       	react = this;
 		  HttpPost('/getModes', {
 			'organisation': 'Envio',// a changer avec les info users            
-		}, function(ret) {         
-			rep = jQuery.parseJSON(ret);
+		}, function(rep) {         
+			rep = jQuery.parseJSON(rep);
 			if (rep.error == null){
 	          react.setState({modif: null});
 	          react.setState({delete: null});
@@ -93,7 +93,7 @@ Modes = React.createClass({
 	          react.setState({modif: null});
 	          react.setState({delete: null});
 	          react.setState({creat: null});
-	          react.setState({error : ret.error.message || rep.error});
+	          react.setState({error :rep.error});
 			}            
 		});          
       },  
@@ -101,13 +101,13 @@ Modes = React.createClass({
 		react = this;
 		  HttpPost('/getModes', {
 			'organisation': 'Envio',// a changer avec les info users            
-		}, function(ret) {         
-			rep = jQuery.parseJSON(ret);
+		}, function(rep) {         
+			rep = jQuery.parseJSON(rep);
 			if (rep.error === null){
 			  react.setState({modes: rep.modes});
 			}
 			else{
-			  react.setState({error: ret.error.message || rep.error});
+			  react.setState({error:rep.error});
 			  react.setState({modes: []});
 			}            
 		});
@@ -152,13 +152,13 @@ ModifMode = React.createClass({
 	   react = this;
 	   HttpPost('/getMode', {
 		  'modeID': react.props.Id,         
-	  }, function(ret) {          
-			rep = jQuery.parseJSON(ret);
+	  }, function(rep) {          
+			rep = jQuery.parseJSON(rep);
 			if(rep.error == null){
 				react.setState({mode: rep.mode});
 			}
 			else if(react.state.status == false){
-				react.setState({status : ret.error.message || rep.error});
+				react.setState({status :rep.error});
 			}		  
 	  });
 	},    
@@ -175,14 +175,14 @@ ModifMode = React.createClass({
 			'light' : light,
 			'opacity' : opacity,
 			'temperature' : temperature
-		}, function(ret) {          
-			rep = jQuery.parseJSON(ret)
+		}, function(rep) {          
+			rep = jQuery.parseJSON(rep)
 			if(rep.error == null){
-				react.setState({status: rep})
+				react.setState({status: false})
 				react.props.changeToModeList()
 			}
 			else {
-				react.setState({status : ret.error.message || rep.error});
+				react.setState({status : rep.error.message || rep.error});
 			}			
 		})
 	},
@@ -235,14 +235,14 @@ CreateMode = React.createClass({
 			'opacity': opacity,
 			'temperature': temperature
 			
-		}, function(ret) {
-			rep = jQuery.parseJSON(ret);
+		}, function(rep) {
+			rep = jQuery.parseJSON(rep);
 			if(rep.error == null){
-				react.setState({status: rep});
+				react.setState({status: false});
 				react.props.changeToModeList();
 			}
 			else{
-				react.setState({status : ret.error.message || rep.error});
+				react.setState({status :rep.error});
 			}
 		});
 	},
@@ -287,17 +287,17 @@ DeleteMode = React.createClass({
 	  	var react = this;
 		HttpPost('/deleteMode', {
 		  'modeID': react.props.Id,         
-		}, function(ret) {          
-		  	rep = jQuery.parseJSON(ret);
+		}, function(rep) {          
+		  	rep = jQuery.parseJSON(rep);
 			if(rep.error == null){
 				react.props.changeToModeList();     
 			}
 			else{
-				react.setState({error : ret.error.message || rep.error});
+				react.setState({error :rep.error});
 			}		  
 		});	
     },
-	render: function () {x
+	render: function () {
 			return (
 			<div>
 			Êtes-vous sûr ?

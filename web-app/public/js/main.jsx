@@ -302,7 +302,7 @@ var App = React.createClass({
 
         HttpPost('/logout', {
             'guid': Cookie.load('userId')
-        }, function(ret) {
+        }, function(rep) {
             if(rep.error){
                 that.setState({error : rep.error.message || rep.error});
             } else {

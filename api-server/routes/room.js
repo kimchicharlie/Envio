@@ -118,7 +118,7 @@ exports.routes = [
             roomManager.addEventPlanning({
                 "roomID": req.body.roomID,
                 "eventName": req.body.eventName,
-                "roomID": req.body.roomID,
+                "modeID": req.body.modeID,
                 "dateBegin": req.body.dateBegin,
                 "dateEnd": req.body.dateEnd
             }, function (rep)

@@ -51,8 +51,8 @@ Planning = React.createClass({
         react = this;
         HttpPost('/getModes', {
                'organisation': 'Envio',// a changer avec les info users            
-                }, function(ret) {         
-                rep = jQuery.parseJSON(ret)
+                }, function(rep) {         
+                rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
                   var selectOptions = [];
                   for (var key in rep.modes)
@@ -72,8 +72,8 @@ Planning = React.createClass({
       getRooms: function(index){
                 HttpPost('/getRooms', {
                 'organisation': 'Envio',// a changer avec les info users            
-                }, function(ret) {         
-                rep = jQuery.parseJSON(ret)
+                }, function(rep) {         
+                rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
                   var selectOptions = [];
                   for (var key in rep.rooms)
@@ -114,7 +114,6 @@ Planning = React.createClass({
             eventDrop: function(event, delta, revertFunc) {
                 start = new Date((event.start._d - delta))
                 end = new Date((event.end._d - delta))
-                console.log(end)
                 var id=findLabelByValue(react.state.ListOfModes, event.title, true)
                 HttpPost('/modifyEvent', {
                   organisation : "Envio", //a changer plus tard
@@ -126,8 +125,8 @@ Planning = React.createClass({
                   dateEnd : end,
                   newDateBegin : event.start._d,
                   newDateEnd : event.end._d,
-                }, function(ret) {
-                  rep = jQuery.parseJSON(ret)
+                }, function(rep) {
+                  rep = jQuery.parseJSON(rep)
                     react.setState({modalDeleteIsOpen: false});
                     for (var i = 0; i < react.state.rooms.length; i++) {
                       if (react.state.rooms[i]._id === rep.room._id) {
@@ -141,7 +140,6 @@ Planning = React.createClass({
                 react.setState({start: event});
             },
             eventResize: function(event, delta, revertFunc) {
-                console.log(event)
                 start = new Date((event.start._d))
                 end = new Date((event.end._d - delta))
                 var id=findLabelByValue(react.state.ListOfModes, event.title, true)
@@ -155,8 +153,8 @@ Planning = React.createClass({
                   dateEnd : end,
                   newDateBegin : event.start._d,
                   newDateEnd : event.end._d,
-                }, function(ret) {
-                  rep = jQuery.parseJSON(ret)
+                }, function(rep) {
+                  rep = jQuery.parseJSON(rep)
                     react.setState({modalDeleteIsOpen: false});
                     for (var i = 0; i < react.state.rooms.length; i++) {
                       if (react.state.rooms[i]._id === rep.room._id) {
@@ -181,7 +179,6 @@ Planning = React.createClass({
         react=this
         trueDateBegin = new Date(this.state.start._d).toISOString();
         trueDateEnd = new Date(this.state.end._d).toISOString();
-        console.log(trueDateBegin);
         var label= findLabelByValue(this.state.ListOfModes, val);
         HttpPost('/createEvent', {
           organisation : "Envio", //a changer plus tard
@@ -190,14 +187,13 @@ Planning = React.createClass({
           eventName: label,
           dateBegin : trueDateBegin,
           dateEnd : trueDateEnd,     
-        }, function(ret) {
-          rep = jQuery.parseJSON(ret);
+        }, function(rep) {
+          rep = jQuery.parseJSON(rep);
             react.setState({modalCreatIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
               if (react.state.rooms[i]._id === rep.room._id) {
                 react.state.rooms[i].planning = rep.room.planning;
                 react.setCalendar(react.state.rooms[i].planning);
-                console.log(react.state.rooms[i].planning);
               }
             }
 
@@ -216,8 +212,8 @@ Planning = React.createClass({
           dateEnd : this.state.start.end._d,
           newDateBegin : this.state.start.start._d,
           newDateEnd : this.state.start.end._d,     
-        }, function(ret) {
-          rep = jQuery.parseJSON(ret);
+        }, function(rep) {
+          rep = jQuery.parseJSON(rep);
             react.setState({modalDeleteIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
               if (react.state.rooms[i]._id === rep.room._id) {
@@ -235,8 +231,8 @@ Planning = React.createClass({
           roomID : this.state.selectedRoom,
           eventName: this.state.start.title,
           dateBegin : this.state.start.start._d,
-        }, function(ret) {
-          rep = jQuery.parseJSON(ret)
+        }, function(rep) {
+          rep = jQuery.parseJSON(rep)
           react.setState({modalDeleteIsOpen: false});
           for (var i = 0; i < react.state.rooms.length; i++) {
             if (react.state.rooms[i]._id === rep.room._id) {

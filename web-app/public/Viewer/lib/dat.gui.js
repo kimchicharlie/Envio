@@ -1592,6 +1592,7 @@ dat.GUI = dat.gui.GUI = (function (css, saveDialogueContents, styleSheet, contro
     this.__ul = document.createElement('ul');
     this.domElement.appendChild(this.__ul);
 
+    console.log(dom)
     dom.addClass(this.domElement, CSS_NAMESPACE);
 
     /**
@@ -1974,8 +1975,6 @@ dat.GUI = dat.gui.GUI = (function (css, saveDialogueContents, styleSheet, contro
   GUI.CLASS_DRAG = 'drag';
 
   GUI.DEFAULT_WIDTH = 245;
-  GUI.TEXT_CLOSED = 'Close Controls';
-  GUI.TEXT_OPEN = 'Open Controls';
 
   dom.bind(window, 'keydown', function(e) {
 

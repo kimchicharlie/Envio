@@ -80,8 +80,8 @@ Rooms = React.createClass({
         react = this;
       HttpPost('/getRooms', {
       'organisation': 'Envio',// a changer avec les info users            
-    }, function(ret) {         
-      rep = jQuery.parseJSON(ret);
+    }, function(rep) {         
+      rep = jQuery.parseJSON(rep);
       if (rep.error === null){
             react.setState({modif: null});
             react.setState({delete: null});
@@ -89,7 +89,7 @@ Rooms = React.createClass({
         react.setState({rooms: rep.rooms});
       }
       else{
-            react.setState({error: rep.error.message || rep.error});
+            react.setState({error:  rep.error});
             react.setState({modif: null});
             react.setState({delete: null});
             react.setState({creat: null});
@@ -101,13 +101,13 @@ Rooms = React.createClass({
     react = this;
       HttpPost('/getRooms', {
       'organisation': 'Envio',// a changer avec les info users            
-    }, function(ret) {         
-      rep = jQuery.parseJSON(ret);
+    }, function(rep) {         
+      rep = jQuery.parseJSON(rep);
       if (rep.error === null){
         react.setState({rooms: rep.rooms});
       }
       else{
-        react.setState({error: rep.error.message || rep.error});
+        react.setState({error:  rep.error.message || rep.error});
         react.setState({rooms: []});
       }            
     });
@@ -152,13 +152,13 @@ ModifRoom = React.createClass({
        react = this;
            HttpPost('/getRoom', {
               'roomID': react.props.Id,         
-          }, function(ret) {          
-            rep = jQuery.parseJSON(ret);
+          }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
             if(rep.error == null){
               react.setState({room: rep.room});
             }
             else if(react.state.status == false){
-              react.setState({status : rep.error.message || rep.error});
+              react.setState({status :  rep.error.message || rep.error});
             } 
       });
     },    
@@ -171,10 +171,10 @@ ModifRoom = React.createClass({
             'newName': name,
             'name': react.state.room.name,
             'volume': volume,            
-        }, function(ret) {
-            rep = jQuery.parseJSON(ret);
+        }, function(rep) {
+            rep = jQuery.parseJSON(rep);
             if(rep.error == null){
-              react.setState({status: rep});
+              react.setState({status: false});
               react.props.changeToRoomList();
             }
             else {
@@ -188,14 +188,14 @@ ModifRoom = React.createClass({
         HttpPost('/changeTemperature', {
             'roomID': react.props.Id,
             'temperature': newValue,
-        }, function(ret) {          
-            rep = jQuery.parseJSON(ret);
+        }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
             if(rep.error == null){
-              react.setState({status: rep});
+              react.setState({status: false});
               react.props.changeToRoomList();
             }
             else {
-              react.setState({status : rep.error.message || rep.error});
+              react.setState({status : rep.error.message ||  rep.error});
             }
         });
     },
@@ -244,14 +244,14 @@ CreateRoom = React.createClass({
             'name': name,
             'volume': volume,
             
-        }, function(ret) {
-            rep = jQuery.parseJSON(ret);
+        }, function(rep) {
+            rep = jQuery.parseJSON(rep);
             if(rep.error == null){
-              react.setState({status: rep});
+              react.setState({status: false});
               react.props.changeToRoomList();
             }
             else{
-              react.setState({status : rep.error.message || rep.error});
+              react.setState({status : rep.error.message ||  rep.error});
             }            
         });
     },
@@ -289,13 +289,13 @@ DeleteRoom = React.createClass({
       var react = this;
       HttpPost('/deleteRoom', {
         'roomID': react.props.Id,         
-      }, function(ret) {
-          rep = jQuery.parseJSON(ret);
+      }, function(rep) {
+          rep = jQuery.parseJSON(rep);
           if(rep.error == null){
             react.props.changeToRoomList();  
           }
           else{
-            react.setState({error : rep.error.message || rep.error});
+            react.setState({error :  rep.error});
           }             
 
       }); 
