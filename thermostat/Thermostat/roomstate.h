@@ -28,11 +28,12 @@ public:
 
 signals:
     void    changeTempDisp();
+//    void    changeHourDisp();
 
 private slots:
     void    convertTemp();
-    void    TempDispChange();
-    void    HourDispChange();
+    void    TempDispChange(int);
+    void    HourDispChange(int);
 
 private:
     double          _temp;

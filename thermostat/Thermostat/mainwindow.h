@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QDateTime>
 #include <QString>
+#include <QTimer>
 #include "temperatureWindow.h"
 #include "lumWindow.h"
 #include "opacWindow.h"
@@ -42,11 +43,16 @@ private slots:
 
     void on_ConfigEditButton_clicked();
 
+    void updateVals();
+
     // make signals and slots to update
     // the state when values change
     void tempValChanged(double newVal);
     void lumValChanged(int newVal);
     void opacValChanged(int newVal);
+
+    void tempDispChanged(int);
+    void hourDispChanged(int);
 
     // slot to return to the mainWindow
     void    backToMain();
@@ -68,6 +74,7 @@ private:
     QPushButton     *_opacBtn;
 
     QDateTime       *_date;
+    QTimer          *_timer;
 
     // Other windows
     TemperatureWindow   *_tempWin;

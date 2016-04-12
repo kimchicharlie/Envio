@@ -31,20 +31,26 @@ void ConfigWindow::on_AccueilBtn_clicked()
 
 void ConfigWindow::on_TempDispButton_clicked()
 {
-    if (!ui->TempDispButton->text().compare("°F"))
+    if (!ui->TempDispButton->text().compare("°F")) {
         ui->TempDispButton->setText("°C");
-    else
+        emit TempDispChange(2);
+    }
+    else {
         ui->TempDispButton->setText("°F");
-    emit TempDispChange();
+        emit TempDispChange(1);
+    }
 }
 
 void ConfigWindow::on_HourDispButton_clicked()
 {
-    if (!ui->HourDispButton->text().compare("12h"))
+    if (!ui->HourDispButton->text().compare("12h")) {
         ui->HourDispButton->setText("24h");
-    else
+        emit HourDispChange(1);
+    }
+    else {
         ui->HourDispButton->setText("12h");
-    emit HourDispChange();
+        emit HourDispChange(2);
+    }
 }
 
 //an item in the listView was clicked.
