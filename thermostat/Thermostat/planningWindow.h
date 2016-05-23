@@ -6,6 +6,7 @@
 #include <QTableWidget>
 #include <QPushButton>
 #include "planningmodel.h"
+#include "addEvent.h"
 
 
 namespace Ui {
@@ -23,8 +24,9 @@ public:
     void showEvent(QShowEvent* event );
 
 signals:
-// signal to handle the temp has changed
-void returnToMain();
+    // mode has not been added
+    void noAdd();
+    void returnToMain();
 
 private slots:
     void on_AccueilBtn_clicked();
@@ -35,6 +37,8 @@ private slots:
 
     void on_PrevButton_clicked();
 
+    void checkPlan(int hour, int min, int dur);
+
 private:
     Ui::PlanningWindow  *ui;
     QTableView          *_planning;
@@ -44,6 +48,7 @@ private:
     QDate               _date;
 
     PlanningModel       *_planModel;
+    AddEvent            *_modal;
 };
 
 #endif // PLANNINGWINDOW_H

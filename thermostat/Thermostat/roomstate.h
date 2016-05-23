@@ -25,6 +25,7 @@ public:
     QString getTempDisp();
     int     getTempDispVal();
     int     getHourDisp();
+    QString getPin();
 
 signals:
     void    changeTempDisp();

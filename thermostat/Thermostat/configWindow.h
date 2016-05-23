@@ -6,6 +6,7 @@
 #include <QListView>
 #include "roomstate.h"
 #include "roomlistmodel.h"
+#include "roomSelection.h"
 
 namespace Ui {
 class ConfigWindow;
@@ -31,6 +32,7 @@ private slots:
     void on_HourDispButton_clicked();
 
     void on_listView_clicked(const QModelIndex &index);
+    void changeRoom(int);
 
 private:
     Ui::ConfigWindow    *ui;
@@ -40,6 +42,7 @@ private:
     QList<RoomState*>   *_rooms;
     int                 _tempDisp; //value to display for the current room 1 for C° / 2 for F°
     int                 _hourDisp; //value to display for the current room 1 for 12h / 2 for 24h
+    RoomSelection       *_modal;
 };
 
 #endif // CONFIGWINDOW_H

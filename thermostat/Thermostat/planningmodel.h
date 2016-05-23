@@ -12,11 +12,12 @@ public:
     PlanningModel(QObject *parent, QString header);
     ~PlanningModel();
 
-    void refreshPlanning(QDate);
-    int rowCount(const QModelIndex & /*parent*/) const;
-    int columnCount(const QModelIndex & /*parent*/) const;
-    QVariant data(const QModelIndex &index, int role) const;
-    QString customHeader(const QModelIndex &index);
+    void        refreshPlanning(QDate);
+    int         rowCount(const QModelIndex & /*parent*/) const;
+    int         columnCount(const QModelIndex & /*parent*/) const;
+    QVariant    data(const QModelIndex &index, int role) const;
+    QString     customHeader(const QModelIndex &index);
+    int         checkPlan(QDate date, int hour, int min, int dur);
 
 private:
     QList<Planning*>    *_planList;

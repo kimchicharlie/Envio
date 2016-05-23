@@ -57,4 +57,17 @@ void ConfigWindow::on_HourDispButton_clicked()
 //it asks for the pin of the clicked room, check it and change the current room if correct
 void ConfigWindow::on_listView_clicked(const QModelIndex &index)
 {
+    _modal = new RoomSelection(this, index.row(), ((RoomState*)_rooms->at(index.row()))->getPin());
+    _modal->show();
 }
+
+void ConfigWindow::changeRoom(int ind) {
+    _modal->hide();
+    delete _modal;
+    _modal = NULL;
+/*    if (ind != -1)
+        changeRoom();
+*/
+
+}
+

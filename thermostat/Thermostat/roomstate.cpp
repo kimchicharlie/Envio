@@ -119,6 +119,11 @@ int     RoomState::getHourDisp() {
     return (_hourDisp);
 }
 
+QString RoomState::getPin() {
+    return (_code);
+}
+
+
 void    RoomState::convertTemp() {
     //convert celcius to fahrenheit or invert
     // T(°C) = (T(°F) - 32) × 5/9

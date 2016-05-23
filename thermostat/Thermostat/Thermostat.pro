@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     configWindow.cpp \
     roomlistmodel.cpp \
     planning.cpp \
-    planningmodel.cpp
+    planningmodel.cpp \
+    roomSelection.cpp \
+    addEvent.cpp
 
 HEADERS  += temperatureWindow.h \
     lumWindow.h \
@@ -33,11 +35,15 @@ HEADERS  += temperatureWindow.h \
     configWindow.h \
     roomlistmodel.h \
     planning.h \
-    planningmodel.h
+    planningmodel.h \
+    roomSelection.h \
+    addEvent.h
 
 FORMS    += mainwindow.ui \
     temperatureWindow.ui \
     lumWindow.ui \
     opacWindow.ui \
     planningWindow.ui \
-    configWindow.ui
+    configWindow.ui \
+    roomSelection.ui \
+    addEvent.ui
