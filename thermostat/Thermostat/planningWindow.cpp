@@ -84,3 +84,8 @@ void    PlanningWindow::checkPlan(QString modeName, int hour, int min, int dur) 
         _modal->hide();
     }
 }
+
+void PlanningWindow::on_tableView_doubleClicked(const QModelIndex &index)
+{
+    _planModel->removeMode(index);
+}

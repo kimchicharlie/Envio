@@ -39,6 +39,8 @@ private slots:
 
     void checkPlan(QString modeName, int hour, int min, int dur);
 
+    void on_tableView_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::PlanningWindow  *ui;
     QTableView          *_planning;

@@ -19,6 +19,7 @@ public:
     QString     customHeader(const QModelIndex &index);
     int         checkPlan(QDate date, int hour, int min, int dur);
     void        addMode(QString modeName, QDate date, int hour, int min, int dur);
+    void        removeMode(const QModelIndex &index);
 
 private:
     QList<Planning*>    *_planList;

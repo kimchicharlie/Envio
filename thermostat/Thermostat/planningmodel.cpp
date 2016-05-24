@@ -85,3 +85,9 @@ void    PlanningModel::addMode(QString modeName, QDate date, int hour, int min, 
     emit layoutChanged();
     // send the new added mode to the API
 }
+
+void    PlanningModel::removeMode(const QModelIndex &index) {
+    _planList->removeAt(index.row());
+    emit layoutChanged();
+    // send the new added mode to the API
+}
