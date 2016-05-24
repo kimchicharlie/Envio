@@ -25,7 +25,7 @@ public:
 
 signals:
     // mode has not been added
-    void noAdd();
+    void noAdd(int);
     void returnToMain();
 
 private slots:
@@ -37,7 +37,7 @@ private slots:
 
     void on_PrevButton_clicked();
 
-    void checkPlan(int hour, int min, int dur);
+    void checkPlan(QString modeName, int hour, int min, int dur);
 
 private:
     Ui::PlanningWindow  *ui;

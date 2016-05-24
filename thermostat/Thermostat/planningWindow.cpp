@@ -20,8 +20,8 @@ PlanningWindow::PlanningWindow(QWidget *parent) :
     _planning->setModel(_planModel);
     _modal = new AddEvent(this);
     _modal->hide();
-    connect(_modal, SIGNAL(checkPlan(int,int,int)), this, SLOT(checkPlan(int,int,int)));
-    connect(this, SIGNAL(noAdd()), _modal, SLOT(stateRet()));
+    connect(_modal, SIGNAL(checkPlan(QString, int,int,int)), this, SLOT(checkPlan(QString, int,int,int)));
+    connect(this, SIGNAL(noAdd(int)), _modal, SLOT(stateRet(int)));
    QHeaderView *hdHorView = _planning->horizontalHeader();
    hdHorView->setDefaultSectionSize(290);
 //   hdView->setObjectName(QString(QDate::currentDate().toString()));
@@ -73,12 +73,14 @@ void PlanningWindow::on_AddModeButton_clicked()
     //poper une fenetre avec choix de date et choix de mode
 }
 
-void    PlanningWindow::checkPlan(int hour, int min, int dur) {
+void    PlanningWindow::checkPlan(QString modeName, int hour, int min, int dur) {
     //checker planning with this info
     if (_planModel->checkPlan(_date, hour, min, dur) == -1)
-        emit noAdd();
+        emit noAdd(1);
     else {
         //create the mode and add it
+        _planModel->addMode(modeName, _date, hour, min, dur);
+        emit noAdd(0);
         _modal->hide();
     }
 }

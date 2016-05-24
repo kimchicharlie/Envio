@@ -1,6 +1,8 @@
 #include "planningmodel.h"
 #include <iostream>
 
+#include <iostream>
+
 PlanningModel::PlanningModel(QObject *parent, QString header)
     : QAbstractTableModel(parent)
 {
@@ -34,7 +36,6 @@ int PlanningModel::columnCount(const QModelIndex & parent) const
 
 QVariant PlanningModel::data(const QModelIndex &index, int role) const
 {
-
     if (role == Qt::DisplayRole) {
         QString tmp = QString(_planList->at(index.row())->getType() + " - " +
                                   QString::number(_planList->at(index.row())->getHour()) + ":");
@@ -76,4 +77,11 @@ int PlanningModel::checkPlan(QDate date, int hour, int min, int dur) {
             return (-1);
     }
     return (0);
+}
+
+void    PlanningModel::addMode(QString modeName, QDate date, int hour, int min, int dur) {
+    _planList->append(new Planning(modeName, date, hour, min, dur));
+//    emit dataChanged(this->index(0, 0), this->index(rowCount(this->index(0, 0)), 0));
+    emit layoutChanged();
+    // send the new added mode to the API
 }

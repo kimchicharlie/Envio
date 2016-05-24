@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QSpinBox>
+#include <QComboBox>
 #include <QLabel>
 
 namespace Ui {
@@ -19,15 +20,16 @@ public:
 
 
 private slots:
-    void    stateRet();
+    void    stateRet(int state);
     void    on_validateBtn_clicked();
     void    on_cancelBtn_clicked();
 
 signals:
-    void    checkPlan(int hour, int min, int dur);
+    void    checkPlan(QString modeName, int hour, int min, int dur);
 
 private:
     Ui::AddEvent *ui;
+    QComboBox    *_modeCbBox;
     QSpinBox     *_hourSpin;
     QSpinBox     *_minSpin;
     QSpinBox     *_durSpin;
