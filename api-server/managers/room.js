@@ -1,6 +1,6 @@
-
 var async = require("async");
 var db = require("../database");
+var statManager = require("./stat");
 
 var createRoom = function (options, cb) {
     cb = cb || function () {};
@@ -224,8 +224,23 @@ var changeTemperature = function (options, cb) {
                             result.error = error;
                             cb(result);
                         } else {
-                            result.room = room;
-                            cb(result);
+                            console.log("ROOM : ", room)
+                            statManager.addStat({
+                                "realLight": room.realLight,
+                                "neededLight": room.light,
+                                "realTemperature": room.realTemperature,
+                                "neededTemperature": room.temperature,
+                                "roomID": room._id
+                            }, function (res) {
+                                console.log('res : ', res)
+                                if (res.error) {
+                                    result.error = res.error;
+                                    cb(result);
+                                } else {
+                                    result.room = room;
+                                    cb(result);
+                                }
+                            })
                         }
                     });
                 } else {
