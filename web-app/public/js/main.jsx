@@ -218,9 +218,10 @@ var Register = React.createClass({
             'firstname': firstname,
             'lastname': lastname,
             'organisation' : organisation            
-        }, function(ret) {
+        }, function(rep) {
+            console.log("rep : ", rep)
             if(rep.error == null){
-                that.setState({registered: ret})      
+                that.setState({registered: rep})      
             }
             else{
                 that.setState({error : rep.error.message || rep.error});
