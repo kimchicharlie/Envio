@@ -5,6 +5,7 @@ var roomSchema = new Schema({
     name : { type : String, required : true },
     organisation : { type: String, required : true },
     volume : { type : Number, required : true },
+    realLight : { type : Number, default : 5 },
     light : { type : Number, default : 0 },
     realTemperature : { type : Number, default : 20 },
     temperature : { type : Number, default : 0 },

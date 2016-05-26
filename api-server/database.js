@@ -21,3 +21,4 @@ exports.Rooms = require('./models/room').Rooms;
 exports.Materiels = require('./models/materiel').Materiels;
 exports.ConnectedUser = require('./models/connectedUser').ConnectedUser;
 exports.Modes = require('./models/mode').Modes;
+exports.Stats = require('./models/stat').Stats;
