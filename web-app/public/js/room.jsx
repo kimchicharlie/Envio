@@ -226,7 +226,6 @@ ModifRoom = React.createClass({
     }
 });
 
-
 CreateRoom = React.createClass({
     getInitialState: function() {
         return {

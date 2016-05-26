@@ -28,8 +28,8 @@ var Sidemenu = React.createClass({
                 <div className={"menu-button" + (this.props.route == "Modes" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Modes")}>
                     <span>Modes</span>
                 </div>
-                <div className={"menu-button" + (this.props.route == "Simulateur" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Simulateur")}>
-                    <span>Simulateur</span>
+                <div className={"menu-button" + (this.props.route == "Viewer" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Viewer")}>
+                    <span>Viewer</span>
                 </div>
             </div>  
         );
@@ -79,14 +79,14 @@ var Home = React.createClass({
                     </div>
                 )
                 break;
-            case "Simulateur" :
+            case "Viewer" :
                 content = (
                     <div>
                         <div className="top-menu">
                             <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
                             {logoutButton}
                         </div>
-                        <Simulateur/>
+                        <Viewer/>
                     </div>
                 )
                 break;
@@ -117,7 +117,7 @@ var Home = React.createClass({
       }
 });
 
-var Simulateur = React.createClass({
+var Viewer = React.createClass({
     componentDidMount : function() {
         viewer();
     },

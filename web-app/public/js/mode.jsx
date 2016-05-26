@@ -213,7 +213,6 @@ ModifMode = React.createClass({
 	}
 });
 
-
 CreateMode = React.createClass({
 	getInitialState: function() {
 		return {
@@ -275,7 +274,6 @@ CreateMode = React.createClass({
 		);
 	}
 });
-
 
 DeleteMode = React.createClass({
     getInitialState : function() {
