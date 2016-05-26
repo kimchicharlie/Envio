@@ -22,12 +22,12 @@ void RoomSelection::on_buttonBox_accepted()
             //change room
             return;
         else {
-            ui->errorLbl->setText("Mauvais code.");
+            ui->errorLbl->setText("<font color='red'>Mauvais code.</font>");
             this->show();
         }
     }
     else {
-        ui->errorLbl->setText("Vous devez entrer un code.");
+        ui->errorLbl->setText("<font color='red'>Vous devez entrer un code.</font>");
         this->show();
     }
 }
