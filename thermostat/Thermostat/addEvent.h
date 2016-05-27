@@ -24,6 +24,10 @@ private slots:
     void    on_validateBtn_clicked();
     void    on_cancelBtn_clicked();
 
+    void on_hourStartSpin_valueChanged(int arg1);
+
+    void on_minStartSpin_valueChanged(int arg1);
+
 signals:
     void    checkPlan(QString modeName, int hour, int min, int dur);
 
