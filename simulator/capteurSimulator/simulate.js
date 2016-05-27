@@ -145,6 +145,11 @@ var getCoherance = function(roomName)
         });
 }
 
+
+/*
+node simulate -r roomName
+
+*/
 var main = function (){
     var continyus = false;
     var temp = NaN;
@@ -176,7 +181,7 @@ var main = function (){
     if (isNaN(temp) || continyus)
         temp = Math.random() * (40 - 10) + 10 ;
     if (isNaN(light) || continyus)
-        light = Math.random() * 100;
+        light = Math.random() * 10;
     if (isNaN(inter))
         inter = 180;
 
