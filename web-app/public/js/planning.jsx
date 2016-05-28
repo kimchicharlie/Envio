@@ -4,6 +4,9 @@ var cookie = require('react-cookie');
 var Modal = require('react-modal');
 var Select = require('react-select');
 
+
+var modalStyles = {overlay: {zIndex: 10}};
+
 function findLabelByValue(list, value, reverse){
     if(reverse)
     {
@@ -102,6 +105,8 @@ Planning = React.createClass({
             defaultView: 'agendaWeek',
             editable: true,
             selectable: true,
+            minTime : "05:00:00",
+            maxTime : "29:00:00",
             eventClick: function(calEvent, jsEvent, view) {
               react.openModal(calEvent, 0, false);
             },        
@@ -272,10 +277,10 @@ Planning = React.createClass({
                   <Select simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
                   <div id='calendar'></div>
                 </div>
-                <Modal isOpen={this.state.modalCreatIsOpen}>          
+                <Modal isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
                     <Select simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
                 </Modal>
-                <Modal isOpen={this.state.modalDeleteIsOpen}>
+                <Modal isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
                   <Select simpleValue options={this.state.ListOfModes} onChange={this.modifyEvent}/>
                     <button onClick={this.deleteEvent}>supprimer cet event</button>
                     <button onClick={this.closeModal}>annuler</button>
