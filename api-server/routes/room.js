@@ -110,6 +110,21 @@ exports.routes = [
         }
     },
     {
+        "path": "/changeLight",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.changeLight({
+                'roomID': req.body.roomID,
+                'light': req.body.light
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
         "path": "/addEventPlanning",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],

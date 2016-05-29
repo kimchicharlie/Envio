@@ -22,3 +22,6 @@ exports.Materiels = require('./models/materiel').Materiels;
 exports.ConnectedUser = require('./models/connectedUser').ConnectedUser;
 exports.Modes = require('./models/mode').Modes;
 exports.Stats = require('./models/stat').Stats;
+exports.Captors = require('./models/captor').Captors;
+exports.Windows = require('./models/window').Windows;
+exports.AirConditionings = require('./models/airConditioning').AirConditionings;
