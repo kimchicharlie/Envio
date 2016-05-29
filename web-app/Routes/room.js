@@ -96,5 +96,21 @@ exports.routes = [
                 res.send(result);
             });
         }
-    }
+    },
+    {
+        "path": "/changeLight",
+        "method": "post",
+        "middlewares": [multipartMiddleware],
+        handler: function (req, res)
+        {
+            roomManager.changeLight({
+                "roomID" : req.body.roomID,
+                "light" : req.body.light,
+
+            }, function (result)
+            {
+                res.send(result);
+            });
+        }
+    }    
 ];

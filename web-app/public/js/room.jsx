@@ -199,6 +199,23 @@ ModifRoom = React.createClass({
             }
         });
     },
+    ChangeLight(event) {
+        var newValue = ReactDOM.findDOMNode(this.refs.light).value;
+        react = this;
+        HttpPost('/changeLight', {
+            'roomID': react.props.Id,
+            'light': newValue,
+        }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
+            if(rep.error == null){
+              react.setState({status: false});
+              react.props.changeToRoomList();
+            }
+            else {
+              react.setState({status : rep.error.message ||  rep.error});
+            }
+        });
+    },    
     render() {    
         return (
         <div className="bar bar-header-secondary">
@@ -218,8 +235,14 @@ ModifRoom = React.createClass({
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
-            <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>            
           </div>
+          <div className="input-container">
+            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5}/>
+          </div>
+          <div>
+            <button className="button-medium" onClick={this.ChangeLight}>Changer la luminosité</button><br/>
+            <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>            
+          </div>          
           <ErrorMessage content={this.state.status}/>
         </div>
         );
