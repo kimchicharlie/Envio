@@ -23,7 +23,7 @@ var Sidemenu = React.createClass({
                     <span>Planning</span>
                 </div>
                 <div className={"menu-button" + (this.props.route == "Rooms" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Rooms")}>
-                    <span>Rooms</span>
+                    <span>Salles</span>
                 </div>
                 <div className={"menu-button" + (this.props.route == "Modes" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Modes")}>
                     <span>Modes</span>

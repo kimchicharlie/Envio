@@ -46,6 +46,9 @@ var routes = [
 	require("./Routes/connexion").routes,
 	require("./Routes/room").routes,
 	require("./Routes/mode").routes,
+	require("./Routes/window").routes,
+	require("./Routes/airConditioning").routes,
+	require("./Routes/captor").routes,
 	require("./Routes/event").routes,
 	require("./Routes/default").routes
 ];
