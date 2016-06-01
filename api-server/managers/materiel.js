@@ -58,5 +58,87 @@ var changeTemperatureNeeded = function (options, cb) {
     }
 };
 
+var setCaptorValue = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'captorValue': null
+    };
+
+    if (options.organisation && options.type && options.value) {
+        db.CaptorsValues
+        .find({ "type" : options.type })
+        .exec(function (err, captorValue) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else if (value) {
+                captorValue.value = options.value;
+                captorValue.save();
+                result.captorValue = captorValue.value;
+                cb(result);
+            } else {
+                var newObject = new db.CaptorsValues({
+                    "type": options.type,
+                    "value": options.value
+                })
+                newObject.save();
+                result.captorValue = newObject.value;
+                cb(result);
+            }
+        })
+    }
+}
+
+var getAirConditioningValue = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'value': null
+    };
+
+    if (options.organisation && options.value) {
+        db.CaptorsValues
+        .find({ "type" : "airConditioning" })
+        .exec(function (err, value) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                result.value = value;
+                cb(result);
+            }
+        })
+    }
+};
+
+var getWindowValue = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'value': null
+    };
+
+    if (options.organisation && options.value) {
+        db.CaptorsValues
+        .find({ "type" : "window" })
+        .exec(function (err, value) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                result.value = value;
+                cb(result);
+            }
+        })
+    }
+};
+
 exports.getMaterielsFromRoom = getMaterielsFromRoom;
 exports.changeTemperatureNeeded = changeTemperatureNeeded;
+exports.setCaptorValue = setCaptorValue;
+exports.getWindowValue = getWindowValue;
+exports.getAirConditioningValue = getAirConditioningValue;
