@@ -178,6 +178,30 @@ var getRoom = function (options, cb) {
     }
 };
 
+var getRoomPlusHardware = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .populate("windows")
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                result.room = room;
+                cb(result);
+            }
+        })
+    }
+};
+
 var getRooms = function (options, cb) {
     cb = cb || function () {};
 
@@ -457,6 +481,7 @@ exports.modifyRoom = modifyRoom;
 exports.deleteRoom = deleteRoom
 exports.modifyData = modifyData;
 exports.getRoom = getRoom;
+exports.getRoomPlusHardware=getRoomPlusHardware;
 exports.getRooms = getRooms;
 exports.changeTemperature = changeTemperature;
 exports.changeLight = changeLight;

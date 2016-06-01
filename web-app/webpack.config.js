@@ -7,6 +7,9 @@ module.exports = {
         mode : "./public/js/mode.jsx",
         planning : "./public/js/planning.jsx",
         modal : "./public/js/modal.jsx",
+        window : "./public/js/window.jsx",
+        AirConditioning:"./public/js/airConditioning.jsx",
+        Captor:"./public/js/captor.jsx"
      },
     output: {
         path: "/",

@@ -27,8 +27,18 @@ var getRoom = function (options, cb)
 
 	cb = (typeof cb == "function") ? cb : function (){};
 	options = (typeof options == "object") ? options : {};
-
 	rest.post(config.apiAddress + '/getRoom?api_key='+config.envioApiAccessKey, options, function (response) {
+		cb(response);
+	})
+};
+
+var getRoomPlusHardware = function (options, cb)
+{
+
+	cb = (typeof cb == "function") ? cb : function (){};
+	options = (typeof options == "object") ? options : {};
+
+	rest.post(config.apiAddress + '/getRoomPlusHardware?api_key='+config.envioApiAccessKey, options, function (response) {
 		cb(response);
 	})
 };
@@ -78,6 +88,7 @@ exports.createRoom = createRoom;
 exports.modifyRoom = modifyRoom;
 exports.getRoom = getRoom;
 exports.getRooms = getRooms;
+exports.getRoomPlusHardware = getRoomPlusHardware;
 exports.changeTemperature = changeTemperature;
 exports.changeLight = changeLight;
 exports.deleteRoom = deleteRoom;

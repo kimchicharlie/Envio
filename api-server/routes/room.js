@@ -81,6 +81,20 @@ exports.routes = [
         }
     },
     {
+        "path": "/getRoomPlusHardware",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.getRoomPlusHardware({
+                'roomID': req.body.roomID
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },    
+    {
         "path": "/getRooms",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],

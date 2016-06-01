@@ -41,6 +41,9 @@ var routes = [
 	require("./routes/room").routes,
 	require("./routes/materiel").routes,
 	require("./routes/mode").routes,
+	require("./routes/window").routes,
+	require("./routes/airConditioning").routes,
+	require("./routes/captor").routes,
 	require("./routes/stat").routes
 ];
 for (var i = 0; i < routes.length; i++)
