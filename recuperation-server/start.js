@@ -2,21 +2,17 @@
 
 // npm modules
 var express = require('express');
-var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var multipartMiddleware = require('connect-multiparty')();
 var cors = require('cors');
 
 // personal modules
 var config = require("./config").config;
-var db = require("./database");
 
 //------------------------------ INIT -------------------------------------//
 
 var httpPort = config.webServerHttpPort;
 var app = express();
-
-db.initDB();
 
 //------------------------------ EXPRESSJS -------------------------------------//
 
@@ -37,14 +33,7 @@ var apiRouter = express.Router();
 // Bind routes on api router
 var routes = [
 	require("./routes/default").routes,
-	require("./routes/user").routes,
-	require("./routes/room").routes,
-	require("./routes/materiel").routes,
-	require("./routes/mode").routes,
-	require("./routes/window").routes,
-	require("./routes/airConditioning").routes,
-	require("./routes/captor").routes,
-	require("./routes/stat").routes
+	require("./routes/communication").routes
 ];
 for (var i = 0; i < routes.length; i++)
 {
@@ -55,7 +44,7 @@ for (var i = 0; i < routes.length; i++)
   }
 }
 
-app.use("/api", apiRouter);
+app.use("/communication", apiRouter);
 
 app.use(function(error, req, res, next) {
 	res.status(404);
@@ -69,5 +58,5 @@ app.use(function(error, req, res, next) {
 
 var server = require('http').createServer(app);
 server.listen(httpPort, function () {
-	console.log("API REST started, listening on port : " + httpPort);
+	console.log("Recuperation server started, listening on port : " + httpPort);
 });

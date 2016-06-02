@@ -297,7 +297,6 @@ var changeLight = function (options, cb) {
                             result.error = error;
                             cb(result);
                         } else {
-                            console.log("ROOM : ", room)
                             statManager.addStat({
                                 "realLight": room.realLight,
                                 "neededLight": room.light,
@@ -305,7 +304,6 @@ var changeLight = function (options, cb) {
                                 "neededTemperature": room.temperature,
                                 "roomID": room._id
                             }, function (res) {
-                                console.log('res : ', res)
                                 if (res.error) {
                                     result.error = res.error;
                                     cb(result);
