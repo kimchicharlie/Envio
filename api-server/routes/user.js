@@ -15,7 +15,6 @@ exports.routes = [
                 'password': req.body.password
             }, function (rep)
             {
-                console.log(rep)
                 res.send(rep);
             });
         }

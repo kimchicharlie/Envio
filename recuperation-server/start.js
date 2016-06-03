@@ -35,6 +35,7 @@ var routes = [
 	require("./routes/default").routes,
 	require("./routes/communication").routes
 ];
+
 for (var i = 0; i < routes.length; i++)
 {
   for (var j = 0; j < routes[i].length; j++)
