@@ -12,7 +12,8 @@
     "connect-multiparty": "^2.0.0",
     "async": "^1.5.0",
     "nodemailer": "^1.8.0",
-    "bcrypt": "^0.8.5"
+    "bcrypt": "^0.8.5",
+    "waterline": "^0.1.4"
     },
   "author": "Charlie HENIN"
 }

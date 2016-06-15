@@ -18,5 +18,22 @@ exports.routes = [
                 res.send(rep);
             });
         }
-    }
+    },{
+        "path": "/modifyLight",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            communicationManager.modifyLight({
+                "captors": req.body.captors,
+                "roomID": req.body.roomID,
+                "lightNeeded": req.body.lightNeeded,
+                "maxLux": req.body.maxLux,
+                "recuperation_key": req.body.recuperationServerAccessKey
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
 ];
