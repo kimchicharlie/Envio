@@ -72,6 +72,7 @@ exports.routes = [
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
         handler: function (req, res)
         {
+            console.log(req.body)
             roomManager.getRoom({
                 'roomID': req.body.roomID
             }, function (rep)

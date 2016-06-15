@@ -81,7 +81,6 @@ int PlanningModel::checkPlan(QDate date, int hour, int min, int dur) {
 
 void    PlanningModel::addMode(QString modeName, QDate date, int hour, int min, int dur) {
     _planList->append(new Planning(modeName, date, hour, min, dur));
-//    emit dataChanged(this->index(0, 0), this->index(rowCount(this->index(0, 0)), 0));
     emit layoutChanged();
     // send the new added mode to the API
 }
