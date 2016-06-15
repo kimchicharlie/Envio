@@ -114,7 +114,7 @@ Rooms = React.createClass({
     },
     render() {
           var cat = <RoomList rooms={this.state.rooms} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
-          var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Creat Room</button>;
+          var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Créer salle</button>;
           if (this.state.creat !== null) 
           {
               cat = <CreateRoom changeToRoomList={this.changeToRoomList}/>;
@@ -199,7 +199,32 @@ ModifRoom = React.createClass({
             }
         });
     },
-    render() {    
+    ChangeLight(event) {
+        var newValue = ReactDOM.findDOMNode(this.refs.light).value;
+        react = this;
+        HttpPost('/changeLight', {
+            'roomID': react.props.Id,
+            'light': newValue,
+        }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
+            if(rep.error == null){
+              react.setState({status: false});
+              react.props.changeToRoomList();
+            }
+            else {
+              react.setState({status : rep.error.message ||  rep.error});
+            }
+        });
+    },    
+    render() {
+    var MyWindow = null
+    var AirConditioning = null
+    var Captor = null
+    if (this.state.room){
+      MyWindow = <Windows room={this.state.room._id} />
+      AirConditioning = <AirConditionings room={this.state.room._id} />
+      Captor = <Captors room={this.state.room._id} />
+  	}
         return (
         <div className="bar bar-header-secondary">
           <form role="form" onSubmit={this.handleSubmit}>
@@ -218,8 +243,17 @@ ModifRoom = React.createClass({
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
+          </div>
+          <div className="input-container">
+            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5}/>
+          </div>
+          <div>
+            <button className="button-medium" onClick={this.ChangeLight}>Changer la luminosité</button><br/>
             <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>            
           </div>
+          {MyWindow}
+		  {AirConditioning}
+		  {Captor}          
           <ErrorMessage content={this.state.status}/>
         </div>
         );
@@ -270,7 +304,7 @@ CreateRoom = React.createClass({
                     <input className="input-medium" ref="volume" type="text" placeholder="volume"/>
                   </div>
                 </div>
-                <button className="button-medium" type="submit" >Créer</button>
+                <button className="button-medium" type="submit" >Créer salle</button>
               </form>
               <button className="button-medium" onClick={this.props.changeToRoomList} >Retour</button>
               <ErrorMessage content={this.state.status}/>

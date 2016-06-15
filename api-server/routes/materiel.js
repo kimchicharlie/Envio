@@ -34,5 +34,5 @@ exports.routes = [
                 res.send(rep);
             });
         }
-    },
+    }
 ];

@@ -1,6 +1,7 @@
 var async = require("async");
 var db = require("../database");
 var statManager = require("./stat");
+var communicationManager = require("./communication");
 
 var createRoom = function (options, cb) {
     cb = cb || function () {};
@@ -178,6 +179,30 @@ var getRoom = function (options, cb) {
     }
 };
 
+var getRoomPlusHardware = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .populate("windows")
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                result.room = room;
+                cb(result);
+            }
+        })
+    }
+};
+
 var getRooms = function (options, cb) {
     cb = cb || function () {};
 
@@ -224,7 +249,6 @@ var changeTemperature = function (options, cb) {
                             result.error = error;
                             cb(result);
                         } else {
-                            console.log("ROOM : ", room)
                             statManager.addStat({
                                 "realLight": room.realLight,
                                 "neededLight": room.light,
@@ -232,7 +256,6 @@ var changeTemperature = function (options, cb) {
                                 "neededTemperature": room.temperature,
                                 "roomID": room._id
                             }, function (res) {
-                                console.log('res : ', res)
                                 if (res.error) {
                                     result.error = res.error;
                                     cb(result);
@@ -245,6 +268,78 @@ var changeTemperature = function (options, cb) {
                     });
                 } else {
                     result.error = "La température demandée est inexistante ou incohérente";
+                    cb(result);
+                }
+            }
+        })
+    }
+};
+
+var changeLight = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .populate('captors')
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                if (options.light && options.light < 100 && options.light >= 1) {
+                    room.light = options.light;
+                    room.save(function (error) {
+                        if (error) {
+                            result.error = error;
+                            cb(result);
+                        } else {
+                            async.series([
+                                function (callback) {
+                                    communicationManager.modifyLight({
+                                        "captors": room.captors,
+                                        "lightNeeded": room.light,
+                                        "maxLux": room.maxLux,
+                                        "roomID": room._id
+                                    }, function (res) {
+                                        if (res.error) {
+                                            result.error = res.error;
+                                            cb(result);
+                                        } else {
+                                            callback();
+                                        }
+                                    })
+                                },
+                                function (callback) {
+                                    statManager.addStat({
+                                        "realLight": room.realLight,
+                                        "neededLight": room.light,
+                                        "realTemperature": room.realTemperature,
+                                        "neededTemperature": room.temperature,
+                                        "roomID": room._id
+                                    }, function (res) {
+                                        if (res.error) {
+                                            result.error = res.error;
+                                            cb(result);
+                                        } else {
+                                            callback();
+                                        }
+                                    })
+                                }
+                            ], function () {
+                                result.room = room;
+                                cb(result);
+                            })
+                            
+                        }
+                    });
+                } else {
+                    result.error = "La luminosité demandée est inexistante ou incohérente";
                     cb(result);
                 }
             }
@@ -411,8 +506,10 @@ exports.modifyRoom = modifyRoom;
 exports.deleteRoom = deleteRoom
 exports.modifyData = modifyData;
 exports.getRoom = getRoom;
+exports.getRoomPlusHardware=getRoomPlusHardware;
 exports.getRooms = getRooms;
 exports.changeTemperature = changeTemperature;
+exports.changeLight = changeLight;
 exports.addEventPlanning = addEventPlanning;
 exports.removeEventPlanning = removeEventPlanning;
 exports.modifyEventPlanning = modifyEventPlanning;

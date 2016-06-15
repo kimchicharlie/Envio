@@ -82,6 +82,20 @@ exports.routes = [
         }
     },
     {
+        "path": "/getRoomPlusHardware",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.getRoomPlusHardware({
+                'roomID': req.body.roomID
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },    
+    {
         "path": "/getRooms",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
@@ -104,6 +118,21 @@ exports.routes = [
             roomManager.changeTemperature({
                 'roomID': req.body.roomID,
                 'temperature': req.body.temperature
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
+        "path": "/changeLight",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.changeLight({
+                'roomID': req.body.roomID,
+                'light': req.body.light
             }, function (rep)
             {
                 res.send(rep);

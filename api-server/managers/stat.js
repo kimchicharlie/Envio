@@ -8,7 +8,7 @@ var addStat = function (options, cb) {
         'error': null,
         'mode': null
     };
-    console.log("options : ", options)
+    
     if (Number.isInteger(options.realLight) && Number.isInteger(options.neededLight) && Number.isInteger(options.realTemperature) && Number.isInteger(options.neededTemperature) && options.roomID) {
         var newStat = new db.Stats({
             "realLight" : options.realLight,
