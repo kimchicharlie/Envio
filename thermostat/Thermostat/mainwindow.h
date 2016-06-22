@@ -16,6 +16,13 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <QHttpPart>
+
+#include <boost/algorithm/string/trim.hpp>
+
+#include <string>
+#include <iostream>
+#include <sstream>
+
 #include "temperatureWindow.h"
 #include "lumWindow.h"
 #include "opacWindow.h"
@@ -41,6 +48,8 @@ public:
     PlanningWindow*     getPlanWin();
     ConfigWindow*       getConfigWin();
     void                roomValFromAPI();
+    void                parseRep();
+
 
 private slots:
     void on_TempEditButton_clicked();
@@ -55,6 +64,7 @@ private slots:
 
     void updateVals();
 
+    void changeCurRoom(RoomState*);
 
 //    void httpFinished(QNetworkReply* networkReply);
     void httpFinished();
@@ -109,6 +119,7 @@ private:
     QByteArray              _reply;
     QJsonArray              *_jsonArr;
     bool                    _error = false;
+    bool                    _toSend = false;
 };
 
 #endif // MAINWINDOW_H

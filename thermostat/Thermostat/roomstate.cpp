@@ -1,6 +1,6 @@
 #include "roomstate.h"
 #include <iostream>
-
+#include <QDebug>
 RoomState::RoomState()
 {
     // récupérer les vrais valeurs dans la DB
@@ -16,6 +16,7 @@ RoomState::RoomState()
 /**/
     _tempDisp = "°C";
     _tempDispVal = 1;
+    _id = "-1";
 /*
     _tempDisp = "°F";
     _tempDispVal = 2;
@@ -27,7 +28,7 @@ RoomState::RoomState()
                       this, SLOT(convertTemp()));
 }
 
-RoomState::RoomState(QString name, QString pin)
+RoomState::RoomState(QString name, QString id)
 {
     // récupérer les vrais valeurs dans la DB
     _temp = 20.0;
@@ -35,9 +36,11 @@ RoomState::RoomState(QString name, QString pin)
     _opac = 20;
     _hourDisp = 2;
     _name = name;
-    _code = pin;
+    _id = id;
+    _code = "0000";
     _tempDisp = "°C";
     _tempDispVal = 1;
+//    qDebug() << "name : " << _name;
     connect(this, SIGNAL(changeTempDisp()),
                       this, SLOT(convertTemp()));
 }
@@ -123,6 +126,13 @@ QString RoomState::getPin() {
     return (_code);
 }
 
+QString RoomState::getID() {
+    return (_id);
+}
+
+QString RoomState::getName() {
+    return (_name);
+}
 
 void    RoomState::convertTemp() {
     //convert celcius to fahrenheit or invert

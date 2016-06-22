@@ -16,6 +16,9 @@ public:
     explicit RoomSelection(QWidget *parent, int index, QString pin);
     ~RoomSelection();
 
+signals:
+    void changeRoom(int);
+
 public slots:
     void on_buttonBox_accepted();
     void on_buttonBox_rejected();

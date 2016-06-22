@@ -12,6 +12,9 @@ TARGET = Thermostat
 TEMPLATE = app
 RC_FILE = thermostat.rc
 
+INCLUDEPATH += boost_1_61_0/
+LIBS += "-Lboost/boost_1_61_0/libs/"
+
 SOURCES += main.cpp\
     temperatureWindow.cpp \
     lumWindow.cpp \
