@@ -27,14 +27,14 @@ WindowListItem = React.createClass({
 WindowList = React.createClass({
     render: function () {
         var react = this;
-        var items = this.props.windows.map(function (window) {
+        var itemsWindow = this.props.windows.map(function (window) {
             return (
                 <WindowListItem key={window._id} window={window} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
             );
         });
         return (
             <ul className="windows-list">
-                {items}
+                {itemsWindow}
             </ul>
         );
     }
@@ -43,7 +43,7 @@ WindowList = React.createClass({
 Windows = React.createClass({
     getInitialState: function() {        
     return {
-          windows: [],
+          windows: this.props.windows,
           creat :null,
           modif :null,
           delete :null,
@@ -87,43 +87,41 @@ Windows = React.createClass({
     });          
       },
     componentDidMount: function() {
-    react = this;
-      HttpPost('/getWindows', {
-      'room': this.props.room,         
-    }, function(rep) {     
-      rep = jQuery.parseJSON(rep);
-      if (rep.error === null){
-        console.log(rep)
-        react.setState({windows: rep.windows});
-      }
-      else{
-        console.log(rep)
-        react.setState({error:  rep.error.message || rep.error});
-        react.setState({windows: []});
-      }            
-    });
+      react = this;
+        HttpPost('/getWindows', {
+          'room': this.props.room,         
+          }, function(rep) {     
+          rep = jQuery.parseJSON(rep);
+          if (rep.error === null){
+            react.setState({windows: rep.windows});
+          }
+          else{       
+            react.setState({error:  rep.error.message || rep.error});
+            react.setState({windows: []});
+          }            
+      });
     },
-    render() {
-          var cat = <WindowList windows={this.state.windows} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
+    render : function() {
+          var catWindow = <WindowList windows={this.state.windows} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
           var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Créer Vitre</button>;
           if (this.state.creat !== null) 
           {
-              cat = <CreateWindow roomID={this.props.room} changeToWindowList={this.changeToWindowList}/>;
+              catWindow = <CreateWindow roomID={this.props.room} changeToWindowList={this.changeToWindowList}/>;
               creatbutton = null;
           }                  
           if(this.state.modif !== null )
           {
-              cat = <ModifWindow Id={this.state.modif} changeToWindowList={this.changeToWindowList}/>;
+              catWindow = <ModifWindow Id={this.state.modif} changeToWindowList={this.changeToWindowList}/>;
           }
           if(this.state.delete !== null )
           {
-              cat = <DeleteWindow Id={this.state.delete} changeToWindowList={this.changeToWindowList}/>;
+              catWindow = <DeleteWindow Id={this.state.delete} changeToWindowList={this.changeToWindowList}/>;
               creatbutton = null;
           }
           return (
               <div>
                 <div className="content">
-                    {cat}                   
+                    {catWindow}                   
                     {creatbutton}
                 </div>
                 <ErrorMessage content={this.state.error}/>

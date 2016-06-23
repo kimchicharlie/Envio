@@ -127,5 +127,18 @@ exports.routes = [
                 res.send(result);
             });
         }
+    },{
+        "path": "/switchIA",
+        "method": "post",
+        "middlewares": [multipartMiddleware],
+        handler: function (req, res)
+        {
+            roomManager.switchIA({
+                'roomID': req.body.roomID,
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
     }    
 ];

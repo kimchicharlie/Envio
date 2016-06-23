@@ -40,8 +40,8 @@ CaptorList = React.createClass({
 
 Captors = React.createClass({
     getInitialState: function() {        
-    return {
-          captors: [],
+      return {
+          captors: this.props.captors,
           creat :null,
           modif :null,
           delete :null,
@@ -73,7 +73,7 @@ Captors = React.createClass({
             react.setState({modif: null});
             react.setState({delete: null});
             react.setState({creat: null});        
-        react.setState({captors: rep.captors});
+            react.setState({captors: rep.captors});
       }
       else{
             react.setState({error:  rep.error});
@@ -85,23 +85,21 @@ Captors = React.createClass({
     });          
       },
     componentDidMount: function() {
-    react = this;
-      HttpPost('/getCaptors', {
-      'room': this.props.room,         
-    }, function(rep) {     
-      rep = jQuery.parseJSON(rep);
-      if (rep.error === null){
-        console.log(rep)
-        react.setState({captors: rep.captors});
-      }
-      else{
-        console.log(rep)
-        react.setState({error:  rep.error.message || rep.error});
-        react.setState({captors: []});
-      }            
-    });
+      react = this;
+        HttpPost('/getCaptors', {
+          'room': this.props.room,         
+          }, function(rep) {     
+          rep = jQuery.parseJSON(rep);
+          if (rep.error === null){
+            react.setState({captors: rep.captors});
+          }
+          else{
+            react.setState({error:  rep.error.message || rep.error});
+            react.setState({captors: []});
+          }            
+      });
     },
-    render() {
+    render : function() {
           var cat = <CaptorList captors={this.state.captors} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
           var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Créer capteur</button>;
           if (this.state.creat !== null) 
