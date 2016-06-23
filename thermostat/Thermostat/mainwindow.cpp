@@ -15,11 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _netMan->connectToHost(*_hostName, _hostPort);
     _netRep = Q_NULLPTR;
 
-    /*
-    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"organisation\""));
-    textPart.setBody("Envio");
-    */
-
     QHttpPart textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
     textPart.setBody("5717462479f34d720f0248b6");
@@ -29,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _toSend = true;
 
     _curRoom = new RoomState();
-    // function which will be called every seconds to update de time label
+    // function which will be called every seconds to update de time label and the room's values
     _timer = new QTimer(this);
     connect(_timer, SIGNAL(timeout()), this, SLOT(updateVals()));
     _timer->start(1000);
@@ -43,15 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //get the label to display the state and fill them
     _tempLbl = this->ui->TempLabel;
-/*    _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
-    if (_curRoom->getTempDispVal() == 1)
-        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
-    else
-        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°F");
-*/    _lumLbl = this->ui->LumLabel;
-//    _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
+    _lumLbl = this->ui->LumLabel;
     _opacLbl = this->ui->OpacLabel;
-//    _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
 
     _tempBtn = this->ui->TempEditButton;
     _lumBtn = this->ui->LumEditButton;
@@ -252,6 +240,7 @@ void    MainWindow::roomValFromAPI() {
 void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
     std::cout << "Room Changing !!!" << _curRoom->getName().toStdString() << std::endl;
+    _planWin->setRoomId(_curRoom->getID());
     roomValFromAPI();
 }
 
@@ -385,6 +374,7 @@ void    MainWindow::parseRep() {
             std::string name = m.at("name");
             std::string id = m.at("_id");
             _curRoom = new RoomState(QString::fromStdString(name), QString::fromStdString(id));
+            _planWin->setRoomId(_curRoom->getID());
         }
         _curRoom->setTemp(std::stoi(m.at("temperature")));
         _curRoom->setLum(std::stoi(m.at("light")));

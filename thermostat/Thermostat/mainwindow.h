@@ -66,7 +66,6 @@ private slots:
 
     void changeCurRoom(RoomState*);
 
-//    void httpFinished(QNetworkReply* networkReply);
     void httpFinished();
     void httpFailed(QNetworkReply::NetworkError err);
     void httpReadyRead();
