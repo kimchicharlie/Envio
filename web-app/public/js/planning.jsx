@@ -267,9 +267,12 @@ Planning = React.createClass({
             $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
         }
       },
-      closeModal: function(){
+      closeDeleteModal: function(){
         this.setState({modalDeleteIsOpen: false});
-      },      
+      },
+   	  closeCreatModal: function(){
+        this.setState({modalCreatIsOpen: false});
+      },
       render() {
           return (
               <div>
@@ -279,11 +282,12 @@ Planning = React.createClass({
                 </div>
                 <Modal isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
                     <Select simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
+                    <button onClick={this.closeCreatModal}>annuler</button>
                 </Modal>
                 <Modal isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
                   <Select simpleValue options={this.state.ListOfModes} onChange={this.modifyEvent}/>
                     <button onClick={this.deleteEvent}>supprimer cet event</button>
-                    <button onClick={this.closeModal}>annuler</button>
+                    <button onClick={this.closeDeleteModal}>annuler</button>
                 </Modal>                  
               </div>
           );

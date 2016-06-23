@@ -150,11 +150,12 @@ ModifRoom = React.createClass({
     },
     componentDidMount: function() {
        react = this;
-           HttpPost('/getRoom', {
+           HttpPost('/getRoomPlusHardware', {
               'roomID': react.props.Id,         
           }, function(rep) {          
             rep = jQuery.parseJSON(rep);
             if(rep.error == null){
+              console.log(rep.room)
               react.setState({room: rep.room});
             }
             else if(react.state.status == false){
@@ -162,7 +163,7 @@ ModifRoom = React.createClass({
             } 
       });
     },    
-    handleSubmit(event) {
+    handleSubmit : function(event) {
         event.preventDefault();
         var name = ReactDOM.findDOMNode(this.refs.name).value;
         var volume = ReactDOM.findDOMNode(this.refs.volume).value;
@@ -182,7 +183,7 @@ ModifRoom = React.createClass({
             }             
         });
     },
-    ChangeTemp(event) {
+    ChangeTemp : function(event) {
         var newValue = ReactDOM.findDOMNode(this.refs.temperature).value;
         react = this;
         HttpPost('/changeTemperature', {
@@ -191,15 +192,19 @@ ModifRoom = React.createClass({
         }, function(rep) {          
             rep = jQuery.parseJSON(rep);
             if(rep.error == null){
+              if (rep.room.artificialIntellligence)
+                react.ChangeIA();
+              else{
               react.setState({status: false});
               react.props.changeToRoomList();
+              }
             }
             else {
               react.setState({status : rep.error.message ||  rep.error});
             }
         });
     },
-    ChangeLight(event) {
+    ChangeLight : function(event) {
         var newValue = ReactDOM.findDOMNode(this.refs.light).value;
         react = this;
         HttpPost('/changeLight', {
@@ -208,22 +213,45 @@ ModifRoom = React.createClass({
         }, function(rep) {          
             rep = jQuery.parseJSON(rep);
             if(rep.error == null){
+              if (rep.room.artificialIntellligence)
+                react.ChangeIA();
+              else{
               react.setState({status: false});
+              react.props.changeToRoomList();
+              }
+            }
+            else {
+              react.setState({status : rep.error.message ||  rep.error});
+            }
+        });
+    },
+    ChangeIA : function(event) {
+        var newValue = ReactDOM.findDOMNode(this.refs.light).value;
+        react = this;
+        HttpPost('/switchIA', {
+            'roomID': react.props.Id,
+        }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
+            if(rep.error == null){
+              react.setState({status: false});
+              if(react.props.changeToRoomList)
               react.props.changeToRoomList();
             }
             else {
               react.setState({status : rep.error.message ||  rep.error});
             }
         });
-    },    
-    render() {
-    var MyWindow = null
-    var AirConditioning = null
-    var Captor = null
+    },       
+    render : function() {
+    var MyWindow = null;
+    var AirConditioning = null;
+    var Captor = null;
+    var IA = null;
     if (this.state.room){
-      MyWindow = <Windows room={this.state.room._id} />
-      AirConditioning = <AirConditionings room={this.state.room._id} />
-      Captor = <Captors room={this.state.room._id} />
+      AirConditioning = <AirConditionings room={this.state.room._id} airConditionings={this.state.room.airConditionings} />;
+      MyWindow = <Windows room={this.state.room._id} windows={this.state.room.windows}/>;
+      Captor = <Captors room={this.state.room._id} captors={this.state.room.captors}/>;
+      IA = <button className="button-medium" onClick={this.ChangeIA}> {!this.state.room.artificialIntellligence ? "Activer mode Intelligent" : "Désactiver mode Intelligent"} </button>;
   	}
         return (
         <div className="bar bar-header-secondary">
@@ -251,15 +279,15 @@ ModifRoom = React.createClass({
             <button className="button-medium" onClick={this.ChangeLight}>Changer la luminosité</button><br/>
             <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>            
           </div>
+          {IA}
+          {Captor}
           {MyWindow}
-		  {AirConditioning}
-		  {Captor}          
+          {AirConditioning}
           <ErrorMessage content={this.state.status}/>
         </div>
         );
     }
 });
-
 
 CreateRoom = React.createClass({
     getInitialState: function() {
@@ -267,7 +295,7 @@ CreateRoom = React.createClass({
             status: false,
         }
     },
-    handleSubmit(event) {
+    handleSubmit : function(event) {
         event.preventDefault();
         var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
         var name = ReactDOM.findDOMNode(this.refs.name).value;
@@ -289,7 +317,7 @@ CreateRoom = React.createClass({
             }            
         });
     },
-    render() {   
+    render : function() {   
         return (
         <div className="bar bar-header-secondary">
              <form role="form" onSubmit={this.handleSubmit}>

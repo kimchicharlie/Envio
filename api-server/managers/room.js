@@ -179,6 +179,37 @@ var getRoom = function (options, cb) {
     }
 };
 
+var switchIA = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                room.artificialIntellligence = !room.artificialIntellligence
+                room.save(function (error) {
+                    if (error) {
+                        result.error = error;
+                        cb(result);
+                    } else {
+                        result.room = room;
+                        cb(result);
+                    }
+                });
+            }
+        })
+    }
+};
+
 var getRoomPlusHardware = function (options, cb) {
     cb = cb || function () {};
 
@@ -191,6 +222,8 @@ var getRoomPlusHardware = function (options, cb) {
         db.Rooms
         .findOne({'_id': options.roomID})
         .populate("windows")
+        .populate("airConditionings")
+        .populate("captors")
         .exec(function (err, room) {
             if (err) {
                 result.error = err;
@@ -513,3 +546,4 @@ exports.changeLight = changeLight;
 exports.addEventPlanning = addEventPlanning;
 exports.removeEventPlanning = removeEventPlanning;
 exports.modifyEventPlanning = modifyEventPlanning;
+exports.switchIA = switchIA;

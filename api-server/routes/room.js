@@ -191,5 +191,18 @@ exports.routes = [
                 res.send(rep);
             });
         }
+    },{
+        "path": "/switchIA",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.switchIA({
+                'roomID': req.body.roomID,
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
     }
 ];
