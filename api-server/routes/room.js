@@ -162,6 +162,7 @@ exports.routes = [
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
         handler: function (req, res)
         {
+            console.log(req.body)
             roomManager.removeEventPlanning({
                 'roomID': req.body.roomID,
                 'eventName': req.body.eventName,

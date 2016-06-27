@@ -1,6 +1,7 @@
 #include "planningWindow.h"
 #include "ui_planningWindow.h"
 #include <iostream>
+#include <QTimeZone>
 
 PlanningWindow::PlanningWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +11,7 @@ PlanningWindow::PlanningWindow(QWidget *parent) :
 
     _planModel = new PlanningModel(this, QString(QDate::currentDate().toString()));
     _date = QDate::currentDate();
+    connect(_planModel, SIGNAL(remove(Planning*)), this, SLOT(removeMode(Planning*)));
 
     //setup network part
     _netMan = new QNetworkAccessManager(this);
@@ -26,7 +28,7 @@ PlanningWindow::PlanningWindow(QWidget *parent) :
     _planning->setModel(_planModel);
     _modal = new AddEvent(this);
     _modal->hide();
-    connect(_modal, SIGNAL(checkPlan(QString, int,int,int)), this, SLOT(checkPlan(QString, int,int,int)));
+    connect(_modal, SIGNAL(checkPlan(QString, int, int,int, QString)), this, SLOT(checkPlan(QString, int, int,int, QString)));
     connect(this, SIGNAL(noAdd(int)), _modal, SLOT(stateRet(int)));
    QHeaderView *hdHorView = _planning->horizontalHeader();
    hdHorView->setDefaultSectionSize(290);
@@ -49,13 +51,6 @@ PlanningWindow::~PlanningWindow()
 
 void PlanningWindow::setRoomId(QString id) {
     _roomId = id;
-}
-
-void PlanningWindow::showEvent( QShowEvent* event ) {
-    QWidget::showEvent( event );
-    _date = QDate::currentDate();
-    //update the planning
-    _planModel->refreshPlanning(_date);
 }
 
 void PlanningWindow::on_AccueilBtn_clicked()
@@ -83,30 +78,165 @@ void PlanningWindow::on_NextButton_clicked()
 
 void PlanningWindow::on_AddModeButton_clicked()
 {
-    _modal->show();
     //poper une fenetre avec choix de date et choix de mode
+    _modal->show();
 }
 
-void    PlanningWindow::checkPlan(QString modeName, int hour, int min, int dur) {
+void    PlanningWindow::checkPlan(QString modeName, int hour, int min, int dur, QString id) {
     //checker planning with this info
     if (_planModel->checkPlan(_date, hour, min, dur) == -1)
         emit noAdd(1);
     else {
+        Planning *n = new Planning(modeName, id, _date, hour, min, dur);
         //create the mode and add it
-        _planModel->addMode(modeName, _date, hour, min, dur);
+        _planModel->addMode(n);
         emit noAdd(0);
         _modal->hide();
+        toAPI(n);
     }
+}
+
+void PlanningWindow::toAPI(Planning *plan) {
+    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
+    socket->connectToHost("127.0.0.1", 1337);
+     if (!socket->waitForConnected(1000))
+         return;
+     delete socket;
+
+     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/addEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
+    QHttpPart textPart = QHttpPart();
+    QByteArray tmp;
+    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
+    tmp.append(_roomId);
+    textPart.setBody(tmp);
+    _multiPart->append(textPart);
+
+    textPart = QHttpPart();
+    tmp.clear();
+    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"eventName\""));
+    tmp.append(plan->getType());
+    textPart.setBody(tmp);
+    _multiPart->append(textPart);
+
+    textPart = QHttpPart();
+    tmp.clear();
+    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"modeID\""));
+    tmp.append(plan->getId());
+    textPart.setBody(tmp);
+    _multiPart->append(textPart);
+
+    QDateTime now = QDateTime::currentDateTime();
+    int offset = now.offsetFromUtc() / 3600;
+    textPart = QHttpPart();
+    tmp.clear();
+    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"dateBegin\""));
+    int begHour = plan->getHour() - offset;
+    if (begHour < 0)
+        begHour = 0;
+    QString hourStr;
+    if (begHour < 10)
+        hourStr = QString("0" + QString::number(begHour));
+    else
+        hourStr = QString::number(begHour);
+    QString minStr;
+    if (plan->getMinute() < 10)
+        minStr = QString("0" + QString::number(plan->getMinute()));
+    else
+        minStr = QString::number(plan->getMinute());
+    QString dB = QString();
+    dB += _date.toString(Qt::ISODate) + "T" + hourStr + ":" + minStr + ":00.000Z";
+    tmp.append(dB);
+    textPart.setBody(tmp);
+    _multiPart->append(textPart);
+
+    textPart = QHttpPart();
+    tmp.clear();
+    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"dateEnd\""));
+    int hourE = begHour + plan->getDuration() / 60;
+    int minE = plan->getMinute() + plan->getDuration() % 60;
+    if (hourE < 10)
+        hourStr = QString("0" + QString::number(hourE));
+    else
+        hourStr = QString::number(hourE);
+    if (minE < 10)
+        minStr = QString("0" + QString::number(minE));
+    else
+        minStr = QString::number(minE);
+    QString dE = QString();
+    dE += _date.toString(Qt::ISODate) + "T" + hourStr + ":" + minStr + ":00.000Z";
+
+    tmp.append(dE);
+    textPart.setBody(tmp);
+    _multiPart->append(textPart);
+
+    _netRep = _netMan->post(netReq, _multiPart);
+    connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
 }
 
 void PlanningWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
     _planModel->removeMode(index, 1);
+    //remove node in API
+}
+
+void PlanningWindow::removeMode(Planning *plan) {
+    qDebug() << "will remove";
+    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
+    socket->connectToHost("127.0.0.1", 1337);
+     if (!socket->waitForConnected(1000))
+         return;
+     delete socket;
+
+     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/removeEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
+    QHttpPart textPart = QHttpPart();
+    QByteArray tmp;
+    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
+    tmp.append(_roomId);
+    textPart.setBody(tmp);
+    _multiPart->append(textPart);
+
+    textPart = QHttpPart();
+    tmp.clear();
+    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"eventName\""));
+    tmp.append(plan->getType());
+    textPart.setBody(tmp);
+    _multiPart->append(textPart);
+
+    QDateTime now = QDateTime::currentDateTime();
+    int offset = now.offsetFromUtc() / 3600;
+    textPart = QHttpPart();
+    tmp.clear();
+    textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"dateBegin\""));
+    int begHour = plan->getHour() - offset;
+    if (begHour < 0)
+        begHour = 0;
+    QString hourStr;
+    if (begHour < 10)
+        hourStr = QString("0" + QString::number(begHour));
+    else
+        hourStr = QString::number(begHour);
+    QString minStr;
+    if (plan->getMinute() < 10)
+        minStr = QString("0" + QString::number(plan->getMinute()));
+    else
+        minStr = QString::number(plan->getMinute());
+    QString dB = QString();
+    dB += _date.toString(Qt::ISODate) + "T" + hourStr + ":" + minStr + ":00.000Z";
+    tmp.append(dB);
+    textPart.setBody(tmp);
+    _multiPart->append(textPart);
+
+    _netRep = _netMan->post(netReq, _multiPart);
+    connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
+
 }
 
 void    PlanningWindow::show() {
     QMainWindow::show();
-//    _model->reset();
+    _planModel->clearAll();
+    _date = QDate::currentDate();
     getRoomsModeFromAPI();
 }
 
@@ -116,7 +246,6 @@ void    PlanningWindow::getRoomsModeFromAPI() {
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
-
 
     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
@@ -178,6 +307,7 @@ void    PlanningWindow::parseRep() {
                     m.insert(std::make_pair(boost::algorithm::trim_copy(header.substr(0, index)),
                                             boost::algorithm::trim_copy(header.substr(index + 1))));
                 }
+
                 // create useful strings to create mode
                 std::string id = m.at("mode");
                 std::string name = m.at("name");
@@ -191,15 +321,6 @@ void    PlanningWindow::parseRep() {
                 std::string dateEnd = m.at("dateEnd").substr(0, m.at("dateEnd").find('T'));
                 std::string timeEnd = m.at("dateEnd").erase(0, m.at("dateEnd").find('T') + 1);
                 timeEnd = timeEnd.substr(0, timeEnd.find('.'));
-
-                std::cout << m.at("mode") << std::endl;
-                std::cout << m.at("name") << std::endl;
-
-                std::cout << dateBeg << std::endl;
-                std::cout << timeBeg << std::endl;
-                std::cout << "           ----           " << std::endl;
-                std::cout << dateEnd << std::endl;
-                std::cout << timeEnd << std::endl;
 
                 // 2016-04-20T05:00:00.000Z
                if (dateBeg.compare(dateEnd) == 0)
@@ -226,16 +347,18 @@ void PlanningWindow::constructSimpleMode(std::string id, std::string name, std::
     if (_date != date)
         return;
 
+    QDateTime now = QDateTime::currentDateTime();
+    int offset = now.offsetFromUtc() / 3600;
     // create hour & min begin
     pos = hB.find(':');
-    int h = stoi(hB.substr(0, pos));
+    int h = stoi(hB.substr(0, pos)) + offset;
     hB.erase(0, pos + 1);
     pos = hB.find(':');
     int mB = stoi(hB.substr(0, pos));
 
     // create hour & min end
     pos = hE.find(':');
-    int hP = stoi(hE.substr(0, pos));
+    int hP = stoi(hE.substr(0, pos)) + offset;
     hE.erase(0, pos + 1);
     pos = hE.find(':');
     int mE = stoi(hE.substr(0, pos));
@@ -244,7 +367,7 @@ void PlanningWindow::constructSimpleMode(std::string id, std::string name, std::
     int dur = (hP * 60 + mE) - (h * 60 + mB);
 
     Planning *plan = new Planning(QString::fromStdString(name), QString::fromStdString(id), date, h, mB, dur);
-    _planModel->addMode(plan, 0);
+    _planModel->addMode(plan);
 }
 
 void PlanningWindow::constructMode(std::string id, std::string name, std::string dB,
@@ -271,15 +394,16 @@ void PlanningWindow::constructMode(std::string id, std::string name, std::string
     QDate tmp2 = QDate(y, m, d);
 
     if (tmp <= _date && tmp2 >= _date) {
+        QDateTime now = QDateTime::currentDateTime();
+        int offset = now.offsetFromUtc() / 3600;
         int hB = 0;
         int mB = 0;
-        int pos;
         if (tmp < _date)
             tmp = _date;
         else {
             // create hour & min begin
             pos = timeBeg.find(':');
-            hB = stoi(timeBeg.substr(0, pos));
+            hB = stoi(timeBeg.substr(0, pos)) + offset;
             timeBeg.erase(0, pos + 1);
             pos = timeBeg.find(':');
             mB = stoi(timeBeg.substr(0, pos));
@@ -291,7 +415,7 @@ void PlanningWindow::constructMode(std::string id, std::string name, std::string
         else {
             // create hour & min end
             pos = timeEnd.find(':');
-            hE = stoi(timeEnd.substr(0, pos));
+            hE = stoi(timeEnd.substr(0, pos)) + offset;
             timeEnd.erase(0, pos + 1);
             pos = timeEnd.find(':');
             mE = stoi(timeEnd.substr(0, pos));
@@ -300,7 +424,7 @@ void PlanningWindow::constructMode(std::string id, std::string name, std::string
         int dur = (hE * 60 + mE) - (hB * 60 + mB);
 
         Planning *plan = new Planning(QString::fromStdString(name), QString::fromStdString(id), tmp, hB, mB, dur);
-        _planModel->addMode(plan, 0);
+        _planModel->addMode(plan);
     }
 }
 

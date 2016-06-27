@@ -367,7 +367,7 @@ void MainWindow::httpFinished()
     doc = doc.fromJson(_netRep->readAll());
     doc.Indented;
     _reply = doc.toJson();
-    qDebug() << "Reply finish in MainWindow: " << _netRep->isFinished();
+//    qDebug() << "Reply finish in MainWindow: " << _netRep->isFinished();
     if (_netRep->isFinished())
         _toSend = true;
     parseRep();

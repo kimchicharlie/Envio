@@ -35,9 +35,7 @@ TemperatureWindow::~TemperatureWindow()
     delete ui;
 }
 
-
 void TemperatureWindow::setSliderVal(int val) {
-    qDebug() << "value of temperature slider is changing";
     if (_tempDisp == 1) {
         _label->setText(QString::number(val) + "°C");
     } else {
