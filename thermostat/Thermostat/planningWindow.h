@@ -42,7 +42,7 @@ public:
     void setRoomId(QString id);
     void parseRep();
     void constructSimpleMode(std::string id, std::string name, std::string dB, std::string hB, std::string hE);
-    void constructMode(std::string id, std::string name, std::string dB, std::string dE);
+    void constructMode(std::string id, std::string name, std::string dB, std::string dE, std::string timeBeg, std::string timeEnd);
 
 
 signals:

@@ -21,6 +21,7 @@ public:
     void        addMode(QString modeName, QDate date, int hour, int min, int dur);
     void        addMode(Planning*, int);
     void        removeMode(const QModelIndex &index, int );
+    void        clearAll();
 
 private:
     QList<Planning*>    *_planList;
