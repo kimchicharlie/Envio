@@ -29,7 +29,7 @@ exports.routes = [
                 "roomID": req.body.roomID,
                 "lightNeeded": req.body.lightNeeded,
                 "maxLux": req.body.maxLux,
-                "recuperation_key": req.body.recuperationServerAccessKey
+                "transmission_key": req.body.transmissionServerAccessKey
             }, function (rep)
             {
                 res.send(rep);

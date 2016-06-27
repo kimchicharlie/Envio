@@ -10,7 +10,7 @@ var config = require('../config').config;
 
 exports.checkKey = function (req, res, next)
 {
-	if (req.query.recuperation_key == config.recuperationServerAccessKey || req.body.recuperation_key == config.recuperationServerAccessKey) {
+	if (req.query.transmission_key == config.transmissionServerAccessKey || req.body.transmission_key == config.transmissionServerAccessKey) {
 		next();
 	} else {
 		res.send("Error : Wrong Recuperation Server Access");
