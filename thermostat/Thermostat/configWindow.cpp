@@ -33,6 +33,15 @@ ConfigWindow::~ConfigWindow()
 }
 
 void ConfigWindow::getRoomsFromAPI() {
+    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
+    socket->connectToHost("127.0.0.1", 1337);
+     if (socket->waitForConnected(1000))
+         qDebug("Connected!");
+     else
+         return;
+     qDebug() << "PASSED";
+     delete socket;
+
     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRooms?api_key=f8c5e1xx5f48e56s4x8"));
 
     QHttpPart textPart = QHttpPart();

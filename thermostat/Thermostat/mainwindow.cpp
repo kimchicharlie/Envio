@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <QAbstractSocket>
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -205,18 +206,28 @@ void MainWindow::on_ConfigEditButton_clicked()
 
 
 void    MainWindow::updateVals() {
-//    static int i = 0;
-    if (_curRoom->getHourDisp() == 2)
-        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm:ss"));
-    else
-        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("h:m:s AP"));
     // send the network request if window visible and other reply recieved
     if (_toSend == true)
         roomValFromAPI();
+//    static int i = 0;
+    if (_curRoom != Q_NULLPTR) {
+        if (_curRoom->getHourDisp() == 2)
+            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm:ss"));
+        else
+            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("h:m:s AP"));
+    }
+    else
+        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm:ss"));
 }
 
 void    MainWindow::roomValFromAPI() {
-    _toSend = false;
+    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
+    socket->connectToHost("127.0.0.1", 1337);
+     if (!socket->waitForConnected(1000))
+         return;
+     delete socket;
+
+     _toSend = false;
     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
@@ -258,6 +269,11 @@ void MainWindow::tempValChanged(double newVal) {
     _curRoom->setTemp(newVal);
     _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
 
+    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
+    socket->connectToHost("127.0.0.1", 1337);
+     if (!socket->waitForConnected(1000))
+         return;
+     delete socket;
     //send new temp to API
     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
 
@@ -285,8 +301,13 @@ void MainWindow::tempValChanged(double newVal) {
 void MainWindow::lumValChanged(int newVal) {
     _curRoom->setLum(newVal);
     _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
-    //send new temp to API
-    //send new temp to API
+    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
+    socket->connectToHost("127.0.0.1", 1337);
+     if (!socket->waitForConnected(1000))
+         return;
+     delete socket;
+
+     //send new temp to API
     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
 
     QByteArray tmp;
@@ -308,7 +329,14 @@ void MainWindow::lumValChanged(int newVal) {
 void MainWindow::opacValChanged(int newVal) {
     _curRoom->setOpac(newVal);
     _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
-    //send new temp to API
+
+    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
+    socket->connectToHost("127.0.0.1", 1337);
+     if (!socket->waitForConnected(1000))
+         return;
+     delete socket;
+
+     //send new temp to API
 }
 
 void MainWindow::tempDispChanged(int val) {
