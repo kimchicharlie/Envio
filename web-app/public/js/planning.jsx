@@ -4,6 +4,9 @@ var cookie = require('react-cookie');
 var Modal = require('react-modal');
 var Select = require('react-select');
 
+
+var modalStyles = {overlay: {zIndex: 10}};
+
 function findLabelByValue(list, value, reverse){
     if(reverse)
     {
@@ -51,8 +54,8 @@ Planning = React.createClass({
         react = this;
         HttpPost('/getModes', {
                'organisation': 'Envio',// a changer avec les info users            
-                }, function(ret) {         
-                rep = jQuery.parseJSON(ret)
+                }, function(rep) {         
+                rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
                   var selectOptions = [];
                   for (var key in rep.modes)
@@ -72,8 +75,8 @@ Planning = React.createClass({
       getRooms: function(index){
                 HttpPost('/getRooms', {
                 'organisation': 'Envio',// a changer avec les info users            
-                }, function(ret) {         
-                rep = jQuery.parseJSON(ret)
+                }, function(rep) {         
+                rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
                   var selectOptions = [];
                   for (var key in rep.rooms)
@@ -102,6 +105,8 @@ Planning = React.createClass({
             defaultView: 'agendaWeek',
             editable: true,
             selectable: true,
+            minTime : "05:00:00",
+            maxTime : "29:00:00",
             eventClick: function(calEvent, jsEvent, view) {
               react.openModal(calEvent, 0, false);
             },        
@@ -114,7 +119,6 @@ Planning = React.createClass({
             eventDrop: function(event, delta, revertFunc) {
                 start = new Date((event.start._d - delta))
                 end = new Date((event.end._d - delta))
-                console.log(end)
                 var id=findLabelByValue(react.state.ListOfModes, event.title, true)
                 HttpPost('/modifyEvent', {
                   organisation : "Envio", //a changer plus tard
@@ -126,8 +130,8 @@ Planning = React.createClass({
                   dateEnd : end,
                   newDateBegin : event.start._d,
                   newDateEnd : event.end._d,
-                }, function(ret) {
-                  rep = jQuery.parseJSON(ret)
+                }, function(rep) {
+                  rep = jQuery.parseJSON(rep)
                     react.setState({modalDeleteIsOpen: false});
                     for (var i = 0; i < react.state.rooms.length; i++) {
                       if (react.state.rooms[i]._id === rep.room._id) {
@@ -141,7 +145,6 @@ Planning = React.createClass({
                 react.setState({start: event});
             },
             eventResize: function(event, delta, revertFunc) {
-                console.log(event)
                 start = new Date((event.start._d))
                 end = new Date((event.end._d - delta))
                 var id=findLabelByValue(react.state.ListOfModes, event.title, true)
@@ -155,8 +158,8 @@ Planning = React.createClass({
                   dateEnd : end,
                   newDateBegin : event.start._d,
                   newDateEnd : event.end._d,
-                }, function(ret) {
-                  rep = jQuery.parseJSON(ret)
+                }, function(rep) {
+                  rep = jQuery.parseJSON(rep)
                     react.setState({modalDeleteIsOpen: false});
                     for (var i = 0; i < react.state.rooms.length; i++) {
                       if (react.state.rooms[i]._id === rep.room._id) {
@@ -181,7 +184,6 @@ Planning = React.createClass({
         react=this
         trueDateBegin = new Date(this.state.start._d).toISOString();
         trueDateEnd = new Date(this.state.end._d).toISOString();
-        console.log(trueDateBegin);
         var label= findLabelByValue(this.state.ListOfModes, val);
         HttpPost('/createEvent', {
           organisation : "Envio", //a changer plus tard
@@ -190,14 +192,13 @@ Planning = React.createClass({
           eventName: label,
           dateBegin : trueDateBegin,
           dateEnd : trueDateEnd,     
-        }, function(ret) {
-          rep = jQuery.parseJSON(ret);
+        }, function(rep) {
+          rep = jQuery.parseJSON(rep);
             react.setState({modalCreatIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
               if (react.state.rooms[i]._id === rep.room._id) {
                 react.state.rooms[i].planning = rep.room.planning;
                 react.setCalendar(react.state.rooms[i].planning);
-                console.log(react.state.rooms[i].planning);
               }
             }
 
@@ -216,8 +217,8 @@ Planning = React.createClass({
           dateEnd : this.state.start.end._d,
           newDateBegin : this.state.start.start._d,
           newDateEnd : this.state.start.end._d,     
-        }, function(ret) {
-          rep = jQuery.parseJSON(ret);
+        }, function(rep) {
+          rep = jQuery.parseJSON(rep);
             react.setState({modalDeleteIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
               if (react.state.rooms[i]._id === rep.room._id) {
@@ -235,8 +236,8 @@ Planning = React.createClass({
           roomID : this.state.selectedRoom,
           eventName: this.state.start.title,
           dateBegin : this.state.start.start._d,
-        }, function(ret) {
-          rep = jQuery.parseJSON(ret)
+        }, function(rep) {
+          rep = jQuery.parseJSON(rep)
           react.setState({modalDeleteIsOpen: false});
           for (var i = 0; i < react.state.rooms.length; i++) {
             if (react.state.rooms[i]._id === rep.room._id) {
@@ -266,9 +267,12 @@ Planning = React.createClass({
             $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
         }
       },
-      closeModal: function(){
+      closeDeleteModal: function(){
         this.setState({modalDeleteIsOpen: false});
-      },      
+      },
+   	  closeCreatModal: function(){
+        this.setState({modalCreatIsOpen: false});
+      },
       render() {
           return (
               <div>
@@ -276,13 +280,14 @@ Planning = React.createClass({
                   <Select simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
                   <div id='calendar'></div>
                 </div>
-                <Modal isOpen={this.state.modalCreatIsOpen}>          
+                <Modal isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
                     <Select simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
+                    <button onClick={this.closeCreatModal}>annuler</button>
                 </Modal>
-                <Modal isOpen={this.state.modalDeleteIsOpen}>
+                <Modal isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
                   <Select simpleValue options={this.state.ListOfModes} onChange={this.modifyEvent}/>
                     <button onClick={this.deleteEvent}>supprimer cet event</button>
-                    <button onClick={this.closeModal}>annuler</button>
+                    <button onClick={this.closeDeleteModal}>annuler</button>
                 </Modal>                  
               </div>
           );

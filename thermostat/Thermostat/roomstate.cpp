@@ -1,13 +1,14 @@
 #include "roomstate.h"
 #include <iostream>
-
+#include <QDebug>
 RoomState::RoomState()
 {
     // récupérer les vrais valeurs dans la DB
     _temp = 20.0;
     _lum = 60;
     _opac = 20;
-    _hourDisp = 2;
+    _hourDisp = 1;
+//    _hourDisp = 2;
     //get the name of the room
     _name = "Large Room";
     //get the pin of the room
@@ -15,6 +16,7 @@ RoomState::RoomState()
 /**/
     _tempDisp = "°C";
     _tempDispVal = 1;
+    _id = "-1";
 /*
     _tempDisp = "°F";
     _tempDispVal = 2;
@@ -26,7 +28,7 @@ RoomState::RoomState()
                       this, SLOT(convertTemp()));
 }
 
-RoomState::RoomState(QString name, QString pin)
+RoomState::RoomState(QString name, QString id)
 {
     // récupérer les vrais valeurs dans la DB
     _temp = 20.0;
@@ -34,9 +36,11 @@ RoomState::RoomState(QString name, QString pin)
     _opac = 20;
     _hourDisp = 2;
     _name = name;
-    _code = pin;
+    _id = id;
+    _code = "0000";
     _tempDisp = "°C";
     _tempDispVal = 1;
+//    qDebug() << "name : " << _name;
     connect(this, SIGNAL(changeTempDisp()),
                       this, SLOT(convertTemp()));
 }
@@ -72,17 +76,25 @@ void    RoomState::setTempDisp(int change) {
 // 1 for 12 hours, 2 for 24 hours
 void    RoomState::setHourDisp(int change) {
         _hourDisp = change;
+//        emit changeHourDisp();
 }
 
-void    RoomState::TempDispChange() {
-    if (_tempDispVal == 1)
+void    RoomState::TempDispChange(int change) {
+    _tempDispVal = change;
+    if (change == 1)
+        _tempDisp = "°C";
+    else
+        _tempDisp = "°F";
+    emit changeTempDisp();
+/*    if (_tempDispVal == 1)
         setTempDisp(2);
     else
         setTempDisp(1);
+*/
 }
 
-void    RoomState::HourDispChange() {
-
+void    RoomState::HourDispChange(int val) {
+    _hourDisp = val;
 }
 
 double RoomState::getTemp() {
@@ -108,6 +120,18 @@ int RoomState::getTempDispVal() {
 
 int     RoomState::getHourDisp() {
     return (_hourDisp);
+}
+
+QString RoomState::getPin() {
+    return (_code);
+}
+
+QString RoomState::getID() {
+    return (_id);
+}
+
+QString RoomState::getName() {
+    return (_name);
 }
 
 void    RoomState::convertTemp() {

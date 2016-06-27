@@ -80,8 +80,8 @@ Rooms = React.createClass({
         react = this;
       HttpPost('/getRooms', {
       'organisation': 'Envio',// a changer avec les info users            
-    }, function(ret) {         
-      rep = jQuery.parseJSON(ret);
+    }, function(rep) {         
+      rep = jQuery.parseJSON(rep);
       if (rep.error === null){
             react.setState({modif: null});
             react.setState({delete: null});
@@ -89,7 +89,7 @@ Rooms = React.createClass({
         react.setState({rooms: rep.rooms});
       }
       else{
-            react.setState({error: rep.error.message || rep.error});
+            react.setState({error:  rep.error});
             react.setState({modif: null});
             react.setState({delete: null});
             react.setState({creat: null});
@@ -101,20 +101,20 @@ Rooms = React.createClass({
     react = this;
       HttpPost('/getRooms', {
       'organisation': 'Envio',// a changer avec les info users            
-    }, function(ret) {         
-      rep = jQuery.parseJSON(ret);
+    }, function(rep) {         
+      rep = jQuery.parseJSON(rep);
       if (rep.error === null){
         react.setState({rooms: rep.rooms});
       }
       else{
-        react.setState({error: rep.error.message || rep.error});
+        react.setState({error:  rep.error.message || rep.error});
         react.setState({rooms: []});
       }            
     });
     },
     render() {
           var cat = <RoomList rooms={this.state.rooms} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
-          var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Creat Room</button>;
+          var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Créer salle</button>;
           if (this.state.creat !== null) 
           {
               cat = <CreateRoom changeToRoomList={this.changeToRoomList}/>;
@@ -150,19 +150,20 @@ ModifRoom = React.createClass({
     },
     componentDidMount: function() {
        react = this;
-           HttpPost('/getRoom', {
+           HttpPost('/getRoomPlusHardware', {
               'roomID': react.props.Id,         
-          }, function(ret) {          
-            rep = jQuery.parseJSON(ret);
+          }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
             if(rep.error == null){
+              console.log(rep.room)
               react.setState({room: rep.room});
             }
             else if(react.state.status == false){
-              react.setState({status : rep.error.message || rep.error});
+              react.setState({status :  rep.error.message || rep.error});
             } 
       });
     },    
-    handleSubmit(event) {
+    handleSubmit : function(event) {
         event.preventDefault();
         var name = ReactDOM.findDOMNode(this.refs.name).value;
         var volume = ReactDOM.findDOMNode(this.refs.volume).value;
@@ -171,10 +172,10 @@ ModifRoom = React.createClass({
             'newName': name,
             'name': react.state.room.name,
             'volume': volume,            
-        }, function(ret) {
-            rep = jQuery.parseJSON(ret);
+        }, function(rep) {
+            rep = jQuery.parseJSON(rep);
             if(rep.error == null){
-              react.setState({status: rep});
+              react.setState({status: false});
               react.props.changeToRoomList();
             }
             else {
@@ -182,24 +183,76 @@ ModifRoom = React.createClass({
             }             
         });
     },
-    ChangeTemp(event) {
+    ChangeTemp : function(event) {
         var newValue = ReactDOM.findDOMNode(this.refs.temperature).value;
         react = this;
         HttpPost('/changeTemperature', {
             'roomID': react.props.Id,
             'temperature': newValue,
-        }, function(ret) {          
-            rep = jQuery.parseJSON(ret);
+        }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
             if(rep.error == null){
-              react.setState({status: rep});
+              if (rep.room.artificialIntellligence)
+                react.ChangeIA();
+              else{
+              react.setState({status: false});
               react.props.changeToRoomList();
+              }
             }
             else {
-              react.setState({status : rep.error.message || rep.error});
+              react.setState({status : rep.error.message ||  rep.error});
             }
         });
     },
-    render() {    
+    ChangeLight : function(event) {
+        var newValue = ReactDOM.findDOMNode(this.refs.light).value;
+        react = this;
+        HttpPost('/changeLight', {
+            'roomID': react.props.Id,
+            'light': newValue,
+        }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
+            if(rep.error == null){
+              if (rep.room.artificialIntellligence)
+                react.ChangeIA();
+              else{
+              react.setState({status: false});
+              react.props.changeToRoomList();
+              }
+            }
+            else {
+              react.setState({status : rep.error.message ||  rep.error});
+            }
+        });
+    },
+    ChangeIA : function(event) {
+        var newValue = ReactDOM.findDOMNode(this.refs.light).value;
+        react = this;
+        HttpPost('/switchIA', {
+            'roomID': react.props.Id,
+        }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
+            if(rep.error == null){
+              react.setState({status: false});
+              if(react.props.changeToRoomList)
+              react.props.changeToRoomList();
+            }
+            else {
+              react.setState({status : rep.error.message ||  rep.error});
+            }
+        });
+    },       
+    render : function() {
+    var MyWindow = null;
+    var AirConditioning = null;
+    var Captor = null;
+    var IA = null;
+    if (this.state.room){
+      AirConditioning = <AirConditionings room={this.state.room._id} airConditionings={this.state.room.airConditionings} />;
+      MyWindow = <Windows room={this.state.room._id} windows={this.state.room.windows}/>;
+      Captor = <Captors room={this.state.room._id} captors={this.state.room.captors}/>;
+      IA = <button className="button-medium" onClick={this.ChangeIA}> {!this.state.room.artificialIntellligence ? "Activer mode Intelligent" : "Désactiver mode Intelligent"} </button>;
+  	}
         return (
         <div className="bar bar-header-secondary">
           <form role="form" onSubmit={this.handleSubmit}>
@@ -218,14 +271,23 @@ ModifRoom = React.createClass({
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
+          </div>
+          <div className="input-container">
+            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5}/>
+          </div>
+          <div>
+            <button className="button-medium" onClick={this.ChangeLight}>Changer la luminosité</button><br/>
             <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>            
           </div>
+          {IA}
+          {Captor}
+          {MyWindow}
+          {AirConditioning}
           <ErrorMessage content={this.state.status}/>
         </div>
         );
     }
 });
-
 
 CreateRoom = React.createClass({
     getInitialState: function() {
@@ -233,7 +295,7 @@ CreateRoom = React.createClass({
             status: false,
         }
     },
-    handleSubmit(event) {
+    handleSubmit : function(event) {
         event.preventDefault();
         var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
         var name = ReactDOM.findDOMNode(this.refs.name).value;
@@ -244,18 +306,18 @@ CreateRoom = React.createClass({
             'name': name,
             'volume': volume,
             
-        }, function(ret) {
-            rep = jQuery.parseJSON(ret);
+        }, function(rep) {
+            rep = jQuery.parseJSON(rep);
             if(rep.error == null){
-              react.setState({status: rep});
+              react.setState({status: false});
               react.props.changeToRoomList();
             }
             else{
-              react.setState({status : rep.error.message || rep.error});
+              react.setState({status : rep.error.message ||  rep.error});
             }            
         });
     },
-    render() {   
+    render : function() {   
         return (
         <div className="bar bar-header-secondary">
              <form role="form" onSubmit={this.handleSubmit}>
@@ -270,7 +332,7 @@ CreateRoom = React.createClass({
                     <input className="input-medium" ref="volume" type="text" placeholder="volume"/>
                   </div>
                 </div>
-                <button className="button-medium" type="submit" >Créer</button>
+                <button className="button-medium" type="submit" >Créer salle</button>
               </form>
               <button className="button-medium" onClick={this.props.changeToRoomList} >Retour</button>
               <ErrorMessage content={this.state.status}/>
@@ -289,13 +351,13 @@ DeleteRoom = React.createClass({
       var react = this;
       HttpPost('/deleteRoom', {
         'roomID': react.props.Id,         
-      }, function(ret) {
-          rep = jQuery.parseJSON(ret);
+      }, function(rep) {
+          rep = jQuery.parseJSON(rep);
           if(rep.error == null){
             react.props.changeToRoomList();  
           }
           else{
-            react.setState({error : rep.error.message || rep.error});
+            react.setState({error :  rep.error});
           }             
 
       }); 

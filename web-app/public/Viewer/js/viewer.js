@@ -180,7 +180,8 @@ function loadRoomFromDatabase (url)
 
 	// GUI
 
-	gui = new dat.GUI();
+	//gui = new dat.GUI();
+	//console.log()
 
 
 	window.addEventListener( 'resize', onWindowResize, false );
@@ -238,7 +239,8 @@ function loadRoomFromDatabase (url)
 				lookAtPos.translateX(direction.x * 20);
 				lookAtPos.translateZ(direction.z * 20);
 			})
-		);
+		)
+	.append($('<div><p id="name">--</p></div>'));
 }
 
 function updateDatabase() {
@@ -322,17 +324,19 @@ function onMouseUp (argument) {
 }
 
 function displayInfo (object) {
-	if (guiObject != null) {
-		for (var elem in guiElements) {
-			gui.remove(guiElements[elem]);
-		}
-	}
-	guiElements = {};
-	guiObject = object
-	for (var elem in object.info) {
-		guiElements[elem] = gui.add(object.info, elem).name(getPropertyName(elem));
-	}
-	gui.open();
+	if(object.info)
+	$("#name").text(object.info.name);
+	// if (guiObject != null) {
+	// 	for (var elem in guiElements) {
+	// 		gui.remove(guiElements[elem]);
+	// 	}
+	// }
+	// guiElements = {};
+	// guiObject = object
+	// for (var elem in object.info) {
+	// 	guiElements[elem] = gui.add(object.info, elem).name(getPropertyName(elem));
+	// }
+	// gui.open();
 }
 
 function getPropertyName (prop) {

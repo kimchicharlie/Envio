@@ -12,6 +12,9 @@ TARGET = Thermostat
 TEMPLATE = app
 RC_FILE = thermostat.rc
 
+INCLUDEPATH += boost_1_61_0/
+LIBS += "-Lboost/boost_1_61_0/libs/"
+
 SOURCES += main.cpp\
     temperatureWindow.cpp \
     lumWindow.cpp \
@@ -22,7 +25,9 @@ SOURCES += main.cpp\
     configWindow.cpp \
     roomlistmodel.cpp \
     planning.cpp \
-    planningmodel.cpp
+    planningmodel.cpp \
+    roomSelection.cpp \
+    addEvent.cpp
 
 HEADERS  += temperatureWindow.h \
     lumWindow.h \
@@ -33,11 +38,15 @@ HEADERS  += temperatureWindow.h \
     configWindow.h \
     roomlistmodel.h \
     planning.h \
-    planningmodel.h
+    planningmodel.h \
+    roomSelection.h \
+    addEvent.h
 
 FORMS    += mainwindow.ui \
     temperatureWindow.ui \
     lumWindow.ui \
     opacWindow.ui \
     planningWindow.ui \
-    configWindow.ui
+    configWindow.ui \
+    roomSelection.ui \
+    addEvent.ui

@@ -15,6 +15,9 @@ public:
     int rowCount(const QModelIndex & /*parent*/) const;
     int columnCount(const QModelIndex & /*parent*/) const;
     QVariant data(const QModelIndex &index, int role) const;
+    void addRoom(const QString room);
+    void removeRoom();
+    void reset();
 
 private:
     QStringList    *_roomList;

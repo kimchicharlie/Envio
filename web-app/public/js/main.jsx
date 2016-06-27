@@ -23,7 +23,7 @@ var Sidemenu = React.createClass({
                     <span>Planning</span>
                 </div>
                 <div className={"menu-button" + (this.props.route == "Rooms" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Rooms")}>
-                    <span>Rooms</span>
+                    <span>Salles</span>
                 </div>
                 <div className={"menu-button" + (this.props.route == "Modes" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Modes")}>
                     <span>Modes</span>
@@ -218,9 +218,10 @@ var Register = React.createClass({
             'firstname': firstname,
             'lastname': lastname,
             'organisation' : organisation            
-        }, function(ret) {
+        }, function(rep) {
+            console.log("rep : ", rep)
             if(rep.error == null){
-                that.setState({registered: ret})      
+                that.setState({registered: rep})      
             }
             else{
                 that.setState({error : rep.error.message || rep.error});
@@ -302,7 +303,7 @@ var App = React.createClass({
 
         HttpPost('/logout', {
             'guid': Cookie.load('userId')
-        }, function(ret) {
+        }, function(rep) {
             if(rep.error){
                 that.setState({error : rep.error.message || rep.error});
             } else {

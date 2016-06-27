@@ -55,7 +55,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="LumFixLabel">
        <property name="text">
-        <string>Lumière</string>
+        <string>Opacité</string>
        </property>
       </widget>
      </item>

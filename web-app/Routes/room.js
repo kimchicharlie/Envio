@@ -67,6 +67,21 @@ exports.routes = [
         }
     },
     {
+        "path": "/getRoomPlusHardware",
+        "method": "post",
+        "middlewares": [multipartMiddleware],
+        handler: function (req, res)
+        {
+            roomManager.getRoomPlusHardware({
+                "roomID" : req.body.roomID
+
+            }, function (result)
+            {
+                res.send(result);
+            });
+        }
+    },    
+    {
         "path": "/getRooms",
         "method": "post",
         "middlewares": [multipartMiddleware],
@@ -96,5 +111,34 @@ exports.routes = [
                 res.send(result);
             });
         }
-    }
+    },
+    {
+        "path": "/changeLight",
+        "method": "post",
+        "middlewares": [multipartMiddleware],
+        handler: function (req, res)
+        {
+            roomManager.changeLight({
+                "roomID" : req.body.roomID,
+                "light" : req.body.light,
+
+            }, function (result)
+            {
+                res.send(result);
+            });
+        }
+    },{
+        "path": "/switchIA",
+        "method": "post",
+        "middlewares": [multipartMiddleware],
+        handler: function (req, res)
+        {
+            roomManager.switchIA({
+                'roomID': req.body.roomID,
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    }    
 ];

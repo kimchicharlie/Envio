@@ -6,6 +6,23 @@
 #include <QPushButton>
 #include <QDateTime>
 #include <QString>
+#include <QTimer>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QByteArray>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QHttpPart>
+
+#include <boost/algorithm/string/trim.hpp>
+
+#include <string>
+#include <iostream>
+#include <sstream>
+
 #include "temperatureWindow.h"
 #include "lumWindow.h"
 #include "opacWindow.h"
@@ -25,11 +42,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    TemperatureWindow* getTempWin();
-    LumWindow* getLumWin();
-    OpacWindow* getOpacWin();
-    PlanningWindow* getPlanWin();
-    ConfigWindow* getConfigWin();
+    TemperatureWindow*  getTempWin();
+    LumWindow*          getLumWin();
+    OpacWindow*          getOpacWin();
+    PlanningWindow*     getPlanWin();
+    ConfigWindow*       getConfigWin();
+    void                roomValFromAPI();
+    void                parseRep();
+
 
 private slots:
     void on_TempEditButton_clicked();
@@ -42,11 +62,22 @@ private slots:
 
     void on_ConfigEditButton_clicked();
 
+    void updateVals();
+
+    void changeCurRoom(RoomState*);
+
+    void httpFinished();
+    void httpFailed(QNetworkReply::NetworkError err);
+    void httpReadyRead();
+
     // make signals and slots to update
     // the state when values change
     void tempValChanged(double newVal);
     void lumValChanged(int newVal);
     void opacValChanged(int newVal);
+
+    void tempDispChanged(int);
+    void hourDispChanged(int);
 
     // slot to return to the mainWindow
     void    backToMain();
@@ -68,6 +99,7 @@ private:
     QPushButton     *_opacBtn;
 
     QDateTime       *_date;
+    QTimer          *_timer;
 
     // Other windows
     TemperatureWindow   *_tempWin;
@@ -75,6 +107,18 @@ private:
     OpacWindow          *_opacWin;
     PlanningWindow      *_planWin;
     ConfigWindow        *_configWin;
+
+    // Network
+    QNetworkAccessManager   *_netMan;
+    QNetworkReply           *_netRep;
+    QString                 *_hostName = new QString("127.0.0.1");
+    quint16                 _hostPort = 1337;
+    QUrl                    _url;
+    QHttpMultiPart          *_multiPart;
+    QByteArray              _reply;
+    QJsonArray              *_jsonArr;
+    bool                    _error = false;
+    bool                    _toSend = false;
 };
 
 #endif // MAINWINDOW_H

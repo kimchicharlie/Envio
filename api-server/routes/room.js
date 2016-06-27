@@ -81,6 +81,20 @@ exports.routes = [
         }
     },
     {
+        "path": "/getRoomPlusHardware",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.getRoomPlusHardware({
+                'roomID': req.body.roomID
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },    
+    {
         "path": "/getRooms",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
@@ -110,6 +124,21 @@ exports.routes = [
         }
     },
     {
+        "path": "/changeLight",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.changeLight({
+                'roomID': req.body.roomID,
+                'light': req.body.light
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
         "path": "/addEventPlanning",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
@@ -118,7 +147,7 @@ exports.routes = [
             roomManager.addEventPlanning({
                 "roomID": req.body.roomID,
                 "eventName": req.body.eventName,
-                "roomID": req.body.roomID,
+                "modeID": req.body.modeID,
                 "dateBegin": req.body.dateBegin,
                 "dateEnd": req.body.dateEnd
             }, function (rep)
@@ -157,6 +186,19 @@ exports.routes = [
                 'dateEnd': req.body.dateEnd,
                 'newDateBegin': req.body.newDateBegin,
                 'newDateEnd': req.body.newDateEnd
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },{
+        "path": "/switchIA",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.switchIA({
+                'roomID': req.body.roomID,
             }, function (rep)
             {
                 res.send(rep);

@@ -5,7 +5,24 @@
 #include <QTableView>
 #include <QTableWidget>
 #include <QPushButton>
+
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QByteArray>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QHttpPart>
+
+#include <boost/algorithm/string/trim.hpp>
+
+#include <string>
+#include <iostream>
+#include <sstream>
+
+
 #include "planningmodel.h"
+#include "addEvent.h"
 
 
 namespace Ui {
@@ -20,12 +37,40 @@ public:
     explicit PlanningWindow(QWidget *parent = 0);
     ~PlanningWindow();
 
+    void showEvent(QShowEvent* event );
+    void getRoomsModeFromAPI();
+    void setRoomId(QString id);
+    void parseRep();
+    void constructSimpleMode(std::string id, std::string name, std::string dB, std::string hB, std::string hE);
+    void constructMode(std::string id, std::string name, std::string dB, std::string dE);
+
+
 signals:
-    // signal to handle the temp has changed
+    // mode has not been added
+    void noAdd(int);
     void returnToMain();
+
 
 private slots:
     void on_AccueilBtn_clicked();
+
+    void on_NextButton_clicked();
+
+    void on_AddModeButton_clicked();
+
+    void on_PrevButton_clicked();
+
+    void checkPlan(QString modeName, int hour, int min, int dur);
+
+    void on_tableView_doubleClicked(const QModelIndex &index);
+
+    void httpFinished();
+    void httpFailed(QNetworkReply::NetworkError err);
+    void httpReadyRead();
+
+
+public slots:
+    void    show();
 
 private:
     Ui::PlanningWindow  *ui;
@@ -33,8 +78,23 @@ private:
     QPushButton         *_prevBtn;
     QPushButton         *_nextBtn;
     QPushButton         *_addModeBtn;
+    QDate               _date;
 
     PlanningModel       *_planModel;
+    AddEvent            *_modal;
+    QString             _roomId;
+
+
+    // Network
+    QNetworkAccessManager   *_netMan;
+    QNetworkReply           *_netRep;
+    QString                 *_hostName = new QString("127.0.0.1");
+    quint16                 _hostPort = 1337;
+    QUrl                    _url;
+    QHttpMultiPart          *_multiPart;
+    QByteArray              _reply;
+    QJsonArray              *_jsonArr;
+    bool                    _error = false;
 };
 
 #endif // PLANNINGWINDOW_H
