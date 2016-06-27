@@ -69,7 +69,8 @@ function handleChanges() {
 
 handleChanges();
 
-setInterval(handleChanges, 10000);
+//setInterval(handleChanges, 10000);
+setInterval(handleChanges, 5000);
 
 //------------------------------ STARTED -------------------------------------//
 

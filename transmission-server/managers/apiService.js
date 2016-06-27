@@ -6,23 +6,24 @@ var config = require('../config').config;
 var apiUrl = config.apiAddress;
 var simulatorUrl = config.simulatorAddress;
 var roomID = config.roomID;
+var saveRoom = null;
 
-
-var CAPTORS = [{
+var CAPTORS = [
+    {
     "type": "OutsideLight",
-    "value": 120
-},{
-    "type": "OutsideLight",
-    "value": 150
-},{
-    "type": "InsideLight",
-    "value": 60
-}]
+    "value": 24000
+    },{
+        "type": "OutsideLight",
+        "value": 22000
+    },{
+        "type": "InsideLight",
+        "value": 800
+    }
+]
 
 
 var getRoom = function(cb) {
     cb = cb || function () {};
-
     var result = {
         'error': null,
         'room': null
@@ -269,12 +270,11 @@ var applyUserModifications = function(options, cb) {
         'error': null,
         'data': null
     }
-
-    if (utils.checkProperty(CAPTORS) && utils.checkProperty(options.room.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature)) {
-        var captors = CAPTORS;
-        var lightNeeded = options.room.light;
-        var maxLux = options.room.maxLux;
-        var roomID = options.room._id;
+    if (utils.checkProperty(options.captors) && utils.checkProperty(options.lightNeeded) && utils.checkProperty(options.maxLux) && utils.checkProperty(options.roomID) && utils.checkProperty(options.temperature)) {
+        var captors = options.captors;
+        var lightNeeded = options.lightNeeded;
+        var maxLux = options.maxLux;
+        var roomID = options.roomID;
 
         calculateLight({
             "captors": captors,
@@ -283,9 +283,9 @@ var applyUserModifications = function(options, cb) {
             "roomID": roomID
         }, function (result) {
             setValues({
-                "opacity": result.values.opacity,
-                "lightPower": result.values.lightPower,
-                "temperature": options.room.temperature
+                "opacity": result.opacity,
+                "lightPower": result.lightPower,
+                "temperature": options.temperature
             }, function (response) {
                 result.data = response;
                 cb(result);
@@ -308,11 +308,9 @@ var handleChanges = function(cb) {
         'error': null,
         'room': null
     }
-
     var dateNow = new Date();
     var room = null;
     var roomModified = false;
-
     getRoom(function (response) {
         if (response.error) {
             result.error = response.error;
@@ -320,8 +318,10 @@ var handleChanges = function(cb) {
         } else if (!response.room) {
             result.error = "La room n'existe pas";
             cb(result);
-        } else {
+        } else {            
             room = response.room;
+            if (saveRoom == null)
+                saveRoom = room
             async.series([
                 function (callback) { // planning
                     var dateBegin;
@@ -364,13 +364,15 @@ var handleChanges = function(cb) {
                     }
                 },
                 function (callback) { // user
-                    if (!roomModified) {
+                    if (room.light != saveRoom.light) {
                         applyUserModifications({
                             "captors": CAPTORS,
                             "roomID": room._id,
                             "lightNeeded": room.light,
-                            "maxLux": room.maxLux
+                            "maxLux": room.maxLux,
+                            "temperature" : room.temperature
                         }, function (res) {
+                            saveRoom = room
                             console.log('res User Modifications : ', res);
                         }) 
                     } else {
