@@ -25,8 +25,8 @@ var getRoom = function(cb) {
             method: "POST",
             json: objectToSend
         }, function (error, response, body) {
-            if (!response || body.error) {
-                result.error = body.error || "Error : Response doesn't exist";
+            if (!response) {
+                result.error = "Can't reach Envio API";
                 cb(result);
             } else {
                 result.room = body.room;
