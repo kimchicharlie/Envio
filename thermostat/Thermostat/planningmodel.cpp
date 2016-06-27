@@ -100,3 +100,7 @@ void    PlanningModel::removeMode(const QModelIndex &index, int send) {
     emit layoutChanged();
     // send the removed mode to the API if send = 0
 }
+
+void    PlanningModel::clearAll() {
+    _planList->clear();
+}

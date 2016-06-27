@@ -66,15 +66,19 @@ void PlanningWindow::on_AccueilBtn_clicked()
 void PlanningWindow::on_PrevButton_clicked()
 {
     //récupérer les modes correspondant a la salle et a la date
+    _planModel->clearAll();
     _date = _date.addDays(-1);
     ui->DateLabel->setText(_date.toString());
+    getRoomsModeFromAPI();
 }
 
 void PlanningWindow::on_NextButton_clicked()
 {
     //récupérer les modes correspondant a la salle et a la date
+    _planModel->clearAll();
     _date = _date.addDays(1);
     ui->DateLabel->setText(_date.toString());
+    getRoomsModeFromAPI();
 }
 
 void PlanningWindow::on_AddModeButton_clicked()
@@ -103,18 +107,14 @@ void PlanningWindow::on_tableView_doubleClicked(const QModelIndex &index)
 void    PlanningWindow::show() {
     QMainWindow::show();
 //    _model->reset();
-//    _rooms->clear();
     getRoomsModeFromAPI();
 }
 
 void    PlanningWindow::getRoomsModeFromAPI() {
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
     socket->connectToHost("127.0.0.1", 1337);
-     if (socket->waitForConnected(1000))
-         qDebug("Connected!");
-     else
+     if (!socket->waitForConnected(1000))
          return;
-     qDebug() << "PASSED";
      delete socket;
 
 
@@ -202,13 +202,10 @@ void    PlanningWindow::parseRep() {
                 std::cout << timeEnd << std::endl;
 
                 // 2016-04-20T05:00:00.000Z
-               if (dateBeg.compare(dateEnd) == 0) {
+               if (dateBeg.compare(dateEnd) == 0)
                    constructSimpleMode(id, name, dateBeg, timeBeg, timeEnd);
-               }
-               else {
-                   std::cout << "dépasse sur un autre jour =/" << std::endl;
-                   constructMode(id, name, dateBeg, dateEnd);
-               }
+               else
+                   constructMode(id, name, dateBeg, dateEnd, timeBeg, timeEnd);
                 m.clear();
             }
         }
@@ -246,11 +243,13 @@ void PlanningWindow::constructSimpleMode(std::string id, std::string name, std::
     // calculate duration
     int dur = (hP * 60 + mE) - (h * 60 + mB);
 
-    Planning *plan = new Planning(QString::fromStdString(name), QString::fromStdString(id), date, h, mE, dur);
+    Planning *plan = new Planning(QString::fromStdString(name), QString::fromStdString(id), date, h, mB, dur);
     _planModel->addMode(plan, 0);
 }
 
-void PlanningWindow::constructMode(std::string id, std::string name, std::string dB, std::string dE) {
+void PlanningWindow::constructMode(std::string id, std::string name, std::string dB,
+                                   std::string dE, std::string timeBeg, std::string timeEnd) {
+    // create date begin and end
     size_t pos = dB.find('-');
     int y = stoi(dB.substr(0, pos));
     dB.erase(0, pos + 1);
@@ -270,6 +269,39 @@ void PlanningWindow::constructMode(std::string id, std::string name, std::string
     d = stoi(dE);
 
     QDate tmp2 = QDate(y, m, d);
+
+    if (tmp <= _date && tmp2 >= _date) {
+        int hB = 0;
+        int mB = 0;
+        int pos;
+        if (tmp < _date)
+            tmp = _date;
+        else {
+            // create hour & min begin
+            pos = timeBeg.find(':');
+            hB = stoi(timeBeg.substr(0, pos));
+            timeBeg.erase(0, pos + 1);
+            pos = timeBeg.find(':');
+            mB = stoi(timeBeg.substr(0, pos));
+        }
+        int hE = 23;
+        int mE = 30;
+        if (tmp2 > _date)
+            tmp2 = _date;
+        else {
+            // create hour & min end
+            pos = timeEnd.find(':');
+            hE = stoi(timeEnd.substr(0, pos));
+            timeEnd.erase(0, pos + 1);
+            pos = timeEnd.find(':');
+            mE = stoi(timeEnd.substr(0, pos));
+        }
+        // calculate duration
+        int dur = (hE * 60 + mE) - (hB * 60 + mB);
+
+        Planning *plan = new Planning(QString::fromStdString(name), QString::fromStdString(id), tmp, hB, mB, dur);
+        _planModel->addMode(plan, 0);
+    }
 }
 
 void PlanningWindow::httpFailed(QNetworkReply::NetworkError err) {
@@ -278,5 +310,5 @@ void PlanningWindow::httpFailed(QNetworkReply::NetworkError err) {
 
 void PlanningWindow::httpReadyRead()
 {
-         qDebug() << "Reply finish: " << _netRep->isFinished();
+    qDebug() << "Reply finish: " << _netRep->isFinished();
 }
