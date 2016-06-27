@@ -38,6 +38,8 @@ var modifyCaptorValue = function (options, cb) {
 var modifyLight = function (options, cb) {
     cb = cb || function () {};
 
+    console.log('options : ', options)
+
     var result = {
         'error': null,
         'response': null
@@ -59,6 +61,7 @@ var modifyLight = function (options, cb) {
     }
 
     if (utils.checkProperty(options.captors) && utils.checkProperty(options.roomID) && utils.checkProperty(options.lightNeeded) && utils.checkProperty(options.maxLux)) {
+        console.log(42)
         for (var i = 0; i < options.captors.length; i++) {
             if (options.captors[i].type == 'OutsideLight') {
                 lightCaptors.outside.averageValue += options.captors[i].value;
@@ -66,10 +69,9 @@ var modifyLight = function (options, cb) {
             } else if (options.captors[i].type == 'InsideLight') {
                 lightCaptors.inside.averageValue += options.captors[i].value;
                 lightCaptors.inside.number += 1;
-            } else {
-                next();
             }
         }
+
         if (lightCaptors.outside.number > 0 && lightCaptors.inside.number > 0) {
             lightCaptors.outside.averageValue = Math.round(lightCaptors.outside.averageValue / lightCaptors.outside.number);
             lightCaptors.inside.averageValue = Math.round(lightCaptors.inside.averageValue / lightCaptors.inside.number);
@@ -97,6 +99,7 @@ var modifyLight = function (options, cb) {
         console.log('lightLux : ', lightLux);
         console.log('opacity : ', opacity);
         console.log('lightPower : ', lightPower);
+
         cb(result);
     } else {
         result.error = "Des données sont manquantes";

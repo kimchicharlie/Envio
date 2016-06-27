@@ -1,7 +1,7 @@
 {
   "name": "Envio",
   "version": "0.0.1",
-  "description": "Envio Recuperation Server",
+  "description": "Envio Transmission Server",
   "main": "start.js",
   "dependencies": {
     "express": "^4.13.3",

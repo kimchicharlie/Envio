@@ -5,6 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multipartMiddleware = require('connect-multiparty')();
 var cors = require('cors');
+var apiService = require('./changeHandler');
 
 // personal modules
 var config = require("./config").config;
@@ -55,9 +56,11 @@ app.use(function(error, req, res, next) {
 	res.status(500);
 });
 
+
+
 //------------------------------ STARTED -------------------------------------//
 
 var server = require('http').createServer(app);
 server.listen(httpPort, function () {
-	console.log("Recuperation server started, listening on port : " + httpPort);
+	console.log("Transmission server started, listening on port : " + httpPort);
 });

@@ -9,7 +9,7 @@ exports.routes = [
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
         handler: function (req, res)
         {
-            res.send("Welcome on the Recuperation server");
+            res.send("Welcome on the Transmission server");
         }
     }
 ]
