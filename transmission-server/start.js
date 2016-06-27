@@ -5,7 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multipartMiddleware = require('connect-multiparty')();
 var cors = require('cors');
-var apiService = require('./changeHandler');
+var apiService = require('./managers/apiService');
 
 // personal modules
 var config = require("./config").config;
@@ -56,7 +56,20 @@ app.use(function(error, req, res, next) {
 	res.status(500);
 });
 
+function handleChanges() {
+	console.log('Trying reach api...');
+	apiService.handleChanges(function (result) {
+		if (result.error) {
+			console.log('Error : ', result.error);
+		} else {
+			console.log('Result : ', result)
+		}
+	})
+}
 
+handleChanges();
+
+setInterval(handleChanges, 10000);
 
 //------------------------------ STARTED -------------------------------------//
 

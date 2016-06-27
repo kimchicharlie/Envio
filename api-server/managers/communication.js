@@ -26,7 +26,7 @@ var modifyLight = function (options, cb) {
             url: url + "/modifyLight",
             method: "POST",
             json: objectToSend
-        }, function (response) {
+        }, function (error, response, body) {
             result.response = response;
             cb(result);
         })
