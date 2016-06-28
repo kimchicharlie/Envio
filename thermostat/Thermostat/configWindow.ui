@@ -60,6 +60,13 @@
        </item>
       </layout>
      </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="msgLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
