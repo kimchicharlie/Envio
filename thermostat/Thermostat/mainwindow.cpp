@@ -250,7 +250,6 @@ void    MainWindow::roomValFromAPI() {
 
 void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
-    std::cout << "Room Changing !!!" << _curRoom->getName().toStdString() << std::endl;
     _planWin->setRoomId(_curRoom->getID());
     roomValFromAPI();
 }
@@ -357,7 +356,6 @@ void MainWindow::hourDispChanged(int val) {
 void MainWindow::httpFinished()
 {
     if (_netRep->error()) {
-            std::cout  << _netRep->errorString().toStdString() << std::endl;
             _netRep->deleteLater();
             _netRep = Q_NULLPTR;
             return;
@@ -367,7 +365,6 @@ void MainWindow::httpFinished()
     doc = doc.fromJson(_netRep->readAll());
     doc.Indented;
     _reply = doc.toJson();
-    qDebug() << "Reply finish in MainWindow: " << _netRep->isFinished();
     if (_netRep->isFinished())
         _toSend = true;
     parseRep();
@@ -387,6 +384,7 @@ void    MainWindow::parseRep() {
         std::istringstream resp(_reply.toStdString().c_str());
         std::string header;
         std::string::size_type index;
+        // fill the map with the API reply
         while (std::getline(resp, header) && header != "\r") {
             header.erase(std::remove(header.end() - 1, header.end(), ','), header.end());
             header.erase(std::remove(header.begin(), header.end(), '\"'), header.end());
@@ -398,6 +396,7 @@ void    MainWindow::parseRep() {
                 ));
             }
         }
+        // if there is no room configure, configure it with the API reply
         if (_curRoom == Q_NULLPTR) {
             std::string name = m.at("name");
             std::string id = m.at("_id");
@@ -427,5 +426,5 @@ void MainWindow::httpFailed(QNetworkReply::NetworkError err) {
 
 void MainWindow::httpReadyRead()
 {
-         qDebug() << "Reply finish: " << _netRep->isFinished();
+    qDebug() << "Reply finish: " << _netRep->isFinished();
 }

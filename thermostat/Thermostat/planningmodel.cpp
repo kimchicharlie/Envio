@@ -20,12 +20,6 @@ PlanningModel::~PlanningModel() {
 
 }
 
-void PlanningModel::refreshPlanning(QDate date)
-{
-    //get the planning for the current room with the date
-}
-
-
 int PlanningModel::rowCount(const QModelIndex & parent) const
 {
    return _planList->size();
@@ -87,15 +81,13 @@ void    PlanningModel::addMode(QString modeName, QDate date, int hour, int min, 
     // send the new added mode to the API
 }
 
-#include <QDebug>
-void    PlanningModel::addMode(Planning *plan, int send) {
-    qDebug() << "in it.";
+void    PlanningModel::addMode(Planning *plan) {
     _planList->append(plan);
     emit layoutChanged();
-    // send the new added mode to the API if send = 0
 }
 
 void    PlanningModel::removeMode(const QModelIndex &index, int send) {
+    emit remove(_planList->at(index.row()));
     _planList->removeAt(index.row());
     emit layoutChanged();
     // send the removed mode to the API if send = 0

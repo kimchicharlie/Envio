@@ -37,12 +37,12 @@ public:
     explicit PlanningWindow(QWidget *parent = 0);
     ~PlanningWindow();
 
-    void showEvent(QShowEvent* event );
     void getRoomsModeFromAPI();
     void setRoomId(QString id);
     void parseRep();
     void constructSimpleMode(std::string id, std::string name, std::string dB, std::string hB, std::string hE);
     void constructMode(std::string id, std::string name, std::string dB, std::string dE, std::string timeBeg, std::string timeEnd);
+    void toAPI(Planning*);
 
 
 signals:
@@ -60,7 +60,7 @@ private slots:
 
     void on_PrevButton_clicked();
 
-    void checkPlan(QString modeName, int hour, int min, int dur);
+    void checkPlan(QString modeName, int hour, int min, int dur, QString);
 
     void on_tableView_doubleClicked(const QModelIndex &index);
 
@@ -71,6 +71,7 @@ private slots:
 
 public slots:
     void    show();
+    void    removeMode(Planning*);
 
 private:
     Ui::PlanningWindow  *ui;
@@ -93,7 +94,6 @@ private:
     QUrl                    _url;
     QHttpMultiPart          *_multiPart;
     QByteArray              _reply;
-    QJsonArray              *_jsonArr;
     bool                    _error = false;
 };
 
