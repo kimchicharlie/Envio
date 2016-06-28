@@ -251,6 +251,7 @@ void    MainWindow::roomValFromAPI() {
 void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
     _planWin->setRoomId(_curRoom->getID());
+    ui->roomLabel->setText("- Salle: " + _curRoom->getName());
     roomValFromAPI();
 }
 
@@ -402,6 +403,7 @@ void    MainWindow::parseRep() {
             std::string id = m.at("_id");
             _curRoom = new RoomState(QString::fromStdString(name), QString::fromStdString(id));
             _planWin->setRoomId(_curRoom->getID());
+            ui->roomLabel->setText("- Salle: " + _curRoom->getName());
         }
         _curRoom->setTemp(std::stoi(m.at("temperature")));
         _curRoom->setLum(std::stoi(m.at("light")));

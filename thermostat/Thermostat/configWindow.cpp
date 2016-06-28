@@ -97,12 +97,15 @@ void ConfigWindow::changeRoom(int ind) {
     disconnect(_modal, SIGNAL(changeRoom(int)), this, SLOT(changeRoom(int)));
     delete _modal;
     _modal = NULL;
-    if (ind != -1)
+    if (ind != -1) {
         emit changeCurRoom((RoomState*)(_rooms->at(ind)));
+        ui->msgLabel->setText("Salle: " + _rooms->at(ind)->getName());
+    }
 }
 
 void    ConfigWindow::show() {
     QMainWindow::show();
+    ui->msgLabel->setText("");
     _model->reset();
     _rooms->clear();
     getRoomsFromAPI();
