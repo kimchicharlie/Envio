@@ -44,7 +44,6 @@ void TemperatureWindow::setSliderVal(int val) {
 }
 
 void TemperatureWindow::setTempDisp(int val) {
-    std::cout << val << std::endl;
     _tempDisp = val;
 }
 

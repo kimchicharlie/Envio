@@ -8,12 +8,10 @@ RoomState::RoomState()
     _lum = 60;
     _opac = 20;
     _hourDisp = 1;
-//    _hourDisp = 2;
     //get the name of the room
     _name = "Large Room";
     //get the pin of the room
     _code = "0000";
-/**/
     _tempDisp = "°C";
     _tempDispVal = 1;
     _id = "-1";
@@ -40,7 +38,6 @@ RoomState::RoomState(QString name, QString id)
     _code = "0000";
     _tempDisp = "°C";
     _tempDispVal = 1;
-//    qDebug() << "name : " << _name;
     connect(this, SIGNAL(changeTempDisp()),
                       this, SLOT(convertTemp()));
 }

@@ -35,11 +35,8 @@ ConfigWindow::~ConfigWindow()
 void ConfigWindow::getRoomsFromAPI() {
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
     socket->connectToHost("127.0.0.1", 1337);
-     if (socket->waitForConnected(1000))
-         qDebug("Connected!");
-     else
+     if (!socket->waitForConnected(1000))
          return;
-     qDebug() << "PASSED";
      delete socket;
 
     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRooms?api_key=f8c5e1xx5f48e56s4x8"));
@@ -147,27 +144,31 @@ void    ConfigWindow::parseRep() {
             header.erase(std::remove(header.end() - 1, header.end(), ','), header.end());
             header.erase(std::remove(header.begin(), header.end(), '\"'), header.end());
 
-            // checker si crochet ouvrant
-            // avancer jusque crochet fermant
             index = header.find(':', 0);
-            int index2 = header.find('[', 0);
-            if (index != std::string::npos && header.find("rooms", 0) != std::string::npos) {
+            size_t index2 = header.find('[', 0);
+            // if open square brackets & not room, go forward to the close square bracket
+            if (index2 != std::string::npos && header.find("rooms", 0) == std::string::npos) {
                 index2 = header.find(']', 0);
-                while (std::getline(resp, header) && header != "\r" && index2 == std::string::npos)
+                while (index2 == std::string::npos && header != "\r") {
+                    std::getline(resp, header);
                     index2 = header.find(']', 0);
                 }
-            index = header.find(':', 0);
-            if (index != std::string::npos) {
+            }
+            else if (index != std::string::npos) {
                 std::string tmp = boost::algorithm::trim_copy(header.substr(0, index));
-               if (m.find(tmp) != m.end() && m.find("_id") != m.end() && m.find("name") != m.end()) {
+                // if _id & name in the map, create and add the new room
+                if (m.find("_id") != m.end() && m.find("name") != m.end()) {
                     std::string name = m.at("name");
                     std::string id = m.at("_id");
-                    _rooms->append(new RoomState(QString::fromStdString(name), QString::fromStdString(id)));
-                    _model->addRoom(_rooms->at(_rooms->size() - 1)->getName());
+                    RoomState *tmpRoom = new RoomState(QString::fromStdString(name), QString::fromStdString(id));
+                    _rooms->append(tmpRoom);
+                    _model->addRoom(tmpRoom->getName());
                     m.clear();
                 }
-                else
+                //else add the data in the map
+                else {
                    m.insert(std::make_pair(tmp, boost::algorithm::trim_copy(header.substr(index + 1))));
+               }
             }
         }
 }
