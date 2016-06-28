@@ -12,7 +12,7 @@ app.post('/ModifyValue', function (req, res) {
     res.send("ok");
 });
 
-app.listen(8082, function () {
-    console.log('Example app listening on port 8082!');
+app.listen(8080, function () {
+    console.log('Example app listening on port 8080!');
 });        
 

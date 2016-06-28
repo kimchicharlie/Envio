@@ -7,17 +7,18 @@ var apiUrl = config.apiAddress;
 var simulatorUrl = config.simulatorAddress;
 var roomID = config.roomID;
 var saveRoom = null;
+var modeApplied = false;
 
 var CAPTORS = [
     {
     "type": "OutsideLight",
-    "value": 24000
+    "value": 22000
     },{
         "type": "OutsideLight",
-        "value": 22000
+        "value": 26000
     },{
         "type": "InsideLight",
-        "value": 800
+        "value": 2000
     }
 ]
 
@@ -55,6 +56,38 @@ var getRoom = function(cb) {
     }
 };
 
+var modifyLight = function(roomID, light){
+    var result = {
+        'error': null,
+        'room': null
+    }
+
+    if (utils.checkProperty(roomID) && utils.checkProperty(light)) {
+        var objectToSend = {
+            "roomID": roomID,
+            "light": light,
+            "api_key": config.envioApiAccessKey
+        }
+
+        request({
+            url: apiUrl + '/changeLight',
+            method: "POST",
+            json: objectToSend
+        }, function (error, response, body) {
+            if (!response) {
+                console.log("Can't reach Envio API");
+            } else {
+                saveRoom = body.room
+            }
+        })
+
+    } else {
+        result.error = "Des données sont manquantes";
+        cb(result);
+    }
+};
+
+
 var getMode = function(modeID, cb) {
     cb = cb || function () {};
 
@@ -82,7 +115,6 @@ var getMode = function(modeID, cb) {
                 cb(result);
             }
         })
-
     } else {
         result.error = "Des données sont manquantes";
         cb(result);
@@ -225,12 +257,13 @@ var applyPlanningMode = function(options, cb) {
                 cb(result);
             } else {
                 mode = res.mode;
-                if (utils.checkProperty(CAPTORS) && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature)) {
+                if (mode.light != saveRoom.light)
+                if (utils.checkProperty(CAPTORS) && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature) ) {
                     var captors = CAPTORS;
                     var lightNeeded = mode.light;
                     var maxLux = options.room.maxLux;
                     var roomID = options.room._id;
-
+                    modifyLight(roomID,mode.light)
                     calculateLight({
                         "captors": captors,
                         "lightNeeded": mode.light,
@@ -339,6 +372,7 @@ var handleChanges = function(cb) {
                                     "modeID": timeslot.mode
                                 }, function (res) {
                                     console.log('res Planning : ', res)
+                                    saveRoom = room
                                     callback();
                                 })
                             } else {
