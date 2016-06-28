@@ -360,13 +360,29 @@ var changeLight = function (options, cb) {
                                             result.error = res.error;
                                             cb(result);
                                         } else {
-                                            callback();
+                                            callback(res);
                                         }
                                     })
                                 }
-                            ], function () {
+                            ], function (stat) {                                
+                                if(stat){
+                                    room.m = stat.m;
+                                    room.off = stat.off;
+                                    room.save(function (error) {
+                                            if (error) {
+                                                result.error = error;
+                                                cb(result);
+                                            } else {
+                                                result.room = room;
+                                                cb(result);                                                
+                                            }
+                                    })
+                                }
+                                else
+                                {
                                 result.room = room;
                                 cb(result);
+                                }
                             })
                             
                         }

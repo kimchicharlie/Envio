@@ -22,6 +22,8 @@ var roomSchema = new Schema({
     ],
     data : { type : Object, default : null },
     planning : [],
+    m : { type : Number, default : 0 },
+    off : { type : Number, default : 0 },
     created : { type : Number, default : Date.now() }
 });
 
