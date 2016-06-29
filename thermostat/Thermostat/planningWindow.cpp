@@ -98,13 +98,15 @@ void    PlanningWindow::checkPlan(QString modeName, int hour, int min, int dur, 
 
 void PlanningWindow::toAPI(Planning *plan) {
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
 
      _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
-    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/addEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/addEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
+//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/addEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
@@ -183,13 +185,15 @@ void PlanningWindow::on_tableView_doubleClicked(const QModelIndex &index)
 void PlanningWindow::removeMode(Planning *plan) {
     qDebug() << "will remove";
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
 
      _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
-    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/removeEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/removeEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
+//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/removeEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
@@ -242,12 +246,14 @@ void    PlanningWindow::show() {
 
 void    PlanningWindow::getRoomsModeFromAPI() {
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
 
-    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
+//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));

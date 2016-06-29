@@ -31,13 +31,16 @@ void    AddEvent::show() {
     QDialog::show();
 
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+    //http://176.31.127.14/
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
 
 
-    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getModes?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getModes?api_key=f8c5e1xx5f48e56s4x8"));
+//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getModes?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"organisation\""));
