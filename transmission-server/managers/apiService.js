@@ -2,7 +2,7 @@ var async = require("async");
 var request = require('request');
 var utils = require('../utils');
 var config = require('../config').config;
-
+var http = require('http')
 var apiUrl = config.apiAddress;
 var simulatorUrl = config.simulatorAddress;
 var roomID = config.roomID;
@@ -14,13 +14,11 @@ var CAPTORS = [
     "type": "OutsideLight",
     "value": 22000
     },{
-        "type": "OutsideLight",
-        "value": 26000
-    },{
-        "type": "InsideLight",
-        "value": 2000
+    "type": "InsideLight",
+    "value": 2000
     }
 ]
+
 
 
 var getRoom = function(cb) {
@@ -37,7 +35,7 @@ var getRoom = function(cb) {
         }
 
         request({
-            url: apiUrl + '/getRoomPlusHardware',
+            url: apiUrl + '/getRoomPlusHardware',                    
             method: "POST",
             json: objectToSend
         }, function (error, response, body) {
@@ -128,6 +126,21 @@ var getCaptor = function(cb) {
         'error': null,
         'room': null
     }
+    http.get({
+        host: 'localhost',
+        port: '9876'
+    }, function(response) {
+        // Continuously update stream with data
+        var body = '';
+        response.on('data', function(d) {
+            body += d;
+        });
+        response.on('end', function() {
+            var captor = JSON.parse(body);
+                CAPTORS[0].value = captor.lightOutSide
+                CAPTORS[1].value = captor.lightInSide
+            })
+        });    
 }
 
 var setValues = function (options, cb) {
@@ -333,17 +346,14 @@ var applyUserModifications = function(options, cb) {
 var applyIAMode = function(options, cb) {
     cb = cb || function () {};
     room  = options.room;
-    console.log(room.off)
-    console.log(room.m)
 
     var result = {
         'error': null,
         'data': null
     }
-
+    console.log(CAPTORS)
     if (room.m > 0 && room.off > 0){
         var val = parseInt((CAPTORS[0].value - room.off) / room.m)
-        console.log(val)        
         modifyLight(room._id,val)
         calculateLight({
             "captors": CAPTORS,
@@ -378,6 +388,7 @@ var handleChanges = function(cb) {
     var dateNow = new Date();
     var room = null;
     var roomModified = false;
+    getCaptor();
     getRoom(function (response) {
         if (response.error) {
             result.error = response.error;

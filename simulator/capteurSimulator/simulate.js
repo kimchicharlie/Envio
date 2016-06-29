@@ -10,8 +10,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 var temparature = 20
-var lightOutSide = 0
-var lightInSide = 0
+var lightOutSide = 25000
+var lightInSide = 800
 var coherance = false;
 var getCoherance = function(cb)
 {
@@ -72,8 +72,10 @@ var main = function (){
     // }
 }
 
-app.get('/', function (req, res) {    
+app.get('/', function (req, res) {  
+        console.log("la")  
         if (coherance){
+            console.log("cohe")
             getCoherance(function(coheTemparature,coheLightOutSide){
                 var toSend = {
                     "temparature" : coheTemparature,
@@ -83,6 +85,7 @@ app.get('/', function (req, res) {
                 res.send(toSend);
             })
         }else{
+            console.log("non cohe")
             var toSend = {
                 "temparature" : temparature,
                 "lightOutSide" : lightOutSide,
