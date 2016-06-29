@@ -85,6 +85,36 @@ var modifyLight = function(roomID, light){
     }
 };
 
+var modifyTemperature = function(roomID, temperature){
+    var result = {
+        'error': null,
+        'room': null
+    }
+
+    if (utils.checkProperty(roomID) && utils.checkProperty(temperature)) {
+        var objectToSend = {
+            "roomID": roomID,
+            "temperature": temperature,
+            "api_key": config.envioApiAccessKey
+        }
+
+        request({
+            url: apiUrl + '/changeTemperatureWithoutStat',
+            method: "POST",
+            json: objectToSend
+        }, function (error, response, body) {
+            if (!response) {
+                console.log("Can't reach Envio API");
+            } else {
+                saveRoom = body.room
+            }
+        })
+
+    } else {
+        result.error = "Des données sont manquantes";
+        cb(result);
+    }
+};
 
 var getMode = function(modeID, cb) {
     cb = cb || function () {};
@@ -151,7 +181,7 @@ var setValues = function (options, cb) {
         'response': null
     }
 
-    if (utils.checkProperty(options.opacity) && utils.checkProperty(options.lightPower)) {
+    if (utils.checkProperty(options.opacity) && utils.checkProperty(options.lightPower) && utils.checkProperty(options.temperature)) {
         var objectToSend = {
             "window": options.opacity,
             "lightPower": options.lightPower,
@@ -270,36 +300,40 @@ var applyPlanningMode = function(options, cb) {
                 cb(result);
             } else {
                 mode = res.mode;
-                if (mode.light != saveRoom.light)
-                if (utils.checkProperty(CAPTORS) && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature) ) {
-                    var captors = CAPTORS;
-                    var lightNeeded = mode.light;
-                    var maxLux = options.room.maxLux;
-                    var roomID = options.room._id;
-                    modifyLight(roomID,mode.light)
-                    calculateLight({
-                        "captors": captors,
-                        "lightNeeded": mode.light,
-                        "maxLux": options.room.maxLux,
-                        "roomID": roomID
-                    }, function (calcResults) {
-                        setValues({
-                            "opacity": calcResults.opacity,
-                            "lightPower": calcResults.lightPower,
-                            "temperature": options.room.temperature
-                        }, function (response) {
-                            if (response.error) {
-                                result.error = response.error;
-                                cb(result);
-                            } else {
-                                result.data = response.response;
-                                cb(result);
-                            }                            
+                if (mode.light != saveRoom.light && mode.temperature != saveRoom.temperature) {
+                    if (utils.checkProperty(CAPTORS) && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature) ) {
+                        var captors = CAPTORS;
+                        var lightNeeded = mode.light;
+                        var maxLux = options.room.maxLux;
+                        var roomID = options.room._id;
+
+                        modifyLight(roomID, mode.light);
+                        modifyTemperature(roomID, mode.temperature);
+
+                        calculateLight({
+                            "captors": captors,
+                            "lightNeeded": mode.light,
+                            "maxLux": options.room.maxLux,
+                            "roomID": roomID
+                        }, function (calcResults) {
+                            setValues({
+                                "opacity": calcResults.opacity,
+                                "lightPower": calcResults.lightPower,
+                                "temperature": options.room.temperature
+                            }, function (response) {
+                                if (response.error) {
+                                    result.error = response.error;
+                                    cb(result);
+                                } else {
+                                    result.data = response.response;
+                                    cb(result);
+                                }                            
+                            })
                         })
-                    })
-                } else {
-                    result.error = "Des données sont manquantes";
-                    cb(result);
+                    } else {
+                        result.error = "Des données sont manquantes";
+                        cb(result);
+                    }
                 }
             }
         }) 
@@ -354,7 +388,10 @@ var applyIAMode = function(options, cb) {
     console.log(CAPTORS)
     if (room.m > 0 && room.off > 0){
         var val = parseInt((CAPTORS[0].value - room.off) / room.m)
-        modifyLight(room._id,val)
+
+        modifyLight(room._id, val);
+        modifyTemperature(roomID, options.room.temperature);
+
         calculateLight({
             "captors": CAPTORS,
             "lightNeeded": val,
@@ -388,6 +425,7 @@ var handleChanges = function(cb) {
     var dateNow = new Date();
     var room = null;
     var roomModified = false;
+
     getCaptor();
     getRoom(function (response) {
         if (response.error) {
@@ -478,3 +516,5 @@ exports.applyPlanningMode = applyPlanningMode;
 exports.applyUserModifications = applyUserModifications;
 exports.applyIAMode = applyIAMode;
 exports.handleChanges = handleChanges;
+exports.modifyLight = modifyLight;
+exports.modifyTemperature = modifyTemperature;

@@ -152,7 +152,22 @@ exports.routes = [
                 res.send(rep);
             });
         }
-    },    
+    },
+    {
+        "path": "/changeTemperatureWithoutStat",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.changeTemperatureWithoutStat({
+                'roomID': req.body.roomID,
+                'temperature': req.body.temperature
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },   
     {
         "path": "/addEventPlanning",
         "method": "post",

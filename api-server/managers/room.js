@@ -345,6 +345,43 @@ var changeLightWithoutStat = function (options, cb) {
     }
 };
 
+var changeTemperatureWithoutStat = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .populate('captors')
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                if (options.temperature && options.temperature < 40 && options.temperature >= 1) {
+                    room.temperature = options.temperature;
+                    room.save(function (error) {
+                        if (error) {
+                            result.error = error;
+                            cb(result);
+                        } else {
+                            result.room = room;
+                            cb(result);
+                        }
+                    });
+                } else {
+                    result.error = "La température demandée est inexistante ou incohérente";
+                    cb(result);
+                }
+            }
+        })
+    }
+};
+
 var changeLight = function (options, cb) {
     cb = cb || function () {};
 
@@ -601,3 +638,4 @@ exports.removeEventPlanning = removeEventPlanning;
 exports.modifyEventPlanning = modifyEventPlanning;
 exports.switchIA = switchIA;
 exports.changeLightWithoutStat = changeLightWithoutStat;
+exports.changeTemperatureWithoutStat = changeTemperatureWithoutStat;
