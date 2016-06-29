@@ -283,6 +283,66 @@ var calculateLight = function (options, cb) {
     }
 }
 
+var updateRoomValues = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null
+    }
+
+    if (utils.checkProperty(options.room) && utils.checkProperty(options.temperature) && utils.checkProperty(options.opacity)) {
+        async.series([
+            function (callback) {
+                async.eachSeries(options.room.windows, function (Window, cbWindow) {
+                    request({
+                        url: apiUrl + "/modifyWindow",
+                        method: "POST",
+                        json: {
+                            'windowID' : Window,
+                            'opacityWanted' : options.opacity
+                        }
+                    }, function (error, response, body) {
+                        if (!response) {
+                            result.error = "Can't reach API";
+                            cb(result);
+                        } else {
+                            cbWindow();
+                        }
+                    })
+                }, function () {
+                    callback();
+                })
+            },
+            function (callback) {
+                async.eachSeries(options.room.airConditionings, function (airConditioning, cbAirConditioning) {
+                    request({
+                        url: apiUrl + "/modifyAirConditioning",
+                        method: "POST",
+                        json: {
+                            'airConditioningID' : airConditioning,
+                            'temperatureWanted' : options.temperature
+                        }
+                    }, function (error, response, body) {
+                        if (!response) {
+                            result.error = "Can't reach API";
+                            cb(result);
+                        } else {
+                            cbAirConditioning();
+                        }
+                    })
+                }, function () {
+                    callback();
+                })
+            }
+        ], function () {
+            cb(result);
+        })
+    } else {
+        result.error = "Des données sont manquantes";
+        cb(result);
+    }
+}
+
 var applyPlanningMode = function(options, cb) {
     cb = cb || function () {};
 
@@ -319,14 +379,26 @@ var applyPlanningMode = function(options, cb) {
                             setValues({
                                 "opacity": calcResults.opacity,
                                 "lightPower": calcResults.lightPower,
-                                "temperature": options.room.temperature
+                                "temperature": mode.temperature
                             }, function (response) {
                                 if (response.error) {
                                     result.error = response.error;
                                     cb(result);
                                 } else {
-                                    result.data = response.response;
-                                    cb(result);
+                                    updateRoomValues({
+                                        "room": options.room,
+                                        "temperature": mode.temperature,
+                                        "opacity": calcResults.opacity
+                                    }, function (updateResult) {
+                                        if (!updateResult.error) {
+                                            result.data = response.response;
+                                            cb(result);
+                                        } else {
+                                            result.error = "Erreur lors de l'update de la room";
+                                            cb(result);
+                                        }
+                                    })
+                                    
                                 }                            
                             })
                         })
@@ -407,8 +479,19 @@ var applyIAMode = function(options, cb) {
                     result.error = response.error;
                     cb(result);
                 } else {
-                    result.data = response.response;
-                    cb(result);
+                    updateRoomValues({
+                        "room": room,
+                        "temperature": options.room.temperature,
+                        "opacity": calcResults.opacity
+                    }, function (updateResult) {
+                        if (!updateResult.error) {
+                            result.data = response.response;
+                            cb(result);
+                        } else {
+                            result.error = "Erreur lors de l'update de la room";
+                            cb(result);
+                        }
+                    })
                 }                            
             })
         })       
@@ -518,3 +601,4 @@ exports.applyIAMode = applyIAMode;
 exports.handleChanges = handleChanges;
 exports.modifyLight = modifyLight;
 exports.modifyTemperature = modifyTemperature;
+exports.updateRoomValues = updateRoomValues;
