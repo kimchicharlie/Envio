@@ -139,6 +139,36 @@ exports.routes = [
         }
     },
     {
+        "path": "/changeLightWithoutStat",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.changeLightWithoutStat({
+                'roomID': req.body.roomID,
+                'light': req.body.light
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
+        "path": "/changeTemperatureWithoutStat",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.changeTemperatureWithoutStat({
+                'roomID': req.body.roomID,
+                'temperature': req.body.temperature
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },   
+    {
         "path": "/addEventPlanning",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
@@ -162,6 +192,7 @@ exports.routes = [
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
         handler: function (req, res)
         {
+            console.log(req.body)
             roomManager.removeEventPlanning({
                 'roomID': req.body.roomID,
                 'eventName': req.body.eventName,
@@ -206,3 +237,4 @@ exports.routes = [
         }
     }
 ];
+

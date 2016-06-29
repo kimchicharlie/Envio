@@ -105,8 +105,6 @@ Planning = React.createClass({
             defaultView: 'agendaWeek',
             editable: true,
             selectable: true,
-            minTime : "05:00:00",
-            maxTime : "29:00:00",
             eventClick: function(calEvent, jsEvent, view) {
               react.openModal(calEvent, 0, false);
             },        
