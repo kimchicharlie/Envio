@@ -222,13 +222,15 @@ void    MainWindow::updateVals() {
 
 void    MainWindow::roomValFromAPI() {
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
 
      _toSend = false;
-    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
+//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
@@ -270,12 +272,15 @@ void MainWindow::tempValChanged(double newVal) {
     _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
 
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
     //send new temp to API
-    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
+
+     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
+//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
 
     QByteArray tmp;
     QHttpPart textPart = QHttpPart();
@@ -302,13 +307,15 @@ void MainWindow::lumValChanged(int newVal) {
     _curRoom->setLum(newVal);
     _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
 
      //send new temp to API
-    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
+//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
 
     QByteArray tmp;
     QHttpPart textPart = QHttpPart();
@@ -331,7 +338,9 @@ void MainWindow::opacValChanged(int newVal) {
     _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
 
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;

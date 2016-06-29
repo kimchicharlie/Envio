@@ -13,7 +13,7 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
 
     _netMan = new QNetworkAccessManager(this);
     _netMan->setNetworkAccessible(QNetworkAccessManager::Accessible);
-    _netMan->connectToHost(_hostName, _hostPort);
+    _netMan->connectToHost(*_hostName, _hostPort);
     _netRep = Q_NULLPTR;
 
     QHttpPart textPart = QHttpPart();
@@ -34,12 +34,13 @@ ConfigWindow::~ConfigWindow()
 
 void ConfigWindow::getRoomsFromAPI() {
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("127.0.0.1", 1337);
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
 
-    QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRooms?api_key=f8c5e1xx5f48e56s4x8"));
+    QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getRooms?api_key=f8c5e1xx5f48e56s4x8"));
 
     QHttpPart textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"organisation\""));
