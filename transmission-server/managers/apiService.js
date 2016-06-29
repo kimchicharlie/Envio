@@ -70,7 +70,7 @@ var modifyLight = function(roomID, light){
         }
 
         request({
-            url: apiUrl + '/changeLight',
+            url: apiUrl + '/changeLightWithoutStat',
             method: "POST",
             json: objectToSend
         }, function (error, response, body) {
@@ -332,6 +332,40 @@ var applyUserModifications = function(options, cb) {
 
 var applyIAMode = function(options, cb) {
     cb = cb || function () {};
+    room  = options.room;
+    console.log(room.off)
+    console.log(room.m)
+
+    var result = {
+        'error': null,
+        'data': null
+    }
+
+    if (room.m > 0 && room.off > 0){
+        var val = parseInt((CAPTORS[0].value - room.off) / room.m)
+        console.log(val)        
+        modifyLight(room._id,val)
+        calculateLight({
+            "captors": CAPTORS,
+            "lightNeeded": val,
+            "maxLux": room.maxLux,
+            "roomID": room._id
+        }, function (calcResults) {
+            setValues({
+                "opacity": calcResults.opacity,
+                "lightPower": calcResults.lightPower,
+                "temperature": options.room.temperature
+            }, function (response) {
+                if (response.error) {
+                    result.error = response.error;
+                    cb(result);
+                } else {
+                    result.data = response.response;
+                    cb(result);
+                }                            
+            })
+        })       
+    }
 }
 
 var handleChanges = function(cb) {
@@ -388,7 +422,7 @@ var handleChanges = function(cb) {
                 function (callback) { // IA
                     if (room.artificialIntellligence && !roomModified) {
                         applyIAMode({
-
+                            "room": room,
                         }, function (res) {
                             console.log('res IA : ', res)
                         })
