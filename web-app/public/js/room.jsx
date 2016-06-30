@@ -226,7 +226,6 @@ ModifRoom = React.createClass({
         });
     },
     ChangeIA : function(event) {
-        var newValue = ReactDOM.findDOMNode(this.refs.light).value;
         react = this;
         HttpPost('/switchIA', {
             'roomID': react.props.Id,

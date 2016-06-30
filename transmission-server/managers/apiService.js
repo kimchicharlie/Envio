@@ -376,7 +376,25 @@ var applyPlanningMode = function(options, cb) {
     }
 
     var mode = null;
+    // if (!options.room.artificialIntellligence)
+    // {
+    //     var objectToSend = {
+    //         "roomID": options.room._id,
+    //         "api_key": config.envioApiAccessKey
+    //     }
 
+    //     request({
+    //         url: apiUrl + '/switchIA',
+    //         method: "POST",
+    //         json: objectToSend
+    //     }, function (error, response, body) {
+    //         if (!response) {
+    //             console.log("Can't reach Envio API");
+    //         } else {
+    //             saveRoom = body.room
+    //         }
+    //     })                                   
+    // }
     if (utils.checkProperty(options.modeID) && utils.checkProperty(options.room)) {
         getMode(options.modeID, function (res) {
             if (res.error) {
@@ -553,7 +571,6 @@ var handleChanges = function(cb) {
                         async.each(room.planning, function (timeslot, cbTimeslot) {
                             dateBegin = new Date(timeslot.dateBegin);
                             dateEnd = new Date(timeslot.dateEnd);
-
                             if (dateBegin <= dateNow && dateNow < dateEnd) {
                                 roomModified = true;
                                 applyPlanningMode({
@@ -565,6 +582,7 @@ var handleChanges = function(cb) {
                                     callback();
                                 })
                             } else {
+                                roomModified = false;
                                 cbTimeslot();
                             }
                         }, function () {
@@ -587,7 +605,7 @@ var handleChanges = function(cb) {
                     }
                 },
                 function (callback) { // user
-                    if (room.light != saveRoom.light) {
+                    if (room.light != saveRoom.light || room.temperature != saveRoom.temperature) {
                         applyUserModifications({
                             "captors": CAPTORS,
                             "roomID": room._id,

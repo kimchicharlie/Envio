@@ -571,7 +571,7 @@ var modifyEventPlanning = function (options, cb) {
         'error': null,
         'room': null
     };
-    if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
+    if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.roomID && options.dateBegin && options.dateEnd) {
         
         var planning = {
             "name": options.eventName,
