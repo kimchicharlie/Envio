@@ -257,19 +257,19 @@ function updateDatabase() {
 		name: 'testRoom',
 		volume: 10
 	};
-	$.ajax({
-		type: 'POST',
-		headers: {"Access-Control-Allow-Credentials": true},
-		data: JSON.stringify(data),
-		contentType: 'application/json',
-		url: 'http://localhost:1337/createRoom',
-		success: function (data) {
-			console.log('Success');
-		},
-		fail: function (data) {
-			console.log('Fail');
-		}
-	});
+	// $.ajax({
+	// 	type: 'POST',
+	// 	headers: {"Access-Control-Allow-Credentials": true},
+	// 	data: JSON.stringify(data),
+	// 	contentType: 'application/json',
+	// 	url: 'http://localhost:1337/createRoom',
+	// 	success: function (data) {
+	// 		console.log('Success');
+	// 	},
+	// 	fail: function (data) {
+	// 		console.log('Fail');
+	// 	}
+	// });
 }
 
 function getDirectionVector (object) {
