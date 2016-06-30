@@ -15,8 +15,7 @@ WindowListItem = React.createClass({
             <li className="room-elem">
               <span className="w_20p">Orientation : {this.props.window.orientation} °Nord</span>
               <span className="w_20p">taille : {this.props.window.size + "m²"}</span>
-              <span className="w_20p">Luminositer : {this.props.window.opacity + "%"}</span>
-              <span className="w_20p">Luminositer volue: {this.props.window.opacityWanted + "%"}</span>
+              <span className="w_20p">Opaciter : {this.props.window.opacityWanted + "%"}</span>
               <button className="list-button w_15p" onClick={this.ModifWindow}>Modifier</button>
               <button className="list-button w_15p" onClick={this.DeleteWindow}>Supprimer</button>
             </li>

@@ -285,7 +285,6 @@ var calculateLight = function (options, cb) {
 
 var updateRoomValues = function (options, cb) {
     cb = cb || function () {};
-
     var result = {
         'error': null
     }
@@ -299,7 +298,8 @@ var updateRoomValues = function (options, cb) {
                         method: "POST",
                         json: {
                             'windowID' : Window,
-                            'opacityWanted' : options.opacity
+                            'opacityWanted' : options.opacity,
+                            'api_key': config.envioApiAccessKey
                         }
                     }, function (error, response, body) {
                         if (!response) {
@@ -320,7 +320,8 @@ var updateRoomValues = function (options, cb) {
                         method: "POST",
                         json: {
                             'airConditioningID' : airConditioning,
-                            'temperatureWanted' : options.temperature
+                            'temperatureWanted' : options.temperature,
+                            'api_key': config.envioApiAccessKey
                         }
                     }, function (error, response, body) {
                         if (!response) {
@@ -333,7 +334,30 @@ var updateRoomValues = function (options, cb) {
                 }, function () {
                     callback();
                 })
-            }
+            },
+            function (callback) {
+                async.eachSeries(options.room.captors, function (captor, cbCaptor) {
+                    request({
+                        url: apiUrl + "/modifyCaptor",
+                        method: "POST",
+                        json: {                        
+                            'captorID' : captor,
+                            'type' : CAPTORS[utils.FindIndexByValue(CAPTORS, captor.type , "type")].type,
+                            'value' : CAPTORS[utils.FindIndexByValue(CAPTORS, captor.type , "type")].value,
+                            'api_key': config.envioApiAccessKey
+                        }
+                    }, function (error, response, body) {
+                        if (!response) {
+                            result.error = "Can't reach API";
+                            cb(result);
+                        } else {
+                            cbCaptor();
+                        }
+                    })
+                }, function () {
+                    callback();
+                })
+            }            
         ], function () {
             cb(result);
         })
@@ -457,44 +481,43 @@ var applyIAMode = function(options, cb) {
         'error': null,
         'data': null
     }
-    console.log(CAPTORS)
     if (room.m > 0 && room.off > 0){
         var val = parseInt((CAPTORS[0].value - room.off) / room.m)
-
-        modifyLight(room._id, val);
-        modifyTemperature(roomID, options.room.temperature);
-
-        calculateLight({
-            "captors": CAPTORS,
-            "lightNeeded": val,
-            "maxLux": room.maxLux,
-            "roomID": room._id
-        }, function (calcResults) {
-            setValues({
-                "opacity": calcResults.opacity,
-                "lightPower": calcResults.lightPower,
-                "temperature": options.room.temperature
-            }, function (response) {
-                if (response.error) {
-                    result.error = response.error;
-                    cb(result);
-                } else {
-                    updateRoomValues({
-                        "room": room,
-                        "temperature": options.room.temperature,
-                        "opacity": calcResults.opacity
-                    }, function (updateResult) {
-                        if (!updateResult.error) {
-                            result.data = response.response;
-                            cb(result);
-                        } else {
-                            result.error = "Erreur lors de l'update de la room";
-                            cb(result);
-                        }
-                    })
-                }                            
+        if (val != saveRoom.light){
+            modifyLight(room._id, val);
+            modifyTemperature(roomID, options.room.temperature);
+            calculateLight({
+                "captors": CAPTORS,
+                "lightNeeded": val,
+                "maxLux": room.maxLux,
+                "roomID": room._id
+            }, function (calcResults) {
+                setValues({
+                    "opacity": calcResults.opacity,
+                    "lightPower": calcResults.lightPower,
+                    "temperature": options.room.temperature
+                }, function (response) {
+                    if (response.error) {
+                        result.error = response.error;
+                        cb(result);
+                    } else {
+                        updateRoomValues({
+                            "room": room,
+                            "temperature": options.room.temperature,
+                            "opacity": calcResults.opacity
+                        }, function (updateResult) {
+                            if (!updateResult.error) {
+                                result.data = response.response;
+                                cb(result);
+                            } else {
+                                result.error = "Erreur lors de l'update de la room";
+                                cb(result);
+                            }
+                        })
+                    }                            
+                })
             })
-        })       
+        }
     }
 }
 
