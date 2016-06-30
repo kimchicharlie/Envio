@@ -116,26 +116,6 @@ var modifyTemperature = function(roomID, temperature){
     }
 };
 
-
-var switchToIA = function(roomID, temperature){
-        var objectToSend = {
-            "roomID": roomID,
-            "api_key": config.envioApiAccessKey
-        }
-
-        request({
-            url: apiUrl + '/switchIA',
-            method: "POST",
-            json: objectToSend
-        }, function (error, response, body) {
-            if (!response) {
-                console.log("Can't reach Envio API");
-            } else {
-                saveRoom = body.room
-            }
-        })
-}
-
 var getMode = function(modeID, cb) {
     cb = cb || function () {};
 
@@ -396,6 +376,25 @@ var applyPlanningMode = function(options, cb) {
     }
 
     var mode = null;
+    // if (!options.room.artificialIntellligence)
+    // {
+    //     var objectToSend = {
+    //         "roomID": options.room._id,
+    //         "api_key": config.envioApiAccessKey
+    //     }
+
+    //     request({
+    //         url: apiUrl + '/switchIA',
+    //         method: "POST",
+    //         json: objectToSend
+    //     }, function (error, response, body) {
+    //         if (!response) {
+    //             console.log("Can't reach Envio API");
+    //         } else {
+    //             saveRoom = body.room
+    //         }
+    //     })                                   
+    // }
     if (utils.checkProperty(options.modeID) && utils.checkProperty(options.room)) {
         getMode(options.modeID, function (res) {
             if (res.error) {
@@ -403,7 +402,7 @@ var applyPlanningMode = function(options, cb) {
                 cb(result);
             } else {
                 mode = res.mode;
-                if (mode.light != saveRoom.light || mode.temperature != saveRoom.temperature) {
+                if (mode.light != saveRoom.light && mode.temperature != saveRoom.temperature) {
                     if (utils.checkProperty(CAPTORS) && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature) ) {
                         var captors = CAPTORS;
                         var lightNeeded = mode.light;
@@ -573,10 +572,6 @@ var handleChanges = function(cb) {
                             dateBegin = new Date(timeslot.dateBegin);
                             dateEnd = new Date(timeslot.dateEnd);
                             if (dateBegin <= dateNow && dateNow < dateEnd) {
-                            if (!room.artificialIntellligence){
-                                switchToIA(room._id);
-                                console.log("ia!")
-                                }
                                 roomModified = true;
                                 applyPlanningMode({
                                     "room": room,
