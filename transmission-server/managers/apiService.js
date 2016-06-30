@@ -575,7 +575,6 @@ var handleChanges = function(cb) {
                             if (dateBegin <= dateNow && dateNow < dateEnd) {
                             if (!room.artificialIntellligence){
                                 switchToIA(room._id);
-                                console.log("ia!")
                                 }
                                 roomModified = true;
                                 applyPlanningMode({
