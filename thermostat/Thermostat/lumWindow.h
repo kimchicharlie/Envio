@@ -24,6 +24,8 @@ signals:
     void returnToMain();
     void goToTemp();
     void goToOpac();
+    void goToConfig();
+    void goToPlan();
 
 private slots:
 
@@ -31,6 +33,8 @@ private slots:
     void on_AccueilBtn_clicked();
     void on_TempEditBtn_clicked();
     void on_OpacEditBtn_clicked();
+    void on_PlanningEditBtn_clicked();
+    void on_ConfigEditBtn_clicked();
 
 private:
     Ui::LumWindow *ui;

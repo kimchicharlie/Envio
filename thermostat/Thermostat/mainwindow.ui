@@ -29,7 +29,7 @@
        <item>
         <widget class="QLabel" name="TempLabel">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -39,7 +39,7 @@
        <item>
         <widget class="QLabel" name="LumLabel">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

@@ -39,3 +39,13 @@ void LumWindow::on_TempEditBtn_clicked() {
 void LumWindow::on_OpacEditBtn_clicked() {
     emit goToOpac();
 }
+
+void LumWindow::on_PlanningEditBtn_clicked()
+{
+    emit goToPlan();
+}
+
+void LumWindow::on_ConfigEditBtn_clicked()
+{
+    emit goToConfig();
+}
