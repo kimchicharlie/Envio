@@ -26,6 +26,8 @@ signals:
     void returnToMain();
     void goToLum();
     void goToOpac();
+    void goToConfig();
+    void goToPlan();
 
 
 private slots:
@@ -34,6 +36,8 @@ private slots:
     void on_AccueilBtn_clicked();
     void on_LumEditBtn_clicked();
     void on_OpacEditBtn_clicked();
+    void on_PlanningEditBtn_clicked();
+    void on_ConfigEditBtn_clicked();
 
 private:
     Ui::TemperatureWindow   *ui;

@@ -97,3 +97,14 @@ void TemperatureWindow::on_OpacEditBtn_clicked() {
     emit goToOpac();
 }
 
+void TemperatureWindow::on_PlanningEditBtn_clicked()
+{
+    emit goToPlan();
+}
+
+void TemperatureWindow::on_ConfigEditBtn_clicked()
+{
+    emit goToConfig();
+}
+
+

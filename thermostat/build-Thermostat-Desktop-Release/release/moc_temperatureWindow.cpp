@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_TemperatureWindow_t {
-    QByteArrayData data[12];
-    char stringdata0[175];
+    QByteArrayData data[16];
+    char stringdata0[247];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,18 +36,24 @@ QT_MOC_LITERAL(3, 30, 4), // "temp"
 QT_MOC_LITERAL(4, 35, 12), // "returnToMain"
 QT_MOC_LITERAL(5, 48, 7), // "goToLum"
 QT_MOC_LITERAL(6, 56, 8), // "goToOpac"
-QT_MOC_LITERAL(7, 65, 36), // "on_TempHorizontalSlider_value..."
-QT_MOC_LITERAL(8, 102, 5), // "value"
-QT_MOC_LITERAL(9, 108, 21), // "on_AccueilBtn_clicked"
-QT_MOC_LITERAL(10, 130, 21), // "on_LumEditBtn_clicked"
-QT_MOC_LITERAL(11, 152, 22) // "on_OpacEditBtn_clicked"
+QT_MOC_LITERAL(7, 65, 10), // "goToConfig"
+QT_MOC_LITERAL(8, 76, 8), // "goToPlan"
+QT_MOC_LITERAL(9, 85, 36), // "on_TempHorizontalSlider_value..."
+QT_MOC_LITERAL(10, 122, 5), // "value"
+QT_MOC_LITERAL(11, 128, 21), // "on_AccueilBtn_clicked"
+QT_MOC_LITERAL(12, 150, 21), // "on_LumEditBtn_clicked"
+QT_MOC_LITERAL(13, 172, 22), // "on_OpacEditBtn_clicked"
+QT_MOC_LITERAL(14, 195, 26), // "on_PlanningEditBtn_clicked"
+QT_MOC_LITERAL(15, 222, 24) // "on_ConfigEditBtn_clicked"
 
     },
     "TemperatureWindow\0tempChange\0\0temp\0"
-    "returnToMain\0goToLum\0goToOpac\0"
-    "on_TempHorizontalSlider_valueChanged\0"
+    "returnToMain\0goToLum\0goToOpac\0goToConfig\0"
+    "goToPlan\0on_TempHorizontalSlider_valueChanged\0"
     "value\0on_AccueilBtn_clicked\0"
-    "on_LumEditBtn_clicked\0on_OpacEditBtn_clicked"
+    "on_LumEditBtn_clicked\0on_OpacEditBtn_clicked\0"
+    "on_PlanningEditBtn_clicked\0"
+    "on_ConfigEditBtn_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,33 +63,41 @@ static const uint qt_meta_data_TemperatureWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   54,    2, 0x06 /* Public */,
-       4,    0,   57,    2, 0x06 /* Public */,
-       5,    0,   58,    2, 0x06 /* Public */,
-       6,    0,   59,    2, 0x06 /* Public */,
+       1,    1,   74,    2, 0x06 /* Public */,
+       4,    0,   77,    2, 0x06 /* Public */,
+       5,    0,   78,    2, 0x06 /* Public */,
+       6,    0,   79,    2, 0x06 /* Public */,
+       7,    0,   80,    2, 0x06 /* Public */,
+       8,    0,   81,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       7,    1,   60,    2, 0x08 /* Private */,
-       9,    0,   63,    2, 0x08 /* Private */,
-      10,    0,   64,    2, 0x08 /* Private */,
-      11,    0,   65,    2, 0x08 /* Private */,
+       9,    1,   82,    2, 0x08 /* Private */,
+      11,    0,   85,    2, 0x08 /* Private */,
+      12,    0,   86,    2, 0x08 /* Private */,
+      13,    0,   87,    2, 0x08 /* Private */,
+      14,    0,   88,    2, 0x08 /* Private */,
+      15,    0,   89,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Double,    3,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int,    8,
+    QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -101,10 +115,14 @@ void TemperatureWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 1: _t->returnToMain(); break;
         case 2: _t->goToLum(); break;
         case 3: _t->goToOpac(); break;
-        case 4: _t->on_TempHorizontalSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 5: _t->on_AccueilBtn_clicked(); break;
-        case 6: _t->on_LumEditBtn_clicked(); break;
-        case 7: _t->on_OpacEditBtn_clicked(); break;
+        case 4: _t->goToConfig(); break;
+        case 5: _t->goToPlan(); break;
+        case 6: _t->on_TempHorizontalSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 7: _t->on_AccueilBtn_clicked(); break;
+        case 8: _t->on_LumEditBtn_clicked(); break;
+        case 9: _t->on_OpacEditBtn_clicked(); break;
+        case 10: _t->on_PlanningEditBtn_clicked(); break;
+        case 11: _t->on_ConfigEditBtn_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -138,6 +156,20 @@ void TemperatureWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
                 return;
             }
         }
+        {
+            typedef void (TemperatureWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&TemperatureWindow::goToConfig)) {
+                *result = 4;
+                return;
+            }
+        }
+        {
+            typedef void (TemperatureWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&TemperatureWindow::goToPlan)) {
+                *result = 5;
+                return;
+            }
+        }
     }
 }
 
@@ -166,13 +198,13 @@ int TemperatureWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 12;
     }
     return _id;
 }
@@ -200,5 +232,17 @@ void TemperatureWindow::goToLum()
 void TemperatureWindow::goToOpac()
 {
     QMetaObject::activate(this, &staticMetaObject, 3, Q_NULLPTR);
+}
+
+// SIGNAL 4
+void TemperatureWindow::goToConfig()
+{
+    QMetaObject::activate(this, &staticMetaObject, 4, Q_NULLPTR);
+}
+
+// SIGNAL 5
+void TemperatureWindow::goToPlan()
+{
+    QMetaObject::activate(this, &staticMetaObject, 5, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

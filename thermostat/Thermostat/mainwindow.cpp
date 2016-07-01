@@ -61,8 +61,12 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(backToMain()));
     connect(_tempWin, SIGNAL(goToLum()),
             this, SLOT(on_LumEditButton_clicked()));
-    connect(_tempWin, SIGNAL(goToOpac()),
-            this, SLOT(on_OpacEditButton_clicked()));
+//    connect(_tempWin, SIGNAL(goToOpac()),
+//            this, SLOT(on_OpacEditButton_clicked()));
+    connect(_tempWin, SIGNAL(goToPlan()),
+            this, SLOT(on_PlanningEditButton_clicked()));
+    connect(_tempWin, SIGNAL(goToConfig()),
+            this, SLOT(on_ConfigEditButton_clicked()));
 
     // lum window and associated signals/slots
     _lumWin = new LumWindow(this);
@@ -73,8 +77,12 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(backToMain()));
     connect(_lumWin, SIGNAL(goToTemp()),
             this, SLOT(on_TempEditButton_clicked()));
-    connect(_lumWin, SIGNAL(goToOpac()),
-            this, SLOT(on_OpacEditButton_clicked()));
+//    connect(_lumWin, SIGNAL(goToOpac()),
+//            this, SLOT(on_OpacEditButton_clicked()));
+    connect(_lumWin, SIGNAL(goToPlan()),
+            this, SLOT(on_PlanningEditButton_clicked()));
+    connect(_lumWin, SIGNAL(goToConfig()),
+            this, SLOT(on_ConfigEditButton_clicked()));
 
 
     // opac window and associated signals/slots
