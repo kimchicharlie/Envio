@@ -1143,7 +1143,6 @@ debug\moc_mainwindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainW
 		..\Thermostat\lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
-		..\Thermostat\opacWindow.h \
 		..\Thermostat\planningWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
@@ -3899,7 +3898,6 @@ debug\main.obj: ..\Thermostat\main.cpp ../Thermostat/mainwindow.h \
 		../Thermostat/lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
-		../Thermostat/opacWindow.h \
 		../Thermostat/planningWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
@@ -4973,7 +4971,6 @@ debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		../Thermostat/lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
-		../Thermostat/opacWindow.h \
 		../Thermostat/planningWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \

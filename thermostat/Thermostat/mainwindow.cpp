@@ -41,10 +41,14 @@ MainWindow::MainWindow(QWidget *parent) :
     _tempLbl = this->ui->TempLabel;
     _lumLbl = this->ui->LumLabel;
     _opacLbl = this->ui->OpacLabel;
+    _opacLbl->hide();
+    QLabel *tmp = this->ui->opacTxtLabel;
+    tmp->hide();
 
     _tempBtn = this->ui->TempEditButton;
     _lumBtn = this->ui->LumEditButton;
     _opacBtn = this->ui->OpacEditButton;
+    _opacBtn->hide();
 
     this->_date = new QDateTime();
     this->updateVals();
@@ -74,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // opac window and associated signals/slots
+    /*
     _opacWin = new OpacWindow(this);
     _opacWin->setSliderVal(_curRoom->getOpac());
     connect(_opacWin, SIGNAL(opacChange(int)),
@@ -84,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(on_TempEditButton_clicked()));
     connect(_opacWin, SIGNAL(goToLum()),
             this, SLOT(on_LumEditButton_clicked()));
-
+*/
     // planning window and associated signals/slots
     _planWin = new PlanningWindow(this);
     connect(_planWin, SIGNAL(returnToMain()),
@@ -116,7 +121,7 @@ MainWindow::~MainWindow()
     delete _opacBtn;
     delete _tempWin;
     delete _lumWin;
-    delete _opacWin;
+    //delete _opacWin;
     delete _planWin;
     delete _configWin;
     delete _timer;
@@ -131,11 +136,11 @@ LumWindow* MainWindow::getLumWin() {
     return (_lumWin);
 }
 
-
+/*
 OpacWindow* MainWindow::getOpacWin() {
     return (_opacWin);
 }
-
+*/
 
 PlanningWindow* MainWindow::getPlanWin() {
     return (_planWin);
@@ -151,7 +156,7 @@ void MainWindow::on_TempEditButton_clicked()
     // change window to TemperatureWindow
     _toSend = false;
     this->hide();
-    _tempWin->hide();
+    //_opacWin->hide();
     _lumWin->hide();
     _planWin->hide();
     _configWin->hide();
@@ -164,7 +169,7 @@ void MainWindow::on_LumEditButton_clicked()
     _toSend = false;
     this->hide();
     _tempWin->hide();
-    _opacWin->hide();
+    //_opacWin->hide();
     _planWin->hide();
     _configWin->hide();
     this->_lumWin->show();
@@ -172,6 +177,7 @@ void MainWindow::on_LumEditButton_clicked()
 
 void MainWindow::on_OpacEditButton_clicked()
 {
+    /*
     _toSend = false;
     this->hide();
     _tempWin->hide();
@@ -179,6 +185,7 @@ void MainWindow::on_OpacEditButton_clicked()
     _planWin->hide();
     _configWin->hide();
     this->_opacWin->show();
+    */
 }
 
 void MainWindow::on_PlanningEditButton_clicked()
@@ -187,7 +194,7 @@ void MainWindow::on_PlanningEditButton_clicked()
     this->hide();
     _tempWin->hide();
     _lumWin->hide();
-    _opacWin->hide();
+//    _opacWin->hide();
     _configWin->hide();
     _planWin->show();
 }
@@ -198,7 +205,7 @@ void MainWindow::on_ConfigEditButton_clicked()
     this->hide();
     _tempWin->hide();
     _lumWin->hide();
-    _opacWin->hide();
+//    _opacWin->hide();
     _planWin->hide();
     _configWin->show();
 }
@@ -260,7 +267,7 @@ void MainWindow::changeCurRoom(RoomState* room) {
 void    MainWindow::backToMain() {
     _tempWin->hide();
     _lumWin->hide();
-    _opacWin->hide();
+//    _opacWin->hide();
     _planWin->hide();
     _configWin->hide();
     this->show();
@@ -334,6 +341,8 @@ void MainWindow::lumValChanged(int newVal) {
 }
 
 void MainWindow::opacValChanged(int newVal) {
+    (void)(newVal);
+    /*
     _curRoom->setOpac(newVal);
     _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
 
@@ -346,6 +355,7 @@ void MainWindow::opacValChanged(int newVal) {
      delete socket;
 
      //send new temp to API
+     */
 }
 
 void MainWindow::tempDispChanged(int val) {
@@ -428,7 +438,7 @@ void    MainWindow::parseRep() {
         _tempWin->setTempDisp(_curRoom->getTempDispVal());
         _tempWin->setSliderVal(_curRoom->getTemp());
         _lumWin->setSliderVal(_curRoom->getLum());
-        _opacWin->setSliderVal(_curRoom->getOpac());
+//        _opacWin->setSliderVal(_curRoom->getOpac());
 }
 
 void MainWindow::httpFailed(QNetworkReply::NetworkError err) {

@@ -175,8 +175,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Envio - Thermostat", 0));
-        TempLabel->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        LumLabel->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        TempLabel->setText(QString());
+        LumLabel->setText(QString());
         OpacLabel->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         TempEditButton->setText(QApplication::translate("MainWindow", "Temp\303\251rature", 0));
         LumEditButton->setText(QApplication::translate("MainWindow", "Luminosit\303\251", 0));

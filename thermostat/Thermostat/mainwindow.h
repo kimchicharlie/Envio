@@ -25,7 +25,7 @@
 
 #include "temperatureWindow.h"
 #include "lumWindow.h"
-#include "opacWindow.h"
+//#include "opacWindow.h"
 #include "planningWindow.h"
 #include "configWindow.h"
 #include "roomstate.h"
@@ -44,7 +44,7 @@ public:
 
     TemperatureWindow*  getTempWin();
     LumWindow*          getLumWin();
-    OpacWindow*          getOpacWin();
+    //OpacWindow*          getOpacWin();
     PlanningWindow*     getPlanWin();
     ConfigWindow*       getConfigWin();
     void                roomValFromAPI();
@@ -104,7 +104,7 @@ private:
     // Other windows
     TemperatureWindow   *_tempWin;
     LumWindow           *_lumWin;
-    OpacWindow          *_opacWin;
+//    OpacWindow          *_opacWin;
     PlanningWindow      *_planWin;
     ConfigWindow        *_configWin;
 
