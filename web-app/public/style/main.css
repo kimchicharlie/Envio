@@ -108,6 +108,7 @@ body {
 
 .input-medium {
 	margin: 5px;
+    width: 160px;
     line-height: 34px;
     background-color: rgba(0,0,0,.1);
     border-radius: 5px;

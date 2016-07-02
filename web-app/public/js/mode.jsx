@@ -195,13 +195,13 @@ ModifMode = React.createClass({
 		            	<input className="input-medium" ref="newName" type="text" placeholder="Nom"/>
 		            </div>
 		            <div className="input-container">
-		            	<input className="input-medium" ref="light" type="text" placeholder="Luminosité"/>
+		            	<input className="input-medium" ref="light" type="number" placeholder="Luminosité" min="0" max="100"/>
 		            </div>
 		            <div className="input-container">
-		            	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		            	<input className="input-medium" ref="opacity" type="number" placeholder="Opacité" min="0" max="100"/>
 		            </div>
 		            <div className="input-container">
-		            	<input className="input-medium" ref="temperature" type="text" placeholder="Température"/>
+		            	<input className="input-medium" ref="temperature" type="number" placeholder="Température" min="15" max="40"/>
 		            </div>
 				</div>
 				<button className="button-medium" type="submit">Modifier</button>
@@ -258,13 +258,13 @@ CreateMode = React.createClass({
 		                	<input className="input-medium" ref="name" type="text" placeholder="Nom"/>
 		                </div>
 		                <div className="input-container">
-		                	<input className="input-medium" ref="light" type="text" placeholder="Luminosité"/>
+		                	<input className="input-medium" ref="light" type="number" placeholder="Luminosité" min="0" max="100"/>
 		                </div>
 		                <div className="input-container">
-		                	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		                	<input className="input-medium" ref="opacity" type="number" placeholder="Opacité" min="0" max="100"/>
 		                </div>
 		                <div className="input-container">
-		                	<input className="input-medium" ref="temperature" type="text" placeholder="Température"/>
+		                	<input className="input-medium" ref="temperature" type="number" placeholder="Température" min="15" max="40"/>
 		                </div>
 					</div>
 					<button className="button-medium" type="submit" >Créer</button>
