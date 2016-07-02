@@ -23,8 +23,7 @@ var addStat = function (options, cb) {
                 cb(result);
             } else {
                 result.stat = newStat;
-                cb(result)
-                //CalcTrendLine(options.roomID,cb)
+                CalcTrendLine(options.roomID,cb)
             }
         });
     } else {
@@ -75,7 +74,11 @@ var CalcTrendLine = function (roomID, cb)
 
                 }
                 else{
-                    cb();
+                    cb(
+                    {
+                        "m" : 0,
+                        "off" : off
+                    });
                 }
             }
         })

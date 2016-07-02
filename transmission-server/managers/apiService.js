@@ -403,7 +403,6 @@ var applyPlanningMode = function(options, cb) {
                 cb(result);
             } else {
                 mode = res.mode;
-                if (mode.light != saveRoom.light || mode.temperature != saveRoom.temperature) {
                     if (utils.checkProperty(CAPTORS) && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature) ) {
                         var captors = CAPTORS;
                         var lightNeeded = mode.light;
@@ -449,7 +448,6 @@ var applyPlanningMode = function(options, cb) {
                         result.error = "Des données sont manquantes";
                         cb(result);
                     }
-                }
             }
         }) 
     } else {
@@ -609,7 +607,7 @@ var handleChanges = function(cb) {
                     }
                 },
                 function (callback) { // user
-                    if (room.light != saveRoom.light || room.temperature != saveRoom.temperature) {
+                    if (!room.artificialIntellligence && !roomModified) {
                         applyUserModifications({
                             "captors": CAPTORS,
                             "roomID": room._id,
