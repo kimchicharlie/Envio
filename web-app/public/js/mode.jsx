@@ -26,7 +26,6 @@ ModeListItem = React.createClass({
 			<li className="mode-elem">
 				<span className="w_20p">Nom : {this.props.mode.name}</span>
 				<span className="w_20p">Luminosité: {this.props.mode.light}</span>
-				<span className="w_20p">Opacité : {this.props.mode.opacity}</span>
 				<span className="w_20p">Température : {this.props.mode.temperature}</span>
 				<button className="list-button w_15p" onClick={this.ModifMode}>Modifier</button>
 				<button className="list-button w_15p" onClick={this.DeleteMode}>Supprimer</button>
@@ -166,14 +165,13 @@ ModifMode = React.createClass({
 		event.preventDefault();
 		var newName = ReactDOM.findDOMNode(this.refs.newName).value;
 		var light = ReactDOM.findDOMNode(this.refs.light).value;
-		var opacity = ReactDOM.findDOMNode(this.refs.opacity).value;
 		var temperature = ReactDOM.findDOMNode(this.refs.temperature).value;
 		react = this;
 		HttpPost('/modifyMode', {
 			'modeID' : react.props.Id,
 			'newName' : newName,
 			'light' : light,
-			'opacity' : opacity,
+			'opacity' : 0,
 			'temperature' : temperature
 		}, function(rep) {          
 			rep = jQuery.parseJSON(rep)
@@ -213,6 +211,10 @@ ModifMode = React.createClass({
 	}
 });
 
+		            // <div className="input-container">
+		            // 	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		            // </div>
+
 
 CreateMode = React.createClass({
 	getInitialState: function() {
@@ -232,7 +234,7 @@ CreateMode = React.createClass({
 			'organisation': organisation,
 			'name': name,
 			'light': light,
-			'opacity': opacity,
+			'opacity': 0,
 			'temperature': temperature
 			
 		}, function(rep) {
@@ -275,6 +277,10 @@ CreateMode = React.createClass({
 		);
 	}
 });
+
+		                // <div className="input-container">
+		                // 	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		                // </div>
 
 
 DeleteMode = React.createClass({

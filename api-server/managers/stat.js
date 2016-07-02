@@ -23,7 +23,8 @@ var addStat = function (options, cb) {
                 cb(result);
             } else {
                 result.stat = newStat;
-                CalcTrendLine(options.roomID,cb)
+                cb(result)
+                //CalcTrendLine(options.roomID,cb)
             }
         });
     } else {
