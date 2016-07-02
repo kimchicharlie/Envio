@@ -180,7 +180,6 @@ var getCaptor = function(cb) {
         host: 'localhost',
         port: '9876'
     }, function(response) {
-        // Continuously update stream with data
         var body = '';
         response.on('data', function(d) {
             body += d;
@@ -190,7 +189,10 @@ var getCaptor = function(cb) {
                 CAPTORS[0].value = captor.lightOutSide
                 CAPTORS[1].value = captor.lightInSide
             })
-        });    
+        }).on('error', (e) => {
+  console.log(`Can't find captor`);
+});
+
 }
 
 var setValues = function (options, cb) {
@@ -498,9 +500,8 @@ var applyIAMode = function(options, cb) {
         'error': null,
         'data': null
     }
-    if (room.m > 0 && room.off > 0){
+    if (room.m != 0 && room.off != 0){
         var val = parseInt((CAPTORS[0].value - room.off) / room.m)
-        if (val != saveRoom.light){
             modifyLight(room._id, val);
             modifyTemperature(roomID, options.room.temperature);
             calculateLight({
@@ -534,7 +535,6 @@ var applyIAMode = function(options, cb) {
                     }                            
                 })
             })
-        }
     }
 }
 
@@ -607,7 +607,7 @@ var handleChanges = function(cb) {
                     }
                 },
                 function (callback) { // user
-                    if (!room.artificialIntellligence && !roomModified) {
+                    if (!room.artificialIntellligence) {
                         applyUserModifications({
                             "captors": CAPTORS,
                             "roomID": room._id,

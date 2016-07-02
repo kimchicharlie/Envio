@@ -11,7 +11,7 @@ var addStat = function (options, cb) {
     if (Number(options.realLight) && Number(options.neededLight) && Number(options.realTemperature) && Number(options.neededTemperature) && options.roomID) {
           
         var newStat = new db.Stats({
-            "realLight" : options.realLight * 10000,
+            "realLight" : options.realLight,
             "neededLight" : options.neededLight,
             "realTemperature" : options.realTemperature,
             "neededTemperature" : options.neededTemperature,

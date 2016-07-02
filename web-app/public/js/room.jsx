@@ -25,7 +25,7 @@ RoomListItem = React.createClass({
           return (
             <li className="room-elem">
               <span className="w_20p">Nom : {this.props.room.name}</span>
-              <span className="w_20p">Température actuelle : {this.props.room.realTemperature + "°"}</span>
+              <span className="w_20p">Luminosité voulue : {this.props.room.light + "%"}</span>
               <span className="w_20p">Temperature voulue : {this.props.room.temperature + "°"}</span>
               <span className="w_20p">Volume: {this.props.room.volume + "m3"}</span>
               <button className="list-button w_15p" onClick={this.ModifMode}>Modifier</button>

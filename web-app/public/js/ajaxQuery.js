@@ -3,9 +3,6 @@ var baseURL = "http://176.31.127.14:8081/api";
 
 function HttpPost(API, data, cb){
     
-        
-        //var baseURL = "http://176.31.127.14:8081/api";
-
         $.ajax({
         url: baseURL + API,                      
         type: 'POST',
@@ -18,9 +15,6 @@ function HttpPost(API, data, cb){
 }
 
 function HttpGet(API, data, cb){
-
-        // var baseURL = "http://localhost:8081/api";
-        //var baseURL = "http://176.31.127.14:8081/api";
 
         $.ajax({
         url: baseURL + API,                      
