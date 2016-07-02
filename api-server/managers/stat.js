@@ -77,7 +77,7 @@ var CalcTrendLine = function (roomID, cb)
                     cb(
                     {
                         "m" : 0,
-                        "off" : off
+                        "off" : 0
                     });
                 }
             }
