@@ -38,7 +38,8 @@ var getCoherance = function(cb)
                 });
                 response.on('end', function() {
                     var darkparsed = JSON.parse(body);
-                    cb(parsed.main.temp,darkparsed.currently.visibility * 4000)
+                    cb(parsed.main.temp,50000 * ((1 - darkparsed.currently.cloudCover) + 0.2))
+
                     })
                 });
             });  

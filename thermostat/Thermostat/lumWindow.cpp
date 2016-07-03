@@ -6,6 +6,8 @@ LumWindow::LumWindow(QWidget *parent) :
     ui(new Ui::LumWindow)
 {
     ui->setupUi(this);
+    ui->OpacEditBtn->hide();
+
     _slider = ui->LumHorizontalSlider;
     _label = ui->LumLabel;
     _label->setText(QString::number(_slider->value()) + "%");

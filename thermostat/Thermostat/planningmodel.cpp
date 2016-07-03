@@ -22,11 +22,13 @@ PlanningModel::~PlanningModel() {
 
 int PlanningModel::rowCount(const QModelIndex & parent) const
 {
+    Q_UNUSED(parent);
    return _planList->size();
 }
 
 int PlanningModel::columnCount(const QModelIndex & parent) const
 {
+    Q_UNUSED(parent);
     return 1;
 }
 
@@ -55,6 +57,7 @@ QString PlanningModel::customHeader(const QModelIndex &index) {
 
 int PlanningModel::checkPlan(QDate date, int hour, int min, int dur) {
 
+    Q_UNUSED(date);
     int start = hour * 60 + min;
     int end = start + dur;
     for (int i = 0; i != _planList->size(); i++) {
@@ -87,6 +90,7 @@ void    PlanningModel::addMode(Planning *plan) {
 }
 
 void    PlanningModel::removeMode(const QModelIndex &index, int send) {
+    Q_UNUSED(send);
     emit remove(_planList->at(index.row()));
     _planList->removeAt(index.row());
     emit layoutChanged();
