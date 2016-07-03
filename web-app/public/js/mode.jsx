@@ -117,7 +117,7 @@ Modes = React.createClass({
           if (this.state.creat !== null) 
           {
               cat = <CreateMode changeToModeList={this.changeToModeList}/>;
-              creatbutton = null;
+              createButton = null;
           }                  
           if(this.state.modif !== null )
           {
@@ -126,7 +126,7 @@ Modes = React.createClass({
           if(this.state.delete !== null )
           {
               cat = <DeleteMode Id={this.state.delete} changeToModeList={this.changeToModeList}/>;
-              creatbutton = null;
+              createButton = null;
           }	  	  
 		  return (
 			  <div>

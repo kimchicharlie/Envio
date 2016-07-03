@@ -10,7 +10,6 @@ var createRoom = function (options, cb) {
         'error': null,
         'room': null
     };
-    console.log(options)
     if (options.name && options.volume && options.organisation) {
         db.Rooms
         .findOne({'name': options.name})

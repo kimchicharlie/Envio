@@ -219,6 +219,7 @@ var Register = React.createClass({
             'lastname': lastname,
             'organisation' : 'Envio'            
         }, function(rep) {
+            rep = jQuery.parseJSON(rep);
             console.log("rep : ", rep)
             if(rep.error == null){
                 that.setState({registered: rep})      
@@ -237,16 +238,13 @@ var Register = React.createClass({
         this.props.setRoute("Login");
     },
     render() {
-        if(this.state.registered){
-            if (this.state.registered.error == null) 
-            {            
+        if(this.state.registered && this.state.registered.error == null){
                 return (
                     <div className="bar bar-header-secondary">
                         register successfull!
-                        <button onClick={this.reloadPage}>Se connecter</button>
+                        <br/><button onClick={this.reloadPage}>Se connecter</button>
                     </div>
                 );                    
-            }
         }
         
         return (
