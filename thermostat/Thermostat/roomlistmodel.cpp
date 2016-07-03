@@ -18,11 +18,13 @@ RoomListModel::~RoomListModel() {
 
 int RoomListModel::rowCount(const QModelIndex & parent) const
 {
+    Q_UNUSED(parent);
    return _roomList->size();
 }
 
 int RoomListModel::columnCount(const QModelIndex & parent) const
 {
+    Q_UNUSED(parent);
     return 1;
 }
 

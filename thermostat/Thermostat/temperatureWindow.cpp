@@ -9,6 +9,7 @@ TemperatureWindow::TemperatureWindow(QWidget *parent, int tempDisp, double temp)
 {
     ui->setupUi(this);
 
+    ui->OpacEditBtn->hide();
     _tempDisp = tempDisp;
     _slider = ui->TempHorizontalSlider;
     _label = ui->TempLabel;

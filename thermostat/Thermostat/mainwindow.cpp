@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui(new Ui::MainWindow)
 {
+    qDebug() << "Salut";
     ui->setupUi(this);
 //    this->setStyleSheet("./style/thermostatStyleSheet.");
 
@@ -18,8 +19,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QHttpPart textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
-    textPart.setBody("5717462479f34d720f0248b6");
-
+/*    _idRoom = "57793cf87d1740e874107210";
+    textPart.setBody("57793cf87d1740e874107210");
+*/
+    // get the configured id
+    QSettings settings("config.ini", QSettings::IniFormat);
+    _idRoom = settings.value("id","config").toString();
+    QByteArray tmp2;
+    tmp2.append(_idRoom);
+    textPart.setBody(tmp2);
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
     _toSend = true;
@@ -249,8 +257,10 @@ void    MainWindow::roomValFromAPI() {
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
-    if (_curRoom->getID().compare("-1") == 0)
-        textPart.setBody("57793cf87d1740e874107210");
+    if (_curRoom->getID().compare("-1") == 0) {
+        tmp.append(_idRoom);
+        textPart.setBody(tmp);
+    }
     else {
         tmp.append(_curRoom->getID());
         textPart.setBody(tmp);
@@ -384,6 +394,7 @@ void MainWindow::hourDispChanged(int val) {
 
 void MainWindow::httpFinished()
 {
+    qDebug() << "HEY";
     if (_netRep->error()) {
             _netRep->deleteLater();
             _netRep = Q_NULLPTR;
