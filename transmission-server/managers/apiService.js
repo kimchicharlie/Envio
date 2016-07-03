@@ -180,7 +180,6 @@ var getCaptor = function(cb) {
         host: 'localhost',
         port: '9876'
     }, function(response) {
-        // Continuously update stream with data
         var body = '';
         response.on('data', function(d) {
             body += d;
@@ -190,7 +189,10 @@ var getCaptor = function(cb) {
                 CAPTORS[0].value = captor.lightOutSide
                 CAPTORS[1].value = captor.lightInSide
             })
-        });    
+        }).on('error', (e) => {
+  console.log(`Can't find captor`);
+});
+
 }
 
 var setValues = function (options, cb) {
@@ -403,7 +405,6 @@ var applyPlanningMode = function(options, cb) {
                 cb(result);
             } else {
                 mode = res.mode;
-                if (mode.light != saveRoom.light || mode.temperature != saveRoom.temperature) {
                     if (utils.checkProperty(CAPTORS) && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature) ) {
                         var captors = CAPTORS;
                         var lightNeeded = mode.light;
@@ -449,7 +450,6 @@ var applyPlanningMode = function(options, cb) {
                         result.error = "Des données sont manquantes";
                         cb(result);
                     }
-                }
             }
         }) 
     } else {
@@ -500,9 +500,8 @@ var applyIAMode = function(options, cb) {
         'error': null,
         'data': null
     }
-    if (room.m > 0 && room.off > 0){
+    if (room.m != 0 && room.off != 0){
         var val = parseInt((CAPTORS[0].value - room.off) / room.m)
-        if (val != saveRoom.light){
             modifyLight(room._id, val);
             modifyTemperature(roomID, options.room.temperature);
             calculateLight({
@@ -536,7 +535,9 @@ var applyIAMode = function(options, cb) {
                     }                            
                 })
             })
-        }
+    }
+    else{
+        console.log("not enough stat for IA")
     }
 }
 
@@ -609,7 +610,7 @@ var handleChanges = function(cb) {
                     }
                 },
                 function (callback) { // user
-                    if (room.light != saveRoom.light || room.temperature != saveRoom.temperature) {
+                    if (!room.artificialIntellligence) {
                         applyUserModifications({
                             "captors": CAPTORS,
                             "roomID": room._id,

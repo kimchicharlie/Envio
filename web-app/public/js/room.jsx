@@ -25,7 +25,7 @@ RoomListItem = React.createClass({
           return (
             <li className="room-elem">
               <span className="w_20p">Nom : {this.props.room.name}</span>
-              <span className="w_20p">Température actuelle : {this.props.room.realTemperature + "°"}</span>
+              <span className="w_20p">Luminosité voulue : {this.props.room.light + "%"}</span>
               <span className="w_20p">Temperature voulue : {this.props.room.temperature + "°"}</span>
               <span className="w_20p">Volume: {this.props.room.volume + "m3"}</span>
               <button className="list-button w_15p" onClick={this.ModifMode}>Modifier</button>
@@ -260,19 +260,19 @@ ModifRoom = React.createClass({
                 <input className="input-medium" ref="name" type="text" placeholder="Name"/>
               </div>
               <div className="input-container">
-                <input className="input-medium" ref="volume" type="text" placeholder="Volume"/>
+                <input className="input-medium" ref="volume" type="number" placeholder="Volume" min="0"/>
               </div>
             </div>
             <button className="button-medium" type="submit">Modifier</button>
           </form>
           <div className="input-container">
-            <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5}/>
+            <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5} min="15" max="40"/>
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
           </div>
           <div className="input-container">
-            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5}/>
+            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5} min="0" max="100"/>
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeLight}>Changer la luminosité</button><br/>
@@ -328,7 +328,7 @@ CreateRoom = React.createClass({
                     <input className="input-medium" ref="name" type="text" placeholder="name"/>
                   </div>
                   <div className="input-container">
-                    <input className="input-medium" ref="volume" type="text" placeholder="volume"/>
+                    <input className="input-medium" ref="volume" type="number" placeholder="volume" min="0"/>
                   </div>
                 </div>
                 <button className="button-medium" type="submit" >Créer salle</button>
