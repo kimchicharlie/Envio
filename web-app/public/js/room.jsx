@@ -296,12 +296,12 @@ CreateRoom = React.createClass({
     },
     handleSubmit : function(event) {
         event.preventDefault();
-        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
+       // var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
         var name = ReactDOM.findDOMNode(this.refs.name).value;
         var volume = ReactDOM.findDOMNode(this.refs.volume).value;
         react = this;
         HttpPost('/createRoom', {
-            'organisation': organisation,
+            'organisation': 'Envio',
             'name': name,
             'volume': volume,
             
@@ -322,9 +322,6 @@ CreateRoom = React.createClass({
              <form role="form" onSubmit={this.handleSubmit}>
                  <div className="form-group">
                   <div className="input-container">
-                    <input className="input-medium" ref="organisation" type="text" placeholder="organisation"/>
-                  </div>
-                  <div className="input-container">
                     <input className="input-medium" ref="name" type="text" placeholder="name"/>
                   </div>
                   <div className="input-container">
@@ -339,6 +336,10 @@ CreateRoom = React.createClass({
         );
     }
 });
+
+                  // <div className="input-container">
+                  //   <input className="input-medium" ref="organisation" type="text" placeholder="organisation"/>
+                  // </div>
 
 DeleteRoom = React.createClass({
     getInitialState : function() {

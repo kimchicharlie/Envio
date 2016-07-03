@@ -536,9 +536,6 @@ var applyIAMode = function(options, cb) {
                 })
             })
     }
-    else{
-        console.log("not enough stat for IA")
-    }
 }
 
 var handleChanges = function(cb) {
