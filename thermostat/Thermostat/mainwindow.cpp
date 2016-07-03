@@ -269,6 +269,7 @@ void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
     _planWin->setRoomId(_curRoom->getID());
     ui->roomLabel->setText("- Salle: " + _curRoom->getName());
+    qDebug() << "Coucou, je vais update les valeurs après changement de salle";
     roomValFromAPI();
 }
 
