@@ -50,7 +50,6 @@ var CalcTrendLine = function (roomID, cb)
                     var sumY = 0.00;
                     var sumXY = 0.00;
                     var sumXsquare = 0.00;
-
                         for (i in result){
                             //console.log("{"+ result[i][X] + "," + result[i][Y]+"}")
                             sumX += result[i][X]

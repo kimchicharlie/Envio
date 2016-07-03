@@ -255,16 +255,16 @@ var Register = React.createClass({
                     <form role="form" onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <div className="input-container">
-                                <input className="input-medium" ref="firstname" type="text" placeholder="firstname"/>
+                                <input className="input-medium" ref="firstname" type="text" placeholder="Prénom"/>
                             </div>
                             <div className="input-container">
-                                <input className="input-medium" ref="lastname" type="text" placeholder="lastname"/>
+                                <input className="input-medium" ref="lastname" type="text" placeholder="Nom"/>
                             </div>
                             <div className="input-container">
                                 <input className="input-medium" ref="email" type="text" placeholder="email"/>
                             </div>
                             <div className="input-container">
-                                <input className="input-medium" ref="pass" type="password" placeholder="Password"/>
+                                <input className="input-medium" ref="pass" type="password" placeholder="Mot de passe"/>
                             </div>
                         </div>
                         <button className="button-medium" type="submit">Valider</button>

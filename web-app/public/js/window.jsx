@@ -184,7 +184,7 @@ ModifWindow = React.createClass({
                 <input className="input-medium" ref="sizeWindow" type="text" placeholder="Taille"/>
               </div>
               <div className="input-container">
-                <input className="input-medium" ref="opacityWanted" type="text" placeholder="Opaciter voulue"/>
+                <input className="input-medium" ref="opacityWanted" type="text" placeholder="Opaciter"/>
               </div>              
             </div>
             <button className="button-medium" type="submit">Modifier</button>

@@ -49,7 +49,7 @@ var getRoom = function(cb) {
         })
 
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "getRoom : Des données sont manquantes";
         cb(result);
     }
 };
@@ -80,7 +80,7 @@ var modifyLight = function(roomID, light){
         })
 
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "modifyLight : Des données sont manquantes";
         cb(result);
     }
 };
@@ -111,11 +111,10 @@ var modifyTemperature = function(roomID, temperature){
         })
 
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "modifyTemperature : Des données sont manquantes";
         cb(result);
     }
 };
-
 
 var switchToIA = function(roomID, temperature){
         var objectToSend = {
@@ -164,7 +163,7 @@ var getMode = function(modeID, cb) {
             }
         })
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "getMode : Des données sont manquantes";
         cb(result);
     }
 };
@@ -202,11 +201,10 @@ var setValues = function (options, cb) {
         'error': null,
         'response': null
     }
-
-    if (utils.checkProperty(options.opacity) && utils.checkProperty(options.lightPower) && utils.checkProperty(options.temperature)) {
+    console.log(options)
+    if (utils.checkProperty(options.opacity) && utils.checkProperty(options.temperature)) {
         var objectToSend = {
             "window": options.opacity,
-            "lightPower": options.lightPower,
             "airConditioning": options.temperature
         }
 
@@ -228,7 +226,7 @@ var setValues = function (options, cb) {
         })
 
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "setValues : Des données sont manquantes";
         cb(result);
     }
 }
@@ -239,7 +237,6 @@ var calculateLight = function (options, cb) {
     var result = {
         'error': null,
         "opacity": 0,
-        "lightPower": 0
     };
 
     var lightLux = 0;
@@ -296,11 +293,11 @@ var calculateLight = function (options, cb) {
         // console.log('opacity : ', opacity);
         // console.log('lightPower : ', lightPower);
 
-        result.lightPower = lightPower;
+        // result.lightPower = lightPower;
         result.opacity = opacity;
         cb(result);
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "calculateLight : Des données sont manquantes";
         cb(result);
     }
 }
@@ -384,7 +381,7 @@ var updateRoomValues = function (options, cb) {
             cb(result);
         })
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "updateRoomValues : Des données sont manquantes";
         cb(result);
     }
 }
@@ -426,6 +423,7 @@ var applyPlanningMode = function(options, cb) {
                                 "temperature": mode.temperature
                             }, function (response) {
                                 if (response.error) {
+                                    console.log("la!")
                                     result.error = response.error;
                                     cb(result);
                                 } else {
@@ -447,13 +445,13 @@ var applyPlanningMode = function(options, cb) {
                             })
                         })
                     } else {
-                        result.error = "Des données sont manquantes";
+                        result.error = "applyPlanningMode1 : Des données sont manquantes";
                         cb(result);
                     }
             }
         }) 
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "applyPlanningMode2 : Des données sont manquantes";
         cb(result);
     }
 }
@@ -465,11 +463,14 @@ var applyUserModifications = function(options, cb) {
         'error': null,
         'data': null
     }
-    if (utils.checkProperty(options.captors) && utils.checkProperty(options.lightNeeded) && utils.checkProperty(options.maxLux) && utils.checkProperty(options.roomID) && utils.checkProperty(options.temperature)) {
-        var captors = options.captors;
-        var lightNeeded = options.lightNeeded;
-        var maxLux = options.maxLux;
-        var roomID = options.roomID;
+    room = options.room
+
+    
+    if (utils.checkProperty(room.light) && utils.checkProperty(room.maxLux) && utils.checkProperty(room._id) && utils.checkProperty(room.temperature)) {
+        var captors = CAPTORS;
+        var lightNeeded = room.light;
+        var maxLux = room.maxLux;
+        var roomID = room._id;
 
         calculateLight({
             "captors": captors,
@@ -479,15 +480,27 @@ var applyUserModifications = function(options, cb) {
         }, function (result) {
             setValues({
                 "opacity": result.opacity,
-                "lightPower": result.lightPower,
-                "temperature": options.temperature
+                "temperature": room.temperature
             }, function (response) {
+            updateRoomValues({
+                    "room": room,
+                    "temperature": room.temperature,
+                    "opacity": result.opacity
+                }, function (updateResult) {
+                    if (!updateResult.error) {
+                        result.data = response.response;
+                        cb(result);
+                    } else {
+                        result.error = "Erreur lors de l'update de la room";
+                        cb(result);
+                    }
+                })
                 result.data = response;
                 cb(result);
             })
         })
     } else {
-        result.error = "Des données sont manquantes";
+        result.error = "applyUserModifications : Des données sont manquantes";
         cb(result);
     }
 }
@@ -535,6 +548,11 @@ var applyIAMode = function(options, cb) {
                     }                            
                 })
             })
+    }else{
+        console.log("not enough stat for IA!")
+        if (room.artificialIntellligence){
+           switchToIA(room._id);
+        }
     }
 }
 
@@ -609,15 +627,11 @@ var handleChanges = function(cb) {
                 function (callback) { // user
                     if (!room.artificialIntellligence) {
                         applyUserModifications({
-                            "captors": CAPTORS,
-                            "roomID": room._id,
-                            "lightNeeded": room.light,
-                            "maxLux": room.maxLux,
-                            "temperature" : room.temperature
+                            "room": room
                         }, function (res) {
-                            saveRoom = room
                             console.log('res User Modifications : ', res);
-                        }) 
+                        })
+                        callback(); 
                     } else {
                         callback();
                     }

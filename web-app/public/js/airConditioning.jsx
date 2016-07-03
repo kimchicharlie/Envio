@@ -172,7 +172,7 @@ ModifAirConditioning = React.createClass({
           <form role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="input-container">
-                <input className="input-medium" ref="temperaturewanted" type="text" placeholder="TemperatureWanted"/>
+                <input className="input-medium" ref="temperaturewanted" type="text" placeholder="Temperature"/>
               </div>            
             </div>
             <button className="button-medium" type="submit">Modifier</button>

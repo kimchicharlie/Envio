@@ -257,7 +257,7 @@ ModifRoom = React.createClass({
           <form role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="input-container">
-                <input className="input-medium" ref="name" type="text" placeholder="Name"/>
+                <input className="input-medium" ref="name" type="text" placeholder="Nom"/>
               </div>
               <div className="input-container">
                 <input className="input-medium" ref="volume" type="number" placeholder="Volume" min="0"/>
@@ -322,7 +322,7 @@ CreateRoom = React.createClass({
              <form role="form" onSubmit={this.handleSubmit}>
                  <div className="form-group">
                   <div className="input-container">
-                    <input className="input-medium" ref="name" type="text" placeholder="name"/>
+                    <input className="input-medium" ref="name" type="text" placeholder="Nom"/>
                   </div>
                   <div className="input-container">
                     <input className="input-medium" ref="volume" type="number" placeholder="volume" min="0"/>
