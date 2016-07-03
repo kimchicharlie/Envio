@@ -57,6 +57,7 @@ var modifyMode = function (options, cb) {
                             mode.name = options.newName;
                             callback();
                         } else {
+                            result.error = "newName is missing"
                             callback();
                         }
                     },
@@ -65,6 +66,7 @@ var modifyMode = function (options, cb) {
                             mode.light = options.light;
                             callback();
                         } else {
+                            result.error = "light is missing"
                             callback();
                         }
                     },
@@ -73,6 +75,7 @@ var modifyMode = function (options, cb) {
                             mode.opacity = options.opacity;
                             callback();
                         } else {
+                            result.error = "opacity is missing"
                             callback();
                         }
                     },
@@ -81,6 +84,7 @@ var modifyMode = function (options, cb) {
                             mode.temperature = options.temperature;
                             callback();
                         } else {
+                            result.error = "temperature is missing"
                             callback();
                         }
                     }

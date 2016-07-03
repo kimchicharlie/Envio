@@ -10,7 +10,7 @@ var createRoom = function (options, cb) {
         'error': null,
         'room': null
     };
-
+    console.log(options)
     if (options.name && options.volume && options.organisation) {
         db.Rooms
         .findOne({'name': options.name})
@@ -42,6 +42,9 @@ var createRoom = function (options, cb) {
                 });
             }
         })
+    } else {
+        result.error = "Des informations nécessaires sont manquantes";
+        cb(result);
     }
 };
 
@@ -78,7 +81,7 @@ var modifyRoom = function (options, cb) {
             }
         })
     } else {
-        result.error = "Requête incorrecte";
+        result.error = "Des informations nécessaires sont manquantes";
         cb(result);
     }
 }
