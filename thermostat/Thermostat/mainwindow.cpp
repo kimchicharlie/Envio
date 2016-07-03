@@ -250,7 +250,7 @@ void    MainWindow::roomValFromAPI() {
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
     if (_curRoom->getID().compare("-1") == 0)
-        textPart.setBody("5717462479f34d720f0248b6");
+        textPart.setBody("57793cf87d1740e874107210");
     else {
         tmp.append(_curRoom->getID());
         textPart.setBody(tmp);
@@ -269,7 +269,7 @@ void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
     _planWin->setRoomId(_curRoom->getID());
     ui->roomLabel->setText("- Salle: " + _curRoom->getName());
-    qDebug() << "Coucou, je vais update les valeurs après changement de salle";
+//    qDebug() << "Coucou, je vais update les valeurs après changement de salle";
     roomValFromAPI();
 }
 
