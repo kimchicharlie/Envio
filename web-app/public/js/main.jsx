@@ -209,7 +209,7 @@ var Register = React.createClass({
         var pass = ReactDOM.findDOMNode(this.refs.pass).value
         var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
         var lastname = ReactDOM.findDOMNode(this.refs.lastname).value
-        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
+        //var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
         var that = this;
 
         HttpPost('/register', {
@@ -217,7 +217,7 @@ var Register = React.createClass({
             'password': pass,
             'firstname': firstname,
             'lastname': lastname,
-            'organisation' : organisation            
+            'organisation' : 'Envio'            
         }, function(rep) {
             console.log("rep : ", rep)
             if(rep.error == null){
@@ -266,9 +266,6 @@ var Register = React.createClass({
                             <div className="input-container">
                                 <input className="input-medium" ref="pass" type="password" placeholder="Password"/>
                             </div>
-                            <div className="input-container">
-                                <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
-                            </div>
                         </div>
                         <button className="button-medium" type="submit">Valider</button>
                     </form>
@@ -279,6 +276,10 @@ var Register = React.createClass({
         );
     }
 });
+
+                            // <div className="input-container">
+                            //     <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
+                            // </div>
 
 var App = React.createClass({
     getInitialState: function() {

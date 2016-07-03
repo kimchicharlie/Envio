@@ -196,9 +196,6 @@ ModifMode = React.createClass({
 		            	<input className="input-medium" ref="light" type="number" placeholder="Luminosité" min="0" max="100"/>
 		            </div>
 		            <div className="input-container">
-		            	<input className="input-medium" ref="opacity" type="number" placeholder="Opacité" min="0" max="100"/>
-		            </div>
-		            <div className="input-container">
 		            	<input className="input-medium" ref="temperature" type="number" placeholder="Température" min="15" max="40"/>
 		            </div>
 				</div>
@@ -210,9 +207,8 @@ ModifMode = React.createClass({
 		);
 	}
 });
-
 		            // <div className="input-container">
-		            // 	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		            // 	<input className="input-medium" ref="opacity" type="number" placeholder="Opacité" min="0" max="100"/>
 		            // </div>
 
 
@@ -224,14 +220,13 @@ CreateMode = React.createClass({
 	},
 	handleSubmit(event) {
 		event.preventDefault();
-		var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
+		//var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
 		var name = ReactDOM.findDOMNode(this.refs.name).value
 		var light = ReactDOM.findDOMNode(this.refs.light).value
-		var opacity = ReactDOM.findDOMNode(this.refs.opacity).value
 		var temperature = ReactDOM.findDOMNode(this.refs.temperature).value
 		react = this;
 		HttpPost('/createMode', {
-			'organisation': organisation,
+			'organisation': 'Envio',
 			'name': name,
 			'light': light,
 			'opacity': 0,
@@ -253,17 +248,11 @@ CreateMode = React.createClass({
 			<div className="bar bar-header-secondary">
 				<form role="form" onSubmit={this.handleSubmit}>
 					<div className="form-group">
-						<div className="input-container">
-		                	<input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>
-		                </div>
 		                <div className="input-container">
 		                	<input className="input-medium" ref="name" type="text" placeholder="Nom"/>
 		                </div>
 		                <div className="input-container">
 		                	<input className="input-medium" ref="light" type="number" placeholder="Luminosité" min="0" max="100"/>
-		                </div>
-		                <div className="input-container">
-		                	<input className="input-medium" ref="opacity" type="number" placeholder="Opacité" min="0" max="100"/>
 		                </div>
 		                <div className="input-container">
 		                	<input className="input-medium" ref="temperature" type="number" placeholder="Température" min="15" max="40"/>
@@ -278,8 +267,11 @@ CreateMode = React.createClass({
 	}
 });
 
+						// <div className="input-container">
+					    // <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>
+					    // </div>
 		                // <div className="input-container">
-		                // 	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
+		                // 	<input className="input-medium" ref="opacity" type="number" placeholder="Opacité" min="0" max="100"/>
 		                // </div>
 
 
