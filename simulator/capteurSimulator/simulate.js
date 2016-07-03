@@ -75,33 +75,20 @@ app.get('/', function (req, res) {
         if (coherance){
             getCoherance(function(coheTemparature,coheLightOutSide){
                 var toSend = {
-                    "temparature" : coheTemparature,
                     "lightOutSide" : coheLightOutSide,
-                    "lightInSide" : lightInSide,
                     }
                 console.log(toSend);
                 res.send(toSend);
             })
         }else{
             var toSend = {
-                "temparature" : temparature,
                 "lightOutSide" : lightOutSide,
-                "lightInSide" : lightInSide,
                 }
             console.log(toSend);
             res.send(toSend); 
         }                
 });
 
-app.post('/ChangeLightInSide', function (req, res) {
-    lightInSide = req.body.lightInSide
-    res.send({"lightInSide" : lightInSide});
-});
-
-app.post('/ChangeTemparature', function (req, res) {
-    temparature = req.body.temparature
-    res.send({"temparature" : temparature});
-});
 
 app.post('/ChangeLightOutSide', function (req, res) {
     lightOutSide = req.body.lightOutSide
