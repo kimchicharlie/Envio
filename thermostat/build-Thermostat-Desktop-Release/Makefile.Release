@@ -4061,45 +4061,6 @@ release\temperatureWindow.obj: ..\Thermostat\temperatureWindow.cpp ../Thermostat
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
 		ui_temperatureWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDebug
 
 release\lumWindow.obj: ..\Thermostat\lumWindow.cpp ../Thermostat/lumWindow.h \
@@ -4216,44 +4177,7 @@ release\lumWindow.obj: ..\Thermostat\lumWindow.cpp ../Thermostat/lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		ui_lumWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
+		ui_lumWindow.h
 
 release\opacWindow.obj: ..\Thermostat\opacWindow.cpp ../Thermostat/opacWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -4369,44 +4293,7 @@ release\opacWindow.obj: ..\Thermostat\opacWindow.cpp ../Thermostat/opacWindow.h 
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qframe.h \
-		ui_opacWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
+		ui_opacWindow.h
 
 release\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -5015,28 +4902,7 @@ release\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h 
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QAbstractSocket \
-		ui_mainwindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
+		ui_mainwindow.h
 
 release\roomstate.obj: ..\Thermostat\roomstate.cpp ../Thermostat/roomstate.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QString \
@@ -5738,27 +5604,6 @@ release\planningWindow.obj: ..\Thermostat\planningWindow.cpp ../Thermostat/plann
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		ui_planningWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimeZone \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimezone.h
 
@@ -6339,31 +6184,7 @@ release\configWindow.obj: ..\Thermostat\configWindow.cpp ../Thermostat/configWin
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdialog.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
-		ui_configWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
+		ui_configWindow.h
 
 release\roomlistmodel.obj: ..\Thermostat\roomlistmodel.cpp ../Thermostat/roomlistmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
@@ -6670,46 +6491,7 @@ release\roomSelection.obj: ..\Thermostat\roomSelection.cpp ../Thermostat/roomSel
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qframe.h \
-		ui_roomSelection.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qicon.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialogButtonBox \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdialogbuttonbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLineEdit \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlineedit.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextcursor.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextformat.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qpen.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextoption.h
+		ui_roomSelection.h
 
 release\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialog \
@@ -7279,27 +7061,7 @@ release\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
-		ui_addEvent.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h
+		ui_addEvent.h
 
 release\moc_temperatureWindow.obj: release\moc_temperatureWindow.cpp 
 
