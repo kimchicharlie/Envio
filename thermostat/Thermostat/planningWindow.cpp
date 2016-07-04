@@ -246,8 +246,8 @@ void    PlanningWindow::show() {
 
 void    PlanningWindow::getRoomsModeFromAPI() {
     QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-//    socket->connectToHost("176.31.127.14", 1337);
-    socket->connectToHost("127.0.0.1", 1337);
+    socket->connectToHost("176.31.127.14", 1337);
+//    socket->connectToHost("127.0.0.1", 1337);
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
