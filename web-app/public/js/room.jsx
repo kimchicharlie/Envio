@@ -25,7 +25,7 @@ RoomListItem = React.createClass({
           return (
             <li className="room-elem">
               <span className="w_20p">Nom : {this.props.room.name}</span>
-              <span className="w_20p">Température actuelle : {this.props.room.realTemperature + "°"}</span>
+              <span className="w_20p">Luminosité voulue : {this.props.room.light + "%"}</span>
               <span className="w_20p">Temperature voulue : {this.props.room.temperature + "°"}</span>
               <span className="w_20p">Volume: {this.props.room.volume + "m3"}</span>
               <button className="list-button w_15p" onClick={this.ModifMode}>Modifier</button>
@@ -150,11 +150,12 @@ ModifRoom = React.createClass({
     },
     componentDidMount: function() {
        react = this;
-           HttpPost('/getRoom', {
+           HttpPost('/getRoomPlusHardware', {
               'roomID': react.props.Id,         
           }, function(rep) {          
             rep = jQuery.parseJSON(rep);
             if(rep.error == null){
+              console.log(rep.room)
               react.setState({room: rep.room});
             }
             else if(react.state.status == false){
@@ -162,7 +163,7 @@ ModifRoom = React.createClass({
             } 
       });
     },    
-    handleSubmit(event) {
+    handleSubmit : function(event) {
         event.preventDefault();
         var name = ReactDOM.findDOMNode(this.refs.name).value;
         var volume = ReactDOM.findDOMNode(this.refs.volume).value;
@@ -182,7 +183,7 @@ ModifRoom = React.createClass({
             }             
         });
     },
-    ChangeTemp(event) {
+    ChangeTemp : function(event) {
         var newValue = ReactDOM.findDOMNode(this.refs.temperature).value;
         react = this;
         HttpPost('/changeTemperature', {
@@ -191,15 +192,19 @@ ModifRoom = React.createClass({
         }, function(rep) {          
             rep = jQuery.parseJSON(rep);
             if(rep.error == null){
+              if (rep.room.artificialIntellligence)
+                react.ChangeIA();
+              else{
               react.setState({status: false});
               react.props.changeToRoomList();
+              }
             }
             else {
               react.setState({status : rep.error.message ||  rep.error});
             }
         });
     },
-    ChangeLight(event) {
+    ChangeLight : function(event) {
         var newValue = ReactDOM.findDOMNode(this.refs.light).value;
         react = this;
         HttpPost('/changeLight', {
@@ -208,58 +213,80 @@ ModifRoom = React.createClass({
         }, function(rep) {          
             rep = jQuery.parseJSON(rep);
             if(rep.error == null){
+              if (rep.room.artificialIntellligence)
+                react.ChangeIA();
+              else{
               react.setState({status: false});
+              react.props.changeToRoomList();
+              }
+            }
+            else {
+              react.setState({status : rep.error.message ||  rep.error});
+            }
+        });
+    },
+    ChangeIA : function(event) {
+        react = this;
+        HttpPost('/switchIA', {
+            'roomID': react.props.Id,
+        }, function(rep) {          
+            rep = jQuery.parseJSON(rep);
+            if(rep.error == null){
+              react.setState({status: false});
+              if(react.props.changeToRoomList)
               react.props.changeToRoomList();
             }
             else {
               react.setState({status : rep.error.message ||  rep.error});
             }
         });
-    },    
-    render() {
-    var MyWindow = null
-    var AirConditioning = null
-    var Captor = null
+    },       
+    render : function() {
+    var MyWindow = null;
+    var AirConditioning = null;
+    var Captor = null;
+    var IA = null;
     if (this.state.room){
-      MyWindow = <Windows room={this.state.room._id} />
-      AirConditioning = <AirConditionings room={this.state.room._id} />
-      Captor = <Captors room={this.state.room._id} />
+      AirConditioning = <AirConditionings room={this.state.room._id} airConditionings={this.state.room.airConditionings} />;
+      MyWindow = <Windows room={this.state.room._id} windows={this.state.room.windows}/>;
+      Captor = <Captors room={this.state.room._id} captors={this.state.room.captors}/>;
+      IA = <button className="button-medium" onClick={this.ChangeIA}> {!this.state.room.artificialIntellligence ? "Activer mode Intelligent" : "Désactiver mode Intelligent"} </button>;
   	}
         return (
         <div className="bar bar-header-secondary">
           <form role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="input-container">
-                <input className="input-medium" ref="name" type="text" placeholder="Name"/>
+                <input className="input-medium" ref="name" type="text" placeholder="Nom"/>
               </div>
               <div className="input-container">
-                <input className="input-medium" ref="volume" type="text" placeholder="Volume"/>
+                <input className="input-medium" ref="volume" type="number" placeholder="Volume" min="0"/>
               </div>
             </div>
             <button className="button-medium" type="submit">Modifier</button>
           </form>
           <div className="input-container">
-            <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5}/>
+            <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5} min="15" max="40"/>
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
           </div>
           <div className="input-container">
-            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5}/>
+            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5} min="0" max="100"/>
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeLight}>Changer la luminosité</button><br/>
             <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>            
           </div>
+          {IA}
+          {Captor}
           {MyWindow}
-		  {AirConditioning}
-		  {Captor}          
+          {AirConditioning}
           <ErrorMessage content={this.state.status}/>
         </div>
         );
     }
 });
-
 
 CreateRoom = React.createClass({
     getInitialState: function() {
@@ -267,14 +294,14 @@ CreateRoom = React.createClass({
             status: false,
         }
     },
-    handleSubmit(event) {
+    handleSubmit : function(event) {
         event.preventDefault();
-        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
+       // var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
         var name = ReactDOM.findDOMNode(this.refs.name).value;
         var volume = ReactDOM.findDOMNode(this.refs.volume).value;
         react = this;
         HttpPost('/createRoom', {
-            'organisation': organisation,
+            'organisation': 'Envio',
             'name': name,
             'volume': volume,
             
@@ -289,19 +316,16 @@ CreateRoom = React.createClass({
             }            
         });
     },
-    render() {   
+    render : function() {   
         return (
         <div className="bar bar-header-secondary">
              <form role="form" onSubmit={this.handleSubmit}>
                  <div className="form-group">
                   <div className="input-container">
-                    <input className="input-medium" ref="organisation" type="text" placeholder="organisation"/>
+                    <input className="input-medium" ref="name" type="text" placeholder="Nom"/>
                   </div>
                   <div className="input-container">
-                    <input className="input-medium" ref="name" type="text" placeholder="name"/>
-                  </div>
-                  <div className="input-container">
-                    <input className="input-medium" ref="volume" type="text" placeholder="volume"/>
+                    <input className="input-medium" ref="volume" type="number" placeholder="volume" min="0"/>
                   </div>
                 </div>
                 <button className="button-medium" type="submit" >Créer salle</button>
@@ -312,6 +336,10 @@ CreateRoom = React.createClass({
         );
     }
 });
+
+                  // <div className="input-container">
+                  //   <input className="input-medium" ref="organisation" type="text" placeholder="organisation"/>
+                  // </div>
 
 DeleteRoom = React.createClass({
     getInitialState : function() {

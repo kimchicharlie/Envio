@@ -8,9 +8,11 @@ class Planning
 {
 public:
     Planning(QString type, QDate date, int hour, int min, int duration);
+    Planning(QString type, QString id, QDate date, int hour, int min, int duration);
     Planning(QString type, QString id, QDateTime start, QDateTime end);
 
     QString     getType();
+    QString     getId();
     QDate       getDate();
     int         getHour();
     int         getMinute();

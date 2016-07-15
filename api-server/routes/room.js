@@ -139,6 +139,36 @@ exports.routes = [
         }
     },
     {
+        "path": "/changeLightWithoutStat",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.changeLightWithoutStat({
+                'roomID': req.body.roomID,
+                'light': req.body.light
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
+        "path": "/changeTemperatureWithoutStat",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.changeTemperatureWithoutStat({
+                'roomID': req.body.roomID,
+                'temperature': req.body.temperature
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },   
+    {
         "path": "/addEventPlanning",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
@@ -181,7 +211,7 @@ exports.routes = [
                 'roomID': req.body.roomID,
                 'eventName': req.body.eventName,
                 'newName': req.body.newName,
-                'roomID': req.body.roomID,
+                'modeID': req.body.modeID,
                 'dateBegin': req.body.dateBegin,
                 'dateEnd': req.body.dateEnd,
                 'newDateBegin': req.body.newDateBegin,
@@ -191,5 +221,19 @@ exports.routes = [
                 res.send(rep);
             });
         }
+    },{
+        "path": "/switchIA",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.switchIA({
+                'roomID': req.body.roomID,
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
     }
 ];
+

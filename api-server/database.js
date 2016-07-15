@@ -25,4 +25,3 @@ exports.Stats = require('./models/stat').Stats;
 exports.Captors = require('./models/captor').Captors;
 exports.Windows = require('./models/window').Windows;
 exports.AirConditionings = require('./models/airConditioning').AirConditionings;
-//exports.CaptorsValues = require('./models/captorsValue').CaptorsValues;

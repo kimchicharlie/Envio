@@ -3,9 +3,9 @@
 
 #include <QString>
 #include <QMainWindow>
-#include "Planning.h"
+#include "planning.h"
 
-class RoomState : QWidget
+class RoomState : public QWidget
 {
     Q_OBJECT
 
@@ -26,6 +26,8 @@ public:
     int     getTempDispVal();
     int     getHourDisp();
     QString getPin();
+    QString getID();
+    QString getName();
 
 signals:
     void    changeTempDisp();
@@ -41,6 +43,7 @@ private:
     int             _lum;
     int             _opac;
     QString         _name;
+    QString         _id;
     QString         _code;
 
     QList<Planning> _plan;

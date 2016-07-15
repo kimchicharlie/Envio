@@ -8,29 +8,27 @@ PlanningModel::PlanningModel(QObject *parent, QString header)
 {
     _planList = new QList<Planning*>();
 //    this->setHeaderData(0, Qt::Orientation::Horizontal, header);
+/*
     _planList->append(new Planning("meeting", QDate::currentDate(), 10, 0, 120));
     _planList->append(new Planning("lunch", QDate::currentDate(), 12, 0, 60));
     _planList->append(new Planning("test1", QDate::currentDate(), 8, 30, 30));
     _planList->append(new Planning("test2", QDate::currentDate(), 14, 0, 180));
+*/
 }
 
 PlanningModel::~PlanningModel() {
 
 }
 
-void PlanningModel::refreshPlanning(QDate date)
-{
-    //get the planning for the current room with the date
-}
-
-
 int PlanningModel::rowCount(const QModelIndex & parent) const
 {
+    Q_UNUSED(parent);
    return _planList->size();
 }
 
 int PlanningModel::columnCount(const QModelIndex & parent) const
 {
+    Q_UNUSED(parent);
     return 1;
 }
 
@@ -59,6 +57,7 @@ QString PlanningModel::customHeader(const QModelIndex &index) {
 
 int PlanningModel::checkPlan(QDate date, int hour, int min, int dur) {
 
+    Q_UNUSED(date);
     int start = hour * 60 + min;
     int end = start + dur;
     for (int i = 0; i != _planList->size(); i++) {
@@ -81,13 +80,23 @@ int PlanningModel::checkPlan(QDate date, int hour, int min, int dur) {
 
 void    PlanningModel::addMode(QString modeName, QDate date, int hour, int min, int dur) {
     _planList->append(new Planning(modeName, date, hour, min, dur));
-//    emit dataChanged(this->index(0, 0), this->index(rowCount(this->index(0, 0)), 0));
     emit layoutChanged();
     // send the new added mode to the API
 }
 
-void    PlanningModel::removeMode(const QModelIndex &index) {
+void    PlanningModel::addMode(Planning *plan) {
+    _planList->append(plan);
+    emit layoutChanged();
+}
+
+void    PlanningModel::removeMode(const QModelIndex &index, int send) {
+    Q_UNUSED(send);
+    emit remove(_planList->at(index.row()));
     _planList->removeAt(index.row());
     emit layoutChanged();
-    // send the new added mode to the API
+    // send the removed mode to the API if send = 0
+}
+
+void    PlanningModel::clearAll() {
+    _planList->clear();
 }

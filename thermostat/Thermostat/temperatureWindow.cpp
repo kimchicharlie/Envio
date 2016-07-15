@@ -1,12 +1,15 @@
 #include "temperatureWindow.h"
 #include "ui_temperatureWindow.h"
 
+#include <QDebug>
+
 TemperatureWindow::TemperatureWindow(QWidget *parent, int tempDisp, double temp) :
     QMainWindow(parent),
     ui(new Ui::TemperatureWindow)
 {
     ui->setupUi(this);
 
+    ui->OpacEditBtn->hide();
     _tempDisp = tempDisp;
     _slider = ui->TempHorizontalSlider;
     _label = ui->TempLabel;
@@ -33,9 +36,7 @@ TemperatureWindow::~TemperatureWindow()
     delete ui;
 }
 
-
 void TemperatureWindow::setSliderVal(int val) {
-    std::cout << "coucou ---- " << val << std::endl;
     if (_tempDisp == 1) {
         _label->setText(QString::number(val) + "°C");
     } else {
@@ -44,7 +45,6 @@ void TemperatureWindow::setSliderVal(int val) {
 }
 
 void TemperatureWindow::setTempDisp(int val) {
-    std::cout << val << std::endl;
     _tempDisp = val;
 }
 
@@ -65,9 +65,11 @@ void TemperatureWindow::on_TempHorizontalSlider_valueChanged(int value)
     tmpTemp = tmpTemp / 10 * 10 + tmp * 10;
 
     _slider->setValue(tmpTemp);
-
+/*
     std::cout << "value = " << value << std::endl;
     std::cout << "tmpTemp = " << tmpTemp << std::endl;
+*/
+
     //convert celcius to fahrenheit
     // T(°C) = (T(°F) - 32) × 5/9
     // T(°F) = T(°C) × 9 / 5 + 32
@@ -77,7 +79,7 @@ void TemperatureWindow::on_TempHorizontalSlider_valueChanged(int value)
         emit tempChange((double)(_slider->value()) / 10);
     }
     else {
-        std::cout << "value = " << value << std::endl;
+//        std::cout << "value = " << value << std::endl;
         _label->setText(QString::number((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32) + "°F");
         emit tempChange((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32);
     }
@@ -95,4 +97,15 @@ void TemperatureWindow::on_LumEditBtn_clicked() {
 void TemperatureWindow::on_OpacEditBtn_clicked() {
     emit goToOpac();
 }
+
+void TemperatureWindow::on_PlanningEditBtn_clicked()
+{
+    emit goToPlan();
+}
+
+void TemperatureWindow::on_ConfigEditBtn_clicked()
+{
+    emit goToConfig();
+}
+
 

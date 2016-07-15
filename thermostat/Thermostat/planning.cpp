@@ -6,6 +6,13 @@ _type(type), _date(date), _hour(hour), _minute(min), _duration(duration)
 
 }
 
+Planning::Planning(QString type, QString id, QDate date, int hour, int min, int duration) :
+_type(type), _id(id), _date(date), _hour(hour), _minute(min), _duration(duration)
+{
+
+}
+
+
 Planning::Planning(QString type, QString id, QDateTime start, QDateTime end) {
     _type = type;
     _id = id;
@@ -19,6 +26,10 @@ Planning::Planning(QString type, QString id, QDateTime start, QDateTime end) {
 
 QString   Planning::getType() {
     return _type;
+}
+
+QString   Planning::getId() {
+    return _id;
 }
 
 QDate   Planning::getDate() {

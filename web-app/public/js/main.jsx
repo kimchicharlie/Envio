@@ -209,7 +209,7 @@ var Register = React.createClass({
         var pass = ReactDOM.findDOMNode(this.refs.pass).value
         var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
         var lastname = ReactDOM.findDOMNode(this.refs.lastname).value
-        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
+        //var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
         var that = this;
 
         HttpPost('/register', {
@@ -217,8 +217,9 @@ var Register = React.createClass({
             'password': pass,
             'firstname': firstname,
             'lastname': lastname,
-            'organisation' : organisation            
+            'organisation' : 'Envio'            
         }, function(rep) {
+            rep = jQuery.parseJSON(rep);
             console.log("rep : ", rep)
             if(rep.error == null){
                 that.setState({registered: rep})      
@@ -237,16 +238,13 @@ var Register = React.createClass({
         this.props.setRoute("Login");
     },
     render() {
-        if(this.state.registered){
-            if (this.state.registered.error == null) 
-            {            
+        if(this.state.registered && this.state.registered.error == null){
                 return (
                     <div className="bar bar-header-secondary">
                         register successfull!
-                        <button onClick={this.reloadPage}>Se connecter</button>
+                        <br/><button onClick={this.reloadPage}>Se connecter</button>
                     </div>
                 );                    
-            }
         }
         
         return (
@@ -255,19 +253,16 @@ var Register = React.createClass({
                     <form role="form" onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <div className="input-container">
-                                <input className="input-medium" ref="firstname" type="text" placeholder="firstname"/>
+                                <input className="input-medium" ref="firstname" type="text" placeholder="Prénom"/>
                             </div>
                             <div className="input-container">
-                                <input className="input-medium" ref="lastname" type="text" placeholder="lastname"/>
+                                <input className="input-medium" ref="lastname" type="text" placeholder="Nom"/>
                             </div>
                             <div className="input-container">
                                 <input className="input-medium" ref="email" type="text" placeholder="email"/>
                             </div>
                             <div className="input-container">
-                                <input className="input-medium" ref="pass" type="password" placeholder="Password"/>
-                            </div>
-                            <div className="input-container">
-                                <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
+                                <input className="input-medium" ref="pass" type="password" placeholder="Mot de passe"/>
                             </div>
                         </div>
                         <button className="button-medium" type="submit">Valider</button>
@@ -279,6 +274,10 @@ var Register = React.createClass({
         );
     }
 });
+
+                            // <div className="input-container">
+                            //     <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
+                            // </div>
 
 var App = React.createClass({
     getInitialState: function() {

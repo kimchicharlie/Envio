@@ -83,6 +83,16 @@ var deleteRoom = function (options, cb)
 	})
 };
 
+var switchIA = function (options, cb)
+{
+	cb = (typeof cb == "function") ? cb : function (){};
+	options = (typeof options == "object") ? options : {};
+
+	rest.post(config.apiAddress + '/switchIA?api_key='+config.envioApiAccessKey, options, function (response) {
+		cb(response);
+	})
+};
+
 
 exports.createRoom = createRoom;
 exports.modifyRoom = modifyRoom;
@@ -92,3 +102,4 @@ exports.getRoomPlusHardware = getRoomPlusHardware;
 exports.changeTemperature = changeTemperature;
 exports.changeLight = changeLight;
 exports.deleteRoom = deleteRoom;
+exports.switchIA = switchIA;

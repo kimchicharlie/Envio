@@ -19,8 +19,7 @@ void RoomSelection::on_buttonBox_accepted()
 {
     if (!ui->label->text().isEmpty()) {
         if (ui->lineEdit->text().compare(_pin) == 0)
-            //change room
-            return;
+            emit changeRoom(_room);
         else {
             ui->errorLbl->setText("<font color='red'>Mauvais code.</font>");
             this->show();

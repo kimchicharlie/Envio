@@ -40,7 +40,7 @@ AirConditioningList = React.createClass({
 AirConditionings = React.createClass({
     getInitialState: function() {        
     return {
-          airConditionings: [],
+          airConditionings: this.props.airConditionings,
           creat :null,
           modif :null,
           delete :null,
@@ -83,24 +83,22 @@ AirConditionings = React.createClass({
       }            
     });          
       },
-    componentDidMount: function() {
-    react = this;
-      HttpPost('/getAirConditionings', {
-      'room': this.props.room,         
-    }, function(rep) {     
-      rep = jQuery.parseJSON(rep);
-      if (rep.error === null){
-        console.log(rep)
-        react.setState({airConditionings: rep.airConditionings});
-      }
-      else{
-        console.log(rep)
-        react.setState({error:  rep.error.message || rep.error});
-        react.setState({airConditionings: []});
-      }            
-    });
+    componentWillMount: function() {
+      react = this;
+        HttpPost('/getAirConditionings', {
+          'room': this.props.room,         
+         }, function(rep) {     
+          rep = jQuery.parseJSON(rep);
+          if (rep.error === null){
+            react.setState({airConditionings: rep.airConditionings});
+          }
+          else{
+            react.setState({error:  rep.error.message || rep.error});
+            react.setState({airConditionings: []});
+          }            
+      });
     },
-    render() {
+    render : function() {
           var cat = <AirConditioningList airConditionings={this.state.airConditionings} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
           var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Créer air conditionner</button>;
           if (this.state.creat !== null) 
@@ -174,7 +172,7 @@ ModifAirConditioning = React.createClass({
           <form role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="input-container">
-                <input className="input-medium" ref="temperaturewanted" type="text" placeholder="TemperatureWanted"/>
+                <input className="input-medium" ref="temperaturewanted" type="text" placeholder="Temperature"/>
               </div>            
             </div>
             <button className="button-medium" type="submit">Modifier</button>

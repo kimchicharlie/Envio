@@ -1,6 +1,7 @@
 var async = require("async");
 var db = require("../database");
 var statManager = require("./stat");
+var communicationManager = require("./communication");
 
 var createRoom = function (options, cb) {
     cb = cb || function () {};
@@ -9,7 +10,6 @@ var createRoom = function (options, cb) {
         'error': null,
         'room': null
     };
-
     if (options.name && options.volume && options.organisation) {
         db.Rooms
         .findOne({'name': options.name})
@@ -41,6 +41,9 @@ var createRoom = function (options, cb) {
                 });
             }
         })
+    } else {
+        result.error = "Des informations nécessaires sont manquantes";
+        cb(result);
     }
 };
 
@@ -77,7 +80,7 @@ var modifyRoom = function (options, cb) {
             }
         })
     } else {
-        result.error = "Requête incorrecte";
+        result.error = "Des informations nécessaires sont manquantes";
         cb(result);
     }
 }
@@ -178,6 +181,37 @@ var getRoom = function (options, cb) {
     }
 };
 
+var switchIA = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                room.artificialIntellligence = !room.artificialIntellligence
+                room.save(function (error) {
+                    if (error) {
+                        result.error = error;
+                        cb(result);
+                    } else {
+                        result.room = room;
+                        cb(result);
+                    }
+                });
+            }
+        })
+    }
+};
+
 var getRoomPlusHardware = function (options, cb) {
     cb = cb || function () {};
 
@@ -190,6 +224,8 @@ var getRoomPlusHardware = function (options, cb) {
         db.Rooms
         .findOne({'_id': options.roomID})
         .populate("windows")
+        .populate("airConditionings")
+        .populate("captors")
         .exec(function (err, room) {
             if (err) {
                 result.error = err;
@@ -274,6 +310,80 @@ var changeTemperature = function (options, cb) {
     }
 };
 
+var changeLightWithoutStat = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .populate('captors')
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                if (options.light && options.light < 100 && options.light >= 1) {
+                    room.light = options.light;
+                    room.save(function (error) {
+                        if (error) {
+                            result.error = error;
+                            cb(result);
+                        } else {                           
+                            result.room = room;
+                            cb(result);
+                        }
+                    });
+                } else {
+                    result.error = "La luminosité demandée est inexistante ou incohérente";
+                    cb(result);
+                }
+            }
+        })
+    }
+};
+
+var changeTemperatureWithoutStat = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .populate('captors')
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                if (options.temperature && options.temperature < 40 && options.temperature >= 1) {
+                    room.temperature = options.temperature;
+                    room.save(function (error) {
+                        if (error) {
+                            result.error = error;
+                            cb(result);
+                        } else {
+                            result.room = room;
+                            cb(result);
+                        }
+                    });
+                } else {
+                    result.error = "La température demandée est inexistante ou incohérente";
+                    cb(result);
+                }
+            }
+        })
+    }
+};
+
 var changeLight = function (options, cb) {
     cb = cb || function () {};
 
@@ -285,6 +395,7 @@ var changeLight = function (options, cb) {
     if (options.roomID != null) {
         db.Rooms
         .findOne({'_id': options.roomID})
+        .populate('captors')
         .exec(function (err, room) {
             if (err) {
                 result.error = err;
@@ -297,31 +408,70 @@ var changeLight = function (options, cb) {
                             result.error = error;
                             cb(result);
                         } else {
-                            statManager.addStat({
-                                "realLight": room.realLight,
-                                "neededLight": room.light,
-                                "realTemperature": room.realTemperature,
-                                "neededTemperature": room.temperature,
-                                "roomID": room._id
-                            }, function (res) {
-                                if (res.error) {
-                                    result.error = res.error;
-                                    cb(result);
-                                } else {
-                                    result.room = room;
-                                    cb(result);
+                            async.series([
+                                function (callback) {
+                                    communicationManager.modifyLight({
+                                        "captors": room.captors,
+                                        "lightNeeded": room.light,
+                                        "maxLux": room.maxLux,
+                                        "roomID": room._id
+                                    }, function (res) {
+                                        if (res.error) {
+                                            result.error = res.error;
+                                            cb(result);
+                                        } else {
+                                            callback();
+                                        }
+                                    })
+                                },
+                                function (callback) {
+                                    statManager.addStat({
+                                        "realLight": room.realLight,
+                                        "neededLight": room.light,
+                                        "realTemperature": room.realTemperature,
+                                        "neededTemperature": room.temperature,
+                                        "roomID": room._id
+                                    }, function (res) {
+                                        if (res.error) {
+                                            result.error = res.error;
+                                            cb(result);
+                                        } else {
+                                            callback(res);
+                                        }
+                                    })
+                                }
+                            ], function (stat) {                                
+                                if(stat){
+                                    room.m = stat.m;
+                                    room.off = stat.off;
+                                    room.save(function (error) {
+                                            if (error) {
+                                                result.error = error;
+                                                cb(result);
+                                            } else {
+                                                result.room = room;
+                                                cb(result);                                                
+                                            }
+                                    })
+                                }
+                                else
+                                {
+                                result.room = room;
+                                cb(result);
                                 }
                             })
+                            
                         }
                     });
                 } else {
-                    result.error = "La température demandée est inexistante ou incohérente";
+                    result.error = "La luminosité demandée est inexistante ou incohérente";
                     cb(result);
                 }
             }
         })
     }
 };
+
 var addEventPlanning = function (options, cb) {
     cb = cb || function () {};
 
@@ -423,7 +573,7 @@ var modifyEventPlanning = function (options, cb) {
         'error': null,
         'room': null
     };
-    if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
+    if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.roomID && options.dateBegin && options.dateEnd) {
         
         var planning = {
             "name": options.eventName,
@@ -488,3 +638,6 @@ exports.changeLight = changeLight;
 exports.addEventPlanning = addEventPlanning;
 exports.removeEventPlanning = removeEventPlanning;
 exports.modifyEventPlanning = modifyEventPlanning;
+exports.switchIA = switchIA;
+exports.changeLightWithoutStat = changeLightWithoutStat;
+exports.changeTemperatureWithoutStat = changeTemperatureWithoutStat;
