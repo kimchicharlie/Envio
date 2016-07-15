@@ -11,7 +11,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QByteArray>
-#include <QJsonArray>
+//#include <QJsonArray>
 #include <QJsonDocument>
 #include <QUrl>
 #include <QUrlQuery>

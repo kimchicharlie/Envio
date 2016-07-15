@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
-#include "QSlider.h"
+#include <QSlider>
 #include <iostream>
 
 namespace Ui {

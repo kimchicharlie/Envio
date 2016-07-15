@@ -3,7 +3,7 @@
 
 #include <QString>
 #include <QMainWindow>
-#include "Planning.h"
+#include "planning.h"
 
 class RoomState : public QWidget
 {
