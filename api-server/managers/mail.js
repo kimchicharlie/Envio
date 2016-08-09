@@ -1,7 +1,7 @@
 var utils = require('../utils');
 var async = require("async");
 var db = require("../database");
-var bcrypt = require("bcrypt");
+var bcrypt = require("bcryptjs");
 
 var nodemailer = require('nodemailer');
 
