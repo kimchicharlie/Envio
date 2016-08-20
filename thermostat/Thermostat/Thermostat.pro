@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     planning.cpp \
     planningmodel.cpp \
     roomSelection.cpp \
-    addEvent.cpp
+    addEvent.cpp \
+    netConnection.cpp
 
 HEADERS  += temperatureWindow.h \
     lumWindow.h \
@@ -40,7 +41,8 @@ HEADERS  += temperatureWindow.h \
     planning.h \
     planningmodel.h \
     roomSelection.h \
-    addEvent.h
+    addEvent.h \
+    netConnection.h
 
 FORMS    += mainwindow.ui \
     temperatureWindow.ui \

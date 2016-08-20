@@ -24,6 +24,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "netConnection.h"
 #include "temperatureWindow.h"
 #include "lumWindow.h"
 //#include "opacWindow.h"
@@ -50,6 +51,8 @@ public:
     ConfigWindow*       getConfigWin();
     void                roomValFromAPI();
     void                parseRep();
+    QString*                getHostName();
+    quint16                 getHostPort();
 
 
 private slots:
@@ -110,14 +113,16 @@ private:
     ConfigWindow        *_configWin;
 
     // Network
+    NetConnection           *_network;
+
     QNetworkAccessManager   *_netMan;
     QNetworkReply           *_netRep;
     //http://176.31.127.14/
     QString                 _idRoom;
-    QString                 *_hostName = new QString("176.31.127.14");
+//    QString                 *_hostName = new QString("176.31.127.14");
   //  QString                 *_hostName = new QString("127.0.0.1");
-    quint16                 _hostPort = 1337;
-    QUrl                    _url;
+//    quint16                 _hostPort = 1337;
+//    QUrl                    _url;
     QHttpMultiPart          *_multiPart;
     QByteArray              _reply;
     QJsonArray              *_jsonArr;

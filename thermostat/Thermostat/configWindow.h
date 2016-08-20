@@ -20,6 +20,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "netConnection.h"
 #include "roomstate.h"
 #include "roomlistmodel.h"
 #include "roomSelection.h"
@@ -74,13 +75,14 @@ private:
     RoomSelection       *_modal;
 
     // Network
+    NetConnection           *_network;
     QNetworkAccessManager   *_netMan;
     QNetworkReply           *_netRep;
     //http://176.31.127.14/
-    QString                 *_hostName = new QString("176.31.127.14");
+//    QString                 *_hostName = new QString("176.31.127.14");
 //    QString                 *_hostName = new QString("127.0.0.1");
-    quint16                 _hostPort = 1337;
-    QUrl                    _url;
+//    quint16                 _hostPort = 1337;
+//    QUrl                    _url;
     QHttpMultiPart          *_multiPart;
     QByteArray              _reply;
     QJsonArray              *_jsonArr;

@@ -1,4 +1,5 @@
 #include "addEvent.h"
+#include "mainwindow.h"
 #include "ui_addEvent.h"
 
 AddEvent::AddEvent(QWidget *parent) :
@@ -11,14 +12,16 @@ AddEvent::AddEvent(QWidget *parent) :
     _minSpin = ui->minStartSpin;
     _durSpin = ui->durationSpin;
     _errorLbl = ui->errorLbl;
-/*
-    _mapName;
-    _mapID;
-*/
+
     //setup network part
+    MainWindow *tmp = (MainWindow*)parent->parentWidget();
+    _network = new NetConnection(this, *(tmp->getHostName()),
+                                 tmp->getHostPort());
+/**
     _netMan = new QNetworkAccessManager(this);
     _netMan->setNetworkAccessible(QNetworkAccessManager::Accessible);
-    _netMan->connectToHost(*_hostName, _hostPort);
+    _netMan->connectToHost(*(_network->getHostName()), _network->getHostPort());
+/**/
     _netRep = Q_NULLPTR;
 }
 
@@ -29,18 +32,13 @@ AddEvent::~AddEvent()
 
 void    AddEvent::show() {
     QDialog::show();
+    if (!_network->testConnection())
+        return;
 
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    //http://176.31.127.14/
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
-         return;
-     delete socket;
+     QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                           QString("/api/getModes?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
 
-
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getModes?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getModes?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"organisation\""));
@@ -50,7 +48,8 @@ void    AddEvent::show() {
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
 
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
     connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
@@ -112,10 +111,11 @@ void AddEvent::httpFinished()
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
     if(!redirectionTarget.isNull()) {
-        const QUrl newUrl = _url.resolved(redirectionTarget.toUrl());
-        _url = newUrl;
-        QNetworkRequest request(_url);
-        _netRep = _netMan->post(request, _multiPart);
+        const QUrl newUrl = _network->getUrl().resolved(redirectionTarget.toUrl());
+        _network->setUrl(newUrl);
+        QNetworkRequest request(_network->getUrl());
+//        _netRep = _netMan->post(request, _multiPart);
+        _netRep = _network->post(request, _multiPart);
     }
 
     std::map<std::string, std::string> m;

@@ -4,12 +4,6 @@ RoomListModel::RoomListModel(QObject *parent)
     :QAbstractTableModel(parent)
 {
     _roomList = new QStringList();
-    /*
-    _roomList->append("large");
-    _roomList->append("small");
-    _roomList->append("medium");
-    _roomList->append("empty");
-    */
 }
 
 RoomListModel::~RoomListModel() {
