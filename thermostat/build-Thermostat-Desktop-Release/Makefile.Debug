@@ -1874,6 +1874,10 @@ debug\moc_planningWindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QM
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		..\Thermostat\netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		..\Thermostat\planningmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		..\Thermostat\planning.h \
@@ -2456,6 +2460,10 @@ debug\moc_configWindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMai
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		..\Thermostat\netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		..\Thermostat\roomstate.h \
 		..\Thermostat\planning.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
@@ -3293,6 +3301,10 @@ debug\moc_addEvent.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialog 
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		..\Thermostat\netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		..\Thermostat\addEvent.h
 	C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/mkspecs/win32-msvc2013 -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat/boost_1_61_0 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtGui -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtNetwork -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtCore -I. ..\Thermostat\addEvent.h -o debug\moc_addEvent.cpp
 
@@ -5725,6 +5737,10 @@ debug\planningWindow.obj: ..\Thermostat\planningWindow.cpp ../Thermostat/plannin
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		../Thermostat/netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		../Thermostat/planningmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		../Thermostat/planning.h \
@@ -5738,6 +5754,22 @@ debug\planningWindow.obj: ..\Thermostat\planningWindow.cpp ../Thermostat/plannin
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
+		../Thermostat/mainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDateTime \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasictimer.h \
+		../Thermostat/temperatureWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
+		../Thermostat/lumWindow.h \
+		../Thermostat/configWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QStringListModel \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlistmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QListView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlistview.h \
+		../Thermostat/roomstate.h \
+		../Thermostat/roomlistmodel.h \
+		../Thermostat/roomSelection.h \
 		ui_planningWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
@@ -6330,6 +6362,10 @@ debug\configWindow.obj: ..\Thermostat\configWindow.cpp ../Thermostat/configWindo
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		../Thermostat/netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		../Thermostat/roomstate.h \
 		../Thermostat/planning.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
@@ -6340,6 +6376,30 @@ debug\configWindow.obj: ..\Thermostat\configWindow.cpp ../Thermostat/configWindo
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdialog.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
+		../Thermostat/mainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDateTime \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasictimer.h \
+		../Thermostat/temperatureWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
+		../Thermostat/lumWindow.h \
+		../Thermostat/planningWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableWidget \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtablewidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonArray \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonarray.h \
+		../Thermostat/planningmodel.h \
+		../Thermostat/addEvent.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSpinBox \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qspinbox.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QComboBox \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
 		ui_configWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
@@ -6361,9 +6421,6 @@ debug\configWindow.obj: ..\Thermostat\configWindow.cpp ../Thermostat/configWindo
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
 
 debug\roomlistmodel.obj: ..\Thermostat\roomlistmodel.cpp ../Thermostat/roomlistmodel.h \
@@ -7280,6 +7337,43 @@ debug\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		../Thermostat/netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
+		../Thermostat/mainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qmainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDateTime \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasictimer.h \
+		../Thermostat/temperatureWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
+		../Thermostat/lumWindow.h \
+		../Thermostat/planningWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableWidget \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtablewidget.h \
+		../Thermostat/planningmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
+		../Thermostat/planning.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
+		../Thermostat/configWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QStringListModel \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlistmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QListView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlistview.h \
+		../Thermostat/roomstate.h \
+		../Thermostat/roomlistmodel.h \
+		../Thermostat/roomSelection.h \
 		ui_addEvent.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
@@ -7294,13 +7388,7 @@ debug\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h
 
 debug\netConnection.obj: ..\Thermostat\netConnection.cpp ../Thermostat/netConnection.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QNetworkAccessManager \

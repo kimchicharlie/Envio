@@ -112,6 +112,9 @@ void ConfigWindow::changeRoom(int ind) {
         emit changeCurRoom((RoomState*)(_rooms->at(ind)));
         ui->msgLabel->setText("Salle: " + _rooms->at(ind)->getName());
     }
+    _model->reset();
+    _rooms->clear();
+    getRoomsFromAPI();
 }
 
 void    ConfigWindow::show() {
@@ -141,13 +144,8 @@ void ConfigWindow::httpFinished()
 
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    if(!redirectionTarget.isNull()) {
-        const QUrl newUrl = _network->getUrl().resolved(redirectionTarget.toUrl());
-        _network->setUrl(newUrl);
-        QNetworkRequest request(_network->getUrl());
-        _netRep = _netMan->post(request, _multiPart);
-//        _netRep = _network->post(request, _multiPart);
-    }
+    if(!redirectionTarget.isNull())
+        _network->redirectUrl(redirectionTarget, _multiPart);
 }
 
 void    ConfigWindow::parseRep() {

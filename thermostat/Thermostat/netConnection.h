@@ -5,7 +5,6 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QByteArray>
-//#include <QJsonArray>
 #include <QJsonDocument>
 #include <QUrl>
 #include <QUrlQuery>
@@ -29,6 +28,7 @@ public:
     void                    setUrl(QUrl);
     QUrl                    getUrl();
     bool                    testConnection();
+    QNetworkReply*          redirectUrl(QVariant, QHttpMultiPart*);
     QNetworkReply*          post(QNetworkRequest, QHttpMultiPart*);
 
 private:

@@ -11,7 +11,6 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QByteArray>
-//#include <QJsonArray>
 #include <QJsonDocument>
 #include <QUrl>
 #include <QUrlQuery>
@@ -117,12 +116,7 @@ private:
 
     QNetworkAccessManager   *_netMan;
     QNetworkReply           *_netRep;
-    //http://176.31.127.14/
     QString                 _idRoom;
-//    QString                 *_hostName = new QString("176.31.127.14");
-  //  QString                 *_hostName = new QString("127.0.0.1");
-//    quint16                 _hostPort = 1337;
-//    QUrl                    _url;
     QHttpMultiPart          *_multiPart;
     QByteArray              _reply;
     QJsonArray              *_jsonArr;

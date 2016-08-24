@@ -58,6 +58,14 @@ bool    NetConnection::testConnection() {
      return true;
 }
 
+QNetworkReply* NetConnection::redirectUrl(QVariant redirectionTarget, QHttpMultiPart* multiPart) {
+    const QUrl newUrl = this->getUrl().resolved(redirectionTarget.toUrl());
+    this->setUrl(newUrl);
+    QNetworkRequest request(this->getUrl());
+    return (this->post(request, multiPart));
+
+}
+
 QNetworkReply*           NetConnection::post(QNetworkRequest req, QHttpMultiPart *multiPart) {
     return (_netMan->post(req, multiPart));
 }

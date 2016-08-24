@@ -110,14 +110,16 @@ void AddEvent::httpFinished()
 
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    if(!redirectionTarget.isNull()) {
+    if(!redirectionTarget.isNull())
+        _network->redirectUrl(redirectionTarget, _multiPart);
+/* {
         const QUrl newUrl = _network->getUrl().resolved(redirectionTarget.toUrl());
         _network->setUrl(newUrl);
         QNetworkRequest request(_network->getUrl());
 //        _netRep = _netMan->post(request, _multiPart);
         _netRep = _network->post(request, _multiPart);
     }
-
+*/
     std::map<std::string, std::string> m;
     std::istringstream resp(_reply.toStdString().c_str());
     std::string header;

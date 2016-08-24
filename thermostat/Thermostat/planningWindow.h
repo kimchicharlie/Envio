@@ -88,13 +88,8 @@ private:
 
     // Network
     NetConnection           *_network;
-    QNetworkAccessManager   *_netMan;
+//    QNetworkAccessManager   *_netMan;
     QNetworkReply           *_netRep;
-    //http://176.31.127.14/
-//    QString                 *_hostName = new QString("176.31.127.14");
-//    QString                 *_hostName = new QString("127.0.0.1");
-//    quint16                 _hostPort = 1337;
-//    QUrl                    _url;
     QHttpMultiPart          *_multiPart;
     QByteArray              _reply;
     bool                    _error = false;

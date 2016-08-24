@@ -19,7 +19,7 @@ PlanningWindow::PlanningWindow(QWidget *parent) :
     _network = new NetConnection(this, *(tmp->getHostName()),
                                  tmp->getHostPort());
 
-/**/
+/**
     _netMan = new QNetworkAccessManager(this);
     _netMan->setNetworkAccessible(QNetworkAccessManager::Accessible);
     _netMan->connectToHost(*(_network->getHostName()), _network->getHostPort());
@@ -178,8 +178,8 @@ void PlanningWindow::toAPI(Planning *plan) {
     textPart.setBody(tmp);
     _multiPart->append(textPart);
 
-//    _netRep = _network->post(netReq, _multiPart);
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
 }
 
@@ -238,8 +238,8 @@ void PlanningWindow::removeMode(Planning *plan) {
     textPart.setBody(tmp);
     _multiPart->append(textPart);
 
-//    _netRep = _network->post(netReq, _multiPart);
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
 
 }
@@ -268,8 +268,8 @@ void    PlanningWindow::getRoomsModeFromAPI() {
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
 
-//    _netRep = _network->post(netReq, _multiPart);
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
     connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
@@ -292,13 +292,8 @@ void PlanningWindow::httpFinished()
 
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    if(!redirectionTarget.isNull()) {
-        const QUrl newUrl = _network->getUrl().resolved(redirectionTarget.toUrl());
-        _network->setUrl(newUrl);
-        QNetworkRequest request(_network->getUrl());
-        _netRep = _netMan->post(request, _multiPart);
-//        _netRep = _network->post(request, _multiPart);
-    }
+    if(!redirectionTarget.isNull())
+        _network->redirectUrl(redirectionTarget, _multiPart);
 }
 
 void    PlanningWindow::parseRep() {

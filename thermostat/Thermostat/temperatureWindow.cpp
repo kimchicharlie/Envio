@@ -24,7 +24,7 @@ TemperatureWindow::TemperatureWindow(QWidget *parent, int tempDisp, double temp)
         _slider->setValue((temp - 32) * 5.0 / 9.0 * 10);
         _label->setText(QString::number(temp) + "°F");
     }
-/*
+/**
     _logo = new QPixmap("./2017_logo_envio2.png");
     _logo->scaled(50, 50, Qt::KeepAspectRatio);
     this->ui->LogoLabel->setPixmap(*_logo);
@@ -65,10 +65,6 @@ void TemperatureWindow::on_TempHorizontalSlider_valueChanged(int value)
     tmpTemp = tmpTemp / 10 * 10 + tmp * 10;
 
     _slider->setValue(tmpTemp);
-/*
-    std::cout << "value = " << value << std::endl;
-    std::cout << "tmpTemp = " << tmpTemp << std::endl;
-*/
 
     //convert celcius to fahrenheit
     // T(°C) = (T(°F) - 32) × 5/9

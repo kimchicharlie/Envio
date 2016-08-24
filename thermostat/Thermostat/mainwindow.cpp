@@ -409,13 +409,8 @@ void MainWindow::httpFinished()
 
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    if(!redirectionTarget.isNull()) {
-        const QUrl newUrl = _network->getUrl().resolved(redirectionTarget.toUrl());
-        _network->setUrl(newUrl);
-        QNetworkRequest request(_network->getUrl());
-        _netRep = _network->post(request, _multiPart);
-//        _netRep = _netMan->post(request, _multiPart);
-    }
+    if(!redirectionTarget.isNull())
+        _network->redirectUrl(redirectionTarget, _multiPart);
 }
 
 void    MainWindow::parseRep() {
@@ -449,6 +444,7 @@ void    MainWindow::parseRep() {
         }
         if (m.find("temperature") == m.cend() || m.find("light") == m.cend()) {
             ui->roomLabel->setText("Pas de salle");
+            this->on_ConfigEditButton_clicked();
             return;
         }
         _curRoom->setTemp(std::stoi(m.at("temperature")));
