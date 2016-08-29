@@ -320,11 +320,12 @@ var App = React.createClass({
         }
     },
     render() {
+        var header = null;
+        if (this.state.selectedRoute == "Login" || this.state.selectedRoute == "Register")
+            header = <div className="header-container"><span className="title-big">Envio</span></div>;
         return (
             <div className="main-content">
-                <div className="header-container">
-                    <span className="title-big">Envio</span>
-                </div>                
+                {header}                
                 <Home selectedRoute={this.state.selectedRoute}
                     doLogout={this.doLogout} 
                     doLogin={this.doLogin}
