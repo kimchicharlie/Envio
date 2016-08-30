@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
 
+
 var Header = React.createClass({
     render() {
         return (
@@ -22,13 +23,13 @@ RoomListItem = React.createClass({
     },
     render: function () {
           return (
-            <li className="panel panel-success room-elem">
-              <span className="w_20p">Nom :<h3 className="teal">{this.props.room.name}</h3></span>
-              <span className="w_20p">Luminosité voulue : <h3 className="blue">{this.props.room.light + "%"}</h3></span>
-              <span className="w_20p">Temperature voulue : <h3 className="red">{this.props.room.temperature + "°"}</h3></span>
-              <span className="w_20p">Volume: <h3 className="purple">{this.props.room.volume + "m3"}</h3></span>
-              <button className="btn btn-primary list-button w_15p pads" onClick={this.ModifMode}><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
-              <button className="btn btn-danger list-button w_15p pads" onClick={this.DeleteRoom}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer</button>
+            <li className="room-elem">
+              <span className="w_20p">Nom : {this.props.room.name}</span>
+              <span className="w_20p">Température actuelle : {this.props.room.realTemperature + "°"}</span>
+              <span className="w_20p">Temperature voulue : {this.props.room.temperature + "°"}</span>
+              <span className="w_20p">Volume: {this.props.room.volume + "m3"}</span>
+              <button className="list-button w_15p" onClick={this.ModifMode}>Modifier</button>
+              <button className="list-button w_15p" onClick={this.DeleteRoom}>Supprimer</button>
             </li>
         );
     }
@@ -113,7 +114,7 @@ Rooms = React.createClass({
     },
     render() {
           var cat = <RoomList rooms={this.state.rooms} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
-          var creatbutton = <button className="button-medium-cl btn btn-success" onClick={this.changeToCreat}><i className="fa fa-plus-square" aria-hidden="true"></i> Créer salle</button>;
+          var creatbutton = <button className="button-medium" onClick={this.changeToCreat}>Créer salle</button>;
           if (this.state.creat !== null) 
           {
               cat = <CreateRoom changeToRoomList={this.changeToRoomList}/>;
@@ -225,6 +226,7 @@ ModifRoom = React.createClass({
         });
     },
     ChangeIA : function(event) {
+        var newValue = ReactDOM.findDOMNode(this.refs.light).value;
         react = this;
         HttpPost('/switchIA', {
             'roomID': react.props.Id,
@@ -256,22 +258,22 @@ ModifRoom = React.createClass({
           <form role="form" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <div className="input-container">
-                <input className="input-medium" ref="name" type="text" placeholder="Nom"/>
+                <input className="input-medium" ref="name" type="text" placeholder="Name"/>
               </div>
               <div className="input-container">
-                <input className="input-medium" ref="volume" type="number" placeholder="Volume" min="0"/>
+                <input className="input-medium" ref="volume" type="text" placeholder="Volume"/>
               </div>
             </div>
             <button className="button-medium" type="submit">Modifier</button>
           </form>
           <div className="input-container">
-            <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5} min="15" max="40"/>
+            <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5}/>
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
           </div>
           <div className="input-container">
-            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5} min="0" max="100"/>
+            <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5}/>
           </div>
           <div>
             <button className="button-medium" onClick={this.ChangeLight}>Changer la luminosité</button><br/>
@@ -295,12 +297,12 @@ CreateRoom = React.createClass({
     },
     handleSubmit : function(event) {
         event.preventDefault();
-       // var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
+        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value;
         var name = ReactDOM.findDOMNode(this.refs.name).value;
         var volume = ReactDOM.findDOMNode(this.refs.volume).value;
         react = this;
         HttpPost('/createRoom', {
-            'organisation': 'Envio',
+            'organisation': organisation,
             'name': name,
             'volume': volume,
             
@@ -317,29 +319,27 @@ CreateRoom = React.createClass({
     },
     render : function() {   
         return (
-        <div className="form bar bar-header-secondary">
-            <h2 className="label-g"> Créez votre salle :<br></br> </h2>
-             <ErrorMessage content={this.state.status}/>
+        <div className="bar bar-header-secondary">
              <form role="form" onSubmit={this.handleSubmit}>
                  <div className="form-group">
                   <div className="input-container">
-                    <input className="input-medium" ref="name" type="text" placeholder="Nom"/>
+                    <input className="input-medium" ref="organisation" type="text" placeholder="organisation"/>
                   </div>
                   <div className="input-container">
-                    <input className="input-medium" ref="volume" type="number" placeholder="Volume" min="0"/>
+                    <input className="input-medium" ref="name" type="text" placeholder="name"/>
+                  </div>
+                  <div className="input-container">
+                    <input className="input-medium" ref="volume" type="text" placeholder="volume"/>
                   </div>
                 </div>
-                <button className="btn btn-success button-medium" type="submit" ><i className="fa fa-plus-square" aria-hidden="true"></i> Créer salle</button>
+                <button className="button-medium" type="submit" >Créer salle</button>
               </form>
-              <button className="btn btn-success" onClick={this.props.changeToRoomList} ><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
+              <button className="button-medium" onClick={this.props.changeToRoomList} >Retour</button>
+              <ErrorMessage content={this.state.status}/>
         </div>
         );
     }
 });
-
-                  // <div className="input-container">
-                  //   <input className="input-medium" ref="organisation" type="text" placeholder="organisation"/>
-                  // </div>
 
 DeleteRoom = React.createClass({
     getInitialState : function() {

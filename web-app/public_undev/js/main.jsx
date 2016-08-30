@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Modal = require('react-modal');
 var Select = require('react-select');
 var Cookie = require('react-cookie');
+
 var Header = React.createClass({
     render() {
         return (
@@ -17,23 +18,19 @@ var Header = React.createClass({
 var Sidemenu = React.createClass({
     render() {
         return (
-            <div>
-
-            <nav id="nav">
-                <img className="logosm" src="images/Envio2.png"/>
-                <div className={"link " + (this.props.route == "Planning" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Planning")}>
+            <div className="head-menu-container">
+                <div className={"menu-button" + (this.props.route == "Planning" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Planning")}>
                     <span>Planning</span>
                 </div>
-                <div className={"link " + (this.props.route == "Rooms" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Rooms")}>
+                <div className={"menu-button" + (this.props.route == "Rooms" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Rooms")}>
                     <span>Salles</span>
                 </div>
-                <div className={"link " + (this.props.route == "Modes" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Modes")}>
+                <div className={"menu-button" + (this.props.route == "Modes" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Modes")}>
                     <span>Modes</span>
                 </div>
-                <div className={"link " + (this.props.route == "Simulateur" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Simulateur")}>
+                <div className={"menu-button" + (this.props.route == "Simulateur" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Simulateur")}>
                     <span>Simulateur</span>
                 </div>
-            </nav>
             </div>  
         );
     }
@@ -45,7 +42,7 @@ var Home = React.createClass({
     render() {
         var route = null;
         var content = "";
-        var logoutButton = <button className="butsty btn btn-info btn-lg" onClick={this.props.doLogout}><i className="fa fa-sign-out" aria-hidden="true"></i> Deconnexion</button>
+        var logoutButton = <button className="button-big" onClick={this.props.doLogout}>logout</button>
 
         switch (this.props.selectedRoute) 
         {
@@ -126,7 +123,7 @@ var Simulateur = React.createClass({
     },
     render : function() {
         return (
-            <div className="label-sim" id="container"></div>
+            <div id="container"></div>
         );
     }
 });
@@ -179,20 +176,20 @@ var Login = React.createClass({
     },
     render() {
         return (
-            <div className="form">  
-                <form role="form" onSubmit={this.handleSubmit}>
-                    <ErrorMessage className="error" content={this.state.error}/>
+             <div className="form">  
+                <form role="login-form" onSubmit={this.handleSubmit}>
                     <div className="input-list">
                         <div className="input-container">
-                            <input className="input-medium" ref="email" type="text" placeholder="E-mail" />
+                            <input className="input-medium" ref="email" type="text" placeholder="email" />
                         </div>
                         <div className="input-container">
-                            <input className="input-medium" ref="pass" type="password" placeholder="Mot de Passe" />
+                            <input className="input-medium" ref="pass" type="password" placeholder="Password" />
                         </div>
                     </div>
-                    <button id="knapp" className="btn btn-success button-medium" type="submit"><i className="fa fa-plug" aria-hidden="true"></i> Connexion</button>
+                    <button className="button-medium2" type="submit">Valider</button>
+                    <ErrorMessage content={this.state.error}/>
                 </form>
-                <button className="btn btn-success no-decoration" onClick={this.props.setRoute.bind(null, "Register")}><i className="fa fa-user" aria-hidden="true"></i> S&#39;inscrire</button>
+                <button className="button-medium2 no-decoration" onClick={this.props.setRoute.bind(null, "Register")}>S&#39;enregistrer</button>
             </div>
         );
     }
@@ -212,7 +209,7 @@ var Register = React.createClass({
         var pass = ReactDOM.findDOMNode(this.refs.pass).value
         var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
         var lastname = ReactDOM.findDOMNode(this.refs.lastname).value
-        //var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
+        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
         var that = this;
 
         HttpPost('/register', {
@@ -220,9 +217,8 @@ var Register = React.createClass({
             'password': pass,
             'firstname': firstname,
             'lastname': lastname,
-            'organisation' : 'Envio'            
+            'organisation' : organisation            
         }, function(rep) {
-            rep = jQuery.parseJSON(rep);
             console.log("rep : ", rep)
             if(rep.error == null){
                 that.setState({registered: rep})      
@@ -241,47 +237,48 @@ var Register = React.createClass({
         this.props.setRoute("Login");
     },
     render() {
-        if(this.state.registered && this.state.registered.error == null){
+        if(this.state.registered){
+            if (this.state.registered.error == null) 
+            {            
                 return (
-                     
-                     <div className="form">
-                         <span className="label-c">Vous etes desormais inscrit !<br>Bienvenue dans l'experience Envio !</br></span>
-                         <br/><button className="button-medium" onClick={this.reloadPage}><i className="fa fa-plug" aria-hidden="true"></i> Se connecter</button>
-                     </div>
+                    <div className="bar bar-header-secondary">
+                        register successfull!
+                        <button onClick={this.reloadPage}>Se connecter</button>
+                    </div>
                 );                    
+            }
         }
         
         return (
-            <div className="form">
+            <div className="login-page">
                 <div className="bar bar-header-secondary">
-                    <form role="form" onSubmit={this.handleSubmit}>
-                     <ErrorMessage content={this.state.error}/>
-                        <div className="form-group">
+                    <div className="form">
+                    <form role="register-form" onSubmit={this.handleSubmit}>
                             <div className="input-container">
                                 <input className="input-medium" ref="firstname" type="text" placeholder="Prénom"/>
                             </div>
                             <div className="input-container">
-                                <input className="input-medium" ref="lastname" type="text" placeholder="Nom"/>
+                                <input className="input-medium" ref="lastname" type="text" placeholder="Nom de famille"/>
                             </div>
                             <div className="input-container">
-                                <input className="input-medium" ref="email" type="text" placeholder="E-mail"/>
+                                <input className="input-medium" ref="email" type="text" placeholder="Email"/>
                             </div>
                             <div className="input-container">
-                                <input className="input-medium" ref="pass" type="password" placeholder="Mot de passe"/>
+                                <input className="input-medium" ref="pass" type="password" placeholder="Mot de Passe"/>
                             </div>
-                        </div>
-                        <button className="button-medium" type="submit"><i className="fa fa-check" aria-hidden="true"></i> Valider</button>
+                            <div className="input-container">
+                                <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
+                            </div>
+                            <button className="button-medium" type="submit">Valider</button>
+                            <button className="button-medium no-decoration" onClick={this.backToLogin}>Retour</button>
+                            <ErrorMessage content={this.state.error}/>
                     </form>
-                    <button className="button-medium no-decoration" onClick={this.backToLogin}><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
+                    </div>
                 </div>
             </div>
         );
     }
 });
-
-                            // <div className="input-container">
-                            //     <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
-                            // </div>
 
 var App = React.createClass({
     getInitialState: function() {
@@ -323,38 +320,21 @@ var App = React.createClass({
             this.setRoute("Login");
         }
     },
-     render() {
-        if (this.state.selectedRoute == "Login" || this.state.selectedRoute == "Register")
-        {
-            return (
-                <div className="envio-main main-content" id="wrapped">
-                    <div className="header-container">
-                        <img className="logo" src="images/Envio2.png"/>
-                        <h2 className="pres"> Adoptez la domotique de Demain </h2>
-                        <span className="subpres"> Pour commencer, entrez <b>vos identifiants</b> </span>
-                   </div>                
-                    <Home selectedRoute={this.state.selectedRoute}
-                        doLogout={this.doLogout} 
-                        doLogin={this.doLogin}
-                        setRoute={this.setRoute}/>
-                    <ErrorModal content={this.state.error} title="logout"/>
+    render() {
+        return (
+            <div className="main-content">
+                <div className="header-container">
+                    <img className="logo" src="images/Envio2.png"/>
+                    <h2> Adoptez la domotique de Demain </h2>
+                    <p> Pour commencer, entrez <b>vos identifiants</b> </p>
+                </div>                
+                <Home selectedRoute={this.state.selectedRoute}
+                    doLogout={this.doLogout} 
+                    doLogin={this.doLogin}
+                    setRoute={this.setRoute}/>
+                <ErrorModal content={this.state.error} title="logout"/>
                 </div>
-            );
-
-        }
-        else
-        {
-
-            return (
-                <div className="envio-logged main-content" id="wrapped">                
-                    <Home selectedRoute={this.state.selectedRoute}
-                        doLogout={this.doLogout} 
-                        doLogin={this.doLogin}
-                        setRoute={this.setRoute}/>
-                    <ErrorModal content={this.state.error} title="logout"/>
-                </div>
-            );
-        }
+        ); 
     }
 });
 
