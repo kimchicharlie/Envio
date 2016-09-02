@@ -189,6 +189,7 @@ ModifMode = React.createClass({
 		<div className="form bar bar-header-secondary">
 			 <form role="form" onSubmit={this.handleSubmit}>
 			 	 <h2 className="label-g"> Modifiez votre mode :<br></br> </h2>
+			 	 <ErrorMessage content={this.state.status}/>
 				 <div className="">
 					<div className="input-container">
 		            	<input className="input-medium" ref="newName" type="text" placeholder="Nom"/>
@@ -203,7 +204,6 @@ ModifMode = React.createClass({
 				<button className="btn button-medium" type="submit"><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
 			  </form>
 			  <button className="red-b btn button-medium" onClick={this.props.changeToModeList}><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
-			  <ErrorMessage content={this.state.status}/>
 		</div>
 		);
 	}

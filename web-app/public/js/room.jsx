@@ -133,7 +133,7 @@ Rooms = React.createClass({
                 <div className="content">
                     {cat}                   
                     {creatbutton}
-                </div>
+            x    </div>
                 <ErrorMessage content={this.state.error}/>
               </div>
           );
@@ -255,6 +255,7 @@ ModifRoom = React.createClass({
         <div className="form">
           <form role="form" onSubmit={this.handleSubmit}>
            <h2 className="label-g"> Modifiez votre salle :<br></br> </h2>
+             <ErrorMessage content={this.state.status}/>
             <div className="form-group">
               <div className="input-container">
                 <input className="input-medium" ref="name" type="text" placeholder="Nom"/>
@@ -282,7 +283,6 @@ ModifRoom = React.createClass({
           {MyWindow}
           {AirConditioning}
           <button className="red-b btn button-medium" onClick={this.props.changeToRoomList}><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>    
-          <ErrorMessage content={this.state.status}/>
         </div>
         );
     }
