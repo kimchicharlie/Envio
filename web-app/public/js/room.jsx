@@ -249,11 +249,12 @@ ModifRoom = React.createClass({
       AirConditioning = <AirConditionings room={this.state.room._id} airConditionings={this.state.room.airConditionings} />;
       MyWindow = <Windows room={this.state.room._id} windows={this.state.room.windows}/>;
       Captor = <Captors room={this.state.room._id} captors={this.state.room.captors}/>;
-      IA = <button className="button-medium" onClick={this.ChangeIA}> {!this.state.room.artificialIntellligence ? "Activer mode Intelligent" : "Désactiver mode Intelligent"} </button>;
+      IA = <button className="btn button-medium" onClick={this.ChangeIA}> {!this.state.room.artificialIntellligence ? "Activer mode Intelligent" : "Désactiver mode Intelligent"} </button>;
   	}
         return (
-        <div className="bar bar-header-secondary">
+        <div className="form">
           <form role="form" onSubmit={this.handleSubmit}>
+           <h2 className="label-g"> Modifiez votre salle :<br></br> </h2>
             <div className="form-group">
               <div className="input-container">
                 <input className="input-medium" ref="name" type="text" placeholder="Nom"/>
@@ -262,25 +263,25 @@ ModifRoom = React.createClass({
                 <input className="input-medium" ref="volume" type="number" placeholder="Volume" min="0"/>
               </div>
             </div>
-            <button className="button-medium" type="submit">Modifier</button>
+            <button className="teal-b btn button-medium" type="submit"><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
           </form>
           <div className="input-container">
             <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5} min="15" max="40"/>
           </div>
           <div>
-            <button className="button-medium" onClick={this.ChangeTemp}>Changer la température</button><br/>
+            <button className="teal-b btn button-medium" onClick={this.ChangeTemp}><i className="fa fa-sun-o" aria-hidden="true"></i> Changer la température</button><br/>
           </div>
           <div className="input-container">
             <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5} min="0" max="100"/>
           </div>
           <div>
-            <button className="button-medium" onClick={this.ChangeLight}>Changer la luminosité</button><br/>
-            <button className="button-medium" onClick={this.props.changeToRoomList}>Retour</button>            
+            <button className="teal-b btn button-medium" onClick={this.ChangeLight}><i className="fa fa-lightbulb-o" aria-hidden="true"></i> Changer la luminosité</button><br/>        
           </div>
           {IA}
           {Captor}
           {MyWindow}
           {AirConditioning}
+          <button className="red-b btn button-medium" onClick={this.props.changeToRoomList}><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>    
           <ErrorMessage content={this.state.status}/>
         </div>
         );
@@ -331,7 +332,7 @@ CreateRoom = React.createClass({
                 </div>
                 <button className="btn btn-success button-medium" type="submit" ><i className="fa fa-plus-square" aria-hidden="true"></i> Créer salle</button>
               </form>
-              <button className="btn btn-success" onClick={this.props.changeToRoomList} ><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
+              <button className="red-b btn btn-success" onClick={this.props.changeToRoomList} ><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
         </div>
         );
     }
@@ -364,10 +365,10 @@ DeleteRoom = React.createClass({
   },
   render: function () {
       return (
-      <div>
-      Êtes-vous sûr ?
-      <button className="button-medium" onClick={this.deleteRoom}>Oui</button>
-      <button  className="button-medium" onClick={this.props.changeToRoomList} >Non</button>
+      <div className="form">
+      <h2 className="label-g">Êtes-vous sûr ?<br></br> </h2>
+      <button className="btn button-medium" onClick={this.deleteRoom}><i className="fa fa-check" aria-hidden="true"></i> Oui</button>
+      <button  className="red-b btn button-medium" onClick={this.props.changeToRoomList}><i className="fa fa-ban" aria-hidden="true"></i> Non</button>
       <ErrorMessage content={this.state.error}/>
       </div>
     );

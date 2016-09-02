@@ -280,12 +280,11 @@ Planning = React.createClass({
                 </div>
                 <Modal className="form form-modal" isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
                     <Select className="label-m" simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
-                    <button onClick={this.closeCreatModal}><i className="fa fa-ban" aria-hidden="true"></i> Annuler</button>
+                    <button className="btn red-b" onClick={this.closeCreatModal}><i className="fa fa-ban" aria-hidden="true"></i> Annuler</button>
                 </Modal>
                 <Modal className="form form-modal-2" isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
-                  <Select className="label-m" simpleValue options={this.state.ListOfModes} onChange={this.modifyEvent}/>
-                    <button onClick={this.deleteEvent}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer cet event</button>
-                    <button onClick={this.closeDeleteModal}><i className="fa fa-chevron-left" aria-hidden="true"></i> Annuler</button>
+                    <button className="btn red-b" onClick={this.deleteEvent}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer cet evenement</button>
+                    <button className="btn" onClick={this.closeDeleteModal}><i className="fa fa-chevron-left" aria-hidden="true"></i> Annuler</button>
                 </Modal>                  
               </div>
           );

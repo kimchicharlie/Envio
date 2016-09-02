@@ -367,7 +367,8 @@ nav {
 } 
 
 .form-modal-2 {
-  height: 190px !important;
+  height: 140px !important;
+  overflow: hidden !important;
 } 
 
 .form {
@@ -503,7 +504,14 @@ body.newbg {
 }
 
 .red {
-    color: #b71c1c;
+    color: #b71c1c !important;
+    margin-top: -10px;
+    font-size: 14px;
+}
+
+
+.red-b {
+    background-color: #d9534f !important;
     margin-top: -10px;
     font-size: 14px;
 }

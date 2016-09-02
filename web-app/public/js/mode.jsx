@@ -27,8 +27,8 @@ ModeListItem = React.createClass({
 				<span className="w_20p">Nom : <h3 className="teal">{this.props.mode.name}</h3></span>
 				<span className="w_20p">Luminosité: <h3 className="blue"> {this.props.mode.light}</h3></span>
 				<span className="w_20p">Température : <h3 className="red"> {this.props.mode.temperature}</h3></span>
-				<button className="btn btn-primary list-button w_15p pads" onClick={this.ModifMode}><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
-				<button className="btn btn-danger list-button w_15p pads" onClick={this.DeleteMode}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer</button>
+				<button className="btn btn-primary list-button w_20p pads " onClick={this.ModifMode}><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
+				<button className="btn btn-danger list-button w_20p pads" onClick={this.DeleteMode}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer</button>
 			</li>
 		);
 	}
@@ -186,9 +186,10 @@ ModifMode = React.createClass({
 	},
 	render() {    
 		return (
-		<div className="bar bar-header-secondary">
+		<div className="form bar bar-header-secondary">
 			 <form role="form" onSubmit={this.handleSubmit}>
-				 <div className="form">
+			 	 <h2 className="label-g"> Modifiez votre mode :<br></br> </h2>
+				 <div className="">
 					<div className="input-container">
 		            	<input className="input-medium" ref="newName" type="text" placeholder="Nom"/>
 		            </div>
@@ -199,9 +200,9 @@ ModifMode = React.createClass({
 		            	<input className="input-medium" ref="temperature" type="number" placeholder="Température" min="15" max="40"/>
 		            </div>
 				</div>
-				<button className="button-medium" type="submit">Modifier</button>
+				<button className="btn button-medium" type="submit"><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
 			  </form>
-			  <button className="button-medium" onClick={this.props.changeToModeList}>Retour</button>
+			  <button className="red-b btn button-medium" onClick={this.props.changeToModeList}><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
 			  <ErrorMessage content={this.state.status}/>
 		</div>
 		);
@@ -262,7 +263,7 @@ CreateMode = React.createClass({
 					</div>
 					<button className="btn btn-success button-medium" type="submit" ><i className="fa fa-plus-square" aria-hidden="true"></i> Créer</button>
 				</form>
-				<button className="btn btn-success button-medium" onClick={this.props.changeToModeList} ><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
+				<button className="red-b btn btn-success button-medium" onClick={this.props.changeToModeList} ><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
 			</div>
 		);
 	}
@@ -298,10 +299,10 @@ DeleteMode = React.createClass({
     },
 	render: function () {
 			return (
-			<div>
-			Êtes-vous sûr ?
-			<button className="button-medium" onClick={this.deleteMode}>Oui</button>
-			<button className="button-medium" onClick={this.props.changeToModeList} >Non</button>
+			<div className="form">
+			<h2 className="label-g">Êtes-vous sûr ?<br></br> </h2>
+			<button className=" btn button-medium" onClick={this.deleteMode}><i className="fa fa-check" aria-hidden="true"></i> Oui</button>
+			<button className="red-b btn button-medium" onClick={this.props.changeToModeList}><i className="fa fa-ban" aria-hidden="true"></i> Non</button>
 			<ErrorMessage content={this.state.error}/>
 			</div>
 		);
