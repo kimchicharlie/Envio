@@ -30,7 +30,7 @@ var Header = React.createClass({
         return (
             <header className="bar bar-nav">
                 <a href="#" className={"icon icon-left-nav pull-left" + (this.props.back==="true"?"":" hidden")}></a>
-                <h1 className="title">{this.props.text}</h1>
+                <h2 className="title">{this.props.text}</h2>
             </header>
         );
     }
@@ -274,18 +274,17 @@ Planning = React.createClass({
       render() {
           return (
               <div>
-                <div className="content">
-                  <Select simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
+                <div className="label-s content">
+                  <Select className="calendar-dd" className="dropdown-toggle" simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
                   <div id='calendar'></div>
                 </div>
-                <Modal isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
-                    <Select simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
-                    <button onClick={this.closeCreatModal}>annuler</button>
+                <Modal className="form form-modal" isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
+                    <Select className="label-m" simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
+                    <button className="btn red-b" onClick={this.closeCreatModal}><i className="fa fa-ban" aria-hidden="true"></i> Annuler</button>
                 </Modal>
-                <Modal isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
-                  <Select simpleValue options={this.state.ListOfModes} onChange={this.modifyEvent}/>
-                    <button onClick={this.deleteEvent}>supprimer cet event</button>
-                    <button onClick={this.closeDeleteModal}>annuler</button>
+                <Modal className="form form-modal-2" isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
+                    <button className="btn red-b" onClick={this.deleteEvent}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer cet evenement</button>
+                    <button className="btn" onClick={this.closeDeleteModal}><i className="fa fa-chevron-left" aria-hidden="true"></i> Annuler</button>
                 </Modal>                  
               </div>
           );

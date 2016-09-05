@@ -119,7 +119,6 @@ var deleteRoom = function (options, cb) {
     }
 }
 
-
 var modifyData = function (options, cb) {
     cb = cb || function () {};
 

@@ -55,7 +55,8 @@ SOURCES       = ..\Thermostat\main.cpp \
 		..\Thermostat\planning.cpp \
 		..\Thermostat\planningmodel.cpp \
 		..\Thermostat\roomSelection.cpp \
-		..\Thermostat\addEvent.cpp debug\moc_temperatureWindow.cpp \
+		..\Thermostat\addEvent.cpp \
+		..\Thermostat\netConnection.cpp debug\moc_temperatureWindow.cpp \
 		debug\moc_lumWindow.cpp \
 		debug\moc_opacWindow.cpp \
 		debug\moc_mainwindow.cpp \
@@ -79,6 +80,7 @@ OBJECTS       = debug\main.obj \
 		debug\planningmodel.obj \
 		debug\roomSelection.obj \
 		debug\addEvent.obj \
+		debug\netConnection.obj \
 		debug\moc_temperatureWindow.obj \
 		debug\moc_lumWindow.obj \
 		debug\moc_opacWindow.obj \
@@ -102,7 +104,8 @@ DIST          =  ..\Thermostat\temperatureWindow.h \
 		..\Thermostat\planning.h \
 		..\Thermostat\planningmodel.h \
 		..\Thermostat\roomSelection.h \
-		..\Thermostat\addEvent.h ..\Thermostat\main.cpp \
+		..\Thermostat\addEvent.h \
+		..\Thermostat\netConnection.h ..\Thermostat\main.cpp \
 		..\Thermostat\temperatureWindow.cpp \
 		..\Thermostat\lumWindow.cpp \
 		..\Thermostat\opacWindow.cpp \
@@ -114,7 +117,8 @@ DIST          =  ..\Thermostat\temperatureWindow.h \
 		..\Thermostat\planning.cpp \
 		..\Thermostat\planningmodel.cpp \
 		..\Thermostat\roomSelection.cpp \
-		..\Thermostat\addEvent.cpp
+		..\Thermostat\addEvent.cpp \
+		..\Thermostat\netConnection.cpp
 QMAKE_TARGET  = Thermostat
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = Thermostat.exe
@@ -206,7 +210,7 @@ dist:
 	$(ZIP) Thermostat.zip $(SOURCES) $(DIST) ..\Thermostat\Thermostat.pro C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\spec_pre.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\common\angle.conf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\common\msvc-base.conf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\common\msvc-desktop.conf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\qconfig.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_core.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_help.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_labscontrols_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_labstemplates_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_location.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_network.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_script.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webengine.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webengine_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginecore.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginecore_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginecoreheaders_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webview.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webview_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\qt_functions.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\qt_config.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\qt_config.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\spec_post.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exclusive_builds.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\default_pre.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\default_pre.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\resolve_config.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\default_post.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\build_pass.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\rtti.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\precompile_header.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\warn_on.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\qt.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\resources.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\moc.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\opengl.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\uic.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\file_copies.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\windows.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\testcase_targets.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exceptions.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\yacc.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\lex.prf ..\Thermostat\Thermostat.pro C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\qtmaind.prl C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Widgetsd.prl C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Guid.prl C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Networkd.prl C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Cored.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.obj debug\temperatureWindow.obj debug\lumWindow.obj debug\opacWindow.obj debug\mainwindow.obj debug\roomstate.obj debug\planningWindow.obj debug\configWindow.obj debug\roomlistmodel.obj debug\planning.obj debug\planningmodel.obj debug\roomSelection.obj debug\addEvent.obj debug\moc_temperatureWindow.obj debug\moc_lumWindow.obj debug\moc_opacWindow.obj debug\moc_mainwindow.obj debug\moc_roomstate.obj debug\moc_planningWindow.obj debug\moc_configWindow.obj debug\moc_roomlistmodel.obj debug\moc_planningmodel.obj debug\moc_roomSelection.obj debug\moc_addEvent.obj
+	-$(DEL_FILE) debug\main.obj debug\temperatureWindow.obj debug\lumWindow.obj debug\opacWindow.obj debug\mainwindow.obj debug\roomstate.obj debug\planningWindow.obj debug\configWindow.obj debug\roomlistmodel.obj debug\planning.obj debug\planningmodel.obj debug\roomSelection.obj debug\addEvent.obj debug\netConnection.obj debug\moc_temperatureWindow.obj debug\moc_lumWindow.obj debug\moc_opacWindow.obj debug\moc_mainwindow.obj debug\moc_roomstate.obj debug\moc_planningWindow.obj debug\moc_configWindow.obj debug\moc_roomlistmodel.obj debug\moc_planningmodel.obj debug\moc_roomSelection.obj debug\moc_addEvent.obj
 	-$(DEL_FILE) debug\Thermostat.exp debug\Thermostat.ilk debug\Thermostat.idb
 	-$(DEL_FILE) debug\thermostat.res
 
@@ -340,7 +344,8 @@ debug\moc_temperatureWindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qframe.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
 		..\Thermostat\temperatureWindow.h
 	C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/mkspecs/win32-msvc2013 -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat/boost_1_61_0 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtGui -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtNetwork -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtCore -I. ..\Thermostat\temperatureWindow.h -o debug\moc_temperatureWindow.cpp
@@ -722,11 +727,9 @@ debug\moc_mainwindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainW
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qnetworkreply.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QIODevice \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QByteArray \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonArray \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonarray.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonvalue.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonDocument \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsondocument.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonvalue.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QHttpPart \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qhttpmultipart.h \
@@ -1139,12 +1142,12 @@ debug\moc_mainwindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainW
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		..\Thermostat\netConnection.h \
 		..\Thermostat\temperatureWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		..\Thermostat\lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
+		..\Thermostat\lumWindow.h \
 		..\Thermostat\planningWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
@@ -1162,6 +1165,8 @@ debug\moc_mainwindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainW
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtablewidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonArray \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonarray.h \
 		..\Thermostat\planningmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		..\Thermostat\planning.h \
@@ -1179,7 +1184,6 @@ debug\moc_mainwindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainW
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QListView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlistview.h \
 		..\Thermostat\roomstate.h \
-		..\Thermostat\Planning.h \
 		..\Thermostat\roomlistmodel.h \
 		..\Thermostat\roomSelection.h \
 		..\Thermostat\mainwindow.h
@@ -1293,7 +1297,7 @@ debug\moc_roomstate.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QString \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtouchdevice.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabwidget.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qicon.h \
-		..\Thermostat\Planning.h \
+		..\Thermostat\planning.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qdatetime.h \
 		..\Thermostat\roomstate.h
@@ -1870,6 +1874,10 @@ debug\moc_planningWindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QM
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		..\Thermostat\netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		..\Thermostat\planningmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		..\Thermostat\planning.h \
@@ -2452,8 +2460,12 @@ debug\moc_configWindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMai
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		..\Thermostat\netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		..\Thermostat\roomstate.h \
-		..\Thermostat\Planning.h \
+		..\Thermostat\planning.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
 		..\Thermostat\roomlistmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
@@ -3289,6 +3301,10 @@ debug\moc_addEvent.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialog 
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		..\Thermostat\netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		..\Thermostat\addEvent.h
 	C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/mkspecs/win32-msvc2013 -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat/boost_1_61_0 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtGui -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtNetwork -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtCore -I. ..\Thermostat\addEvent.h -o debug\moc_addEvent.cpp
 
@@ -3479,11 +3495,9 @@ debug\main.obj: ..\Thermostat\main.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qnetworkreply.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QIODevice \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QByteArray \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonArray \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonarray.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonvalue.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonDocument \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsondocument.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonvalue.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QHttpPart \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qhttpmultipart.h \
@@ -3896,12 +3910,12 @@ debug\main.obj: ..\Thermostat\main.cpp ../Thermostat/mainwindow.h \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		../Thermostat/netConnection.h \
 		../Thermostat/temperatureWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		../Thermostat/lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
+		../Thermostat/lumWindow.h \
 		../Thermostat/planningWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
@@ -3919,6 +3933,8 @@ debug\main.obj: ..\Thermostat\main.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtablewidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonArray \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonarray.h \
 		../Thermostat/planningmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		../Thermostat/planning.h \
@@ -3936,7 +3952,6 @@ debug\main.obj: ..\Thermostat\main.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QListView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlistview.h \
 		../Thermostat/roomstate.h \
-		..\Thermostat\Planning.h \
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
@@ -4058,9 +4073,47 @@ debug\temperatureWindow.obj: ..\Thermostat\temperatureWindow.cpp ../Thermostat/t
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qframe.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
 		ui_temperatureWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDebug
 
 debug\lumWindow.obj: ..\Thermostat\lumWindow.cpp ../Thermostat/lumWindow.h \
@@ -4177,7 +4230,44 @@ debug\lumWindow.obj: ..\Thermostat\lumWindow.cpp ../Thermostat/lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		ui_lumWindow.h
+		ui_lumWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
 
 debug\opacWindow.obj: ..\Thermostat\opacWindow.cpp ../Thermostat/opacWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -4293,7 +4383,44 @@ debug\opacWindow.obj: ..\Thermostat\opacWindow.cpp ../Thermostat/opacWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qframe.h \
-		ui_opacWindow.h
+		ui_opacWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
 
 debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -4441,11 +4568,9 @@ debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qnetworkreply.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QIODevice \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QByteArray \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonArray \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonarray.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonvalue.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonDocument \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsondocument.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonvalue.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QHttpPart \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qhttpmultipart.h \
@@ -4858,12 +4983,12 @@ debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		../Thermostat/netConnection.h \
 		../Thermostat/temperatureWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		../Thermostat/lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
+		../Thermostat/lumWindow.h \
 		../Thermostat/planningWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
@@ -4881,6 +5006,8 @@ debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtablewidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonArray \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonarray.h \
 		../Thermostat/planningmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		../Thermostat/planning.h \
@@ -4898,11 +5025,31 @@ debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QListView \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlistview.h \
 		../Thermostat/roomstate.h \
-		..\Thermostat\Planning.h \
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QAbstractSocket \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
 
 debug\roomstate.obj: ..\Thermostat\roomstate.cpp ../Thermostat/roomstate.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QString \
@@ -5013,7 +5160,7 @@ debug\roomstate.obj: ..\Thermostat\roomstate.cpp ../Thermostat/roomstate.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtouchdevice.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabwidget.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qicon.h \
-		..\Thermostat\Planning.h \
+		../Thermostat/planning.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qdatetime.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDebug
@@ -5590,6 +5737,10 @@ debug\planningWindow.obj: ..\Thermostat\planningWindow.cpp ../Thermostat/plannin
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		../Thermostat/netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		../Thermostat/planningmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		../Thermostat/planning.h \
@@ -5603,7 +5754,44 @@ debug\planningWindow.obj: ..\Thermostat\planningWindow.cpp ../Thermostat/plannin
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
+		../Thermostat/mainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDateTime \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasictimer.h \
+		../Thermostat/temperatureWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
+		../Thermostat/lumWindow.h \
+		../Thermostat/configWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QStringListModel \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlistmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QListView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlistview.h \
+		../Thermostat/roomstate.h \
+		../Thermostat/roomlistmodel.h \
+		../Thermostat/roomSelection.h \
 		ui_planningWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimeZone \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimezone.h
 
@@ -6174,8 +6362,12 @@ debug\configWindow.obj: ..\Thermostat\configWindow.cpp ../Thermostat/configWindo
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
+		../Thermostat/netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
 		../Thermostat/roomstate.h \
-		..\Thermostat\Planning.h \
+		../Thermostat/planning.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
 		../Thermostat/roomlistmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
@@ -6184,7 +6376,52 @@ debug\configWindow.obj: ..\Thermostat\configWindow.cpp ../Thermostat/configWindo
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdialog.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
-		ui_configWindow.h
+		../Thermostat/mainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDateTime \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasictimer.h \
+		../Thermostat/temperatureWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
+		../Thermostat/lumWindow.h \
+		../Thermostat/planningWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableWidget \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtablewidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonArray \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonarray.h \
+		../Thermostat/planningmodel.h \
+		../Thermostat/addEvent.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSpinBox \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qspinbox.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QComboBox \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
+		ui_configWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
 
 debug\roomlistmodel.obj: ..\Thermostat\roomlistmodel.cpp ../Thermostat/roomlistmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
@@ -6491,7 +6728,46 @@ debug\roomSelection.obj: ..\Thermostat\roomSelection.cpp ../Thermostat/roomSelec
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qframe.h \
-		ui_roomSelection.h
+		ui_roomSelection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qicon.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialogButtonBox \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdialogbuttonbox.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLineEdit \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlineedit.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextcursor.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextformat.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qpen.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextoption.h
 
 debug\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialog \
@@ -7061,7 +7337,573 @@ debug\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp \
-		ui_addEvent.h
+		../Thermostat/netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
+		../Thermostat/mainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qmainwindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDateTime \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasictimer.h \
+		../Thermostat/temperatureWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
+		../Thermostat/lumWindow.h \
+		../Thermostat/planningWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtableview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableWidget \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtablewidget.h \
+		../Thermostat/planningmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
+		../Thermostat/planning.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
+		../Thermostat/configWindow.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QStringListModel \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlistmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QListView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlistview.h \
+		../Thermostat/roomstate.h \
+		../Thermostat/roomlistmodel.h \
+		../Thermostat/roomSelection.h \
+		ui_addEvent.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h
+
+debug\netConnection.obj: ..\Thermostat\netConnection.cpp ../Thermostat/netConnection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QNetworkAccessManager \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qnetworkaccessmanager.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QObject \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobject.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qnamespace.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qglobal.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qconfig.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qfeatures.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtypetraits.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qisenum.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsysinfo.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlogging.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qflags.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_gcc.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv7.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv6.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv5.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_ia64.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_x86.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_unix.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmutex.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qnumeric.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qversiontagging.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstring.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qchar.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbytearray.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qrefcount.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qarraydata.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qalgorithms.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qiterator.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qpair.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregexp.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreevent.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmetatype.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QSslConfiguration \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qsslconfiguration.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qhash.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qsslsocket.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qtcpsocket.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qabstractsocket.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qiodevice.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qdebug.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmap.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtextstream.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlocale.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvariant.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvector.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qpoint.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qset.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qsslerror.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qsslcertificate.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcryptographichash.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qssl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QFlags \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QSslPreSharedKeyAuthenticator \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qsslpresharedkeyauthenticator.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QtGlobal \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QString \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSharedDataPointer \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QMetaType \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QNetworkRequest \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qnetworkrequest.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrl \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qurl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qurlquery.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QNetworkReply \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qnetworkreply.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QIODevice \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QByteArray \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QJsonDocument \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsondocument.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qjsonvalue.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QHttpPart \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\qhttpmultipart.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
+		..\Thermostat\boost_1_61_0\boost\algorithm\string\trim.hpp \
+		..\Thermostat\boost_1_61_0\boost\algorithm\string\config.hpp \
+		..\Thermostat\boost_1_61_0\boost\config.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\user.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\select_compiler_config.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\nvcc.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\gcc_xml.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\cray.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\common_edg.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\comeau.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\pathscale.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\intel.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\visualc.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\gcc.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\clang.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\digitalmars.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\kai.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\sgi_mipspro.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\compaq_cxx.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\greenhills.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\codegear.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\borland.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\metrowerks.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\sunpro_cc.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\hp_acc.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\mpw.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\vacpp.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\compiler\pgi.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\select_stdlib_config.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\stlport.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\libcomo.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\no_tr1\utility.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\roguewave.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\libcpp.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\libstdcpp3.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\sgi.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\msl.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\posix_features.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\vacpp.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\modena.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\stdlib\dinkumware.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\select_platform_config.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\linux.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\bsd.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\solaris.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\irix.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\hpux.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\cygwin.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\win32.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\beos.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\macos.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\aix.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\amigaos.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\qnxnto.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\vxworks.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\symbian.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\cray.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\platform\vms.hpp \
+		..\Thermostat\boost_1_61_0\boost\config\suffix.hpp \
+		..\Thermostat\boost_1_61_0\boost\detail\workaround.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\begin.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\config.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\begin.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\iterator.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\range_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\mutable_iterator.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\extract_optional_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\cat.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\config\config.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\has_xxx.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\bool.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\bool_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\adl_barrier.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\adl.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\msvc.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\intel.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\gcc.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\workaround.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\integral_c_tag.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\static_constant.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\na_spec.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\lambda_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\void_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\na.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\na_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\ctps.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\lambda.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\ttp.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\int.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\int_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\nttp_decl.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\nttp.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\integral_wrapper.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\static_cast.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\lambda_arity_param.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\template_arity_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\arity.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\dtp.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\params.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\preprocessor.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\comma_if.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\punctuation\comma_if.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\if.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\iif.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\logical\bool.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\facilities\empty.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\punctuation\comma.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repeat.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\repeat.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\debug\error.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\detail\auto_rec.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\detail\dmc\auto_rec.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\tuple\eat.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\inc.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\arithmetic\inc.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\enum.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\def_params_tail.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\limits\arity.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\logical\and.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\logical\bitand.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\identity.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\facilities\identity.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\empty.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\filter_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\sub.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\tuple.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\arithmetic\sub.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\arithmetic\dec.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\while.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\fold_left.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\detail\edg\fold_left.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\expr_iif.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\adt.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\detail\is_binary.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\detail\check.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\logical\compl.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\detail\dmc\fold_left.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\tuple\elem.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\facilities\expand.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\facilities\overload.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\variadic\size.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\tuple\rem.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\tuple\detail\is_single_return.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\facilities\is_1.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\facilities\is_empty.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\facilities\is_empty_variadic.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\punctuation\is_begin_parens.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\punctuation\detail\is_begin_parens.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\facilities\detail\is_empty.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\detail\split.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\tuple\size.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\variadic\elem.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\detail\fold_left.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\fold_right.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\detail\edg\fold_right.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\detail\fold_right.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\reverse.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\detail\edg\while.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\detail\msvc\while.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\detail\dmc\while.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\detail\while.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\arithmetic\add.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\eti.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\overload_resolution.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\type_wrapper.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\yes_no.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\arrays.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\has_xxx.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\msvc_typename.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\array\elem.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\array\data.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\array\size.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\enum_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\enum_trailing_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_class.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\detail\config.hpp \
+		..\Thermostat\boost_1_61_0\boost\version.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\intrinsics.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_same.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\integral_constant.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_reference.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_lvalue_reference.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_rvalue_reference.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_volatile.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_void.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_union.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\detail\yes_no_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_scalar.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_arithmetic.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_integral.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_floating_point.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_enum.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\add_reference.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_convertible.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_array.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_abstract.hpp \
+		..\Thermostat\boost_1_61_0\boost\static_assert.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_polymorphic.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\add_lvalue_reference.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\add_rvalue_reference.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_function.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\detail\is_function_ptr_helper.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\detail\is_function_ptr_tester.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\remove_reference.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\declval.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_pointer.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_member_pointer.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_member_function_pointer.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\detail\is_mem_fun_pointer_impl.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\remove_cv.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\detail\is_mem_fun_pointer_tester.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\if.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\value_wknd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\integral.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\lambda_support.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\tuple\to_list.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\list\for_each_i.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\for.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\detail\edg\for.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\detail\msvc\for.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\detail\dmc\for.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\detail\for.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\iterator_traits.hpp \
+		..\Thermostat\boost_1_61_0\boost\detail\iterator.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\msvc_has_iterator_workaround.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\const_iterator.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\remove_const.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_const.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\eval_if.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\common.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\sfinae.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\or.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\use_preprocessed.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\nested_type_wknd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\include_preprocessed.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\compiler.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\stringize.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\logical_op.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\ext_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\dec.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\end.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\end.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\implementation_help.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\as_literal.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\as_literal.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\detail_str.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\size_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\value_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\remove_extent.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\identity.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\iterator_range.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\iterator_range_core.hpp \
+		..\Thermostat\boost_1_61_0\boost\assert.hpp \
+		..\Thermostat\boost_1_61_0\boost\current_function.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\iterator_facade.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\interoperable.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\detail\config_def.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\detail\config_undef.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\iterator_categories.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\placeholders.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\arg.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\arg_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\na_assert.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\assert.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\not.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\gpu.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\pp_counter.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\arity_spec.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\arg_typedef.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\default_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\iterate.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\iteration\iterate.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\slot\slot.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\slot\detail\def.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\detail\facade_iterator_category.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\and.hpp \
+		..\Thermostat\boost_1_61_0\boost\detail\indirect_traits.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\remove_pointer.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\detail\enable_if.hpp \
+		..\Thermostat\boost_1_61_0\boost\utility\addressof.hpp \
+		..\Thermostat\boost_1_61_0\boost\core\addressof.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\add_const.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\add_pointer.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_pod.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\always.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\apply.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\apply_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\apply_wrap.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\has_apply.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\has_apply.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\msvc_never_true.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\add.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\bcc.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\msvc_dtw.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\lambda.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\bind.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\bind_fwd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\bind.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\config\dmc_ambiguous_ctps.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\next.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\next_prior.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\common_name_wknd.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\protect.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\partial_spec_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\repeat.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\count_args.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\expr_if.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\expr_if.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\enum_shifted_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\enum_shifted_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\full_lambda.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\quote.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\void.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\has_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\template_arity.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\has_rebind.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\msvc_is_class.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\preprocessor\range.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\subseq.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\first_n.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\detail\split.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\rest_n.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\comparison\not_equal.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\detail\is_empty.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\size.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\fold_left.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\seq.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\elem.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\aux_\lambda_no_ctps.hpp \
+		..\Thermostat\boost_1_61_0\boost\mpl\is_placeholder.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_base_and_derived.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\functions.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\size.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\size_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\difference_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\has_range_iterator.hpp \
+		..\Thermostat\boost_1_61_0\boost\utility\enable_if.hpp \
+		..\Thermostat\boost_1_61_0\boost\core\enable_if.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\concepts.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept_check.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\assert.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\detail\msvc.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\detail\backward_compatibility.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\detail\has_constraints.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\detail\borland.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\detail\general.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\conversion_traits.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\usage.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\detail\concept_def.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\for_each_i.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\enum.hpp \
+		..\Thermostat\boost_1_61_0\boost\concept\detail\concept_undef.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\iterator_concepts.hpp \
+		..\Thermostat\boost_1_61_0\boost\limits.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\value_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\misc_concept.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\make_unsigned.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\conditional.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_signed.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_unsigned.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\add_volatile.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\has_member_size.hpp \
+		..\Thermostat\boost_1_61_0\boost\cstdint.hpp \
+		..\Thermostat\boost_1_61_0\boost\utility.hpp \
+		..\Thermostat\boost_1_61_0\boost\utility\base_from_member.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\enum_binary_params.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\repetition\repeat_from_to.hpp \
+		..\Thermostat\boost_1_61_0\boost\utility\binary.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\control\deduce_d.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\cat.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\seq\transform.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\arithmetic\mod.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\arithmetic\detail\div_base.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\comparison\less_equal.hpp \
+		..\Thermostat\boost_1_61_0\boost\preprocessor\logical\not.hpp \
+		..\Thermostat\boost_1_61_0\boost\utility\identity_type.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\function_traits.hpp \
+		..\Thermostat\boost_1_61_0\boost\checked_delete.hpp \
+		..\Thermostat\boost_1_61_0\boost\core\checked_delete.hpp \
+		..\Thermostat\boost_1_61_0\boost\next_prior.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\integral_promotion.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\make_signed.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\has_plus.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\detail\has_binary_operator.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_base_of.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\is_fundamental.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\has_plus_assign.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\has_minus.hpp \
+		..\Thermostat\boost_1_61_0\boost\type_traits\has_minus_assign.hpp \
+		..\Thermostat\boost_1_61_0\boost\noncopyable.hpp \
+		..\Thermostat\boost_1_61_0\boost\core\noncopyable.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\distance.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\empty.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\rbegin.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\reverse_iterator.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\reverse_iterator.hpp \
+		..\Thermostat\boost_1_61_0\boost\iterator\iterator_adaptor.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\rend.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\algorithm\equal.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\safe_bool.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\iterator_range_io.hpp \
+		..\Thermostat\boost_1_61_0\boost\range\detail\str_types.hpp \
+		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\trim.hpp \
+		..\Thermostat\boost_1_61_0\boost\algorithm\string\classification.hpp \
+		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
+		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp
 
 debug\moc_temperatureWindow.obj: debug\moc_temperatureWindow.cpp 
 

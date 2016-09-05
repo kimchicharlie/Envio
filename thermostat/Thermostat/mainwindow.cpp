@@ -10,10 +10,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 //    this->setStyleSheet("./style/thermostatStyleSheet.");
 
+    // get the configured id and host info
+    QSettings settings("config.ini", QSettings::IniFormat);
+    _idRoom = settings.value("id","config").toString();
+    QString name = settings.value("name","config").toString();
+    quint16 port = settings.value("port","config").toString().toInt();
+
     //setup network part
+    _network = new NetConnection(this, name, port);
+/**
     _netMan = new QNetworkAccessManager(this);
     _netMan->setNetworkAccessible(QNetworkAccessManager::Accessible);
-    _netMan->connectToHost(*_hostName, _hostPort);
+    _netMan->connectToHost(*(_network->getHostName()), _network->getHostPort());
+/**/
     _netRep = Q_NULLPTR;
 
     QHttpPart textPart = QHttpPart();
@@ -22,8 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
     textPart.setBody("57793cf87d1740e874107210");
 */
     // get the configured id
-    QSettings settings("config.ini", QSettings::IniFormat);
-    _idRoom = settings.value("id","config").toString();
     QByteArray tmp2;
     tmp2.append(_idRoom);
     textPart.setBody(tmp2);
@@ -234,24 +241,19 @@ void    MainWindow::updateVals() {
 //    static int i = 0;
     if (_curRoom != Q_NULLPTR) {
         if (_curRoom->getHourDisp() == 2)
-            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm:ss"));
+            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm"));
         else
-            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("h:m:s AP"));
+            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("h:m AP"));
     }
     else
-        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm:ss"));
+        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm"));
 }
 
 void    MainWindow::roomValFromAPI() {
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
-         return;
-     delete socket;
-
+    if (!_network->testConnection())
+        return;
      _toSend = false;
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(_network->getUrl());
 //     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
@@ -268,7 +270,8 @@ void    MainWindow::roomValFromAPI() {
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
 
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
     connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
@@ -278,7 +281,6 @@ void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
     _planWin->setRoomId(_curRoom->getID());
     ui->roomLabel->setText("- Salle: " + _curRoom->getName());
-//    qDebug() << "Coucou, je vais update les valeurs après changement de salle";
     roomValFromAPI();
 }
 
@@ -293,19 +295,17 @@ void    MainWindow::backToMain() {
 }
 
 void MainWindow::tempValChanged(double newVal) {
+    if (_curRoom == Q_NULLPTR)
+        return;
     _curRoom->setTemp(newVal);
     _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
-
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
+     if (!_network->testConnection())
          return;
-     delete socket;
-    //send new temp to API
 
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
+    //send new temp to API
+     QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                           QString("/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
 
     QByteArray tmp;
     QHttpPart textPart = QHttpPart();
@@ -319,28 +319,24 @@ void MainWindow::tempValChanged(double newVal) {
     tmp.append(QString::number(newVal));
     textPart.setBody(tmp);
     multiPart->append(textPart);
-    _netMan->post(netReq, multiPart);
-
-/*    if (_curRoom->gettempDispVal() == 1)
-        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
-    else
-        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°F");
-*/
+    _netRep = _network->post(netReq, _multiPart);
+//    _netMan->post(netReq, multiPart);
 }
 
 void MainWindow::lumValChanged(int newVal) {
+    if (_curRoom == Q_NULLPTR)
+        return;
     _curRoom->setLum(newVal);
     _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
+     if (!_network->testConnection())
          return;
-     delete socket;
+
 
      //send new temp to API
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
+     QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                           QString("/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
+
 
     QByteArray tmp;
     QHttpPart textPart = QHttpPart();
@@ -354,7 +350,8 @@ void MainWindow::lumValChanged(int newVal) {
     tmp.append(QString::number(newVal));
     textPart.setBody(tmp);
     multiPart->append(textPart);
-    _netMan->post(netReq, multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netMan->post(netReq, multiPart);
 
 }
 
@@ -371,6 +368,9 @@ void MainWindow::opacValChanged(int newVal) {
      if (!socket->waitForConnected(1000))
          return;
      delete socket;
+
+     if (!_network->testConnection())
+         return;
 
      //send new temp to API
      */
@@ -409,12 +409,8 @@ void MainWindow::httpFinished()
 
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    if(!redirectionTarget.isNull()) {
-        const QUrl newUrl = _url.resolved(redirectionTarget.toUrl());
-        _url = newUrl;
-        QNetworkRequest request(_url);
-        _netRep = _netMan->post(request, _multiPart);
-    }
+    if(!redirectionTarget.isNull())
+        _network->redirectUrl(redirectionTarget, _multiPart);
 }
 
 void    MainWindow::parseRep() {
@@ -427,26 +423,12 @@ void    MainWindow::parseRep() {
             header.erase(std::remove(header.end() - 1, header.end(), ','), header.end());
             header.erase(std::remove(header.begin(), header.end(), '\"'), header.end());
             index = header.find(':', 0);
-/*
-             if (header.find("room", 0) != std::string::npos && header.find("null", 0) != std::string::npos) {
-                ui->TempLabel->setText("erreur: veuillez ");
-                ui->LumLabel->setText("changer de salle");
-                return;
-            }
-*/
             if (index != std::string::npos) {
                 m.insert(std::make_pair(
                     boost::algorithm::trim_copy(header.substr(0, index)),
                     boost::algorithm::trim_copy(header.substr(index + 1))
                 ));
             }
-/*
-             if (m.at("room").compare("null") ==0) {
-                ui->TempLabel->setText("erreur: veuillez ");
-                ui->LumLabel->setText("changer de salle");
-                return;
-            }
-*/
         }
         // if there is no room configure, configure it with the API reply
         if (_curRoom == Q_NULLPTR) {
@@ -462,6 +444,7 @@ void    MainWindow::parseRep() {
         }
         if (m.find("temperature") == m.cend() || m.find("light") == m.cend()) {
             ui->roomLabel->setText("Pas de salle");
+            this->on_ConfigEditButton_clicked();
             return;
         }
         _curRoom->setTemp(std::stoi(m.at("temperature")));
@@ -488,4 +471,12 @@ void MainWindow::httpFailed(QNetworkReply::NetworkError err) {
 void MainWindow::httpReadyRead()
 {
     qDebug() << "Reply finish: " << _netRep->isFinished();
+}
+
+QString* MainWindow::getHostName() {
+    return (_network->getHostName());
+}
+
+quint16 MainWindow::getHostPort() {
+    return (_network->getHostPort());
 }

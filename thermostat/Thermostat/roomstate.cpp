@@ -3,6 +3,7 @@
 #include <QDebug>
 RoomState::RoomState()
 {
+    /* TEST Constructor */
     // récupérer les vrais valeurs dans la DB
     _temp = 20.0;
     _lum = 60;
@@ -15,13 +16,6 @@ RoomState::RoomState()
     _tempDisp = "°C";
     _tempDispVal = 1;
     _id = "-1";
-/*
-    _tempDisp = "°F";
-    _tempDispVal = 2;
-    //convert celcius to fahrenheit
-    // T(°C) = (T(°F) - 32) × 5/9
-    _temp = _temp * 9 / 5 + 32;
-/**/
     connect(this, SIGNAL(changeTempDisp()),
                       this, SLOT(convertTemp()));
 }

@@ -1,4 +1,5 @@
 #include "configWindow.h"
+#include "mainwindow.h"
 #include "ui_configWindow.h"
 
 #include <map>
@@ -11,9 +12,15 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
     //get the rooms attach to the thermostat and put them in the list
     _rooms = new QList<RoomState*>();
 
+    MainWindow *tmp = (MainWindow*)parent;
+    _network = new NetConnection(this, *(tmp->getHostName()),
+                                 tmp->getHostPort());
+
+/**
     _netMan = new QNetworkAccessManager(this);
     _netMan->setNetworkAccessible(QNetworkAccessManager::Accessible);
-    _netMan->connectToHost(*_hostName, _hostPort);
+    _netMan->connectToHost(*(_network->getHostName()), _network->getHostPort());
+/**/
     _netRep = Q_NULLPTR;
 
     QHttpPart textPart = QHttpPart();
@@ -33,15 +40,12 @@ ConfigWindow::~ConfigWindow()
 }
 
 void ConfigWindow::getRoomsFromAPI() {
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
-         return;
-     delete socket;
+    if (!_network->testConnection())
+        return;
 
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getRooms?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRooms?api_key=f8c5e1xx5f48e56s4x8"));
+     QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                           QString("/api/getRooms?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
 
     QHttpPart textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"organisation\""));
@@ -49,7 +53,8 @@ void ConfigWindow::getRoomsFromAPI() {
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
 
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
     connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
@@ -63,6 +68,8 @@ void ConfigWindow::on_AccueilBtn_clicked()
 
 void ConfigWindow::on_TempDispButton_clicked()
 {
+    if (!_network->testConnection())
+        return;
     if (!ui->TempDispButton->text().compare("°F")) {
         ui->TempDispButton->setText("°C");
         emit TempDispChange(2);
@@ -75,6 +82,8 @@ void ConfigWindow::on_TempDispButton_clicked()
 
 void ConfigWindow::on_HourDispButton_clicked()
 {
+    if (!_network->testConnection())
+        return;
     if (!ui->HourDispButton->text().compare("12h")) {
         ui->HourDispButton->setText("24h");
         emit HourDispChange(1);
@@ -103,6 +112,9 @@ void ConfigWindow::changeRoom(int ind) {
         emit changeCurRoom((RoomState*)(_rooms->at(ind)));
         ui->msgLabel->setText("Salle: " + _rooms->at(ind)->getName());
     }
+    _model->reset();
+    _rooms->clear();
+    getRoomsFromAPI();
 }
 
 void    ConfigWindow::show() {
@@ -132,12 +144,8 @@ void ConfigWindow::httpFinished()
 
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    if(!redirectionTarget.isNull()) {
-        const QUrl newUrl = _url.resolved(redirectionTarget.toUrl());
-        _url = newUrl;
-        QNetworkRequest request(_url);
-        _netRep = _netMan->post(request, _multiPart);
-    }
+    if(!redirectionTarget.isNull())
+        _network->redirectUrl(redirectionTarget, _multiPart);
 }
 
 void    ConfigWindow::parseRep() {
