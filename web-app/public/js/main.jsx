@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Modal = require('react-modal');
 var Select = require('react-select');
 var Cookie = require('react-cookie');
+
 var Header = React.createClass({
     render() {
         return (
@@ -56,7 +57,7 @@ var Home = React.createClass({
                             <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
                             {logoutButton}
                         </div>
-                        <Rooms/>
+                        <Rooms Organisation={this.props.Organisation}/>
                     </div>
                 )
                 break;
@@ -67,7 +68,7 @@ var Home = React.createClass({
                             <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
                             {logoutButton}
                         </div>
-                        <Modes/>
+                        <Modes Organisation={this.props.Organisation}/>
                     </div>
                 )
                 break;
@@ -78,7 +79,7 @@ var Home = React.createClass({
                             <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
                             {logoutButton}
                         </div>
-                        <Planning/>
+                        <Planning Organisation={this.props.Organisation}/>
                     </div>
                 )
                 break;
@@ -170,7 +171,8 @@ var Login = React.createClass({
         }, function(ret) {          
             var rep = jQuery.parseJSON(ret);
             if(rep.error == null){
-                that.props.doLogin(rep.guid);       
+                that.props.doLogin(rep);
+                //that.props.doLogin(rep.guid);
             }
             else{
                 that.setState({error : rep.error.message || rep.error});
@@ -212,7 +214,7 @@ var Register = React.createClass({
         var pass = ReactDOM.findDOMNode(this.refs.pass).value
         var firstname = ReactDOM.findDOMNode(this.refs.firstname).value
         var lastname = ReactDOM.findDOMNode(this.refs.lastname).value
-        //var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
+        var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
         var that = this;
 
         HttpPost('/register', {
@@ -220,12 +222,13 @@ var Register = React.createClass({
             'password': pass,
             'firstname': firstname,
             'lastname': lastname,
-            'organisation' : 'Envio'            
+            'organisation' : organisation            
         }, function(rep) {
             rep = jQuery.parseJSON(rep);
             console.log("rep : ", rep)
             if(rep.error == null){
                 that.setState({registered: rep})      
+
             }
             else{
                 that.setState({error : rep.error.message || rep.error});
@@ -245,7 +248,7 @@ var Register = React.createClass({
                 return (
                      
                      <div className="form">
-                         <span className="label-c">Vous etes desormais inscrit !<br>Bienvenue dans l'experience Envio !</br></span>
+                         <span className="label-c">Vous etes desormais inscrit !<br>Bienvenue dans l&#39;experience Envio !</br></span>
                          <br/><button className="button-medium" onClick={this.reloadPage}><i className="fa fa-plug" aria-hidden="true"></i> Se connecter</button>
                      </div>
                 );                    
@@ -267,8 +270,11 @@ var Register = React.createClass({
                                 <input className="input-medium" ref="email" type="text" placeholder="E-mail"/>
                             </div>
                             <div className="input-container">
+                                <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
+                            </div>                              
+                            <div className="input-container">
                                 <input className="input-medium" ref="pass" type="password" placeholder="Mot de passe"/>
-                            </div>
+                            </div>                          
                         </div>
                         <button className="button-medium" type="submit"><i className="fa fa-check" aria-hidden="true"></i> Valider</button>
                     </form>
@@ -279,15 +285,14 @@ var Register = React.createClass({
     }
 });
 
-                            // <div className="input-container">
-                            //     <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
-                            // </div>
 
 var App = React.createClass({
     getInitialState: function() {
         return {
             userId: Cookie.load('userId'),
+            organisation: Cookie.load('organisation'),
             selectedRoute: null,
+
             error : false
         };
     },
@@ -297,8 +302,11 @@ var App = React.createClass({
         });
     },
     doLogin: function(userId) {
-        this.setState({userId : userId});
-        Cookie.save('userId', userId);
+                        console.log(userId)
+        this.setState({userId : userId.guid});
+        this.setState({organisation : userId.user.organisation});
+        Cookie.save('userId', userId.guid);
+        Cookie.save('organisation', userId.user.organisation);
         this.setRoute('Rooms');
     },
     doLogout: function(event) {
@@ -310,7 +318,9 @@ var App = React.createClass({
             if(rep.error){
                 that.setState({error : rep.error.message || rep.error});
             } else {
+
                 Cookie.remove('userId');            
+                Cookie.remove('organisation');            
                 that.setState({userId: false});
                 that.setRoute("Login");
             }
@@ -344,13 +354,14 @@ var App = React.createClass({
         }
         else
         {
-
+            //console.log(this.state.organisation)
             return (
                 <div className="envio-logged main-content" id="wrapped">                
                     <Home selectedRoute={this.state.selectedRoute}
                         doLogout={this.doLogout} 
                         doLogin={this.doLogin}
-                        setRoute={this.setRoute}/>
+                        setRoute={this.setRoute}
+                        Organisation={this.state.organisation}/>
                     <ErrorModal content={this.state.error} title="logout"/>
                 </div>
             );

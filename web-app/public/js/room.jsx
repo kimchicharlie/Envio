@@ -78,7 +78,7 @@ Rooms = React.createClass({
       changeToRoomList: function(){
         react = this;
       HttpPost('/getRooms', {
-      'organisation': 'Envio',// a changer avec les info users            
+      'organisation': this.props.Organisation,// a changer avec les info users            
     }, function(rep) {         
       rep = jQuery.parseJSON(rep);
       if (rep.error === null){
@@ -99,7 +99,7 @@ Rooms = React.createClass({
     componentDidMount: function() {
     react = this;
       HttpPost('/getRooms', {
-      'organisation': 'Envio',// a changer avec les info users            
+      'organisation': this.props.Organisation,// a changer avec les info users            
     }, function(rep) {         
       rep = jQuery.parseJSON(rep);
       if (rep.error === null){
@@ -116,7 +116,7 @@ Rooms = React.createClass({
           var creatbutton = <button className="button-medium-cl btn btn-success" onClick={this.changeToCreat}><i className="fa fa-plus-square" aria-hidden="true"></i> Créer salle</button>;
           if (this.state.creat !== null) 
           {
-              cat = <CreateRoom changeToRoomList={this.changeToRoomList}/>;
+              cat = <CreateRoom Organisation={this.props.Organisation} changeToRoomList={this.changeToRoomList}/>;
               creatbutton = null;
           }                  
           if(this.state.modif !== null )
@@ -301,7 +301,7 @@ CreateRoom = React.createClass({
         var volume = ReactDOM.findDOMNode(this.refs.volume).value;
         react = this;
         HttpPost('/createRoom', {
-            'organisation': 'Envio',
+            'organisation': this.props.Organisation,
             'name': name,
             'volume': volume,
             

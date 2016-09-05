@@ -2,12 +2,53 @@ var async = require("async");
 var request = require('request');
 var utils = require('../utils');
 var config = require('../config').config;
-var http = require('http')
+var http = require('http');
+var five = require("johnny-five"),board, photoresistor;
 var apiUrl = config.apiAddress;
 var simulatorUrl = config.simulatorAddress;
 var roomID = config.roomID;
 var saveRoom = null;
 var modeApplied = false;
+var motor;
+
+board = new five.Board();
+
+board.on("ready", function() {
+
+  // Create a new `photoresistor` hardware instance.
+  photoresistor = new five.Sensor({
+    pin: "A2",
+    freq: 5000
+  });
+
+    board.repl.inject({
+    pot: photoresistor,
+    motor: motor
+  });
+
+  photoresistor.on("data", function() {
+    var lux = (2500/(this.value * (5/1024))-500)/10;
+    CAPTORS[0].value = lux
+    console.log("lux = " + lux)
+  });
+
+  /*
+      Motor A
+        pwm: 3
+        dir: 12
+   */
+
+
+  motor = new five.Motor({
+    pins: {
+      pwm: 3,//gris , jaune, 2
+      dir: 12 //blanc, bleu, 1 
+    },
+    invertPWM: true
+  });
+
+});
+
 
 var CAPTORS = [
     {
@@ -40,7 +81,9 @@ var getRoom = function(cb) {
             json: objectToSend
         }, function (error, response, body) {
             if (!response) {
+
                 result.error = "Can't reach Envio API";
+
                 cb(result);
             } else {
                 result.room = body.room;

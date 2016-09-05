@@ -53,7 +53,7 @@ Planning = React.createClass({
       componentDidMount: function() {
         react = this;
         HttpPost('/getModes', {
-               'organisation': 'Envio',// a changer avec les info users            
+               'organisation': this.props.Organisation,// a changer avec les info users            
                 }, function(rep) {         
                 rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
@@ -74,7 +74,7 @@ Planning = React.createClass({
       },
       getRooms: function(index){
                 HttpPost('/getRooms', {
-                'organisation': 'Envio',// a changer avec les info users            
+                'organisation': this.props.Organisation,// a changer avec les info users            
                 }, function(rep) {         
                 rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
@@ -119,7 +119,7 @@ Planning = React.createClass({
                 end = new Date((event.end._d - delta))
                 var id=findLabelByValue(react.state.ListOfModes, event.title, true)
                 HttpPost('/modifyEvent', {
-                  organisation : "Envio", //a changer plus tard
+                  organisation : this.props.Organisation, //a changer plus tard
                   roomID : react.state.selectedRoom,
                   modeID : id,
                   eventName: react.state.start.title,
@@ -147,7 +147,7 @@ Planning = React.createClass({
                 end = new Date((event.end._d - delta))
                 var id=findLabelByValue(react.state.ListOfModes, event.title, true)
                 HttpPost('/modifyEvent', {
-                  organisation : "Envio", //a changer plus tard
+                  organisation : this.props.Organisation, //a changer plus tard
                   roomID : react.state.selectedRoom,
                   modeID : id,
                   eventName: react.state.start.title,
@@ -184,7 +184,7 @@ Planning = React.createClass({
         trueDateEnd = new Date(this.state.end._d).toISOString();
         var label= findLabelByValue(this.state.ListOfModes, val);
         HttpPost('/createEvent', {
-          organisation : "Envio", //a changer plus tard
+          organisation : this.props.Organisation, //a changer plus tard
           roomID : this.state.selectedRoom,
           modeID : val,
           eventName: label,
@@ -206,7 +206,7 @@ Planning = React.createClass({
         react=this;
         var label= findLabelByValue(react.state.ListOfModes, val);
         HttpPost('/modifyEvent', {
-          organisation : "Envio", //a changer plus tard
+          organisation : this.props.Organisation, //a changer plus tard
           roomID : this.state.selectedRoom,
           modeID : val,
           eventName: this.state.start.title,
@@ -230,7 +230,7 @@ Planning = React.createClass({
       deleteEvent: function() {
         react=this
         HttpPost('/deleteEvent', {
-          organisation : "Envio", //a changer plus tard
+          organisation : this.props.Organisation, //a changer plus tard
           roomID : this.state.selectedRoom,
           eventName: this.state.start.title,
           dateBegin : this.state.start.start._d,

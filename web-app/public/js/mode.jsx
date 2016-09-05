@@ -78,7 +78,7 @@ Modes = React.createClass({
       changeToModeList: function(){
       	react = this;
 		  HttpPost('/getModes', {
-			'organisation': 'Envio',// a changer avec les info users            
+			'organisation': this.props.Organisation,// a changer avec les info users            
 		}, function(rep) {         
 			rep = jQuery.parseJSON(rep);
 			if (rep.error == null){
@@ -97,9 +97,10 @@ Modes = React.createClass({
 		});          
       },  
 	  componentDidMount: function() {
+		console.log(this.props.Organisation)
 		react = this;
 		  HttpPost('/getModes', {
-			'organisation': 'Envio',// a changer avec les info users            
+			'organisation': this.props.Organisation,            
 		}, function(rep) {         
 			rep = jQuery.parseJSON(rep);
 			if (rep.error === null){
@@ -116,7 +117,7 @@ Modes = React.createClass({
           var createButton = <button className="button-medium-cl btn btn-success" onClick={this.changeToCreate}><i className="fa fa-plus-square" aria-hidden="true"></i> Créer Mode</button>;
           if (this.state.creat !== null) 
           {
-              cat = <CreateMode changeToModeList={this.changeToModeList}/>;
+              cat = <CreateMode Organisation={this.props.Organisation} changeToModeList={this.changeToModeList}/>;
               createButton = null;
           }                  
           if(this.state.modif !== null )
@@ -227,7 +228,7 @@ CreateMode = React.createClass({
 		var temperature = ReactDOM.findDOMNode(this.refs.temperature).value
 		react = this;
 		HttpPost('/createMode', {
-			'organisation': 'Envio',
+			'organisation': this.props.Organisation,
 			'name': name,
 			'light': light,
 			'opacity': 0,
