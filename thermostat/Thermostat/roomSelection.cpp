@@ -8,6 +8,7 @@ RoomSelection::RoomSelection(QWidget *parent, int index, QString pin) :
     _pin = pin;
     _room = index;
     ui->setupUi(this);
+    ui->errorLbl->hide();
 }
 
 RoomSelection::~RoomSelection()
@@ -21,11 +22,13 @@ void RoomSelection::on_buttonBox_accepted()
         if (ui->lineEdit->text().compare(_pin) == 0)
             emit changeRoom(_room);
         else {
+            ui->errorLbl->show();
             ui->errorLbl->setText("<font color='red'>Mauvais code.</font>");
             this->show();
         }
     }
     else {
+        ui->errorLbl->show();
         ui->errorLbl->setText("<font color='red'>Vous devez entrer un code.</font>");
         this->show();
     }

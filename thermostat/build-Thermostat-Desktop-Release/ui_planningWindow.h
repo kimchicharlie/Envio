@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'planningWindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -30,14 +30,14 @@ public:
     QWidget *centralwidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
+    QPushButton *AddModeButton;
+    QTableView *tableView;
+    QLabel *DateLabel;
     QHBoxLayout *horizontalLayout;
     QPushButton *AccueilBtn;
-    QLabel *DateLabel;
-    QPushButton *AddModeButton;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *PrevButton;
     QPushButton *NextButton;
-    QTableView *tableView;
 
     void setupUi(QMainWindow *PlanningWindow)
     {
@@ -49,50 +49,200 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(0, 0, 322, 241));
+        gridLayoutWidget->setGeometry(QRect(0, 0, 321, 245));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
+        AddModeButton = new QPushButton(gridLayoutWidget);
+        AddModeButton->setObjectName(QStringLiteral("AddModeButton"));
+        AddModeButton->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
+
+        gridLayout->addWidget(AddModeButton, 6, 0, 1, 1, Qt::AlignVCenter);
+
+        tableView = new QTableView(gridLayoutWidget);
+        tableView->setObjectName(QStringLiteral("tableView"));
+        tableView->setStyleSheet(QLatin1String("QTableView {\n"
+"	background: #f2f2f2;\n"
+"	font-family: \"Montserrat\", sans-serif;\n"
+"    show-decoration-selected: 1; \n"
+"}\n"
+"\n"
+"QTableView::item:alternate {\n"
+"    background: #EEEEEE;\n"
+"}\n"
+"\n"
+"QTableView::item:selected {\n"
+"    border: 1px solid #6a6ea9;\n"
+"}\n"
+"\n"
+"QTableView::item:selected:!active {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\n"
+"                                stop: 0 #ABAFE5, stop: 1 #8588B2);\n"
+"}\n"
+"\n"
+"QTableView::item:selected:active {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\n"
+"                                stop: 0 #4cae4c, stop: 1 #265726);\n"
+"}\n"
+"\n"
+"QTableView::item:hover {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                stop: 0 #5cb85c, stop: 1 #449d44);\n"
+"}\n"
+"\n"
+"/*\n"
+"QTableView\n"
+"{\n"
+"font-family: \"Montserrat\", sans-serif;\n"
+"background: #f2f2f2;\n"
+"box-sizing: border-box;\n"
+"font-size: 12px;\n"
+"}\n"
+"\n"
+"QTableView::item\n"
+"{\n"
+"    p"
+                        "adding-left:10px;\n"
+"    width:80px;\n"
+"    height:20px;\n"
+"    color: #5a5a5a;\n"
+"    border-bottom :1px solid #f0f0f0;\n"
+"	font-size: 12px;\n"
+"}\n"
+"*/"));
+
+        gridLayout->addWidget(tableView, 5, 0, 1, 1);
+
+        DateLabel = new QLabel(gridLayoutWidget);
+        DateLabel->setObjectName(QStringLiteral("DateLabel"));
+        DateLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"border: 0;\n"
+"padding: 5px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;\n"
+"\n"
+""));
+        DateLabel->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(DateLabel, 4, 0, 1, 1);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         AccueilBtn = new QPushButton(gridLayoutWidget);
         AccueilBtn->setObjectName(QStringLiteral("AccueilBtn"));
+        AccueilBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayout->addWidget(AccueilBtn);
 
 
         gridLayout->addLayout(horizontalLayout, 0, 0, 1, 1);
 
-        DateLabel = new QLabel(gridLayoutWidget);
-        DateLabel->setObjectName(QStringLiteral("DateLabel"));
-        DateLabel->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(DateLabel, 4, 0, 1, 1);
-
-        AddModeButton = new QPushButton(gridLayoutWidget);
-        AddModeButton->setObjectName(QStringLiteral("AddModeButton"));
-
-        gridLayout->addWidget(AddModeButton, 6, 0, 1, 1);
-
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         PrevButton = new QPushButton(gridLayoutWidget);
         PrevButton->setObjectName(QStringLiteral("PrevButton"));
+        PrevButton->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayout_2->addWidget(PrevButton);
 
         NextButton = new QPushButton(gridLayoutWidget);
         NextButton->setObjectName(QStringLiteral("NextButton"));
+        NextButton->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayout_2->addWidget(NextButton);
 
 
         gridLayout->addLayout(horizontalLayout_2, 3, 0, 1, 1);
-
-        tableView = new QTableView(gridLayoutWidget);
-        tableView->setObjectName(QStringLiteral("tableView"));
-
-        gridLayout->addWidget(tableView, 5, 0, 1, 1);
 
         PlanningWindow->setCentralWidget(centralwidget);
 
@@ -104,9 +254,9 @@ public:
     void retranslateUi(QMainWindow *PlanningWindow)
     {
         PlanningWindow->setWindowTitle(QApplication::translate("PlanningWindow", "Envio - Thermostat", 0));
-        AccueilBtn->setText(QApplication::translate("PlanningWindow", "Accueil", 0));
-        DateLabel->setText(QApplication::translate("PlanningWindow", "TextLabel", 0));
         AddModeButton->setText(QApplication::translate("PlanningWindow", "Ajouter Mode", 0));
+        DateLabel->setText(QApplication::translate("PlanningWindow", "TextLabel", 0));
+        AccueilBtn->setText(QApplication::translate("PlanningWindow", "Accueil", 0));
         PrevButton->setText(QApplication::translate("PlanningWindow", "Pr\303\251c\303\251dent", 0));
         NextButton->setText(QApplication::translate("PlanningWindow", "Suivant", 0));
     } // retranslateUi

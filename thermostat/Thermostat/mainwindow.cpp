@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    this->setStyleSheet("./style/thermostatStyleSheet.");
 
     // get the configured id and host info
     QSettings settings("config.ini", QSettings::IniFormat);
@@ -27,9 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QHttpPart textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
-/*    _idRoom = "57793cf87d1740e874107210";
-    textPart.setBody("57793cf87d1740e874107210");
-*/
+
     // get the configured id
     QByteArray tmp2;
     tmp2.append(_idRoom);
@@ -59,11 +56,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QLabel *tmp = this->ui->opacTxtLabel;
     tmp->hide();
 
+    // label style
+    _opacLbl->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #6a1b9a;font-size: 12px;");
+
     _tempBtn = this->ui->TempEditButton;
     _lumBtn = this->ui->LumEditButton;
     _opacBtn = this->ui->OpacEditButton;
     _opacBtn->hide();
 
+    // buttons style
+    _opacBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #6a1b9a; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
     this->_date = new QDateTime();
     this->updateVals();
 
@@ -280,7 +282,8 @@ void    MainWindow::roomValFromAPI() {
 void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
     _planWin->setRoomId(_curRoom->getID());
-    ui->roomLabel->setText("- Salle: " + _curRoom->getName());
+//    ui->roomLabel->setText(" Salle: " + _curRoom->getName());
+    ui->roomLabel->setText(" Salle: <font color=#007999>" + _curRoom->getName() + "</font>");
     roomValFromAPI();
 }
 
@@ -433,17 +436,18 @@ void    MainWindow::parseRep() {
         // if there is no room configure, configure it with the API reply
         if (_curRoom == Q_NULLPTR) {
             if (m.find("name") == m.cend() || m.find("_id") == m.cend()) {
-                ui->roomLabel->setText("Pas de salle");
+                ui->roomLabel->setText("<font color='red'>Pas de salle</font>");
                 return;
             }
             std::string name = m.at("name");
             std::string id = m.at("_id");
             _curRoom = new RoomState(QString::fromStdString(name), QString::fromStdString(id));
             _planWin->setRoomId(_curRoom->getID());
-            ui->roomLabel->setText("- Salle: " + _curRoom->getName());
+            //    ui->roomLabel->setText(" Salle: " + _curRoom->getName());
+                ui->roomLabel->setText(" Salle: <font color=#007999>" + _curRoom->getName() + "</font>");
         }
         if (m.find("temperature") == m.cend() || m.find("light") == m.cend()) {
-            ui->roomLabel->setText("Pas de salle");
+            ui->roomLabel->setText("<font color='red'>Pas de salle</font>");
             this->on_ConfigEditButton_clicked();
             return;
         }
