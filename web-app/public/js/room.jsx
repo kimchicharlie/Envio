@@ -264,19 +264,19 @@ ModifRoom = React.createClass({
                 <input className="input-medium" ref="volume" type="number" placeholder="Volume" min="0"/>
               </div>
             </div>
-            <button className="teal-b btn button-medium" type="submit"><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
+            <button className="btn button-medium" type="submit"><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
           </form>
           <div className="input-container">
             <input className="input-medium" ref="temperature" type="number" placeholder={this.state.room ? this.state.room.temperature : 5} min="15" max="40"/>
           </div>
           <div>
-            <button className="teal-b btn button-medium" onClick={this.ChangeTemp}><i className="fa fa-sun-o" aria-hidden="true"></i> Changer la température</button><br/>
+            <button className="btn button-medium" onClick={this.ChangeTemp}><i className="fa fa-sun-o" aria-hidden="true"></i> Changer la température</button><br/>
           </div>
           <div className="input-container">
             <input className="input-medium" ref="light" type="number" placeholder={this.state.room ? this.state.room.light : 5} min="0" max="100"/>
           </div>
           <div>
-            <button className="teal-b btn button-medium" onClick={this.ChangeLight}><i className="fa fa-lightbulb-o" aria-hidden="true"></i> Changer la luminosité</button><br/>        
+            <button className="btn button-medium" onClick={this.ChangeLight}><i className="fa fa-lightbulb-o" aria-hidden="true"></i> Changer la luminosité</button><br/>        
           </div>
           {IA}
           {Captor}

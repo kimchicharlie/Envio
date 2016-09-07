@@ -31,6 +31,31 @@
       <layout class="QHBoxLayout" name="horizontalLayoutBtn1">
        <item>
         <widget class="QPushButton" name="AccueilBtn">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>Accueil</string>
          </property>
@@ -38,6 +63,31 @@
        </item>
        <item>
         <widget class="QPushButton" name="TempEditBtn">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	background: #D9534F;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+	outline: 0;
+	border: 0;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	background: #b71c1c;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+	outline: 0;
+	border: 0;
+}</string>
+         </property>
          <property name="text">
           <string>Température</string>
          </property>
@@ -45,6 +95,31 @@
        </item>
        <item>
         <widget class="QPushButton" name="LumEditBtn">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #286090;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #245680;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>Lumières</string>
          </property>
@@ -54,6 +129,18 @@
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="LumFixLabel">
+       <property name="styleSheet">
+        <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+       </property>
        <property name="text">
         <string>Opacité</string>
        </property>
@@ -88,6 +175,31 @@
       <layout class="QHBoxLayout" name="horizontalLayoutBtn2">
        <item>
         <widget class="QPushButton" name="PlanningEditBtn">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>Planning</string>
          </property>
@@ -95,6 +207,31 @@
        </item>
        <item>
         <widget class="QPushButton" name="ConfigEditBtn">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>Configuration</string>
          </property>

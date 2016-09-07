@@ -19,11 +19,16 @@
   <widget class="QLabel" name="TitleLbl">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>90</x>
      <y>10</y>
-     <width>111</width>
+     <width>121</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-size: 12px;
+</string>
    </property>
    <property name="text">
     <string>Ajouter Evènement</string>
@@ -37,6 +42,11 @@
      <width>301</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-size: 12px;
+</string>
    </property>
    <property name="text">
     <string>TextLabel</string>
@@ -99,6 +109,11 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-size: 12px;
+</string>
+   </property>
    <property name="text">
     <string>Heure de début</string>
    </property>
@@ -112,6 +127,11 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-size: 12px;
+</string>
+   </property>
    <property name="text">
     <string>Durée</string>
    </property>
@@ -120,10 +140,35 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>200</y>
+     <y>194</y>
      <width>80</width>
-     <height>25</height>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
    </property>
    <property name="text">
     <string>Ok</string>
@@ -133,10 +178,35 @@
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>200</y>
+     <y>194</y>
      <width>80</width>
-     <height>25</height>
+     <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
    </property>
    <property name="text">
     <string>Annuler</string>
