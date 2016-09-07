@@ -17,10 +17,10 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>301</width>
-      <height>211</height>
+      <x>0</x>
+      <y>0</y>
+      <width>321</width>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
@@ -28,6 +28,17 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="TempLabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+border: 0;
+padding: 10px;
+padding-top: -15px;
+color: #b71c1c;
+font-size: 16px;
+</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -38,6 +49,18 @@
        </item>
        <item>
         <widget class="QLabel" name="LumLabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+padding-top: -15px;
+color: #0288d1;
+font-size: 16px;
+</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -48,6 +71,18 @@
        </item>
        <item>
         <widget class="QLabel" name="OpacLabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -62,6 +97,31 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="TempEditButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	background: #D9534F;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+	outline: 0;
+	border: 0;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	background: #b71c1c;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+	outline: 0;
+	border: 0;
+}</string>
+         </property>
          <property name="text">
           <string>Température</string>
          </property>
@@ -69,6 +129,31 @@
        </item>
        <item>
         <widget class="QPushButton" name="LumEditButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #0288d1;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #2e6da4;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>Luminosité</string>
          </property>
@@ -87,6 +172,18 @@
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QLabel" name="tempTxtlabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>Température</string>
          </property>
@@ -97,6 +194,18 @@
        </item>
        <item>
         <widget class="QLabel" name="LumTxtLabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>Luminosité</string>
          </property>
@@ -107,6 +216,18 @@
        </item>
        <item>
         <widget class="QLabel" name="opacTxtLabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>Opacité</string>
          </property>
@@ -121,6 +242,31 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QPushButton" name="PlanningEditButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>Planning</string>
          </property>
@@ -128,6 +274,31 @@
        </item>
        <item>
         <widget class="QPushButton" name="ConfigEditButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>Configuration</string>
          </property>
@@ -145,6 +316,17 @@
            <height>50</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+border: 0;
+padding: 5px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -152,6 +334,17 @@
        </item>
        <item>
         <widget class="QLabel" name="roomLabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>

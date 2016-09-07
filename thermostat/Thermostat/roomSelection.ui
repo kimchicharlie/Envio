@@ -22,6 +22,31 @@
      <height>32</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+   </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
@@ -37,6 +62,16 @@
      <width>281</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;</string>
    </property>
    <property name="text">
     <string>Entrer le code de la salle</string>
@@ -54,6 +89,16 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;</string>
+   </property>
    <property name="maxLength">
     <number>8</number>
    </property>
@@ -70,8 +115,19 @@
      <x>24</x>
      <y>80</y>
      <width>271</width>
-     <height>20</height>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #b71c1c;
+font-size: 12px;
+</string>
    </property>
    <property name="text">
     <string/>

@@ -110,6 +110,7 @@ void ConfigWindow::changeRoom(int ind) {
     _modal = NULL;
     if (ind != -1) {
         emit changeCurRoom((RoomState*)(_rooms->at(ind)));
+        ui->msgLabel->show();
         ui->msgLabel->setText("Salle: " + _rooms->at(ind)->getName());
     }
     _model->reset();
@@ -119,6 +120,7 @@ void ConfigWindow::changeRoom(int ind) {
 
 void    ConfigWindow::show() {
     QMainWindow::show();
+    ui->msgLabel->hide();
     ui->msgLabel->setText("");
     _model->reset();
     _rooms->clear();

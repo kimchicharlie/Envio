@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'temperatureWindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -59,11 +59,57 @@ public:
         horizontalLayoutBtn1->setObjectName(QStringLiteral("horizontalLayoutBtn1"));
         AccueilBtn = new QPushButton(gridLayoutWidget);
         AccueilBtn->setObjectName(QStringLiteral("AccueilBtn"));
+        AccueilBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayoutBtn1->addWidget(AccueilBtn);
 
         LumEditBtn = new QPushButton(gridLayoutWidget);
         LumEditBtn->setObjectName(QStringLiteral("LumEditBtn"));
+        LumEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #286090;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #245680;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayoutBtn1->addWidget(LumEditBtn);
 
@@ -77,11 +123,76 @@ public:
 
         TempFixLabel = new QLabel(gridLayoutWidget);
         TempFixLabel->setObjectName(QStringLiteral("TempFixLabel"));
+        TempFixLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;"));
 
         gridLayout->addWidget(TempFixLabel, 2, 1, 1, 1);
 
         TempHorizontalSlider = new QSlider(gridLayoutWidget);
         TempHorizontalSlider->setObjectName(QStringLiteral("TempHorizontalSlider"));
+        TempHorizontalSlider->setStyleSheet(QLatin1String("QSlider::groove:horizontal {\n"
+"border: 1px solid #bbb;\n"
+"background: white;\n"
+"height: 10px;\n"
+"border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal {\n"
+"background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,\n"
+"    stop: 0 #FF8F20, stop: 1 #FF2020);\n"
+"background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,\n"
+"    stop: 0 #FF8F20, stop: 1 #FF2020);\n"
+"border: 1px solid #777;\n"
+"height: 10px;\n"
+"border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal {\n"
+"background: #fff;\n"
+"border: 1px solid #777;\n"
+"height: 10px;\n"
+"border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+"    stop:0 #eee, stop:1 #ccc);\n"
+"border: 1px solid #777;\n"
+"width: 13px;\n"
+"margin-top: -2px;\n"
+"margin-bottom: -2px;\n"
+"border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:hover {\n"
+"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+"    stop:0 #fff, stop:1 #ddd);\n"
+"border: 1px solid #444;\n"
+"border-radius:"
+                        " 4px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal:disabled {\n"
+"background: #bbb;\n"
+"border-color: #999;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal:disabled {\n"
+"background: #eee;\n"
+"border-color: #999;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal:disabled {\n"
+"background: #eee;\n"
+"border: 1px solid #aaa;\n"
+"border-radius: 4px;\n"
+"}"));
         TempHorizontalSlider->setMinimum(160);
         TempHorizontalSlider->setMaximum(400);
         TempHorizontalSlider->setSingleStep(5);
@@ -95,11 +206,57 @@ public:
         horizontalLayoutBtn2->setObjectName(QStringLiteral("horizontalLayoutBtn2"));
         PlanningEditBtn = new QPushButton(gridLayoutWidget);
         PlanningEditBtn->setObjectName(QStringLiteral("PlanningEditBtn"));
+        PlanningEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayoutBtn2->addWidget(PlanningEditBtn);
 
         ConfigEditBtn = new QPushButton(gridLayoutWidget);
         ConfigEditBtn->setObjectName(QStringLiteral("ConfigEditBtn"));
+        ConfigEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayoutBtn2->addWidget(ConfigEditBtn);
 
@@ -108,6 +265,14 @@ public:
 
         TempLabel = new QLabel(gridLayoutWidget);
         TempLabel->setObjectName(QStringLiteral("TempLabel"));
+        TempLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #b71c1c;\n"
+"font-size: 12px;"));
 
         gridLayout->addWidget(TempLabel, 3, 1, 1, 1);
 

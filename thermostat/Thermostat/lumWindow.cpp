@@ -11,6 +11,7 @@ LumWindow::LumWindow(QWidget *parent) :
     _slider = ui->LumHorizontalSlider;
     _label = ui->LumLabel;
     _label->setText(QString::number(_slider->value()) + "%");
+
 }
 
 LumWindow::~LumWindow()

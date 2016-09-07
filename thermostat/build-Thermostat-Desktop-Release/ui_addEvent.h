@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'addEvent.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -45,10 +45,16 @@ public:
         AddEvent->resize(320, 240);
         TitleLbl = new QLabel(AddEvent);
         TitleLbl->setObjectName(QStringLiteral("TitleLbl"));
-        TitleLbl->setGeometry(QRect(100, 10, 111, 31));
+        TitleLbl->setGeometry(QRect(90, 10, 121, 31));
+        TitleLbl->setStyleSheet(QLatin1String("	font-family:\"Montserrat\", sans-serif;\n"
+"	font-size: 12px;\n"
+""));
         errorLbl = new QLabel(AddEvent);
         errorLbl->setObjectName(QStringLiteral("errorLbl"));
         errorLbl->setGeometry(QRect(10, 40, 301, 31));
+        errorLbl->setStyleSheet(QLatin1String("	font-family:\"Montserrat\", sans-serif;\n"
+"	font-size: 12px;\n"
+""));
         hourStartSpin = new QSpinBox(AddEvent);
         hourStartSpin->setObjectName(QStringLiteral("hourStartSpin"));
         hourStartSpin->setGeometry(QRect(140, 100, 51, 31));
@@ -67,15 +73,67 @@ public:
         startHourLbl = new QLabel(AddEvent);
         startHourLbl->setObjectName(QStringLiteral("startHourLbl"));
         startHourLbl->setGeometry(QRect(10, 100, 101, 31));
+        startHourLbl->setStyleSheet(QLatin1String("	font-family:\"Montserrat\", sans-serif;\n"
+"	font-size: 12px;\n"
+""));
         durationLbl = new QLabel(AddEvent);
         durationLbl->setObjectName(QStringLiteral("durationLbl"));
         durationLbl->setGeometry(QRect(10, 150, 91, 31));
+        durationLbl->setStyleSheet(QLatin1String("	font-family:\"Montserrat\", sans-serif;\n"
+"	font-size: 12px;\n"
+""));
         validateBtn = new QPushButton(AddEvent);
         validateBtn->setObjectName(QStringLiteral("validateBtn"));
-        validateBtn->setGeometry(QRect(140, 200, 80, 25));
+        validateBtn->setGeometry(QRect(140, 194, 80, 31));
+        validateBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
         cancelBtn = new QPushButton(AddEvent);
         cancelBtn->setObjectName(QStringLiteral("cancelBtn"));
-        cancelBtn->setGeometry(QRect(230, 200, 80, 25));
+        cancelBtn->setGeometry(QRect(230, 194, 80, 31));
+        cancelBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
         label = new QLabel(AddEvent);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(200, 90, 20, 41));

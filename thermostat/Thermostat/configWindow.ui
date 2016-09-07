@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>311</width>
-      <height>231</height>
+      <width>321</width>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -30,6 +30,31 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QPushButton" name="AccueilBtn">
+           <property name="styleSheet">
+            <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+           </property>
            <property name="text">
             <string>Accueil</string>
            </property>
@@ -40,12 +65,88 @@
       </layout>
      </item>
      <item row="6" column="0">
-      <widget class="QListView" name="listView"/>
+      <widget class="QListView" name="listView">
+       <property name="styleSheet">
+        <string notr="true">QListView {
+	background: #f2f2f2;
+	font-family: &quot;Montserrat&quot;, sans-serif;
+    show-decoration-selected: 1; 
+}
+
+QListView::item:alternate {
+    background: #EEEEEE;
+}
+
+QListView::item:selected {
+    border: 1px solid #6a6ea9;
+}
+
+QListView::item:selected:!active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #ABAFE5, stop: 1 #8588B2);
+}
+
+QListView::item:selected:active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #4cae4c, stop: 1 #265726);
+}
+
+QListView::item:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #5cb85c, stop: 1 #449d44);
+}
+
+/*
+QListView
+{
+font-family: &quot;Montserrat&quot;, sans-serif;
+background: #f2f2f2;
+box-sizing: border-box;
+font-size: 12px;
+}
+
+QListView::item
+{
+    padding-left:10px;
+    width:80px;
+    height:20px;
+    color: #5a5a5a;
+    border-bottom :1px solid #f0f0f0;
+	font-size: 12px;
+}
+*/</string>
+       </property>
+      </widget>
      </item>
      <item row="3" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QPushButton" name="TempDispButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>°F</string>
          </property>
@@ -53,6 +154,31 @@
        </item>
        <item>
         <widget class="QPushButton" name="HourDispButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 10px;
+	color: #FFFFFF;
+	font-size: 12px;
+}</string>
+         </property>
          <property name="text">
           <string>12h</string>
          </property>
@@ -62,6 +188,17 @@
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="msgLabel">
+       <property name="styleSheet">
+        <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 5px;
+color: #4d4d4d;
+font-size: 12px;
+</string>
+       </property>
        <property name="text">
         <string>TextLabel</string>
        </property>

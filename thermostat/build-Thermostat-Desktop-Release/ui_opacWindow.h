@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'opacWindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -59,16 +59,85 @@ public:
         horizontalLayoutBtn1->setObjectName(QStringLiteral("horizontalLayoutBtn1"));
         AccueilBtn = new QPushButton(gridLayoutWidget);
         AccueilBtn->setObjectName(QStringLiteral("AccueilBtn"));
+        AccueilBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayoutBtn1->addWidget(AccueilBtn);
 
         TempEditBtn = new QPushButton(gridLayoutWidget);
         TempEditBtn->setObjectName(QStringLiteral("TempEditBtn"));
+        TempEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	background: #D9534F;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"	outline: 0;\n"
+"	border: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	background: #b71c1c;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"	outline: 0;\n"
+"	border: 0;\n"
+"}"));
 
         horizontalLayoutBtn1->addWidget(TempEditBtn);
 
         LumEditBtn = new QPushButton(gridLayoutWidget);
         LumEditBtn->setObjectName(QStringLiteral("LumEditBtn"));
+        LumEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #286090;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #245680;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayoutBtn1->addWidget(LumEditBtn);
 
@@ -77,6 +146,16 @@ public:
 
         LumFixLabel = new QLabel(gridLayoutWidget);
         LumFixLabel->setObjectName(QStringLiteral("LumFixLabel"));
+        LumFixLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;\n"
+"\n"
+""));
 
         gridLayout->addWidget(LumFixLabel, 2, 1, 1, 1);
 
@@ -96,11 +175,57 @@ public:
         horizontalLayoutBtn2->setObjectName(QStringLiteral("horizontalLayoutBtn2"));
         PlanningEditBtn = new QPushButton(gridLayoutWidget);
         PlanningEditBtn->setObjectName(QStringLiteral("PlanningEditBtn"));
+        PlanningEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayoutBtn2->addWidget(PlanningEditBtn);
 
         ConfigEditBtn = new QPushButton(gridLayoutWidget);
         ConfigEditBtn->setObjectName(QStringLiteral("ConfigEditBtn"));
+        ConfigEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayoutBtn2->addWidget(ConfigEditBtn);
 

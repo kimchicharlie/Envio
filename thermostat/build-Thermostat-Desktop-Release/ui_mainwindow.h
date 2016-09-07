@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -57,7 +57,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 10, 301, 211));
+        gridLayoutWidget->setGeometry(QRect(0, 0, 321, 241));
         gridLayout_2 = new QGridLayout(gridLayoutWidget);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -68,18 +68,47 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         TempLabel = new QLabel(gridLayoutWidget);
         TempLabel->setObjectName(QStringLiteral("TempLabel"));
+        TempLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"padding-top: -15px;\n"
+"color: #b71c1c;\n"
+"font-size: 16px;\n"
+""));
         TempLabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_2->addWidget(TempLabel);
 
         LumLabel = new QLabel(gridLayoutWidget);
         LumLabel->setObjectName(QStringLiteral("LumLabel"));
+        LumLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"padding-top: -15px;\n"
+"color: #0288d1;\n"
+"font-size: 16px;\n"
+""));
         LumLabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_2->addWidget(LumLabel);
 
         OpacLabel = new QLabel(gridLayoutWidget);
         OpacLabel->setObjectName(QStringLiteral("OpacLabel"));
+        OpacLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;\n"
+"\n"
+""));
         OpacLabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_2->addWidget(OpacLabel);
@@ -92,11 +121,57 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         TempEditButton = new QPushButton(gridLayoutWidget);
         TempEditButton->setObjectName(QStringLiteral("TempEditButton"));
+        TempEditButton->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	background: #D9534F;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"	outline: 0;\n"
+"	border: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	background: #b71c1c;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"	outline: 0;\n"
+"	border: 0;\n"
+"}"));
 
         horizontalLayout->addWidget(TempEditButton);
 
         LumEditButton = new QPushButton(gridLayoutWidget);
         LumEditButton->setObjectName(QStringLiteral("LumEditButton"));
+        LumEditButton->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #0288d1;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #2e6da4;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayout->addWidget(LumEditButton);
 
@@ -113,18 +188,48 @@ public:
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         tempTxtlabel = new QLabel(gridLayoutWidget);
         tempTxtlabel->setObjectName(QStringLiteral("tempTxtlabel"));
+        tempTxtlabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;\n"
+"\n"
+""));
         tempTxtlabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_4->addWidget(tempTxtlabel);
 
         LumTxtLabel = new QLabel(gridLayoutWidget);
         LumTxtLabel->setObjectName(QStringLiteral("LumTxtLabel"));
+        LumTxtLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;\n"
+"\n"
+""));
         LumTxtLabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_4->addWidget(LumTxtLabel);
 
         opacTxtLabel = new QLabel(gridLayoutWidget);
         opacTxtLabel->setObjectName(QStringLiteral("opacTxtLabel"));
+        opacTxtLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;\n"
+"\n"
+""));
         opacTxtLabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_4->addWidget(opacTxtLabel);
@@ -137,11 +242,57 @@ public:
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         PlanningEditButton = new QPushButton(gridLayoutWidget);
         PlanningEditButton->setObjectName(QStringLiteral("PlanningEditButton"));
+        PlanningEditButton->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayout_3->addWidget(PlanningEditButton);
 
         ConfigEditButton = new QPushButton(gridLayoutWidget);
         ConfigEditButton->setObjectName(QStringLiteral("ConfigEditButton"));
+        ConfigEditButton->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #5cb85c;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	font-family:\"Montserrat\", sans-serif;\n"
+"	text-transform: uppercase;\n"
+"	outline: 0;\n"
+"	background: #449d44;\n"
+"	border: 0;\n"
+"	padding: 10px;\n"
+"	color: #FFFFFF;\n"
+"	font-size: 12px;\n"
+"}"));
 
         horizontalLayout_3->addWidget(ConfigEditButton);
 
@@ -154,11 +305,29 @@ public:
         DateLabel = new QLabel(gridLayoutWidget);
         DateLabel->setObjectName(QStringLiteral("DateLabel"));
         DateLabel->setMaximumSize(QSize(16777215, 50));
+        DateLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"border: 0;\n"
+"padding: 5px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;\n"
+"\n"
+""));
 
         horizontalLayout_5->addWidget(DateLabel);
 
         roomLabel = new QLabel(gridLayoutWidget);
         roomLabel->setObjectName(QStringLiteral("roomLabel"));
+        roomLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;\n"
+"\n"
+""));
 
         horizontalLayout_5->addWidget(roomLabel);
 
