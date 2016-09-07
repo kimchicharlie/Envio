@@ -10,6 +10,8 @@ var roomID = config.roomID;
 var saveRoom = null;
 var modeApplied = false;
 var motor;
+var LastOpacity = 0;
+
 
 board = new five.Board();
 
@@ -17,7 +19,7 @@ board.on("ready", function() {
 
   // Create a new `photoresistor` hardware instance.
   photoresistor = new five.Sensor({
-    pin: "A2",
+    pin: "A2", //pull up (resistance en haut)
     freq: 5000
   });
 
@@ -28,15 +30,9 @@ board.on("ready", function() {
 
   photoresistor.on("data", function() {
     var lux = (2500/(this.value * (5/1024))-500)/10;
-    CAPTORS[0].value = lux
-    console.log("lux = " + lux)
+    //CAPTORS[0].value = lux
+    //console.log("lux = " + lux)
   });
-
-  /*
-      Motor A
-        pwm: 3
-        dir: 12
-   */
 
 
   motor = new five.Motor({
@@ -232,7 +228,7 @@ var getCaptor = function(cb) {
                 CAPTORS[1].value = captor.lightInSide
             })
         }).on('error', (e) => {
-  console.log(`Can't find captor`);
+     console.log(`Can't find captor`);
 });
 
 }
@@ -244,29 +240,47 @@ var setValues = function (options, cb) {
         'error': null,
         'response': null
     }
-    console.log(options)
-    if (utils.checkProperty(options.opacity) && utils.checkProperty(options.temperature)) {
-        var objectToSend = {
-            "window": options.opacity,
-            "airConditioning": options.temperature
+    if (utils.checkProperty(options.opacity) && utils.checkProperty(options.temperature) && typeof(motor) != "undefined") {
+        console.log("opacity voulu = "+ options.opacity)
+        if(LastOpacity - options.opacity > 0 && LastOpacity != options.opacity){
+            var time = (LastOpacity - options.opacity) * 60
+            console.log("forward de "+ time)
+            motor.forward(255);
+            board.wait(time, function() {
+                  motor.stop();
+                  LastOpacity = options.opacity;
+            }); 
+        }else if (LastOpacity != options.opacity){
+            var time = (LastOpacity - options.opacity) * -60
+            console.log("reverse de "+time)
+            motor.reverse(255);
+            board.wait(time, function() {
+                  motor.stop();
+                  LastOpacity = options.opacity;
+            });
         }
+        // var objectToSend = {
+        //     "window": options.opacity,
+        //     "airConditioning": options.temperature
+        // }
 
-        console.log('Values to send : ', objectToSend);
-        console.log('Trying to reach simulator...');
+        // console.log('Values to send : ', objectToSend);
+        // console.log('Trying to reach simulator...');
 
-        request({
-            url: simulatorUrl,
-            method: "POST",
-            json: objectToSend
-        }, function (error, response, body) {
-            if (!response) {
-                result.error = "Can't reach Simulator";
-                cb(result);
-            } else {
-                result.response = body;
-                cb(result);
-            }
-        })
+        // request({
+        //     url: simulatorUrl,
+        //     method: "POST",
+        //     json: objectToSend
+        //   }, function (error, response, body) {
+        //     if (!response) {
+        //         result.error = "Can't reach Simulator";
+        //         cb(result);
+        //     } else {
+        //         result.response = body;
+        //         cb(result);
+        //     }
+        // })
+
 
     } else {
         result.error = "setValues : Des données sont manquantes";
@@ -609,7 +623,7 @@ var handleChanges = function(cb) {
     var dateNow = new Date();
     var room = null;
     var roomModified = false;
-
+    //console.log(CAPTORS)
     getCaptor();
     getRoom(function (response) {
         if (response.error) {

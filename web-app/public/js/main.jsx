@@ -32,7 +32,7 @@ var Sidemenu = React.createClass({
                     <span>Modes</span>
                 </div>
                 <div className={"link " + (this.props.route == "Simulateur" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Simulateur")}>
-                    <span>Simulateur</span>
+                    <span>Visionneuse</span>
                 </div>
             </nav>
             </div>  
