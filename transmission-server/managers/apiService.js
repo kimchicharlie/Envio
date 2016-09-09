@@ -29,9 +29,9 @@ board.on("ready", function() {
   });
 
   photoresistor.on("data", function() {
-    var lux = (2500/(this.value * (5/1024))-500)/10;
-    //CAPTORS[0].value = lux
-    //console.log("lux = " + lux)
+    var lux = (2500/(this.value * (5/1024))-500);
+    CAPTORS[0].value = lux
+    console.log("lux = " + lux)
   });
 
 
@@ -259,27 +259,27 @@ var setValues = function (options, cb) {
                   LastOpacity = options.opacity;
             });
         }
-        // var objectToSend = {
-        //     "window": options.opacity,
-        //     "airConditioning": options.temperature
-        // }
+        var objectToSend = {
+            "window": options.opacity,
+            "airConditioning": options.temperature
+        }
 
-        // console.log('Values to send : ', objectToSend);
-        // console.log('Trying to reach simulator...');
+        console.log('Values to send : ', objectToSend);
+        console.log('Trying to reach simulator...');
 
-        // request({
-        //     url: simulatorUrl,
-        //     method: "POST",
-        //     json: objectToSend
-        //   }, function (error, response, body) {
-        //     if (!response) {
-        //         result.error = "Can't reach Simulator";
-        //         cb(result);
-        //     } else {
-        //         result.response = body;
-        //         cb(result);
-        //     }
-        // })
+        request({
+            url: simulatorUrl,
+            method: "POST",
+            json: objectToSend
+          }, function (error, response, body) {
+            if (!response) {
+                result.error = "Can't reach Simulator";
+                cb(result);
+            } else {
+                result.response = body;
+                cb(result);
+            }
+        })
 
 
     } else {
@@ -624,7 +624,7 @@ var handleChanges = function(cb) {
     var room = null;
     var roomModified = false;
     //console.log(CAPTORS)
-    getCaptor();
+   // getCaptor();
     getRoom(function (response) {
         if (response.error) {
             result.error = response.error;

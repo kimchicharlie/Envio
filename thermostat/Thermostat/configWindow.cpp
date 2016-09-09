@@ -12,6 +12,9 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
     //get the rooms attach to the thermostat and put them in the list
     _rooms = new QList<RoomState*>();
 
+    QSettings settings("config.ini", QSettings::IniFormat);
+    _organisation = settings.value("organisation","config").toString();
+
     MainWindow *tmp = (MainWindow*)parent;
     _network = new NetConnection(this, *(tmp->getHostName()),
                                  tmp->getHostPort());
@@ -49,7 +52,9 @@ void ConfigWindow::getRoomsFromAPI() {
 
     QHttpPart textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"organisation\""));
-    textPart.setBody("Envio");
+    QByteArray tmp;
+    tmp.append(_organisation);
+    textPart.setBody(tmp);
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
 

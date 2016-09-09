@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tmp->hide();
 
     // label style
-    _opacLbl->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #6a1b9a;font-size: 12px;");
+//    _opacLbl->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #6a1b9a;font-size: 12px;");
 
     _tempBtn = this->ui->TempEditButton;
     _lumBtn = this->ui->LumEditButton;
@@ -65,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _opacBtn->hide();
 
     // buttons style
-    _opacBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #6a1b9a; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
+//    _opacBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #6a1b9a; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
     this->_date = new QDateTime();
     this->updateVals();
 

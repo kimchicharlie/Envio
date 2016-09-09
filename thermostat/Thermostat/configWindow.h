@@ -80,6 +80,9 @@ private:
     QJsonArray              *_jsonArr;
     bool                    _error = false;
     bool                    _toSend = false;
+
+    QString                 _organisation;
+
 };
 
 #endif // CONFIGWINDOW_H

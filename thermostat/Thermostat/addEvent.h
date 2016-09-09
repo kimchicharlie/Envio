@@ -74,6 +74,7 @@ private:
     QByteArray              _reply;
     QJsonArray              *_jsonArr;
     bool                    _error = false;
+    QString                 _organisation;
 };
 
 #endif // ADDEVENT_H

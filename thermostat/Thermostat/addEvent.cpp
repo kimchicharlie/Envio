@@ -13,6 +13,9 @@ AddEvent::AddEvent(QWidget *parent) :
     _durSpin = ui->durationSpin;
     _errorLbl = ui->errorLbl;
 
+    QSettings settings("config.ini", QSettings::IniFormat);
+    _organisation = settings.value("organisation","config").toString();
+
     //setup network part
     MainWindow *tmp = (MainWindow*)parent->parentWidget();
     _network = new NetConnection(this, *(tmp->getHostName()),
@@ -38,11 +41,15 @@ void    AddEvent::show() {
      QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
                            QString("/api/getModes?api_key=f8c5e1xx5f48e56s4x8"));
      QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
-
+/*
+    QByteArray tmp2;
+    tmp2.append(_organisation);
+    textPart.setBody(tmp2);
+*/
     QHttpPart textPart = QHttpPart();
-    QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"organisation\""));
-    tmp.append("Envio");
+    QByteArray tmp;
+    tmp.append(_organisation);
     textPart.setBody(tmp);
 
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);

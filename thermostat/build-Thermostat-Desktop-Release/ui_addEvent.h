@@ -169,11 +169,6 @@ public:
         modeComboBox->setGeometry(QRect(10, 70, 121, 24));
         modeComboBox->setStyleSheet(QLatin1String("font-family: \"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
-"outline: 0;\n"
-"width: 100%;\n"
-"border: 0;\n"
-"padding: 10px;\n"
-"color: #4d4d4d;\n"
 "font-size: 12px;"));
 
         retranslateUi(AddEvent);
