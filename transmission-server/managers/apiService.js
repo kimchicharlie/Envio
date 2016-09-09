@@ -459,7 +459,7 @@ var applyPlanningMode = function(options, cb) {
                 cb(result);
             } else {
                 mode = res.mode;
-                    if (utils.checkProperty(CAPTORS) && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature) ) {
+                    if (utils.checkProperty(CAPTORS) && mode != null && utils.checkProperty(mode.light) && utils.checkProperty(options.room.maxLux) && utils.checkProperty(options.room._id) && utils.checkProperty(options.room.temperature) ) {
                         var captors = CAPTORS;
                         var lightNeeded = mode.light;
                         var maxLux = options.room.maxLux;
