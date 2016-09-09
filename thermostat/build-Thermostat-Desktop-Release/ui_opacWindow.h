@@ -61,7 +61,7 @@ public:
         AccueilBtn->setObjectName(QStringLiteral("AccueilBtn"));
         AccueilBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -73,7 +73,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -89,7 +89,7 @@ public:
         TempEditBtn->setObjectName(QStringLiteral("TempEditBtn"));
         TempEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	background: #D9534F;\n"
 "	padding: 10px;\n"
@@ -101,7 +101,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	background: #b71c1c;\n"
 "	padding: 10px;\n"
@@ -117,7 +117,7 @@ public:
         LumEditBtn->setObjectName(QStringLiteral("LumEditBtn"));
         LumEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #286090;\n"
@@ -129,7 +129,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #245680;\n"
@@ -146,7 +146,7 @@ public:
 
         LumFixLabel = new QLabel(gridLayoutWidget);
         LumFixLabel->setObjectName(QStringLiteral("LumFixLabel"));
-        LumFixLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        LumFixLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
@@ -177,7 +177,7 @@ public:
         PlanningEditBtn->setObjectName(QStringLiteral("PlanningEditBtn"));
         PlanningEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -189,7 +189,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -205,7 +205,7 @@ public:
         ConfigEditBtn->setObjectName(QStringLiteral("ConfigEditBtn"));
         ConfigEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -217,7 +217,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -234,6 +234,7 @@ public:
 
         LumLabel = new QLabel(gridLayoutWidget);
         LumLabel->setObjectName(QStringLiteral("LumLabel"));
+        LumLabel->setStyleSheet(QStringLiteral("font-family:\"Segoe UI\", sans-serif;"));
 
         gridLayout->addWidget(LumLabel, 3, 1, 1, 1);
 

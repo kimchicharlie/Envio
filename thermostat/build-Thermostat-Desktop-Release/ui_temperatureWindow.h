@@ -51,7 +51,7 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(9, 9, 301, 221));
+        gridLayoutWidget->setGeometry(QRect(-1, -1, 321, 241));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -123,14 +123,14 @@ public:
 
         TempFixLabel = new QLabel(gridLayoutWidget);
         TempFixLabel->setObjectName(QStringLiteral("TempFixLabel"));
-        TempFixLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        TempFixLabel->setStyleSheet(QLatin1String("font-family: \"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
 "border: 0;\n"
 "padding: 10px;\n"
 "color: #4d4d4d;\n"
-"font-size: 12px;"));
+"font-size: 14px;"));
 
         gridLayout->addWidget(TempFixLabel, 2, 1, 1, 1);
 
@@ -265,14 +265,16 @@ public:
 
         TempLabel = new QLabel(gridLayoutWidget);
         TempLabel->setObjectName(QStringLiteral("TempLabel"));
-        TempLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        TempLabel->setStyleSheet(QLatin1String("font-family: \"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
 "border: 0;\n"
 "padding: 10px;\n"
 "color: #b71c1c;\n"
-"font-size: 12px;"));
+"font-size: 48px;"));
+        TempLabel->setMargin(0);
+        TempLabel->setIndent(3);
 
         gridLayout->addWidget(TempLabel, 3, 1, 1, 1);
 

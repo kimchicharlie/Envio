@@ -20,10 +20,10 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>301</width>
-      <height>211</height>
+      <x>-1</x>
+      <y>0</y>
+      <width>321</width>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -34,7 +34,7 @@
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -46,7 +46,7 @@
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -66,7 +66,7 @@ QPushButton:hover
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #d9534f;
@@ -79,7 +79,7 @@ QPushButton:hover
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #c9302c;
@@ -107,7 +107,14 @@ QPushButton:hover
      <item row="2" column="1">
       <widget class="QLabel" name="LumFixLabel">
        <property name="styleSheet">
-        <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif; text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #4d4d4d;font-size: 12px;</string>
+        <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
+ text-transform: uppercase;
+ outline: 0; 
+width: 100%; 
+border: 0;
+ padding: 10px;
+color: #4d4d4d;
+font-size: 14px;</string>
        </property>
        <property name="text">
         <string>Lumière</string>
@@ -204,7 +211,7 @@ border-radius: 4px;
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -216,7 +223,7 @@ border-radius: 4px;
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -236,7 +243,7 @@ QPushButton:hover
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -248,7 +255,7 @@ QPushButton:hover
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -268,7 +275,7 @@ QPushButton:hover
      <item row="3" column="1">
       <widget class="QLabel" name="LumLabel">
        <property name="styleSheet">
-        <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif; text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #0288d1;font-size: 12px;</string>
+        <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #0288d1;font-size: 48px;</string>
        </property>
        <property name="text">
         <string>TextLabel</string>

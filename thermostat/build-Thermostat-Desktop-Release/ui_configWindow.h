@@ -60,7 +60,7 @@ public:
         AccueilBtn->setObjectName(QStringLiteral("AccueilBtn"));
         AccueilBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -72,7 +72,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -94,7 +94,7 @@ public:
         listView->setObjectName(QStringLiteral("listView"));
         listView->setStyleSheet(QLatin1String("QListView {\n"
 "	background: #f2f2f2;\n"
-"	font-family: \"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "    show-decoration-selected: 1; \n"
 "}\n"
 "\n"
@@ -132,8 +132,8 @@ public:
 "\n"
 "QListView::item\n"
 "{\n"
-"    padding-l"
-                        "eft:10px;\n"
+"    padding-left:"
+                        "10px;\n"
 "    width:80px;\n"
 "    height:20px;\n"
 "    color: #5a5a5a;\n"
@@ -150,7 +150,7 @@ public:
         TempDispButton->setObjectName(QStringLiteral("TempDispButton"));
         TempDispButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -162,7 +162,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -178,7 +178,7 @@ public:
         HourDispButton->setObjectName(QStringLiteral("HourDispButton"));
         HourDispButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -190,7 +190,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -207,7 +207,7 @@ public:
 
         msgLabel = new QLabel(gridLayoutWidget);
         msgLabel->setObjectName(QStringLiteral("msgLabel"));
-        msgLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        msgLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"

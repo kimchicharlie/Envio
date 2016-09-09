@@ -20,10 +20,10 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>301</width>
-      <height>221</height>
+      <x>-1</x>
+      <y>-1</y>
+      <width>321</width>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -105,14 +105,14 @@ QPushButton:hover
      <item row="2" column="1">
       <widget class="QLabel" name="TempFixLabel">
        <property name="styleSheet">
-        <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+        <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
 border: 0;
 padding: 10px;
 color: #4d4d4d;
-font-size: 12px;</string>
+font-size: 14px;</string>
        </property>
        <property name="text">
         <string>Temperature</string>
@@ -270,17 +270,23 @@ QPushButton:hover
      <item row="3" column="1">
       <widget class="QLabel" name="TempLabel">
        <property name="styleSheet">
-        <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+        <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
 border: 0;
 padding: 10px;
 color: #b71c1c;
-font-size: 12px;</string>
+font-size: 48px;</string>
        </property>
        <property name="text">
         <string>TextLabel</string>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <property name="indent">
+        <number>3</number>
        </property>
       </widget>
      </item>

@@ -49,7 +49,7 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(0, 0, 321, 245));
+        gridLayoutWidget->setGeometry(QRect(0, 0, 321, 241));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -57,7 +57,7 @@ public:
         AddModeButton->setObjectName(QStringLiteral("AddModeButton"));
         AddModeButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -69,7 +69,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -85,7 +85,7 @@ public:
         tableView->setObjectName(QStringLiteral("tableView"));
         tableView->setStyleSheet(QLatin1String("QTableView {\n"
 "	background: #f2f2f2;\n"
-"	font-family: \"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "    show-decoration-selected: 1; \n"
 "}\n"
 "\n"
@@ -123,8 +123,8 @@ public:
 "\n"
 "QTableView::item\n"
 "{\n"
-"    p"
-                        "adding-left:10px;\n"
+"    paddi"
+                        "ng-left:10px;\n"
 "    width:80px;\n"
 "    height:20px;\n"
 "    color: #5a5a5a;\n"
@@ -137,7 +137,7 @@ public:
 
         DateLabel = new QLabel(gridLayoutWidget);
         DateLabel->setObjectName(QStringLiteral("DateLabel"));
-        DateLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        DateLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "border: 0;\n"
@@ -156,7 +156,7 @@ public:
         AccueilBtn->setObjectName(QStringLiteral("AccueilBtn"));
         AccueilBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -168,7 +168,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -189,7 +189,7 @@ public:
         PrevButton->setObjectName(QStringLiteral("PrevButton"));
         PrevButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -201,7 +201,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -217,7 +217,7 @@ public:
         NextButton->setObjectName(QStringLiteral("NextButton"));
         NextButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -229,7 +229,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"

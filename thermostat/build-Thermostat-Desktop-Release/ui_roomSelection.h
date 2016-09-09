@@ -39,7 +39,7 @@ public:
         buttonBox->setGeometry(QRect(10, 200, 301, 32));
         buttonBox->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -51,7 +51,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -65,7 +65,7 @@ public:
         label = new QLabel(RoomSelection);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(20, 20, 281, 51));
-        label->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        label->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
@@ -77,7 +77,7 @@ public:
         lineEdit = new QLineEdit(RoomSelection);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setGeometry(QRect(20, 110, 281, 61));
-        lineEdit->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        lineEdit->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
@@ -91,7 +91,7 @@ public:
         errorLbl = new QLabel(RoomSelection);
         errorLbl->setObjectName(QStringLiteral("errorLbl"));
         errorLbl->setGeometry(QRect(24, 80, 271, 41));
-        errorLbl->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        errorLbl->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"

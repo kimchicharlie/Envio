@@ -68,7 +68,7 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         TempLabel = new QLabel(gridLayoutWidget);
         TempLabel->setObjectName(QStringLiteral("TempLabel"));
-        TempLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        TempLabel->setStyleSheet(QLatin1String("	font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "border: 0;\n"
@@ -83,7 +83,7 @@ public:
 
         LumLabel = new QLabel(gridLayoutWidget);
         LumLabel->setObjectName(QStringLiteral("LumLabel"));
-        LumLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        LumLabel->setStyleSheet(QLatin1String("	font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
@@ -123,7 +123,7 @@ public:
         TempEditButton->setObjectName(QStringLiteral("TempEditButton"));
         TempEditButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	background: #D9534F;\n"
 "	padding: 10px;\n"
@@ -135,7 +135,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;	\n"
 "	text-transform: uppercase;\n"
 "	background: #b71c1c;\n"
 "	padding: 10px;\n"
@@ -151,7 +151,7 @@ public:
         LumEditButton->setObjectName(QStringLiteral("LumEditButton"));
         LumEditButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #0288d1;\n"
@@ -163,7 +163,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #2e6da4;\n"
@@ -188,7 +188,7 @@ public:
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         tempTxtlabel = new QLabel(gridLayoutWidget);
         tempTxtlabel->setObjectName(QStringLiteral("tempTxtlabel"));
-        tempTxtlabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        tempTxtlabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
@@ -244,7 +244,7 @@ public:
         PlanningEditButton->setObjectName(QStringLiteral("PlanningEditButton"));
         PlanningEditButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -256,7 +256,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -272,7 +272,7 @@ public:
         ConfigEditButton->setObjectName(QStringLiteral("ConfigEditButton"));
         ConfigEditButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -284,7 +284,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -305,7 +305,7 @@ public:
         DateLabel = new QLabel(gridLayoutWidget);
         DateLabel->setObjectName(QStringLiteral("DateLabel"));
         DateLabel->setMaximumSize(QSize(16777215, 50));
-        DateLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        DateLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "border: 0;\n"
@@ -314,12 +314,13 @@ public:
 "font-size: 12px;\n"
 "\n"
 ""));
+        DateLabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_5->addWidget(DateLabel);
 
         roomLabel = new QLabel(gridLayoutWidget);
         roomLabel->setObjectName(QStringLiteral("roomLabel"));
-        roomLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
+        roomLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "border: 0;\n"
@@ -328,6 +329,7 @@ public:
 "font-size: 12px;\n"
 "\n"
 ""));
+        roomLabel->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_5->addWidget(roomLabel);
 

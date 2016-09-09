@@ -29,7 +29,7 @@
        <item>
         <widget class="QLabel" name="TempLabel">
          <property name="styleSheet">
-          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+          <string notr="true">	font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 border: 0;
@@ -50,7 +50,7 @@ font-size: 16px;
        <item>
         <widget class="QLabel" name="LumLabel">
          <property name="styleSheet">
-          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+          <string notr="true">	font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
@@ -100,7 +100,7 @@ font-size: 12px;
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	background: #D9534F;
 	padding: 10px;
@@ -112,7 +112,7 @@ font-size: 12px;
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;	
 	text-transform: uppercase;
 	background: #b71c1c;
 	padding: 10px;
@@ -132,7 +132,7 @@ QPushButton:hover
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #0288d1;
@@ -144,7 +144,7 @@ QPushButton:hover
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #2e6da4;
@@ -173,7 +173,7 @@ QPushButton:hover
        <item>
         <widget class="QLabel" name="tempTxtlabel">
          <property name="styleSheet">
-          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+          <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
@@ -245,7 +245,7 @@ font-size: 12px;
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -257,7 +257,7 @@ font-size: 12px;
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -277,7 +277,7 @@ QPushButton:hover
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -289,7 +289,7 @@ QPushButton:hover
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -317,7 +317,7 @@ QPushButton:hover
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+          <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 border: 0;
@@ -330,12 +330,15 @@ font-size: 12px;
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="roomLabel">
          <property name="styleSheet">
-          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+          <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 border: 0;
@@ -347,6 +350,9 @@ font-size: 12px;
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>

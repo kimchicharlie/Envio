@@ -45,49 +45,72 @@ public:
         AddEvent->resize(320, 240);
         TitleLbl = new QLabel(AddEvent);
         TitleLbl->setObjectName(QStringLiteral("TitleLbl"));
-        TitleLbl->setGeometry(QRect(90, 10, 121, 31));
-        TitleLbl->setStyleSheet(QLatin1String("	font-family:\"Montserrat\", sans-serif;\n"
-"	font-size: 12px;\n"
-""));
+        TitleLbl->setGeometry(QRect(90, 10, 141, 31));
+        TitleLbl->setStyleSheet(QLatin1String("font-family: \"Segoe UI\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;"));
         errorLbl = new QLabel(AddEvent);
         errorLbl->setObjectName(QStringLiteral("errorLbl"));
         errorLbl->setGeometry(QRect(10, 40, 301, 31));
-        errorLbl->setStyleSheet(QLatin1String("	font-family:\"Montserrat\", sans-serif;\n"
-"	font-size: 12px;\n"
-""));
+        errorLbl->setStyleSheet(QLatin1String("font-family: \"Segoe UI\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;"));
         hourStartSpin = new QSpinBox(AddEvent);
         hourStartSpin->setObjectName(QStringLiteral("hourStartSpin"));
         hourStartSpin->setGeometry(QRect(140, 100, 51, 31));
+        hourStartSpin->setStyleSheet(QStringLiteral("font-family:\"Segoe UI\", sans-serif;"));
         hourStartSpin->setMaximum(23);
         minStartSpin = new QSpinBox(AddEvent);
         minStartSpin->setObjectName(QStringLiteral("minStartSpin"));
         minStartSpin->setGeometry(QRect(230, 100, 51, 31));
+        minStartSpin->setStyleSheet(QStringLiteral("font-family:\"Segoe UI\", sans-serif;"));
         minStartSpin->setMaximum(55);
         minStartSpin->setSingleStep(5);
         durationSpin = new QSpinBox(AddEvent);
         durationSpin->setObjectName(QStringLiteral("durationSpin"));
         durationSpin->setGeometry(QRect(140, 150, 51, 31));
+        durationSpin->setStyleSheet(QStringLiteral("font-family:\"Segoe UI\", sans-serif;"));
         durationSpin->setMinimum(30);
         durationSpin->setMaximum(750);
         durationSpin->setSingleStep(30);
         startHourLbl = new QLabel(AddEvent);
         startHourLbl->setObjectName(QStringLiteral("startHourLbl"));
-        startHourLbl->setGeometry(QRect(10, 100, 101, 31));
-        startHourLbl->setStyleSheet(QLatin1String("	font-family:\"Montserrat\", sans-serif;\n"
-"	font-size: 12px;\n"
-""));
+        startHourLbl->setGeometry(QRect(10, 100, 121, 31));
+        startHourLbl->setStyleSheet(QLatin1String("font-family: \"Segoe UI\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;"));
         durationLbl = new QLabel(AddEvent);
         durationLbl->setObjectName(QStringLiteral("durationLbl"));
         durationLbl->setGeometry(QRect(10, 150, 91, 31));
-        durationLbl->setStyleSheet(QLatin1String("	font-family:\"Montserrat\", sans-serif;\n"
-"	font-size: 12px;\n"
-""));
+        durationLbl->setStyleSheet(QLatin1String("font-family: \"Segoe UI\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;"));
         validateBtn = new QPushButton(AddEvent);
         validateBtn->setObjectName(QStringLiteral("validateBtn"));
         validateBtn->setGeometry(QRect(140, 194, 80, 31));
         validateBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -99,7 +122,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -113,7 +136,7 @@ public:
         cancelBtn->setGeometry(QRect(230, 194, 80, 31));
         cancelBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
@@ -125,7 +148,7 @@ public:
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Montserrat\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
@@ -138,12 +161,20 @@ public:
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(200, 90, 20, 41));
         QFont font;
-        font.setBold(true);
-        font.setWeight(75);
+        font.setFamily(QStringLiteral("Segoe UI,sans-serif"));
         label->setFont(font);
+        label->setStyleSheet(QStringLiteral("font-family:\"Segoe UI\", sans-serif;"));
         modeComboBox = new QComboBox(AddEvent);
         modeComboBox->setObjectName(QStringLiteral("modeComboBox"));
         modeComboBox->setGeometry(QRect(10, 70, 121, 24));
+        modeComboBox->setStyleSheet(QLatin1String("font-family: \"Segoe UI\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #4d4d4d;\n"
+"font-size: 12px;"));
 
         retranslateUi(AddEvent);
 

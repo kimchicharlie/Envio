@@ -33,7 +33,7 @@
            <property name="styleSheet">
             <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -45,7 +45,7 @@
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -69,7 +69,7 @@ QPushButton:hover
        <property name="styleSheet">
         <string notr="true">QListView {
 	background: #f2f2f2;
-	font-family: &quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
     show-decoration-selected: 1; 
 }
 
@@ -125,7 +125,7 @@ QListView::item
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -137,7 +137,7 @@ QListView::item
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -157,7 +157,7 @@ QPushButton:hover
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -169,7 +169,7 @@ QPushButton:hover
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -189,7 +189,7 @@ QPushButton:hover
      <item row="4" column="0">
       <widget class="QLabel" name="msgLabel">
        <property name="styleSheet">
-        <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+        <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;

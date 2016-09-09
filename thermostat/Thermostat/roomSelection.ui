@@ -25,7 +25,7 @@
    <property name="styleSheet">
     <string notr="true">QPushButton
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #5cb85c;
@@ -37,7 +37,7 @@
 
 QPushButton:hover
 {
-	font-family:&quot;Montserrat&quot;, sans-serif;
+font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
@@ -64,7 +64,7 @@ QPushButton:hover
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
@@ -90,7 +90,7 @@ font-size: 12px;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
@@ -119,7 +119,7 @@ font-size: 12px;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
