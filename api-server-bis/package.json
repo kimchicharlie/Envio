@@ -1,0 +1,22 @@
+{
+  "name": "Envio",
+  "version": "0.0.1",
+  "description": "Envio API Server",
+  "main": "start.js",
+  "dependencies": {
+    "async": "^1.5.0",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.14.1",
+    "connect-multiparty": "^2.0.0",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "nodemailer": "^1.8.0",
+    "path": "^0.12.7",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
+    "request": "^2.65.0",
+    "sequelize": "^3.24.3",
+    "waterline": "^0.1.4"
+  },
+  "author": "Charlie HENIN"
+}
