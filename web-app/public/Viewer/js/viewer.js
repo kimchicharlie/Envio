@@ -78,54 +78,7 @@ function init() {
 	// Adding controls
 
 	$("canvas").parent().attr("id", "container");	
-	$("#container")
-	.append($('<img src="./Viewer/img/rotateLeft.png">')
-		.attr({'id': 'rotateLeft', 'draggable': false})
-		.on('click', function () {
-				cameraAngle = (cameraAngle + 15 > 360 ? 15 : cameraAngle + 15);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveForward.png">')
-		.attr({'id': 'moveForward', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				lookAtPos.translateX(-direction.x * 20);
-				lookAtPos.translateZ(-direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/rotateRight.png">')
-		.attr({'id': 'rotateRight', 'draggable': false})
-		.on('click', function () {
-				cameraAngle = (cameraAngle - 15 < 0 ? 345 : cameraAngle - 15);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveLeft.png">')
-		.attr({'id': 'moveLeft', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				direction.applyAxisAngle(new THREE.Vector3(0, 1, 0), DegToRad(-90));
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveBackward.png">')
-		.attr({'id': 'moveBackward', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveRight.png">')
-		.attr({'id': 'moveRight', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				direction.applyAxisAngle(new THREE.Vector3(0, 1, 0), DegToRad(90));
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<div><p id="name">--</p></div>'));
+	$("#container").append($('<div><p id="name">--</p></div>'));
 }
 
 function loadRoomFromDatabase (id)
