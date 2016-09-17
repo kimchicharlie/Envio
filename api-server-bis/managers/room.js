@@ -14,42 +14,56 @@ var createRoom = function (options, cb) {
     })
 }
 
-var modifyRoom = function (options, cb) {
+var getRoom = function (options, cb) {
     cb = cb || function () {};
 
     var result = {
         'error': null,
         'room': null
     };
-    if (options.name && options.volume && options.newName) {
-        db.Rooms
-        .findOne({'name': options.name})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!room) {
-                result.error = "Cette salle n'existe pas";
-                cb(result);
-            } else {
-                room.name = options.newName;
-                room.volume = options.volume
 
-                room.save(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        result.room = room;
-                        cb(result);
-                    }
-                });
-            }
-        })
-    } else {
-        result.error = "Des informations nécessaires sont manquantes";
-        cb(result);
+    models.Room.findOne({
+      where: {
+        id: options.roomID,
+      },
+    }).then(function(room) {
+        if (room) {
+            result.room = room.dataValues;
+            cb(result);
+        } else {
+            result.error = "Room not found";
+            cb(result);
+        }
+    })
+};
+
+var modifyRoom = function (options, cb) {
+    cb = cb || function () {};
+
+    var roomObject = {
+        "name": options.newName || options.name,
+        "volume": options.volume
     }
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    models.Room.update(roomObject, {
+      where: {
+        name: options.name,
+      },
+    }).then(function(res) {
+        models.Room.findOne({
+            where: {
+                name: options.newName || options.name,
+            }
+        }).then(function(room) {
+            result.room = room.dataValues;
+            cb(result);
+        })
+    })
 }
 
 var deleteRoom = function (options, cb) {
@@ -59,31 +73,14 @@ var deleteRoom = function (options, cb) {
         'room': null
     };
 
-    if (options.roomID) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!room) {
-                result.error = "Ce room n'existe pas";
-                cb(result);
-            } else {
-                room.remove(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        cb(result);
-                    }
-                });
-            }
-        })
-    } else {
-        result.error = "Requête incorrecte";
+    models.Room.destroy({
+      where: {
+        id: options.roomID,
+      }
+    }).then(function (room) {
+        result.room = room.dataValues;
         cb(result);
-    }
+    });
 }
 
 var modifyData = function (options, cb) {
@@ -124,28 +121,6 @@ var modifyData = function (options, cb) {
     }
 }
 
-var getRoom = function (options, cb) {
-    cb = cb || function () {};
-
-    var result = {
-        'error': null,
-        'room': null
-    };
-
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.room = room;
-                cb(result);
-            }
-        })
-    }
-};
 
 var switchIA = function (options, cb) {
     cb = cb || function () {};
@@ -213,7 +188,6 @@ var getRooms = function (options, cb) {
     };
 
     models.Room.findAll().then(function(rooms) {
-        console.log('rooms : ', rooms)
         result.rooms = rooms;
         cb(result);
     });

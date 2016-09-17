@@ -1,4 +1,4 @@
-var async = require("async");
+var models = require('../models');
 
 var createMode = function (options, cb) {
     cb = cb || function () {};
@@ -7,28 +7,11 @@ var createMode = function (options, cb) {
         'error': null,
         'mode': null
     };
-    if (options.name && options.light && options.organisation && options.opacity && options.temperature) {
-        var newMode = new db.Modes({
-            "name" : options.name,
-            "organisation" : options.organisation,
-            "light" : options.light,
-            "opacity" : options.opacity,
-            "temperature" : options.temperature
-        });
 
-        newMode.save(function (error) {
-            if (error) {
-                result.error = error;
-                cb(result);
-            } else {
-                result.mode = newMode;
-                cb(result);
-            }
-        });
-    } else {
-        result.error = "Des données sont manquantes";
+    models.Mode.create(options).then(function(mode) {
+        result.mode = mode.dataValues;
         cb(result);
-    }
+    })
 };
 
 var modifyMode = function (options, cb) {
@@ -149,19 +132,10 @@ var getModes = function (options, cb) {
         'modes': null
     };
 
-    if (options.organisation) {
-        db.Modes
-        .find({'organisation': options.organisation})
-        .exec(function (err, modes) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.modes = modes;
-                cb(result);
-            }
-        })
-    }
+    models.Mode.findAll().then(function(modes) {
+        result.modes = modes;
+        cb(result);
+    });
 };
 
 var getMode = function (options, cb) {
@@ -172,19 +146,19 @@ var getMode = function (options, cb) {
         'mode': null
     };
 
-    if (options.modeID != null) {
-        db.Modes
-        .findOne({'_id': options.modeID})
-        .exec(function (err, mode) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.mode = mode;
-                cb(result);
-            }
-        })
-    }
+    models.Mode.findOne({
+      where: {
+        id: options.modeID,
+      },
+    }).then(function(mode) {
+        if (mode) {
+            result.mode = mode.dataValues;
+            cb(result);
+        } else {
+            result.error = "Mode not found";
+            cb(result);
+        }
+    })
 };
 
 exports.createMode = createMode;
