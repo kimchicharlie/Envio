@@ -180,6 +180,30 @@ var getRoom = function (options, cb) {
     }
 };
 
+
+var getRoomPlanning = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'roomPlanning': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                result.roomPlanning = room.planning;
+                cb(result);
+            }
+        })
+    }
+};
+
 var switchIA = function (options, cb) {
     cb = cb || function () {};
 
@@ -640,3 +664,4 @@ exports.modifyEventPlanning = modifyEventPlanning;
 exports.switchIA = switchIA;
 exports.changeLightWithoutStat = changeLightWithoutStat;
 exports.changeTemperatureWithoutStat = changeTemperatureWithoutStat;
+exports.getRoomPlanning = getRoomPlanning;
