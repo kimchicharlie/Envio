@@ -1,11 +1,12 @@
 var container;
 var hasMoved, raycaster, mouse, camera, scene, renderer, plane, INTERSECTED = null,
 	objects = [];
+var GUIObject = null;
 var lookAtPos = new THREE.Object3D(), cameraAngle = 45;
 var mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
-var direction;
+var MAIN_URL = "http://localhost:1337", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function viewer()
 {
@@ -79,68 +80,21 @@ function init() {
 
 	$("canvas").parent().attr("id", "container");	
 	$("#container")
-	.append($('<img src="./Viewer/img/rotateLeft.png">')
-		.attr({'id': 'rotateLeft', 'draggable': false})
-		.on('click', function () {
-				cameraAngle = (cameraAngle + 15 > 360 ? 15 : cameraAngle + 15);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveForward.png">')
-		.attr({'id': 'moveForward', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				lookAtPos.translateX(-direction.x * 20);
-				lookAtPos.translateZ(-direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/rotateRight.png">')
-		.attr({'id': 'rotateRight', 'draggable': false})
-		.on('click', function () {
-				cameraAngle = (cameraAngle - 15 < 0 ? 345 : cameraAngle - 15);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveLeft.png">')
-		.attr({'id': 'moveLeft', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				direction.applyAxisAngle(new THREE.Vector3(0, 1, 0), DegToRad(-90));
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveBackward.png">')
-		.attr({'id': 'moveBackward', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveRight.png">')
-		.attr({'id': 'moveRight', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				direction.applyAxisAngle(new THREE.Vector3(0, 1, 0), DegToRad(90));
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<div><p id="name">--</p></div>'));
+		.append($('<div><p id="name">--</p></div>'));
 }
 
 function loadRoomFromDatabase (id)
 {
 	var data = {
-		api_key: 'f8c5e1xx5f48e56s4x8',
-		organisation: 'Envio',
+		api_key: API_KEY,
+		organisation: ORGANISATION,
 		roomID: id
 	};
 	$.ajax({
 	    type:    "POST",
-	    url:     "http://localhost:1337/api/getRoom/",
+	    url:     MAIN_URL + "/api/getRoom/",
 	    data:    data,
 	    success: function(text) {
-	    	console.log(text["room"]["data"]["size"]);
 	    	var parsed = $.parseJSON(text["room"]["data"]);
 	    	addRoom(parsed["size"], parsed["position"], text["room"]);
 	    },
@@ -152,12 +106,12 @@ function loadRoomFromDatabase (id)
 function loadRoomsFromDatabase ()
 {
 	var data = {
-		api_key: 'f8c5e1xx5f48e56s4x8',
+		api_key: API_KEY,
 		organisation: 'Envio',
 	};
 	$.ajax({
 	    type:    "POST",
-	    url:     "http://localhost:1337/api/getRooms/",
+	    url:     MAIN_URL + "/api/getRooms/",
 	    data:    data,
 	    success: function(text) {
 	    	for (var key in text["rooms"]) {
@@ -249,35 +203,6 @@ function addRoom (size, position, infos) {
 
 }
 
-function updateDatabase() {
-	var output = parent.toJSON();
-	try {
-		output = JSON.stringify( output, null, '\t' );
-		output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
-	} catch ( e ) {
-		output = JSON.stringify( output );
-	}
-	var data = {
-		api_key: 'f8c5e1xx5f48e56s4x8',
-		organisation: 'envio',
-		name: 'testRoom',
-		volume: 10
-	};
-	// $.ajax({
-	// 	type: 'POST',
-	// 	headers: {"Access-Control-Allow-Credentials": true},
-	// 	data: JSON.stringify(data),
-	// 	contentType: 'application/json',
-	// 	url: 'http://localhost:1337/createRoom',
-	// 	success: function (data) {
-	// 		console.log('Success');
-	// 	},
-	// 	fail: function (data) {
-	// 		console.log('Fail');
-	// 	}
-	// });
-}
-
 function getDirectionVector (object) {
 	var lookAtVector = new THREE.Vector3(0,0, -1);
 	lookAtVector.applyQuaternion(object.quaternion);
@@ -319,60 +244,6 @@ function onMouseMove (event) {
 	}
 }
 
-function onMouseUp (argument) {
-	if (INTERSECTED) {
-		var intersects = raycaster.intersectObjects ( objects );
-		if (!hasMoved && intersects.length != 0) {
-			displayInfo(intersects[0].object);
-		}
-		INTERSECTED = null;
-	}
-}
-
-function displayInfo (object) {
-	if(object.info)
-	$("#name").text(object.info.name);
-
-	// Retrieving room's info from database
-	var data = {
-		api_key: 'f8c5e1xx5f48e56s4x8',
-		organisation: 'Envio',
-/*		roomID: object.info._id*/
-	};
-
-	$.ajax({
-	    type:   "POST",
-	    data: 	data,
-	    url:     "http://localhost:1337/api/getRoom",
-	    success: function(text) {
-	    	var parsed = JSON.parse(text)
-	    	$("#realTemperature").text("Température actuelle : " + parsed.realTemperature)
-	    	$("#temperature").text("Température paramétrée : " + parsed.temperature)
-	    	$("#light").text("Luminosité ambiante : " + parsed.light);
-	    },
-	    error:   function() {
-	        // An error occurred
-	    }
-	});	
-}
-
-function getPropertyName (prop) {
-	switch (prop) {
-		case "name":
-			return "Nom de la salle";
-		case "reqTemp":
-			return "T° demandée";
-		case "actTemp":
-			return "T° actuelle";
-		case "reqLumi":
-			return "Lumi demandée";
-		case "actLumi":
-			return "Lumi actuelle";
-		default:
-			return "";
-	}
-}
-
 function onMouseDown (event) {
 
 	event.preventDefault();
@@ -387,6 +258,43 @@ function onMouseDown (event) {
 	hasMoved = false;
 	INTERSECTED = intersects[intersects.length -1];
 	mouseDownPos = INTERSECTED.point;
+
+	// On room click, display its informations
+	if (INTERSECTED && intersects.length > 1) {
+		var intersects = raycaster.intersectObjects ( objects );
+		if (!hasMoved && intersects.length != 0) {
+			displayInfo(intersects[0].object);
+		}
+	}
+}
+
+function onMouseUp (event) {
+	INTERSECTED = null;
+}
+
+function displayInfo (object) {
+	if(object.info)
+		$("#name").text(object.info.name);
+
+	// Retrieving room's info from database
+	var data = {
+		api_key: API_KEY,
+		organisation: ORGANISATION,
+		roomID: object.info._id
+	};
+
+	$.ajax({
+	    type:   "POST",
+	    data: 	data,
+	    url:     MAIN_URL + "/api/getRoom",
+	    success: function(text) {
+			$("#name").text(object.info.name + " -- Température actuelle : " + text["room"]["realTemperature"] + "°C -- Température paramétrée : " + text["room"]["temperature"] + "°C -- Luminosité ambiante : " + text["room"]["light"] + "%");
+
+	    },
+	    error:   function() {
+	        // An error occurred
+	    }
+	});	
 }
 
 function animate() {

@@ -8,7 +8,7 @@ var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 
 // personal modules
-var config = require("./config").config;
+var config = require("./config_dist").config;
 var rest = require("./rest");
 var WebpackConfig = require('./webpack.config')
 

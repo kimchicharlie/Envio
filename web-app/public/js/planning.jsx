@@ -53,7 +53,7 @@ Planning = React.createClass({
       componentDidMount: function() {
         react = this;
         HttpPost('/getModes', {
-               'organisation': this.props.Organisation,// a changer avec les info users            
+               'organisation': react.props.Organisation,// a changer avec les info users            
                 }, function(rep) {         
                 rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
@@ -73,8 +73,9 @@ Planning = React.createClass({
         this.creatCalendar();
       },
       getRooms: function(index){
+                react = this
                 HttpPost('/getRooms', {
-                'organisation': this.props.Organisation,// a changer avec les info users            
+                'organisation': react.props.Organisation,// a changer avec les info users            
                 }, function(rep) {         
                 rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
@@ -117,9 +118,9 @@ Planning = React.createClass({
             eventDrop: function(event, delta, revertFunc) {
                 start = new Date((event.start._d - delta))
                 end = new Date((event.end._d - delta))
-                var id=findLabelByValue(react.state.ListOfModes, event.title, true)
+                var id=findLabelByValue(react.state.ListOfModes, event.title, true)                
                 HttpPost('/modifyEvent', {
-                  organisation : this.props.Organisation, //a changer plus tard
+                  organisation : react.props.Organisation, //a changer plus tard
                   roomID : react.state.selectedRoom,
                   modeID : id,
                   eventName: react.state.start.title,
@@ -147,7 +148,7 @@ Planning = React.createClass({
                 end = new Date((event.end._d - delta))
                 var id=findLabelByValue(react.state.ListOfModes, event.title, true)
                 HttpPost('/modifyEvent', {
-                  organisation : this.props.Organisation, //a changer plus tard
+                  organisation : react.props.Organisation, //a changer plus tard
                   roomID : react.state.selectedRoom,
                   modeID : id,
                   eventName: react.state.start.title,
@@ -184,8 +185,8 @@ Planning = React.createClass({
         trueDateEnd = new Date(this.state.end._d).toISOString();
         var label= findLabelByValue(this.state.ListOfModes, val);
         HttpPost('/createEvent', {
-          organisation : this.props.Organisation, //a changer plus tard
-          roomID : this.state.selectedRoom,
+          organisation : react.props.Organisation, //a changer plus tard
+          roomID : react.state.selectedRoom,
           modeID : val,
           eventName: label,
           dateBegin : trueDateBegin,
@@ -203,10 +204,9 @@ Planning = React.createClass({
         })        
       },
       modifyEvent: function(val) {
-        react=this;
         var label= findLabelByValue(react.state.ListOfModes, val);
         HttpPost('/modifyEvent', {
-          organisation : this.props.Organisation, //a changer plus tard
+          organisation : react.props.Organisation, //a changer plus tard
           roomID : this.state.selectedRoom,
           modeID : val,
           eventName: this.state.start.title,
@@ -228,9 +228,8 @@ Planning = React.createClass({
         })        
       },
       deleteEvent: function() {
-        react=this
         HttpPost('/deleteEvent', {
-          organisation : this.props.Organisation, //a changer plus tard
+          organisation : react.props.Organisation, //a changer plus tard
           roomID : this.state.selectedRoom,
           eventName: this.state.start.title,
           dateBegin : this.state.start.start._d,

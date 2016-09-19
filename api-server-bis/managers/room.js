@@ -1,7 +1,4 @@
-var async = require("async");
-var db = require("../database");
-var statManager = require("./stat");
-var communicationManager = require("./communication");
+var models = require('../models');
 
 var createRoom = function (options, cb) {
     cb = cb || function () {};
@@ -10,79 +7,63 @@ var createRoom = function (options, cb) {
         'error': null,
         'room': null
     };
-    if (options.name && options.volume && options.organisation) {
-        db.Rooms
-        .findOne({'name': options.name})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (room) {
-                result.error = "Ce nom de salle existe déjà";
-                cb(result);
-            } else {
-                var newRoom = new db.Rooms({
-                    "name" : options.name,
-                    "organisation" : options.organisation,
-                    "volume" : options.volume
-                    /*"luminaires" : options.luminaires,
-                    "airConditionings" : options.airConditionings,*/
-                });
 
-                newRoom.save(function (error)
-                {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        result.room = newRoom;
-                        cb(result);
-                    }
-                });
-            }
-        })
-    } else {
-        result.error = "Des informations nécessaires sont manquantes";
+    models.Room.create(options).then(function(room) {
+        result.room = room.dataValues;
         cb(result);
-    }
-};
+    })
+}
 
-var modifyRoom = function (options, cb) {
+var getRoom = function (options, cb) {
     cb = cb || function () {};
 
     var result = {
         'error': null,
         'room': null
     };
-    if (options.name && options.volume && options.newName) {
-        db.Rooms
-        .findOne({'name': options.name})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!room) {
-                result.error = "Cette salle n'existe pas";
-                cb(result);
-            } else {
-                room.name = options.newName;
-                room.volume = options.volume
 
-                room.save(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        result.room = room;
-                        cb(result);
-                    }
-                });
-            }
-        })
-    } else {
-        result.error = "Des informations nécessaires sont manquantes";
-        cb(result);
+    models.Room.findOne({
+      where: {
+        id: options.roomID,
+      },
+    }).then(function(room) {
+        if (room) {
+            result.room = room.dataValues;
+            cb(result);
+        } else {
+            result.error = "Room not found";
+            cb(result);
+        }
+    })
+};
+
+var modifyRoom = function (options, cb) {
+    cb = cb || function () {};
+
+    var roomObject = {
+        "name": options.newName || options.name,
+        "volume": options.volume
     }
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    models.Room.update(roomObject, {
+      where: {
+        name: options.name,
+      },
+    }).then(function(res) {
+        models.Room.findOne({
+            where: {
+                name: options.newName || options.name,
+            }
+        }).then(function(room) {
+            result.room = room.dataValues;
+            cb(result);
+        })
+    })
 }
 
 var deleteRoom = function (options, cb) {
@@ -92,31 +73,14 @@ var deleteRoom = function (options, cb) {
         'room': null
     };
 
-    if (options.roomID) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!room) {
-                result.error = "Ce room n'existe pas";
-                cb(result);
-            } else {
-                room.remove(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        cb(result);
-                    }
-                });
-            }
-        })
-    } else {
-        result.error = "Requête incorrecte";
+    models.Room.destroy({
+      where: {
+        id: options.roomID,
+      }
+    }).then(function (room) {
+        result.room = room.dataValues;
         cb(result);
-    }
+    });
 }
 
 var modifyData = function (options, cb) {
@@ -157,52 +121,6 @@ var modifyData = function (options, cb) {
     }
 }
 
-var getRoom = function (options, cb) {
-    cb = cb || function () {};
-
-    var result = {
-        'error': null,
-        'room': null
-    };
-
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.room = room;
-                cb(result);
-            }
-        })
-    }
-};
-
-
-var getRoomPlanning = function (options, cb) {
-    cb = cb || function () {};
-
-    var result = {
-        'error': null,
-        'roomPlanning': null
-    };
-
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.roomPlanning = room.planning;
-                cb(result);
-            }
-        })
-    }
-};
 
 var switchIA = function (options, cb) {
     cb = cb || function () {};
@@ -269,19 +187,10 @@ var getRooms = function (options, cb) {
         'rooms': null
     };
 
-    if (options.organisation) {
-        db.Rooms
-        .find({'organisation': options.organisation})
-        .exec(function (err, rooms) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.rooms = rooms;
-                cb(result);
-            }
-        })
-    }
+    models.Room.findAll().then(function(rooms) {
+        result.rooms = rooms;
+        cb(result);
+    });
 };
 
 var changeTemperature = function (options, cb) {
@@ -664,4 +573,3 @@ exports.modifyEventPlanning = modifyEventPlanning;
 exports.switchIA = switchIA;
 exports.changeLightWithoutStat = changeLightWithoutStat;
 exports.changeTemperatureWithoutStat = changeTemperatureWithoutStat;
-exports.getRoomPlanning = getRoomPlanning;
