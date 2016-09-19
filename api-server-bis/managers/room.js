@@ -22,11 +22,8 @@ var getRoom = function (options, cb) {
         'room': null
     };
 
-    models.Room.findOne({
-      where: {
-        id: options.roomID,
-      },
-    }).then(function(room) {
+    models.Room.findById(options.roomID)
+    .then(function(room) {
         if (room) {
             result.room = room.dataValues;
             cb(result);
@@ -91,34 +88,22 @@ var modifyData = function (options, cb) {
         'room': null
     };
 
-    if (options.name && options.data) {
-        db.Rooms
-        .findOne({'name': options.name})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!room) {
-                result.error = "Cette salle n'existe pas";
-                cb(result);
-            } else {
-                room.data = options.data;
-
-                room.save(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        result.room = room;
-                        cb(result);
-                    }
-                });
+    models.Room.update({
+        "data": options.data
+    }, {
+      where: {
+        name: options.name,
+      },
+    }).then(function(res) {
+        models.Room.findOne({
+            where: {
+                name: options.name,
             }
+        }).then(function(room) {
+            result.room = room.dataValues;
+            cb(result);
         })
-    } else {
-        result.error = "Requête incorrecte";
-        cb(result);
-    }
+    })
 }
 
 
@@ -130,27 +115,24 @@ var switchIA = function (options, cb) {
         'room': null
     };
 
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
+    models.Room.findById(options.roomID)
+    .then(function(roomToUpdate) {
+        models.Room.update({
+            "artificialIntellligence": !roomToUpdate.artificialIntellligence
+        }, {
+          where: {
+            id: options.roomID,
+          },
+        }).then(function(res) {
+            models.Room.findById(options.roomID)
+            .then(function(room) {
+                result.room = room.dataValues;
                 cb(result);
-            } else {
-                room.artificialIntellligence = !room.artificialIntellligence
-                room.save(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        result.room = room;
-                        cb(result);
-                    }
-                });
-            }
+            })
         })
-    }
+    })
+
+    
 };
 
 var getRoomPlusHardware = function (options, cb) {
@@ -161,22 +143,16 @@ var getRoomPlusHardware = function (options, cb) {
         'room': null
     };
 
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .populate("windows")
-        .populate("airConditionings")
-        .populate("captors")
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.room = room;
-                cb(result);
-            }
-        })
-    }
+    models.Room.findById(options.roomID)
+    .then(function(room) {
+        if (room) {
+            result.room = room.dataValues;
+            cb(result);
+        } else {
+            result.error = "Room not found";
+            cb(result);
+        }
+    })
 };
 
 var getRooms = function (options, cb) {
