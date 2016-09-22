@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
+var utils = require('../../utils');
 
 var Header = React.createClass({
     render() {
@@ -15,10 +16,10 @@ var Header = React.createClass({
 
 RoomListItem = React.createClass({
     ModifMode : function (){
-      this.props.changeToModif(this.props.room._id);
+      this.props.changeToModif(this.props.room[utils.getIdType()]);
     },
     DeleteRoom : function (){
-      this.props.changeToDelete(this.props.room._id, this.props.index);
+      this.props.changeToDelete(this.props.room[utils.getIdType()], this.props.index);
     },
     render: function () {
           return (
@@ -39,7 +40,7 @@ RoomList = React.createClass({
         var react = this;
         var items = this.props.rooms.map(function (room) {
             return (
-                <RoomListItem key={room._id} room={room} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
+                <RoomListItem key={room[utils.getIdType()]} room={room} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
             );
         });
         return (
@@ -246,9 +247,9 @@ ModifRoom = React.createClass({
     var Captor = null;
     var IA = null;
     if (this.state.room){
-      AirConditioning = <AirConditionings room={this.state.room._id} airConditionings={this.state.room.airConditionings} />;
-      MyWindow = <Windows room={this.state.room._id} windows={this.state.room.windows}/>;
-      Captor = <Captors room={this.state.room._id} captors={this.state.room.captors}/>;
+      AirConditioning = <AirConditionings room={this.state.room[utils.getIdType()]} airConditionings={this.state.room.airConditionings} />;
+      MyWindow = <Windows room={this.state.room[utils.getIdType()]} windows={this.state.room.windows}/>;
+      Captor = <Captors room={this.state.room[utils.getIdType()]} captors={this.state.room.captors}/>;
       IA = <button className="btn button-medium" onClick={this.ChangeIA}> {!this.state.room.artificialIntellligence ? "Activer mode Intelligent" : "Désactiver mode Intelligent"} </button>;
   	}
         return (

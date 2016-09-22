@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
+var utils = require('../../utils');
 
 
 var Header = React.createClass({
@@ -16,10 +17,10 @@ var Header = React.createClass({
 
 ModeListItem = React.createClass({
     ModifMode : function (){
-      this.props.changeToModif(this.props.mode._id);
+      this.props.changeToModif(this.props.mode[utils.getIdType()]);
     },
     DeleteMode : function (){
-      this.props.changeToDelete(this.props.mode._id);
+      this.props.changeToDelete(this.props.mode[utils.getIdType()]);
     },
 	render: function () {
 		return (
@@ -39,7 +40,7 @@ ModeList = React.createClass({
 		var react = this;
 		var items = this.props.modes.map(function (mode) {
 			return (
-				<ModeListItem key={mode._id} mode={mode} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
+				<ModeListItem key={mode[utils.getIdType()]} mode={mode} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
 			);
 		});
 		return (

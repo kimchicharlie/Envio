@@ -1,4 +1,4 @@
-var async = require("async");
+var models = require('../models');
 
 var createWindow = function (options, cb) {
     cb = cb || function () {};
@@ -6,38 +6,20 @@ var createWindow = function (options, cb) {
         'error': null,
         'window': null
     };
-    if (options.room && options.orientation && options.size && options.opacity && options.opacityWanted) {
-        var newWindow = new db.Windows({
-            "room" : options.room,
-            "orientation" : options.orientation,
-            "size" : options.size,
-            "opacity" : options.opacityWanted,
-            "opacityWanted" : options.opacityWanted,
-        });
 
-        newWindow.save(function (error) {
-            if (error) {
-                result.error = error;
+    if (options.room && options.orientation && options.size && options.opacity && options.opacityWanted) {
+        models.Room.findById(options.room).then(function (room) {
+            return models.Window.create({
+                "orientation" : options.orientation,
+                "size" : options.size,
+                "opacity" : options.opacity,
+                "opacityWanted" : options.opacityWanted,
+            }).then(function(window) {
+                window.setRoom(room.id);
+                result.window = window.dataValues;
                 cb(result);
-            } else {
-                result.window = newWindow;
-                db.Rooms.findByIdAndUpdate(
-                    {"_id" : options.room},
-                    {$push: {"windows" :  newWindow._id }},
-                    {safe: true, upsert: true},
-                    function(err, model) { 
-                        if (err) {
-                            result.error = err;
-                            cb(result);
-                            return;
-                        } else {
-                            cb(result);
-                            return;
-                        }
-                    }
-                );
-            }
-        });
+            });
+        })
     } else {
         result.error = "Des données sont manquantes";
         cb(result);
@@ -53,53 +35,19 @@ var modifyWindow = function (options, cb) {
     };
 
     if (options.windowID) {
-        db.Windows
-        .findOne({'_id': options.windowID})
-        .exec(function (err, window) {
-            if (err) {
-                result.error = err;
+        models.Window.update(options, {
+          where: {
+            id: options.windowID,
+          },
+        }).then(function(res) {
+            models.Window.findOne({
+                where: {
+                    id: options.windowID
+                }
+            }).then(function(window) {
+                result.window = window.dataValues;
                 cb(result);
-            } else if (!window) {
-                result.error = "Cette vitre n'existe pas";
-                cb(result);
-            } else {
-                async.parallel([
-                    function (callback) {
-                        if (options.orientation) {
-                            window.orientation = options.orientation;
-                            callback();
-                        } else {
-                            callback();
-                        }
-                    },
-                    function (callback) {
-                        if (options.size) {
-                            window.size = options.size;
-                            callback();
-                        } else {
-                            callback();
-                        }
-                    },
-                    function (callback) {
-                        if (options.opacityWanted) {
-                            window.opacityWanted = options.opacityWanted;
-                            callback();
-                        } else {
-                            callback();
-                        }
-                    }
-                ], function () {
-                    window.save(function (error) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {
-                            result.window = window;
-                            cb(result);
-                        }
-                    });
-                })
-            }
+            })
         })
     } else {
         result.error = "Requête incorrecte";
@@ -115,38 +63,14 @@ var deleteWindow = function (options, cb) {
         'window': null
     };
     if (options.windowID) {
-        db.Windows
-        .findOne({'_id': options.windowID})
-        .exec(function (err, window) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!window) {
-                result.error = "Ce window n'existe pas";
-                cb(result);
-            } else {
-                window.remove(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        db.Rooms.findByIdAndUpdate(
-                            {"_id" : window.room},
-                            {$pull: {"windows" :  options.windowID }},
-                            {safe: true, upsert: true},
-                            function(err, model) { 
-                                if (err) {
-                                    result.error = err;
-                                    cb(result);
-                                } else {
-                                    cb(result);
-                                }
-                            }
-                        );
-                    }
-                });
-            }
-        })
+        models.Window.destroy({
+          where: {
+            id: options.windowID,
+          }
+        }).then(function (window) {
+            result.window = window.dataValues;
+            cb(result);
+        });
     } else {
         result.error = "Requête incorrecte";
         cb(result);
@@ -162,20 +86,15 @@ var getWindows = function (options, cb) {
         'error': null,
         'windows': null
     };
-    
-    if (options.room) {
-        db.Windows
-        .find({'room': options.room})
-        .exec(function (err, windows) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.windows = windows;
-                cb(result);
-            }
-        })
-    }
+
+    models.Window.findAll({
+        where : {
+            roomId: options.room
+        }
+    }).then(function(windows) {
+        result.windows = windows;
+        cb(result);
+    });
 };
 
 var getWindow = function (options, cb) {
@@ -186,19 +105,16 @@ var getWindow = function (options, cb) {
         'window': null
     };
 
-    if (options.windowID != null) {
-        db.Windows
-        .findOne({'_id': options.windowID})
-        .exec(function (err, window) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.window = window;
-                cb(result);
-            }
-        })
-    }
+    models.Window.findById(options.windowID)
+    .then(function(window) {
+        if (window) {
+            result.window = window.dataValues;
+            cb(result);
+        } else {
+            result.error = "Window not found";
+            cb(result);
+        }
+    })
 };
 
 exports.createWindow = createWindow;

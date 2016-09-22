@@ -97,31 +97,14 @@ var deleteMode = function (options, cb) {
         'mode': null
     };
 
-    if (options.modeID) {
-        db.Modes
-        .findOne({'_id': options.modeID})
-        .exec(function (err, mode) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!mode) {
-                result.error = "Ce mode n'existe pas";
-                cb(result);
-            } else {
-                mode.remove(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        cb(result);
-                    }
-                });
-            }
-        })
-    } else {
-        result.error = "Requête incorrecte";
+    models.Mode.destroy({
+      where: {
+        id: options.modeID,
+      }
+    }).then(function (mode) {
+        result.mode = mode.dataValues;
         cb(result);
-    }
+    });
 }
 
 var getModes = function (options, cb) {
