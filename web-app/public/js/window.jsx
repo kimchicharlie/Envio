@@ -1,14 +1,15 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
+var utils = require('../../utils');
 
 
 WindowListItem = React.createClass({
     ModifWindow : function (){
-      this.props.changeToModif(this.props.window._id);
+      this.props.changeToModif(this.props.window[utils.getIdType()]);
     },
     DeleteWindow : function (){
-      this.props.changeToDelete(this.props.window._id, this.props.index);
+      this.props.changeToDelete(this.props.window[utils.getIdType()], this.props.index);
     },
     render: function () {
           return (
@@ -28,7 +29,7 @@ WindowList = React.createClass({
         var react = this;
         var itemsWindow = this.props.windows.map(function (window) {
             return (
-                <WindowListItem key={window._id} window={window} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
+                <WindowListItem key={window[utils.getIdType()]} window={window} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
             );
         });
         return (

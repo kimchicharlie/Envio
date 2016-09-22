@@ -1,14 +1,15 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
+var utils = require('../../utils');
 
 
 CaptorListItem = React.createClass({
     ModifCaptor : function (){
-      this.props.changeToModif(this.props.captor._id);
+      this.props.changeToModif(this.props.captor[utils.getIdType()]);
     },
     DeleteCaptor : function (){
-      this.props.changeToDelete(this.props.captor._id, this.props.index);
+      this.props.changeToDelete(this.props.captor[utils.getIdType()], this.props.index);
     },
     render: function () {
           return (
@@ -27,7 +28,7 @@ CaptorList = React.createClass({
         var react = this;
         var items = this.props.captors.map(function (captor) {
             return (
-                <CaptorListItem key={captor._id} captor={captor} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
+                <CaptorListItem key={captor[utils.getIdType()]} captor={captor} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
             );
         });
         return (

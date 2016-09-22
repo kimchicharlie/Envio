@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Modal = require('react-modal');
 var Select = require('react-select');
 var Cookie = require('react-cookie');
+var utils = require('../../utils');
 
 var Header = React.createClass({
     render() {

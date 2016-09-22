@@ -1,4 +1,4 @@
-var async = require("async");
+var models = require('../models');
 
 var createCaptor = function (options, cb) {
     cb = cb || function () {};
@@ -6,36 +6,18 @@ var createCaptor = function (options, cb) {
         'error': null,
         'captor': null
     };
-    if (options.room && options.type && options.value ) {
-        var newCaptor = new db.Captors({
-            "room" : options.room,
-            "type" : options.type,
-            "value" : options.value,
-        });
 
-        newCaptor.save(function (error) {
-            if (error) {
-                result.error = error;
+    if (options.room && options.type && options.value) {
+        models.Room.findById(options.room).then(function (room) {
+            return models.Captor.create({
+                "type" : options.type,
+                "value" : options.value,
+            }).then(function(captor) {
+                captor.setRoom(room.id);
+                result.captor = captor.dataValues;
                 cb(result);
-            } else {
-                result.captor = newCaptor;
-                db.Rooms.findByIdAndUpdate(
-                    {"_id" : options.room},
-                    {$push: {"captors" :  newCaptor._id }},
-                    {safe: true, upsert: true},
-                    function(err, model) { 
-                        if (err) {
-                            result.error = err;
-                            cb(result);
-                            return;
-                        } else {
-                            cb(result);
-                            return;
-                        }
-                    }
-                );
-            }
-        });
+            });
+        })
     } else {
         result.error = "Des données sont manquantes";
         cb(result);
@@ -51,45 +33,19 @@ var modifyCaptor = function (options, cb) {
     };
 
     if (options.captorID) {
-        db.Captors
-        .findOne({'_id': options.captorID})
-        .exec(function (err, captor) {
-            if (err) {
-                result.error = err;
+        models.Captor.update(options, {
+          where: {
+            id: options.captorID,
+          },
+        }).then(function(res) {
+            models.Captor.findOne({
+                where: {
+                    id: options.captorID
+                }
+            }).then(function(captor) {
+                result.captor = captor.dataValues;
                 cb(result);
-            } else if (!captor) {
-                result.error = "Ce Capteur n'existe pas";
-                cb(result);
-            } else {
-                async.parallel([
-                    function (callback) {
-                        if (options.type) {
-                            captor.type = options.type;
-                            callback();
-                        } else {
-                            callback();
-                        }
-                    },
-                    function (callback) {
-                        if (options.value) {
-                            captor.value = options.value;
-                            callback();
-                        } else {
-                            callback();
-                        }
-                    }
-                ], function () {
-                    captor.save(function (error) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {
-                            result.captor = captor;
-                            cb(result);
-                        }
-                    });
-                })
-            }
+            })
         })
     } else {
         result.error = "Requête incorrecte";
@@ -105,38 +61,14 @@ var deleteCaptor = function (options, cb) {
         'captor': null
     };
     if (options.captorID) {
-        db.Captors
-        .findOne({'_id': options.captorID})
-        .exec(function (err, captor) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!captor) {
-                result.error = "Ce captor n'existe pas";
-                cb(result);
-            } else {
-                captor.remove(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        db.Rooms.findByIdAndUpdate(
-                            {"_id" : captor.room},
-                            {$pull: {"captors" :  options.captorID }},
-                            {safe: true, upsert: true},
-                            function(err, model) { 
-                                if (err) {
-                                    result.error = err;
-                                    cb(result);
-                                } else {
-                                    cb(result);
-                                }
-                            }
-                        );
-                    }
-                });
-            }
-        })
+        models.Captor.destroy({
+          where: {
+            id: options.captorID,
+          }
+        }).then(function (captor) {
+            result.captor = captor.dataValues;
+            cb(result);
+        });
     } else {
         result.error = "Requête incorrecte";
         cb(result);
@@ -151,19 +83,14 @@ var getCaptors = function (options, cb) {
         'captors': null
     };
     
-    if (options.room) {
-        db.Captors
-        .find({'room': options.room})
-        .exec(function (err, captors) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.captors = captors;
-                cb(result);
-            }
-        })
-    }
+    models.Captor.findAll({
+        where : {
+            roomId: options.room
+        }
+    }).then(function(captors) {
+        result.captors = captors;
+        cb(result);
+    });
 };
 
 var getCaptor = function (options, cb) {
@@ -174,19 +101,16 @@ var getCaptor = function (options, cb) {
         'captor': null
     };
 
-    if (options.captorID != null) {
-        db.Captors
-        .findOne({'_id': options.captorID})
-        .exec(function (err, captor) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.captor = captor;
-                cb(result);
-            }
-        })
-    }
+    models.Captor.findById(options.captorID)
+    .then(function(captor) {
+        if (captor) {
+            result.captor = captor.dataValues;
+            cb(result);
+        } else {
+            result.error = "Captor not found";
+            cb(result);
+        }
+    })
 };
 
 exports.createCaptor = createCaptor;

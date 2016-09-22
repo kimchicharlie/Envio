@@ -3,8 +3,9 @@ var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
 var Modal = require('react-modal');
 var Select = require('react-select');
+var utils = require('../../utils');
 
-
+console.log(utils)
 var modalStyles = {overlay: {zIndex: 10}};
 
 function findLabelByValue(list, value, reverse){
@@ -60,7 +61,7 @@ Planning = React.createClass({
                   var selectOptions = [];
                   for (var key in rep.modes)
                   {
-                    selectOptions.push({value: rep.modes[key]._id , label: rep.modes[key].name})
+                    selectOptions.push({value: rep.modes[key][utils.getIdType()] , label: rep.modes[key].name})
                   }
                   react.setState({ListOfModes : selectOptions})              
                   react.setState({modes: rep.modes})
@@ -82,11 +83,11 @@ Planning = React.createClass({
                   var selectOptions = [];
                   for (var key in rep.rooms)
                   {
-                    selectOptions.push({value: rep.rooms[key]._id , label: rep.rooms[key].name})
+                    selectOptions.push({value: rep.rooms[key][utils.getIdType()] , label: rep.rooms[key].name})
                   }
                   react.setState({ListOfRooms : selectOptions})              
                   react.setState({rooms: rep.rooms})
-                  react.setState({selectedRoom: rep.rooms[index]._id})
+                  react.setState({selectedRoom: rep.rooms[index][utils.getIdType()]})
                   react.setCalendar(rep.rooms[index].planning)
                 }
                 else{
@@ -133,7 +134,7 @@ Planning = React.createClass({
                   rep = jQuery.parseJSON(rep)
                     react.setState({modalDeleteIsOpen: false});
                     for (var i = 0; i < react.state.rooms.length; i++) {
-                      if (react.state.rooms[i]._id === rep.room._id) {
+                      if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
                         react.state.rooms[i].planning = rep.room.planning
                         react.setCalendar(react.state.rooms[i].planning)
                       }
@@ -161,7 +162,7 @@ Planning = React.createClass({
                   rep = jQuery.parseJSON(rep)
                     react.setState({modalDeleteIsOpen: false});
                     for (var i = 0; i < react.state.rooms.length; i++) {
-                      if (react.state.rooms[i]._id === rep.room._id) {
+                      if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
                         react.state.rooms[i].planning = rep.room.planning
                         react.setCalendar(react.state.rooms[i].planning)
                       }
@@ -195,7 +196,7 @@ Planning = React.createClass({
           rep = jQuery.parseJSON(rep);
             react.setState({modalCreatIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
-              if (react.state.rooms[i]._id === rep.room._id) {
+              if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
                 react.state.rooms[i].planning = rep.room.planning;
                 react.setCalendar(react.state.rooms[i].planning);
               }
@@ -219,7 +220,7 @@ Planning = React.createClass({
           rep = jQuery.parseJSON(rep);
             react.setState({modalDeleteIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
-              if (react.state.rooms[i]._id === rep.room._id) {
+              if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
                 react.state.rooms[i].planning = rep.room.planning;
                 react.setCalendar(react.state.rooms[i].planning);
               }
@@ -237,7 +238,7 @@ Planning = React.createClass({
           rep = jQuery.parseJSON(rep)
           react.setState({modalDeleteIsOpen: false});
           for (var i = 0; i < react.state.rooms.length; i++) {
-            if (react.state.rooms[i]._id === rep.room._id) {
+            if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
               react.state.rooms[i].planning = rep.room.planning
               react.setCalendar(react.state.rooms[i].planning)
             }
@@ -246,7 +247,7 @@ Planning = React.createClass({
       },      
       selectRoom: function(val){ 
         for (var i = 0; i < this.state.rooms.length; i++) {
-          if (this.state.rooms[i]._id === val) {
+          if (this.state.rooms[i][utils.getIdType()] === val) {
             react.setCalendar(this.state.rooms[i].planning)
           }
         }        

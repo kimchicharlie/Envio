@@ -1,4 +1,7 @@
+var async = require('async');
 var models = require('../models');
+var statManager = require('./stat.js');
+var communicationManager = require('./communication.js');
 
 var createRoom = function (options, cb) {
     cb = cb || function () {};
@@ -8,7 +11,13 @@ var createRoom = function (options, cb) {
         'room': null
     };
 
-    models.Room.create(options).then(function(room) {
+    models.Room.create(options, {
+        include: [
+            { model: models.Window, as: 'windows' },
+            { model: models.AirConditioning, as: 'airConditionings' },
+            { model: models.Captor, as: 'captors' }
+        ]
+    }).then(function(room) {
         result.room = room.dataValues;
         cb(result);
     })
@@ -22,7 +31,13 @@ var getRoom = function (options, cb) {
         'room': null
     };
 
-    models.Room.findById(options.roomID)
+    models.Room.findById(options.roomID, {
+        include: [
+            { model: models.Window, as: 'windows' },
+            { model: models.AirConditioning, as: 'airConditionings' },
+            { model: models.Captor, as: 'captors' }
+        ]
+    })
     .then(function(room) {
         if (room) {
             result.room = room.dataValues;
@@ -163,60 +178,18 @@ var getRooms = function (options, cb) {
         'rooms': null
     };
 
-    models.Room.findAll().then(function(rooms) {
+    models.Room.findAll({
+        include: [
+            { model: models.Window, as: 'windows' },
+            { model: models.AirConditioning, as: 'airConditionings' },
+            { model: models.Captor, as: 'captors' }
+        ]
+    }).then(function(rooms) {
         result.rooms = rooms;
         cb(result);
     });
 };
 
-var changeTemperature = function (options, cb) {
-    cb = cb || function () {};
-
-    var result = {
-        'error': null,
-        'room': null
-    };
-
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                if (options.temperature && options.temperature < 40 && options.temperature >= 1) {
-                    room.temperature = options.temperature;
-                    room.save(function (error) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {
-                            statManager.addStat({
-                                "realLight": room.realLight,
-                                "neededLight": room.light,
-                                "realTemperature": room.realTemperature,
-                                "neededTemperature": room.temperature,
-                                "roomID": room._id
-                            }, function (res) {
-                                if (res.error) {
-                                    result.error = res.error;
-                                    cb(result);
-                                } else {
-                                    result.room = room;
-                                    cb(result);
-                                }
-                            })
-                        }
-                    });
-                } else {
-                    result.error = "La température demandée est inexistante ou incohérente";
-                    cb(result);
-                }
-            }
-        })
-    }
-};
 
 var changeLightWithoutStat = function (options, cb) {
     cb = cb || function () {};
@@ -226,33 +199,18 @@ var changeLightWithoutStat = function (options, cb) {
         'room': null
     };
 
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .populate('captors')
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                if (options.light && options.light < 100 && options.light >= 1) {
-                    room.light = options.light;
-                    room.save(function (error) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {                           
-                            result.room = room;
-                            cb(result);
-                        }
-                    });
-                } else {
-                    result.error = "La luminosité demandée est inexistante ou incohérente";
-                    cb(result);
-                }
-            }
+    models.Room.update({
+        "light": options.light
+    }, {
+      where: {
+        id: options.roomID,
+      },
+    }).then(function(res) {
+        models.Room.findById(options.roomID).then(function(room) {
+            result.room = room.dataValues;
+            cb(result);
         })
-    }
+    })
 };
 
 var changeTemperatureWithoutStat = function (options, cb) {
@@ -263,33 +221,58 @@ var changeTemperatureWithoutStat = function (options, cb) {
         'room': null
     };
 
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .populate('captors')
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                if (options.temperature && options.temperature < 40 && options.temperature >= 1) {
-                    room.temperature = options.temperature;
-                    room.save(function (error) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {
-                            result.room = room;
-                            cb(result);
-                        }
-                    });
-                } else {
-                    result.error = "La température demandée est inexistante ou incohérente";
-                    cb(result);
-                }
-            }
+    models.Room.update({
+        "temperature": options.temperature
+    }, {
+      where: {
+        id: options.roomID,
+      },
+    }).then(function(res) {
+        models.Room.findById(options.roomID).then(function(room) {
+            result.room = room.dataValues;
+            cb(result);
         })
-    }
+    })
+};
+
+var changeTemperature = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'room': null
+    };
+
+    models.Room.update({
+        "temperature": options.temperature
+    }, {
+      where: {
+        id: options.roomID,
+      },
+    }).then(function(res) {
+        models.Room.findById(options.roomID).then(function(room) {
+            statManager.addStat({
+                "realLight": room.realLight,
+                "neededLight": room.light,
+                "realTemperature": room.realTemperature,
+                "neededTemperature": room.temperature,
+                "roomId": room.id
+            }, function (response) {
+                if (!response.error && response.m && response.off) {
+                    models.Room.update({
+                        "m": response.m,
+                        "off": response.off
+                    }, {
+                      where: {
+                        id: options.roomID,
+                      },
+                    }) 
+                }
+            })
+            result.room = room.dataValues;
+            cb(result);
+        })
+    })
 };
 
 var changeLight = function (options, cb) {
@@ -300,84 +283,44 @@ var changeLight = function (options, cb) {
         'room': null
     };
 
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .populate('captors')
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                if (options.light && options.light < 100 && options.light >= 1) {
-                    room.light = options.light;
-                    room.save(function (error) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {
-                            async.series([
-                                function (callback) {
-                                    communicationManager.modifyLight({
-                                        "captors": room.captors,
-                                        "lightNeeded": room.light,
-                                        "maxLux": room.maxLux,
-                                        "roomID": room._id
-                                    }, function (res) {
-                                        if (res.error) {
-                                            result.error = res.error;
-                                            cb(result);
-                                        } else {
-                                            callback();
-                                        }
-                                    })
-                                },
-                                function (callback) {
-                                    statManager.addStat({
-                                        "realLight": room.realLight,
-                                        "neededLight": room.light,
-                                        "realTemperature": room.realTemperature,
-                                        "neededTemperature": room.temperature,
-                                        "roomID": room._id
-                                    }, function (res) {
-                                        if (res.error) {
-                                            result.error = res.error;
-                                            cb(result);
-                                        } else {
-                                            callback(res);
-                                        }
-                                    })
-                                }
-                            ], function (stat) {                                
-                                if(stat){
-                                    room.m = stat.m;
-                                    room.off = stat.off;
-                                    room.save(function (error) {
-                                            if (error) {
-                                                result.error = error;
-                                                cb(result);
-                                            } else {
-                                                result.room = room;
-                                                cb(result);                                                
-                                            }
-                                    })
-                                }
-                                else
-                                {
-                                result.room = room;
-                                cb(result);
-                                }
-                            })
-                            
-                        }
-                    });
-                } else {
-                    result.error = "La luminosité demandée est inexistante ou incohérente";
-                    cb(result);
+    models.Room.update({
+        "light": options.light
+    }, {
+      where: {
+        id: options.roomID,
+      },
+    }).then(function(res) {
+        models.Room.findById(options.roomID).then(function(room) {
+            communicationManager.modifyLight({
+                "captors": room.captors,
+                "lightNeeded": room.light,
+                "maxLux": room.maxLux,
+                "roomID": room._id
+            }, function (response) {
+                console.log('response : ', response)
+            })
+            statManager.addStat({
+                "realLight": room.realLight,
+                "neededLight": room.light,
+                "realTemperature": room.realTemperature,
+                "neededTemperature": room.temperature,
+                "roomId": room.id
+            }, function (response) {
+                if (!response.error && response.m && response.off) {
+                    models.Room.update({
+                        "m": response.m,
+                        "off": response.off
+                    }, {
+                      where: {
+                        id: options.roomID,
+                      },
+                    }) 
                 }
-            }
+            })
+            result.room = room.dataValues;
+            cb(result);
         })
-    }
+    })
 };
 
 var addEventPlanning = function (options, cb) {

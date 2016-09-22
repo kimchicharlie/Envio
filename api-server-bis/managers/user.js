@@ -1,6 +1,7 @@
 var utils = require('../utils');
 var async = require("async");
 var bcrypt = require("bcryptjs");
+var models = require('../models');
 
 var mailManager = require("./mail");
 
