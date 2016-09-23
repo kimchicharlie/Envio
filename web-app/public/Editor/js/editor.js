@@ -1,37 +1,36 @@
-var container;
-var hasMoved, raycaster, mouse, camera, scene, renderer, plane, INTERSECTED = null,
-	objects = [], parents = [];
-var GUIObject = null;
-var lookAtPos = new THREE.Object3D(), cameraAngle = 45;
-var mouseDownPos;
+var editor_container;
+var editor_hasMoved, editor_raycaster, editor_mouse, editor_camera, editor_scene, editor_renderer, editor_plane, editor_INTERSECTED = null,
+	editor_objects = [];
+var editor_lookAtPos = new THREE.Object3D();
+var editor_mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
 var MAIN_URL = "http://localhost:1337", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function editor()
 {
-	init();
-	animate();
+	editor_init();
+	editor_animate();
 }
 
-function init() {
+function editor_init() {
 
-	container = document.getElementById("container")
-	// document.body.appendChild( container );
+	editor_container = document.getElementById("containerEditor")
+	// document.body.appendChild( editor_container );
 
-	raycaster = new THREE.Raycaster();
-	mouse = new THREE.Vector2();
+	editor_raycaster = new THREE.Raycaster();
+	editor_mouse = new THREE.Vector2();
 
 	// Camera
 
-	camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 500, 5000 );
-	camera.position.x = 0;
-	camera.position.y = 200;
-	camera.position.z = 0;
+	editor_camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 500, 5000 );
+	editor_camera.position.x = 0;
+	editor_camera.position.y = 200;
+	editor_camera.position.z = 0;
 
-	scene = new THREE.Scene();
+	editor_scene = new THREE.Scene();
 
-	loadRoomsFromDatabase();
+	editor_loadRoomsFromDatabase();
 
 	// Plane
 	//	It is used for raycast intersections.
@@ -43,44 +42,44 @@ function init() {
 	plane.position.z = 0;
 	plane.rotation.x = -90 * (Math.PI/180);
 	plane.name = "SCENE_GROUND";
-	scene.add( plane );
+	editor_scene.add( plane );
 	plane.info = null;
-	objects.push(plane);
+	editor_objects.push(plane);
 	
 	
 	// Lights
 
 	var ambientLight = new THREE.AmbientLight( 0x555555 );
-	scene.add( ambientLight );
+	editor_scene.add( ambientLight );
 
 	var directionalLight = new THREE.DirectionalLight( 0x50D0FF );
 	directionalLight.position.x = 0.5;
 	directionalLight.position.y = 0.5;
 	directionalLight.position.z = 1;
-	scene.add( directionalLight );
+	editor_scene.add( directionalLight );
 
 	// Renderer
 
 	if ( Detector.webgl ) {
-		renderer = new THREE.WebGLRenderer({antialias:true}); 
+		editor_renderer = new THREE.WebGLRenderer({antialias:true}); 
 	} else { 
-		renderer = new THREE.CanvasRenderer();
+		editor_renderer = new THREE.CanvasRenderer();
 	} 
-	renderer.setClearColor( 0xf0f0f0 );
-	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	container.appendChild( renderer.domElement );
+	editor_renderer.setClearColor( 0xf0f0f0 );
+	editor_renderer.setPixelRatio( window.devicePixelRatio );
+	editor_renderer.setSize( window.innerWidth, window.innerHeight );
+	editor_container.appendChild( editor_renderer.domElement );
 
 
 	window.addEventListener( 'resize', onWindowResize, false );
-	renderer.domElement.addEventListener( 'mousedown', onMouseDown );
-	renderer.domElement.addEventListener( 'mouseup', onMouseUp );
-	renderer.domElement.addEventListener( 'mousemove', onMouseMove );
+	editor_renderer.domElement.addEventListener( 'mousedown', editor_onMouseDown );
+	editor_renderer.domElement.addEventListener( 'mouseup', editor_onMouseUp );
+	editor_renderer.domElement.addEventListener( 'mousemove', editor_onMouseMove );
 	
 	// Adding controls
 
-	$("canvas").parent().attr("id", "container");	
-	$("#container")
+	$("editor_canvas").parent().attr("id", "containerEditor");	
+	$("#containerEditor")
 		.append($('<div><p id="name">--</p></div><br/>'))
 		.append($('<label for="height">Largeur :</label><input type="number" onblur="applyChanges()" id="height" value="0"></input><br/>'))
 		.append($('<label for="width">Longueur :</label><input type="number" onblur="applyChanges()" id="width" value="0"></input><br/>'))
@@ -90,14 +89,14 @@ function init() {
 }
 
 function saveChanges() {
-	for (var i = objects.length - 1; i >= 0; i--) {
-		if (objects[i].name == "SCENE_GROUND")
+	for (var i = editor_objects.length - 1; i >= 0; i--) {
+		if (editor_objects[i].name == "SCENE_GROUND")
 			continue;
 		var data = {
 			api_key: API_KEY,
 			organisation: ORGANISATION,
-			name: objects[i].info.name,
-			data: '{"size": {"length":' + objects[i].geometry.parameters.width + ', "width":' + objects[i].geometry.parameters.height + ', "height":40}, "position": {"x":' + objects[i].position.x + ', "y":' + objects[i].position.y + ', "z":' + objects[i].position.z + '}}'
+			name: editor_objects[i].info.name,
+			data: '{"size": {"length":' + editor_objects[i].geometry.parameters.width + ', "width":' + editor_objects[i].geometry.parameters.height + ', "height":40}, "position": {"x":' + editor_objects[i].position.x + ', "y":' + editor_objects[i].position.y + ', "z":' + editor_objects[i].position.z + '}}'
 		};
 		$.ajax({
 			type:    "POST",
@@ -121,9 +120,9 @@ function applyChanges() {
 	selected.position.x = -parseInt($("#posY").val());
 }
 
-var unplacedRooms;
-var queue;
-function loadRoomFromDatabase (id)
+var editor_unplacedRooms;
+var editor_queue;
+function editor_loadRoomFromDatabase (id)
 {
 	var data = {
 		api_key: API_KEY,
@@ -138,11 +137,11 @@ function loadRoomFromDatabase (id)
 			var parsed = $.parseJSON(text["room"]["data"]);
 			if (parsed == null) {
 				text["room"]["data"] = parsed
-				unplacedRooms.push(text);
-				queue--;
+				editor_unplacedRooms.push(text);
+				editor_queue--;
 			}
 			else
-				addRoom(parsed["size"], parsed["position"], text["room"]);
+				editor_addRoom(parsed["size"], parsed["position"], text["room"]);
 		},
 		error:   function(error) {
 		},
@@ -151,10 +150,10 @@ function loadRoomFromDatabase (id)
 	});
 }
 
-function loadRoomsFromDatabase ()
+function editor_loadRoomsFromDatabase ()
 {
-	unplacedRooms = [];
-	queue = 0;
+	editor_unplacedRooms = [];
+	editor_queue = 0;
 	var data = {
 		api_key: API_KEY,
 		organisation: 'Envio',
@@ -166,8 +165,8 @@ function loadRoomsFromDatabase ()
 		success: function(text) {
 			for (var key in text["rooms"]) {
 				if (text["rooms"].hasOwnProperty(key)) {
-					queue++;
-					loadRoomFromDatabase(text["rooms"][key]._id);
+					editor_queue++;
+					editor_loadRoomFromDatabase(text["rooms"][key]._id);
 				}
 			}
 		},
@@ -176,30 +175,29 @@ function loadRoomsFromDatabase ()
 			// An error occurred
 		}
 	}).then(function () {
-		placeUnplacedRooms();
+		editor_placeUnplacedRooms();
 	});
 }
 
 // height and width are reversed
-function placeUnplacedRooms() {
-	if (queue > 0) {
-		setTimeout(placeUnplacedRooms, 50);
+function editor_placeUnplacedRooms() {
+	if (editor_queue > 0) {
+		setTimeout(editor_placeUnplacedRooms, 50);
 		return;
 	}
 	var right = 0;
-	for (var i = objects.length - 1; i >= 0; i--) {
-		if (objects[i].name != "SCENE_GROUND" && objects[i].position.z + objects[i].geometry.parameters.height / 2 > right) right = objects[i].position.z + objects[i].geometry.parameters.height / 2;
+	for (var i = editor_objects.length - 1; i >= 0; i--) {
+		if (editor_objects[i].name != "SCENE_GROUND" && editor_objects[i].position.z + editor_objects[i].geometry.parameters.height / 2 > right) right = editor_objects[i].position.z + editor_objects[i].geometry.parameters.height / 2;
 	}
-	console.log(right)
-	for (var i = unplacedRooms.length - 1; i >= 0; i--) {
-		addRoom({"height": 40, "width": 100, "length": 100}, {"x": 0, "y": 0, "z": right + 50}, unplacedRooms[i]["room"]);
+	for (var i = editor_unplacedRooms.length - 1; i >= 0; i--) {
+		editor_addRoom({"height": 40, "width": 100, "length": 100}, {"x": 0, "y": 0, "z": right + 50}, unplacedRooms[i]["room"]);
 		right += 100;
 	}
 }
 
 // x+ -> down
 // z+ -> left
-function addRoom (size, position, infos) {
+function editor_addRoom (size, position, infos) {
 
 	// Parent object
 	var parent = new THREE.Object3D();
@@ -214,7 +212,7 @@ function addRoom (size, position, infos) {
 	ground.rotation.x = -90 * (Math.PI/180);
 	ground.info = infos;
 	parent.add( ground );
-	scene.add( ground );
+	editor_scene.add( ground );
 
 	if (typeof(infos) === "undefined")
 		infos = {name:"<Nameless Room>"};
@@ -222,13 +220,13 @@ function addRoom (size, position, infos) {
 	spritey.position.set(position.x, position.y, position.z);
 	spritey.info = infos;
 	spritey.name = "SPRITEY_" + infos.name;
-	scene.add( spritey );
-	scene.add( parent );
-	objects.push(ground);
-	queue--;
+	editor_scene.add( spritey );
+	editor_scene.add( parent );
+	editor_objects.push(ground);
+	editor_queue--;
 }
 
-function getDirectionVector (object) {
+function editor_getDirectionVector (object) {
 	var lookAtVector = new THREE.Vector3(0,0, -1);
 	lookAtVector.applyQuaternion(object.quaternion);
 	return lookAtVector;
@@ -236,76 +234,76 @@ function getDirectionVector (object) {
 
 function onWindowResize() {
 
-	camera.left = window.innerWidth / - 2;
-	camera.right = window.innerWidth / 2;
-	camera.top = window.innerHeight / 2;
-	camera.bottom = window.innerHeight / - 2;
+	editor_camera.left = window.innerWidth / - 2;
+	editor_camera.right = window.innerWidth / 2;
+	editor_camera.top = window.innerHeight / 2;
+	editor_camera.bottom = window.innerHeight / - 2;
 
-	camera.updateProjectionMatrix();
+	editor_camera.updateProjectionMatrix();
 
-	renderer.setSize( window.innerWidth, window.innerHeight );
+	editor_renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
 
-function onMouseMove (event) {
+function editor_onMouseMove (event) {
 	event.preventDefault();
 
-	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	editor_mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	editor_mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-	if (INTERSECTED) {
-		hasMoved = true;
-		raycaster.setFromCamera( mouse, camera );
-		var intersects = raycaster.intersectObjects ( objects );
+	if (editor_INTERSECTED) {
+		editor_hasMoved = true;
+		editor_raycaster.setFromCamera( editor_mouse, editor_camera );
+		var intersects = editor_raycaster.intersectObjects ( editor_objects );
 		if (intersects.length == 0)
 			return;
 		intersects = intersects[intersects.length - 1];
-		var delta = {x: intersects.point.x - mouseDownPos.x, z:intersects.point.z - mouseDownPos.z};
+		var delta = {x: intersects.point.x - editor_mouseDownPos.x, z:intersects.point.z - editor_mouseDownPos.z};
 
-		lookAtPos.translateX(-delta.x / 2);
-		lookAtPos.translateZ(-delta.z / 2);
+		editor_lookAtPos.translateX(-delta.x / 2);
+		editor_lookAtPos.translateZ(-delta.z / 2);
 
-		mouseDownPos = intersects.point;
+		editor_mouseDownPos = intersects.point;
 	}
 }
 
-var selected = null;
-function onMouseDown (event) {
+var editor_selected = null;
+function editor_onMouseDown (event) {
 
 	event.preventDefault();
 
-	if (selected != null) {
-		var spritey = makeTextSprite( " " + selected.info.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
-		spritey.position.set(selected.position.x, selected.position.y, selected.position.z);
-		spritey.info = selected.info;
-		spritey.name = "SPRITEY_" + selected.info.name;
+	if (editor_selected != null) {
+		var spritey = makeTextSprite( " " + editor_selected.info.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
+		spritey.position.set(editor_selected.position.x, editor_selected.position.y, editor_selected.position.z);
+		spritey.info = editor_selected.info;
+		spritey.name = "SPRITEY_" + editor_selected.info.name;
 		scene.add( spritey );
-		selected = null;
+		editor_selected = null;
 	}
 
-	raycaster.setFromCamera( mouse, camera );
-	var intersects = raycaster.intersectObjects( objects );
+	editor_raycaster.setFromCamera( editor_mouse, editor_camera );
+	var intersects = editor_raycaster.intersectObjects( editor_objects );
 
 	if (intersects.length == 0)
 		return;
 
-	hasMoved = false;
-	INTERSECTED = intersects[intersects.length -1];
-	mouseDownPos = INTERSECTED.point;
+	editor_hasMoved = false;
+	editor_INTERSECTED = intersects[intersects.length -1];
+	editor_mouseDownPos = editor_INTERSECTED.point;
 
 	// On room click, display its informations
-	if (INTERSECTED && intersects.length > 1) {
-		if (!hasMoved && intersects.length != 0) {
+	if (editor_INTERSECTED && intersects.length > 1) {
+		if (!editor_hasMoved && intersects.length != 0) {
 			displayInfo(intersects[0].object);
-			var object = scene.getObjectByName("SPRITEY_" + intersects[0].object.info.name);
-			scene.remove(object);
-			selected = intersects[0].object;
+			var object = editor_scene.getObjectByName("SPRITEY_" + intersects[0].object.info.name);
+			editor_scene.remove(object);
+			editor_selected = intersects[0].object;
 		}
 	}
 }
 
-function onMouseUp (event) {
-	INTERSECTED = null;
+function editor_onMouseUp (event) {
+	editor_INTERSECTED = null;
 }
 
 function displayInfo (object) {
@@ -317,22 +315,22 @@ function displayInfo (object) {
 	$("#posY").val(-object.position.x);
 }
 
-function animate() {
+function editor_animate() {
 
-	requestAnimationFrame( animate );
+	requestAnimationFrame( editor_animate );
 
-	render();
+	editor_render();
 
 }
 
-function render() {
+function editor_render() {
 
-	camera.position.x = lookAtPos.position.x;
-	camera.position.z = lookAtPos.position.z;
+	editor_camera.position.x = editor_lookAtPos.position.x;
+	editor_camera.position.z = editor_lookAtPos.position.z;
 	
-	camera.lookAt( lookAtPos.position );
+	editor_camera.lookAt( editor_lookAtPos.position );
 
-	renderer.render( scene, camera );
+	editor_renderer.render( editor_scene, editor_camera );
 }
 
 function DegToRad (deg) {
