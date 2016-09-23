@@ -5,7 +5,7 @@ var check_guid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[
 var check_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 
 var getIdType = function() {
-    return (config.isSql ? "id" : "_id");
+    return (config.isSQL ? "id" : "_id");
 };
 
 var checkProperty = function(prop) {

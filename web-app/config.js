@@ -5,5 +5,5 @@ exports.config = {
 	//apiAddress: 'http://176.31.127.14:1337/api',
 	apiAddress: "http://localhost:1337/api",
 	webServerHttpPort: 8081,
-	isSQL: false
+	isSQL: true
 };

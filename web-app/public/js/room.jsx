@@ -83,17 +83,17 @@ Rooms = React.createClass({
     }, function(rep) {         
       rep = jQuery.parseJSON(rep);
       if (rep.error === null){
-            react.setState({modif: null});
-            react.setState({delete: null});
-            react.setState({creat: null});        
+        react.setState({modif: null});
+        react.setState({delete: null});
+        react.setState({creat: null});        
         react.setState({rooms: rep.rooms});
       }
       else{
-            react.setState({error:  rep.error});
-            react.setState({modif: null});
-            react.setState({delete: null});
-            react.setState({creat: null});
-            react.setState({rooms: []});
+        react.setState({error:  rep.error});
+        react.setState({modif: null});
+        react.setState({delete: null});
+        react.setState({creat: null});
+        react.setState({rooms: []});
       }            
     });          
       },
@@ -101,7 +101,7 @@ Rooms = React.createClass({
     react = this;
       HttpPost('/getRooms', {
       'organisation': this.props.Organisation,// a changer avec les info users            
-    }, function(rep) {         
+    }, function(rep) {
       rep = jQuery.parseJSON(rep);
       if (rep.error === null){
         react.setState({rooms: rep.rooms});

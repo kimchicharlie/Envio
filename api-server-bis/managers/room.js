@@ -158,7 +158,13 @@ var getRoomPlusHardware = function (options, cb) {
         'room': null
     };
 
-    models.Room.findById(options.roomID)
+    models.Room.findById(options.roomID, {
+        include: [
+            { model: models.Window, as: 'windows' },
+            { model: models.AirConditioning, as: 'airConditionings' },
+            { model: models.Captor, as: 'captors' }
+        ]
+    })
     .then(function(room) {
         if (room) {
             result.room = room.dataValues;
