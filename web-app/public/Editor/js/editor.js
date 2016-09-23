@@ -1,6 +1,6 @@
 var container;
 var hasMoved, raycaster, mouse, camera, scene, renderer, plane, INTERSECTED = null,
-	objects = [];
+	objects = [], parents = [];
 var GUIObject = null;
 var lookAtPos = new THREE.Object3D(), cameraAngle = 45;
 var mouseDownPos;
@@ -8,7 +8,7 @@ var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
 var MAIN_URL = "http://localhost:1337", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
-function viewer()
+function editor()
 {
 	init();
 	animate();
@@ -42,6 +42,7 @@ function init() {
 	plane.position.x = 0;
 	plane.position.z = 0;
 	plane.rotation.x = -90 * (Math.PI/180);
+	plane.name = "SCENE_GROUND";
 	scene.add( plane );
 	plane.info = null;
 	objects.push(plane);
@@ -61,9 +62,9 @@ function init() {
 	// Renderer
 
 	if ( Detector.webgl ) {
-	    renderer = new THREE.WebGLRenderer({antialias:true}); 
+		renderer = new THREE.WebGLRenderer({antialias:true}); 
 	} else { 
-	    renderer = new THREE.CanvasRenderer();
+		renderer = new THREE.CanvasRenderer();
 	} 
 	renderer.setClearColor( 0xf0f0f0 );
 	renderer.setPixelRatio( window.devicePixelRatio );
@@ -80,9 +81,48 @@ function init() {
 
 	$("canvas").parent().attr("id", "container");	
 	$("#container")
-		.append($('<div><p id="name">--</p></div><br/>'));
+		.append($('<div><p id="name">--</p></div><br/>'))
+		.append($('<label for="height">Largeur :</label><input type="number" onblur="applyChanges()" id="height" value="0"></input><br/>'))
+		.append($('<label for="width">Longueur :</label><input type="number" onblur="applyChanges()" id="width" value="0"></input><br/>'))
+		.append($('<label for="posX">Position X :</label><input type="number" onblur="applyChanges()" id="posX" value="0"></input><br/>'))
+		.append($('<label for="posY">Position Y :</label><input type="number" onblur="applyChanges()" id="posY" value="0"></input><br/>'))
+		.append($('<button id="saveChanges" onclick="saveChanges()">Enregistrer</button>'));
 }
 
+function saveChanges() {
+	for (var i = objects.length - 1; i >= 0; i--) {
+		if (objects[i].name == "SCENE_GROUND")
+			continue;
+		var data = {
+			api_key: API_KEY,
+			organisation: ORGANISATION,
+			name: objects[i].info.name,
+			data: '{"size": {"length":' + objects[i].geometry.parameters.width + ', "width":' + objects[i].geometry.parameters.height + ', "height":40}, "position": {"x":' + objects[i].position.x + ', "y":' + objects[i].position.y + ', "z":' + objects[i].position.z + '}}'
+		};
+		$.ajax({
+			type:    "POST",
+			url:     MAIN_URL + "/api/modifyData/",
+			data:    data,
+			success: function(text) {
+			},
+			error:   function(error) {
+				console.log(error)
+			},
+			complete: function () {
+			}
+		});
+	}
+}
+
+function applyChanges() {
+	selected.geometry.parameters.width = parseInt($("#height").val());
+	selected.geometry.parameters.height = parseInt($("#width").val());
+	selected.position.z = -parseInt($("#posX").val());
+	selected.position.x = -parseInt($("#posY").val());
+}
+
+var unplacedRooms;
+var queue;
 function loadRoomFromDatabase (id)
 {
 	var data = {
@@ -91,45 +131,74 @@ function loadRoomFromDatabase (id)
 		roomID: id
 	};
 	$.ajax({
-	    type:    "POST",
-	    url:     MAIN_URL + "/api/getRoom/",
-	    data:    data,
-	    success: function(text) {
-	    	var parsed = $.parseJSON(text["room"]["data"]);
-	    	addRoom(parsed["size"], parsed["position"], text["room"]);
-	    },
-	    error:   function(error) {
-	    }
+		type:    "POST",
+		url:     MAIN_URL + "/api/getRoom/",
+		data:    data,
+		success: function(text) {
+			var parsed = $.parseJSON(text["room"]["data"]);
+			if (parsed == null) {
+				text["room"]["data"] = parsed
+				unplacedRooms.push(text);
+				queue--;
+			}
+			else
+				addRoom(parsed["size"], parsed["position"], text["room"]);
+		},
+		error:   function(error) {
+		},
+		complete: function () {
+		}
 	});
 }
 
 function loadRoomsFromDatabase ()
 {
+	unplacedRooms = [];
+	queue = 0;
 	var data = {
 		api_key: API_KEY,
 		organisation: 'Envio',
 	};
 	$.ajax({
-	    type:    "POST",
-	    url:     MAIN_URL + "/api/getRooms/",
-	    data:    data,
-	    success: function(text) {
-	    	for (var key in text["rooms"]) {
+		type:    "POST",
+		url:     MAIN_URL + "/api/getRooms/",
+		data:    data,
+		success: function(text) {
+			for (var key in text["rooms"]) {
 				if (text["rooms"].hasOwnProperty(key)) {
-    				loadRoomFromDatabase(text["rooms"][key]._id);
-  				}
+					queue++;
+					loadRoomFromDatabase(text["rooms"][key]._id);
+				}
 			}
-	    },
-	    error:   function() {
-	        // An error occurred
-	    }
+		},
+		error:   function() {
+
+			// An error occurred
+		}
+	}).then(function () {
+		placeUnplacedRooms();
 	});
 }
 
-// width -> z axis
-// length -> x axis
-// height -> y axis
-// Add a "name" parameter in the object added to objects
+// height and width are reversed
+function placeUnplacedRooms() {
+	if (queue > 0) {
+		setTimeout(placeUnplacedRooms, 50);
+		return;
+	}
+	var right = 0;
+	for (var i = objects.length - 1; i >= 0; i--) {
+		if (objects[i].name != "SCENE_GROUND" && objects[i].position.z + objects[i].geometry.parameters.height / 2 > right) right = objects[i].position.z + objects[i].geometry.parameters.height / 2;
+	}
+	console.log(right)
+	for (var i = unplacedRooms.length - 1; i >= 0; i--) {
+		addRoom({"height": 40, "width": 100, "length": 100}, {"x": 0, "y": 0, "z": right + 50}, unplacedRooms[i]["room"]);
+		right += 100;
+	}
+}
+
+// x+ -> down
+// z+ -> left
 function addRoom (size, position, infos) {
 
 	// Parent object
@@ -152,15 +221,11 @@ function addRoom (size, position, infos) {
 	var spritey = makeTextSprite( " " + infos.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
 	spritey.position.set(position.x, position.y, position.z);
 	spritey.info = infos;
-	parent.add( spritey );
+	spritey.name = "SPRITEY_" + infos.name;
 	scene.add( spritey );
 	scene.add( parent );
 	objects.push(ground);
-	objects.push(wallTopRight);
-	objects.push(wallBotLeft);
-	objects.push(wallTopLeft);
-	objects.push(wallBotRight);
-
+	queue--;
 }
 
 function getDirectionVector (object) {
@@ -204,12 +269,21 @@ function onMouseMove (event) {
 	}
 }
 
+var selected = null;
 function onMouseDown (event) {
 
 	event.preventDefault();
 
-	raycaster.setFromCamera( mouse, camera );
+	if (selected != null) {
+		var spritey = makeTextSprite( " " + selected.info.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
+		spritey.position.set(selected.position.x, selected.position.y, selected.position.z);
+		spritey.info = selected.info;
+		spritey.name = "SPRITEY_" + selected.info.name;
+		scene.add( spritey );
+		selected = null;
+	}
 
+	raycaster.setFromCamera( mouse, camera );
 	var intersects = raycaster.intersectObjects( objects );
 
 	if (intersects.length == 0)
@@ -221,9 +295,11 @@ function onMouseDown (event) {
 
 	// On room click, display its informations
 	if (INTERSECTED && intersects.length > 1) {
-		var intersects = raycaster.intersectObjects ( objects );
 		if (!hasMoved && intersects.length != 0) {
 			displayInfo(intersects[0].object);
+			var object = scene.getObjectByName("SPRITEY_" + intersects[0].object.info.name);
+			scene.remove(object);
+			selected = intersects[0].object;
 		}
 	}
 }
@@ -233,27 +309,12 @@ function onMouseUp (event) {
 }
 
 function displayInfo (object) {
-	if(object.info)
+	if (object.info)
 		$("#name").text(object.info.name);
-
-	// Retrieving room's info from database
-	var data = {
-		api_key: API_KEY,
-		organisation: ORGANISATION,
-		roomID: object.info._id
-	};
-
-	$.ajax({
-	    type:   "POST",
-	    data: 	data,
-	    url:     MAIN_URL + "/api/getRoom",
-	    success: function(text) {
-	    	// TODO: Update size inputs
-	    },
-	    error:   function() {
-	        // An error occurred. Yup.
-	    }
-	});	
+	$("#height").val(object.geometry.parameters.width);
+	$("#width").val(object.geometry.parameters.height);
+	$("#posX").val(-object.position.z);
+	$("#posY").val(-object.position.x);
 }
 
 function animate() {
@@ -266,8 +327,8 @@ function animate() {
 
 function render() {
 
-	camera.position.x = Math.cos( DegToRad( cameraAngle )) * 200 + lookAtPos.position.x;
-	camera.position.z = Math.sin( DegToRad( cameraAngle )) * 200 + lookAtPos.position.z;
+	camera.position.x = lookAtPos.position.x;
+	camera.position.z = lookAtPos.position.z;
 	
 	camera.lookAt( lookAtPos.position );
 
@@ -304,7 +365,7 @@ function makeTextSprite( message, parameters )
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
 	context.font = "Bold " + fontsize + "px " + fontface;
-    
+	
 	// get size data (height depends only on font size)
 	var metrics = context.measureText( message );
 	var textWidth = metrics.width;
@@ -339,17 +400,17 @@ function makeTextSprite( message, parameters )
 
 function roundRect(ctx, x, y, w, h, r) 
 {
-    ctx.beginPath();
-    ctx.moveTo(x+r, y);
-    ctx.lineTo(x+w-r, y);
-    ctx.quadraticCurveTo(x+w, y, x+w, y+r);
-    ctx.lineTo(x+w, y+h-r);
-    ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
-    ctx.lineTo(x+r, y+h);
-    ctx.quadraticCurveTo(x, y+h, x, y+h-r);
-    ctx.lineTo(x, y+r);
-    ctx.quadraticCurveTo(x, y, x+r, y);
-    ctx.closePath();
-    ctx.fill();
+	ctx.beginPath();
+	ctx.moveTo(x+r, y);
+	ctx.lineTo(x+w-r, y);
+	ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+	ctx.lineTo(x+w, y+h-r);
+	ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+	ctx.lineTo(x+r, y+h);
+	ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+	ctx.lineTo(x, y+r);
+	ctx.quadraticCurveTo(x, y, x+r, y);
+	ctx.closePath();
+	ctx.fill();
 	ctx.stroke();   
 }
