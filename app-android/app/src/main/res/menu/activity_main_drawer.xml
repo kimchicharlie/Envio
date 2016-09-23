@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/places_ic_search"
+            android:title="Salles" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@android:drawable/ic_menu_today"
+            android:title="Planning" />
+    </group>
+
+    <item android:title="Autres Options">
+        <menu>
+            <item
+                android:id="@+id/credits"
+                android:icon="@drawable/ic_setting_dark"
+                android:title="Crédits" />
+        </menu>
+    </item>
+
+</menu>
