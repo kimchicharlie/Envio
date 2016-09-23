@@ -1,4 +1,4 @@
-var async = require("async");
+var models = require('../models');
 
 var createAirConditioning = function (options, cb) {
     cb = cb || function () {};
@@ -7,34 +7,15 @@ var createAirConditioning = function (options, cb) {
         'airConditioning': null
     };
     if (options.room && options.temperatureWanted) {
-        var newAirConditioning = new db.AirConditionings({
-            "room" : options.room,
-            "temperatureWanted" : options.temperatureWanted,
-        });
-
-        newAirConditioning.save(function (error) {
-            if (error) {
-                result.error = error;
+        models.Room.findById(options.room).then(function (room) {
+            return models.AirConditioning.create({
+                "temperatureWanted" : options.temperatureWanted
+            }).then(function(airConditioning) {
+                airConditioning.setRoom(room.id);
+                result.airConditioning = airConditioning.dataValues;
                 cb(result);
-            } else {
-                result.airConditioning = newAirConditioning;
-                db.Rooms.findByIdAndUpdate(
-                    {"_id" : options.room},
-                    {$push: {"airConditionings" :  newAirConditioning._id }},
-                    {safe: true, upsert: true},
-                    function(err, model) { 
-                        if (err) {
-                            result.error = err;
-                            cb(result);
-                            return;
-                        } else {
-                            cb(result);
-                            return;
-                        }
-                    }
-                );
-            }
-        });
+            });
+        })
     } else {
         result.error = "Des données sont manquantes";
         cb(result);
@@ -50,37 +31,19 @@ var modifyAirConditioning = function (options, cb) {
     };
 
     if (options.airConditioningID) {
-        db.AirConditionings
-        .findOne({'_id': options.airConditioningID})
-        .exec(function (err, airConditioning) {
-            if (err) {
-                result.error = err;
+        models.AirConditioning.update(options, {
+          where: {
+            id: options.airConditioningID,
+          },
+        }).then(function(res) {
+            models.AirConditioning.findOne({
+                where: {
+                    id: options.airConditioningID
+                }
+            }).then(function(airConditioning) {
+                result.airConditioning = airConditioning.dataValues;
                 cb(result);
-            } else if (!airConditioning) {
-                result.error = "Cette vitre n'existe pas";
-                cb(result);
-            } else {
-                async.parallel([
-                    function (callback) {
-                        if (options.temperatureWanted) {
-                            airConditioning.temperatureWanted = options.temperatureWanted;
-                            callback();
-                        } else {
-                            callback();
-                        }
-                    },
-                ], function () {
-                    airConditioning.save(function (error) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {
-                            result.airConditioning = airConditioning;
-                            cb(result);
-                        }
-                    });
-                })
-            }
+            })
         })
     } else {
         result.error = "Requête incorrecte";
@@ -96,38 +59,14 @@ var deleteAirConditioning = function (options, cb) {
         'airConditioning': null
     };
     if (options.airConditioningID) {
-        db.AirConditionings
-        .findOne({'_id': options.airConditioningID})
-        .exec(function (err, airConditioning) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!airConditioning) {
-                result.error = "Ce airConditioning n'existe pas";
-                cb(result);
-            } else {
-                airConditioning.remove(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        db.Rooms.findByIdAndUpdate(
-                            {"_id" : airConditioning.room},
-                            {$pull: {"airConditionings" :  options.airConditioningID }},
-                            {safe: true, upsert: true},
-                            function(err, model) { 
-                                if (err) {
-                                    result.error = err;
-                                    cb(result);
-                                } else {
-                                    cb(result);
-                                }
-                            }
-                        );
-                    }
-                });
-            }
-        })
+        models.AirConditioning.destroy({
+          where: {
+            id: options.airConditioningID,
+          }
+        }).then(function (airConditioning) {
+            result.airConditioning = airConditioning.dataValues;
+            cb(result);
+        });
     } else {
         result.error = "Requête incorrecte";
         cb(result);
@@ -142,19 +81,14 @@ var getAirConditionings = function (options, cb) {
         'airConditionings': null
     };
     
-    if (options.room) {
-        db.AirConditionings
-        .find({'room': options.room})
-        .exec(function (err, airConditionings) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.airConditionings = airConditionings;
-                cb(result);
-            }
-        })
-    }
+    models.AirConditioning.findAll({
+        where : {
+            roomId: options.room
+        }
+    }).then(function(airConditionings) {
+        result.airConditionings = airConditionings;
+        cb(result);
+    });
 };
 
 var getAirConditioning = function (options, cb) {
@@ -165,19 +99,16 @@ var getAirConditioning = function (options, cb) {
         'airConditioning': null
     };
 
-    if (options.airConditioningID != null) {
-        db.AirConditionings
-        .findOne({'_id': options.airConditioningID})
-        .exec(function (err, airConditioning) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else {
-                result.airConditioning = airConditioning;
-                cb(result);
-            }
-        })
-    }
+    models.AirConditioning.findById(options.airConditioningID)
+    .then(function(airConditioning) {
+        if (airConditioning) {
+            result.airConditioning = airConditioning.dataValues;
+            cb(result);
+        } else {
+            result.error = "AirConditioning not found";
+            cb(result);
+        }
+    })
 };
 
 exports.createAirConditioning = createAirConditioning;

@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var Modal = require('react-modal');
 var Select = require('react-select');
 var Cookie = require('react-cookie');
+var utils = require('../../utils');
 
 var Header = React.createClass({
     render() {
@@ -34,6 +35,9 @@ var Sidemenu = React.createClass({
                 <div className={"link " + (this.props.route == "Simulateur" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Simulateur")}>
                     <span>Visionneuse</span>
                 </div>
+                <div className={"link " + (this.props.route == "Editor" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Editor")}>
+                    <span>Editeur</span>
+                </div>                
             </nav>
             </div>  
         );
@@ -94,6 +98,17 @@ var Home = React.createClass({
                     </div>
                 )
                 break;
+            case "Editor" :
+                content = (
+                    <div>
+                        <div className="top-menu">
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            {logoutButton}
+                        </div>
+                        <Editor/>
+                    </div>
+                )
+                break;                
             case "Login" :                
                 content = (
                     <div>
@@ -128,6 +143,17 @@ var Simulateur = React.createClass({
     render : function() {
         return (
             <div className="label-sim" id="container"></div>
+        );
+    }
+});
+
+var Editor = React.createClass({
+    componentDidMount : function() {
+        editor();
+    },
+    render : function() {
+        return (
+            <div className="label-sim" id="containerEditor"></div>
         );
     }
 });

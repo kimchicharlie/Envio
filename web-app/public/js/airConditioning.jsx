@@ -1,14 +1,14 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
-
+var utils = require('../../utils');
 
 AirConditioningListItem = React.createClass({
     ModifAirConditioning : function (){
-      this.props.changeToModif(this.props.airConditioning._id);
+      this.props.changeToModif(this.props.airConditioning[utils.getIdType()]);
     },
     DeleteAirConditioning : function (){
-      this.props.changeToDelete(this.props.airConditioning._id, this.props.index);
+      this.props.changeToDelete(this.props.airConditioning[utils.getIdType()], this.props.index);
     },
     render: function () {
           return (
@@ -26,7 +26,7 @@ AirConditioningList = React.createClass({
         var react = this;
         var items = this.props.airConditionings.map(function (airConditioning) {
             return (
-                <AirConditioningListItem key={airConditioning._id} airConditioning={airConditioning} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
+                <AirConditioningListItem key={airConditioning[utils.getIdType()]} airConditioning={airConditioning} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
             );
         });
         return (

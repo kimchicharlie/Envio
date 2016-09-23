@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes) {
   }, {
     classMethods: {
       associate(models) {
-      	ConnectedUser.hasOne(models.User, { as: 'user', foreignKey: 'userId' });
+      	ConnectedUser.hasOne(models.User, { as: 'user', foreignKey: 'connectedUserId' });
       },
     },
   });

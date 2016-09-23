@@ -1,33 +1,38 @@
 module.exports = function (sequelize, DataTypes) {
   const Stat = sequelize.define('Stat', {
-    realLight: {
+    roomId: {
       type: DataTypes.INTEGER,
       validate: {
         isInt: true
+      }
+    },
+    realLight: {
+      type: DataTypes.FLOAT,
+      validate: {
+        isFloat: true
       }
     },
     neededLight: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       validate: {
-        isInt: true
+        isFloat: true
       }
     },
     realTemperature: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       validate: {
-        isInt: true
+        isFloat: true
       }
     },
     neededTemperature: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       validate: {
-        isInt: true
+        isFloat: true
       }
-    }
+    },
   }, {
     classMethods: {
       associate(models) {
-        Stat.hasOne(models.Room, { as: 'room', foreignKey: 'roomId' });
       },
     },
   });

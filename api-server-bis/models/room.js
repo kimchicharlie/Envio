@@ -61,17 +61,15 @@ module.exports = function (sequelize, DataTypes) {
     data: DataTypes.JSON,
     planning: DataTypes.ARRAY(DataTypes.JSON),
     m: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       validate: {
-        min: 0,
-        isInt: true
+        isFloat: true
       }
     },
     off: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       validate: {
-        min: 0,
-        isInt: true
+        isFloat: true
       }
     }
   }, {

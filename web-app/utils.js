@@ -4,6 +4,10 @@ var check_id = /^[0-9a-fA-F]{24}$/;
 var check_guid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 var check_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 
+var getIdType = function() {
+    return (config.isSQL ? "id" : "_id");
+};
+
 var checkProperty = function(prop) {
 	return (prop !== "null" && prop !== null && prop !== "undefined" && prop !== undefined && prop !== "");
 };
@@ -76,6 +80,7 @@ var formatDate = function(timestamp, withoutTime) {
 	}
 };
 
+exports.getIdType = getIdType;
 exports.compareStrings = compareStrings;
 exports.isObjectInArray = isObjectInArray;
 exports.checkProperty = checkProperty;

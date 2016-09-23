@@ -108,5 +108,17 @@ exports.routes = [
                 res.send(rep);
             });
         }
+    },
+    {
+        "path": "/getConnectedUsers",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            userManager.getConnectedUsers({}, function (rep)
+            {
+                res.send(rep);
+            });
+        }
     }
 ];

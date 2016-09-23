@@ -22,66 +22,37 @@ var modifyMode = function (options, cb) {
         'mode': null
     };
 
+    var modeObject = {
+        
+    }
+
+    if (options.newName) {
+        modeObject['name'] = options.newName;
+    }
+    if (options.light) {
+        modeObject['light'] = options.light;
+    }
+    if (options.opacity) {
+        modeObject['opacity'] = options.opacity;
+    }
+    if (options.temperature) {
+        modeObject['temperature'] = options.temperature;
+    }
+
     if (options.modeID) {
-        db.Modes
-        .findOne({'_id': options.modeID})
-        .exec(function (err, mode) {
-            if (err) {
-                result.error = err;
+        models.Mode.update(modeObject, {
+          where: {
+            id: options.modeID,
+          },
+        }).then(function(res) {
+            models.Mode.findOne({
+                where: {
+                    id: options.modeID,
+                }
+            }).then(function(mode) {
+                result.mode = mode.dataValues;
                 cb(result);
-            } else if (!mode) {
-                result.error = "Ce mode n'existe pas";
-                cb(result);
-            } else {
-                async.parallel([
-                    function (callback) {
-                        if (options.newName) {
-                            mode.name = options.newName;
-                            callback();
-                        } else {
-                            result.error = "newName is missing"
-                            callback();
-                        }
-                    },
-                    function (callback) {
-                        if (options.light) {
-                            mode.light = options.light;
-                            callback();
-                        } else {
-                            result.error = "light is missing"
-                            callback();
-                        }
-                    },
-                    function (callback) {
-                        if (options.opacity) {
-                            mode.opacity = options.opacity;
-                            callback();
-                        } else {
-                            result.error = "opacity is missing"
-                            callback();
-                        }
-                    },
-                    function (callback) {
-                        if (options.temperature) {
-                            mode.temperature = options.temperature;
-                            callback();
-                        } else {
-                            result.error = "temperature is missing"
-                            callback();
-                        }
-                    }
-                ], function () {
-                    mode.save(function (error) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {
-                            result.mode = mode;
-                            cb(result);
-                        }
-                    });
-                })
-            }
+            })
         })
     } else {
         result.error = "Requête incorrecte";
@@ -97,31 +68,14 @@ var deleteMode = function (options, cb) {
         'mode': null
     };
 
-    if (options.modeID) {
-        db.Modes
-        .findOne({'_id': options.modeID})
-        .exec(function (err, mode) {
-            if (err) {
-                result.error = err;
-                cb(result);
-            } else if (!mode) {
-                result.error = "Ce mode n'existe pas";
-                cb(result);
-            } else {
-                mode.remove(function (error) {
-                    if (error) {
-                        result.error = error;
-                        cb(result);
-                    } else {
-                        cb(result);
-                    }
-                });
-            }
-        })
-    } else {
-        result.error = "Requête incorrecte";
+    models.Mode.destroy({
+      where: {
+        id: options.modeID,
+      }
+    }).then(function (mode) {
+        result.mode = mode.dataValues;
         cb(result);
-    }
+    });
 }
 
 var getModes = function (options, cb) {

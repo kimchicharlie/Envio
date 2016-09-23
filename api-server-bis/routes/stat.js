@@ -21,5 +21,31 @@ exports.routes = [
                 res.send(rep);
             });
         }
+    },
+    {
+        "path": "/getStats",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            statManager.getStats({}, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
+        "path": "/getStatsFromRoomId",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            statManager.getStatsFromRoomId({                
+                'roomID': req.body.roomID
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
     }
 ];
