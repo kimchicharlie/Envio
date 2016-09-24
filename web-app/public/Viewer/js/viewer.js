@@ -7,7 +7,6 @@ var mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
 var MAIN_URL = "http://localhost:1337", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
-var utils = require("../../../utils");
 
 function viewer()
 {
@@ -117,7 +116,7 @@ function loadRoomsFromDatabase ()
 	    success: function(text) {
 	    	for (var key in text["rooms"]) {
 				if (text["rooms"].hasOwnProperty(key)) {
-    				loadRoomFromDatabase(text["rooms"][key][utils.getIdType()]);
+    				loadRoomFromDatabase(text["rooms"][key]._id);
   				}
 			}
 	    },
@@ -281,7 +280,7 @@ function displayInfo (object) {
 	var data = {
 		api_key: API_KEY,
 		organisation: ORGANISATION,
-		roomID: object.info[utils.getIdType()]
+		roomID: object.info._id
 	};
 
 	$.ajax({
