@@ -43,7 +43,7 @@ public class LoginActivity extends  AppCompatActivity {
     private EditText email, password;
     private Button sign_in;
     private RequestQueue requestQueue;
-    private static final String URL = "http://192.168.1.16:1337/api/login";
+    private static final String URL = "http://192.168.43.234:1337/api/login";
     private StringRequest request;
     private JSONObject jsonEnvioUser;
     private JsonUtilities jsonUtilities = new JsonUtilities();

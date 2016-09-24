@@ -79,7 +79,7 @@ public class EnvioStart extends Fragment {
     private double currentUV;
     private String conditionNow;
     private RequestQueue requestQueue;
-    private static String URL = "http://192.168.1.16:1337/api";
+    private static String URL = "http://192.168.43.234:1337/api";
     private StringRequest request;
     private JSONArray roomList;
     private HashMap<String, Object> userInfo;

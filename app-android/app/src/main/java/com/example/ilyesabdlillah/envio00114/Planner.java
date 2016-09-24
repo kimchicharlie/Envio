@@ -90,7 +90,7 @@ public class Planner extends Fragment {
         Calendar endTime = (Calendar) startTime.clone();
         SimpleDateFormat formatter, FORMATTER;
         formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+        FORMATTER = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         dates = "";
         for (int i = 0; i < planner.length(); i++) {

@@ -5,7 +5,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" tools:context=".LoginActivity"
-    android:background="#FF2ECC71"
+    android:background="@drawable/envio_main"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:weightSum="1">
@@ -118,7 +118,7 @@
             android:layout_marginTop="16dp" android:text="Connexion"
             android:textStyle="bold"
             android:textColor="#ffffffff"
-            android:background="#1abc9c"
+            android:background="#c91abc9c"
             android:layout_gravity="center_vertical"
             android:textSize="20dp"
             android:layout_marginLeft="-30dp"
