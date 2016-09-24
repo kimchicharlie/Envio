@@ -6,6 +6,7 @@ var editor_mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
 var MAIN_URL = "http://localhost:1337", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
+var utils = require("../../../utils");
 
 function editor()
 {
@@ -166,7 +167,7 @@ function editor_loadRoomsFromDatabase ()
 			for (var key in text["rooms"]) {
 				if (text["rooms"].hasOwnProperty(key)) {
 					editor_queue++;
-					editor_loadRoomFromDatabase(text["rooms"][key]._id);
+					editor_loadRoomFromDatabase(text["rooms"][key][utils.getIdType()]);
 				}
 			}
 		},
