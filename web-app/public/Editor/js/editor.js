@@ -6,7 +6,9 @@ var editor_lookAtPos = new THREE.Object3D();
 var editor_mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
-var MAIN_URL = "http://localhost:1337", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
+//var MAIN_URL = "http://localhost:1337";
+var MAIN_URL = "http://137.74.40.245:8081";
+var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function editor()
 {
