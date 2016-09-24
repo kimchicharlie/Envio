@@ -2,6 +2,7 @@
 #include "ui_temperatureWindow.h"
 
 #include <QDebug>
+#include <QTime>
 
 TemperatureWindow::TemperatureWindow(QWidget *parent, int tempDisp, double temp) :
     QMainWindow(parent),
@@ -42,6 +43,7 @@ void TemperatureWindow::setSliderVal(int val) {
     } else {
         _label->setText(QString::number(val) + "°F");
     }
+    _slider->setValue(val * 10);
 }
 
 void TemperatureWindow::setTempDisp(int val) {
@@ -50,11 +52,13 @@ void TemperatureWindow::setTempDisp(int val) {
 
 void TemperatureWindow::on_TempHorizontalSlider_valueChanged(int value)
 {
+    _slider->blockSignals(true);
+
     int tmpTemp = value;
     double tmp = tmpTemp;
     tmp = tmp / 10.0 - (int)(tmp / 10.0);
     // make the value be x.5 or x.0
-    if (tmp <= 0.9 && tmp >= 0.8)
+    if (tmp <= 0.9 && tmp > 0.7)
         tmp = tmp + (1.0 - tmp);
     else if (tmp <= 0.7 && tmp > 0.5)
         tmp = tmp - (tmp - 0.5);
@@ -79,6 +83,7 @@ void TemperatureWindow::on_TempHorizontalSlider_valueChanged(int value)
         _label->setText(QString::number((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32) + "°F");
         emit tempChange((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32);
     }
+    _slider->blockSignals(false);
 }
 
 void TemperatureWindow::on_AccueilBtn_clicked()

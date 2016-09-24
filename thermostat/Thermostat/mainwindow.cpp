@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //setup network part
     _network = new NetConnection(this, name, port);
-/**
+/**/
     _netMan = new QNetworkAccessManager(this);
     _netMan->setNetworkAccessible(QNetworkAccessManager::Accessible);
     _netMan->connectToHost(*(_network->getHostName()), _network->getHostPort());
@@ -282,7 +282,6 @@ void    MainWindow::roomValFromAPI() {
 void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
     _planWin->setRoomId(_curRoom->getID());
-//    ui->roomLabel->setText(" Salle: " + _curRoom->getName());
     ui->roomLabel->setText(" Salle: <font color=#007999>" + _curRoom->getName() + "</font>");
     roomValFromAPI();
 }
@@ -305,6 +304,7 @@ void MainWindow::tempValChanged(double newVal) {
      if (!_network->testConnection())
          return;
 
+     qDebug() << "connected to API";
     //send new temp to API
      QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
                            QString("/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
@@ -318,12 +318,18 @@ void MainWindow::tempValChanged(double newVal) {
     textPart.setBody(tmp);
     multiPart->append(textPart);
     tmp.clear();
+    textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"temperature\""));
     tmp.append(QString::number(newVal));
     textPart.setBody(tmp);
     multiPart->append(textPart);
-    _netRep = _network->post(netReq, _multiPart);
-//    _netMan->post(netReq, multiPart);
+//    _netRep = _network->post(netReq, _multiPart);
+    /**
+    connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
+    connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
+    connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
+    /**/
+    _netMan->post(netReq, multiPart);
 }
 
 void MainWindow::lumValChanged(int newVal) {
@@ -353,8 +359,13 @@ void MainWindow::lumValChanged(int newVal) {
     tmp.append(QString::number(newVal));
     textPart.setBody(tmp);
     multiPart->append(textPart);
-    _netRep = _network->post(netReq, _multiPart);
-//    _netMan->post(netReq, multiPart);
+//    _netRep = _network->post(netReq, _multiPart);
+    /**
+    connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
+    connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
+    connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
+    /**/
+    _netMan->post(netReq, multiPart);
 
 }
 

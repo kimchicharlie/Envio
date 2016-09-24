@@ -228,6 +228,7 @@ DIST          = ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_post.prf \
+		../Thermostat/.qmake.stash \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/default_pre.prf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/resolve_config.prf \
@@ -412,6 +413,7 @@ Makefile: ../Thermostat/Thermostat.pro ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/li
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/default_pre.prf \
 		../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/resolve_config.prf \
@@ -565,6 +567,7 @@ Makefile: ../Thermostat/Thermostat.pro ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/li
 ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/qt_config.prf:
 ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/default_pre.prf:
 ../../../../Qt5.7.0/5.7/gcc_64/mkspecs/features/resolve_config.prf:
@@ -2370,44 +2373,9 @@ temperatureWindow.o: ../Thermostat/temperatureWindow.cpp ../Thermostat/temperatu
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
 		ui_temperatureWindow.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QGridLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QDebug
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QDebug \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QTime \
+		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temperatureWindow.o ../Thermostat/temperatureWindow.cpp
 
 lumWindow.o: ../Thermostat/lumWindow.cpp ../Thermostat/lumWindow.h \
@@ -2517,44 +2485,7 @@ lumWindow.o: ../Thermostat/lumWindow.cpp ../Thermostat/lumWindow.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QSlider \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
-		ui_lumWindow.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QGridLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget
+		ui_lumWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o lumWindow.o ../Thermostat/lumWindow.cpp
 
 opacWindow.o: ../Thermostat/opacWindow.cpp ../Thermostat/opacWindow.h \
@@ -2664,44 +2595,7 @@ opacWindow.o: ../Thermostat/opacWindow.cpp ../Thermostat/opacWindow.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
-		ui_opacWindow.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QGridLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget
+		ui_opacWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o opacWindow.o ../Thermostat/opacWindow.cpp
 
 mainwindow.o: ../Thermostat/mainwindow.cpp ../Thermostat/mainwindow.h \
@@ -2896,28 +2790,7 @@ mainwindow.o: ../Thermostat/mainwindow.cpp ../Thermostat/mainwindow.h \
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtNetwork/QAbstractSocket \
-		ui_mainwindow.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QGridLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Thermostat/mainwindow.cpp
 
 roomstate.o: ../Thermostat/roomstate.cpp ../Thermostat/roomstate.h \
@@ -3220,27 +3093,6 @@ planningWindow.o: ../Thermostat/planningWindow.cpp ../Thermostat/planningWindow.
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
 		ui_planningWindow.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QGridLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QTimeZone \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qtimezone.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o planningWindow.o ../Thermostat/planningWindow.cpp
@@ -3436,28 +3288,7 @@ configWindow.o: ../Thermostat/configWindow.cpp ../Thermostat/configWindow.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qspinbox.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QComboBox \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qcombobox.h \
-		ui_configWindow.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QGridLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget
+		ui_configWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o configWindow.o ../Thermostat/configWindow.cpp
 
 roomlistmodel.o: ../Thermostat/roomlistmodel.cpp ../Thermostat/roomlistmodel.h \
@@ -3744,46 +3575,7 @@ roomSelection.o: ../Thermostat/roomSelection.cpp ../Thermostat/roomSelection.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
-		ui_roomSelection.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QDialogButtonBox \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLineEdit \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlineedit.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h
+		ui_roomSelection.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o roomSelection.o ../Thermostat/roomSelection.cpp
 
 addEvent.o: ../Thermostat/addEvent.cpp ../Thermostat/addEvent.h \
@@ -3977,21 +3769,7 @@ addEvent.o: ../Thermostat/addEvent.cpp ../Thermostat/addEvent.h \
 		../Thermostat/roomstate.h \
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
-		ui_addEvent.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		../../../../Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h
+		ui_addEvent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addEvent.o ../Thermostat/addEvent.cpp
 
 netConnection.o: ../Thermostat/netConnection.cpp ../Thermostat/netConnection.h \

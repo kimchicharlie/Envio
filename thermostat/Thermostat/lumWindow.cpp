@@ -21,12 +21,15 @@ LumWindow::~LumWindow()
 
 void LumWindow::setSliderVal(int val) {
     this->_slider->setValue(val);
+    _label->setText(QString::number(_slider->value()) + "%");
 }
 
 void LumWindow::on_LumHorizontalSlider_valueChanged(int value)
 {
+    _slider->blockSignals(true);
     _label->setText(QString::number(value) + "%");
     emit lumChange(value);
+    _slider->blockSignals(false);
 }
 
 void LumWindow::on_AccueilBtn_clicked()
