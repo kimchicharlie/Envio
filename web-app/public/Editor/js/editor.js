@@ -1,4 +1,5 @@
 var editor_container;
+var editor_selected;
 var editor_hasMoved, editor_raycaster, editor_mouse, editor_camera, editor_scene, editor_renderer, editor_plane, editor_INTERSECTED = null,
 	editor_objects = [];
 var editor_lookAtPos = new THREE.Object3D();
@@ -14,6 +15,12 @@ function editor()
 }
 
 function editor_init() {
+
+	editor_container = null;
+	editor_selected = null;
+	editor_hasMoved = null, editor_raycaster = null, editor_mouse = null, editor_camera = null, editor_scene = null, editor_renderer = null, editor_plane = null, editor_INTERSECTED = null;
+	editor_lookAtPos = new THREE.Object3D();
+	editor_mouseDownPos = null;
 
 	editor_container = document.getElementById("containerEditor")
 	// document.body.appendChild( editor_container );
@@ -114,10 +121,10 @@ function saveChanges() {
 }
 
 function applyChanges() {
-	selected.geometry.parameters.width = parseInt($("#height").val());
-	selected.geometry.parameters.height = parseInt($("#width").val());
-	selected.position.z = -parseInt($("#posX").val());
-	selected.position.x = -parseInt($("#posY").val());
+	editor_selected.geometry.parameters.width = parseInt($("#height").val());
+	editor_selected.geometry.parameters.height = parseInt($("#width").val());
+	editor_selected.position.z = -parseInt($("#posX").val());
+	editor_selected.position.x = -parseInt($("#posY").val());
 }
 
 var editor_unplacedRooms;
@@ -267,19 +274,9 @@ function editor_onMouseMove (event) {
 	}
 }
 
-var editor_selected = null;
 function editor_onMouseDown (event) {
 
 	event.preventDefault();
-
-	if (editor_selected != null) {
-		var spritey = makeTextSprite( " " + editor_selected.info.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
-		spritey.position.set(editor_selected.position.x, editor_selected.position.y, editor_selected.position.z);
-		spritey.info = editor_selected.info;
-		spritey.name = "SPRITEY_" + editor_selected.info.name;
-		scene.add( spritey );
-		editor_selected = null;
-	}
 
 	editor_raycaster.setFromCamera( editor_mouse, editor_camera );
 	var intersects = editor_raycaster.intersectObjects( editor_objects );
@@ -291,8 +288,18 @@ function editor_onMouseDown (event) {
 	editor_INTERSECTED = intersects[intersects.length -1];
 	editor_mouseDownPos = editor_INTERSECTED.point;
 
+	// Create associated name sprite
+	if (editor_selected != null && editor_selected != intersects[0].object) {
+		var spritey = makeTextSprite( " " + editor_selected.info.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
+		spritey.position.set(editor_selected.position.x, editor_selected.position.y, editor_selected.position.z);
+		spritey.info = editor_selected.info;
+		spritey.name = "SPRITEY_" + editor_selected.info.name;
+		editor_scene.add( spritey );
+		editor_selected = null;
+	}
+
 	// On room click, display its informations
-	if (editor_INTERSECTED && intersects.length > 1) {
+	if (editor_INTERSECTED && intersects[0].object.name != "SCENE_GROUND" && intersects.length > 1) {
 		if (!editor_hasMoved && intersects.length != 0) {
 			displayInfo(intersects[0].object);
 			var object = editor_scene.getObjectByName("SPRITEY_" + intersects[0].object.info.name);
@@ -313,6 +320,7 @@ function displayInfo (object) {
 	$("#width").val(object.geometry.parameters.height);
 	$("#posX").val(-object.position.z);
 	$("#posY").val(-object.position.x);
+	editor_animate();
 }
 
 function editor_animate() {
