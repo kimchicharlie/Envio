@@ -1,6 +1,7 @@
 #include "temperatureWindow.h"
 #include "ui_temperatureWindow.h"
 
+#include <QColor>
 #include <QDebug>
 #include <QTime>
 
@@ -17,7 +18,12 @@ TemperatureWindow::TemperatureWindow(QWidget *parent, int tempDisp, double temp)
     _slider->setValue(temp);
     if (_tempDisp == 1) {
         _slider->setValue(temp * 10);
-        _label->setText(QString::number(temp) + "°C");
+        int x = 145 - (temp - 16) * 5;
+        QColor color = QColor(255, x, 83, 255);
+        QString format("<font color=\"%1\">%2</font>");
+        QString text = QString::number(temp) + "°C";
+        _label->setText(format.arg(color.name(), text));
+//        _label->setText(QString::number(temp) + "°C");
     }
     else {
         //convert celcius to fahrenheit or invert
@@ -39,7 +45,11 @@ TemperatureWindow::~TemperatureWindow()
 
 void TemperatureWindow::setSliderVal(int val) {
     if (_tempDisp == 1) {
-        _label->setText(QString::number(val) + "°C");
+        int x = 145 - (int)(val - 16) * 5;
+        QColor color = QColor(255, x, 83, 255);
+        QString format("<font color=\"%1\">%2</font>");
+        QString text = QString::number((double)(val)) + "°C";
+        _label->setText(format.arg(color.name(), text));
     } else {
         _label->setText(QString::number(val) + "°F");
     }
@@ -75,12 +85,19 @@ void TemperatureWindow::on_TempHorizontalSlider_valueChanged(int value)
     // T(°F) = T(°C) × 9 / 5 + 32
     // 1 for celcius, 2 for fahrenheit
     if (_tempDisp == 1) {
-        _label->setText(QString::number((double)(_slider->value()) / 10) + "°C");
+        int x = 145 - (int)(_slider->value() / 10 - 16) * 5;
+        QColor color = QColor(255, x, 83, 255);
+        QString format("<font color=\"%1\">%2</font>");
+        QString text = QString::number((double)(_slider->value()) / 10) + "°C";
+        _label->setText(format.arg(color.name(), text));
         emit tempChange((double)(_slider->value()) / 10);
     }
     else {
-//        std::cout << "value = " << value << std::endl;
-        _label->setText(QString::number((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32) + "°F");
+        int x = 145 - (int)(_slider->value() / 10 - 16) * 5;
+        QColor color = QColor(255, x, 83, 255);
+        QString format("<font color=\"%1\">%2</font>");
+        QString text = (QString::number((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32) + "°F");
+        _label->setText(format.arg(color.name(), text));
         emit tempChange((double)(_slider->value()) / 10 * 9.0 / 5.0 + 32);
     }
     _slider->blockSignals(false);

@@ -53,11 +53,13 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(320, 240);
+        MainWindow->setStyleSheet(QLatin1String("Background: #232123;\n"
+""));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(0, 0, 321, 241));
+        gridLayoutWidget->setGeometry(QRect(10, 10, 305, 221));
         gridLayout_2 = new QGridLayout(gridLayoutWidget);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -68,6 +70,11 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         TempLabel = new QLabel(gridLayoutWidget);
         TempLabel->setObjectName(QStringLiteral("TempLabel"));
+        QFont font;
+        font.setFamily(QStringLiteral("Segoe UI,sans-serif"));
+        font.setBold(true);
+        font.setWeight(75);
+        TempLabel->setFont(font);
         TempLabel->setStyleSheet(QLatin1String("	font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
@@ -75,7 +82,7 @@ public:
 "padding: 10px;\n"
 "padding-top: -15px;\n"
 "color: #b71c1c;\n"
-"font-size: 16px;\n"
+"font-size: 24px;\n"
 ""));
         TempLabel->setAlignment(Qt::AlignCenter);
 
@@ -83,6 +90,7 @@ public:
 
         LumLabel = new QLabel(gridLayoutWidget);
         LumLabel->setObjectName(QStringLiteral("LumLabel"));
+        LumLabel->setFont(font);
         LumLabel->setStyleSheet(QLatin1String("	font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
@@ -91,7 +99,7 @@ public:
 "padding: 10px;\n"
 "padding-top: -15px;\n"
 "color: #0288d1;\n"
-"font-size: 16px;\n"
+"font-size: 24px;\n"
 ""));
         LumLabel->setAlignment(Qt::AlignCenter);
 
@@ -121,16 +129,18 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         TempEditButton = new QPushButton(gridLayoutWidget);
         TempEditButton->setObjectName(QStringLiteral("TempEditButton"));
+        TempEditButton->setFont(font);
         TempEditButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	background: #D9534F;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
 "	outline: 0;\n"
 "	border: 0;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
@@ -138,17 +148,19 @@ public:
 "	font-family:\"Segoe UI\", sans-serif;	\n"
 "	text-transform: uppercase;\n"
 "	background: #b71c1c;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
 "	outline: 0;\n"
 "	border: 0;\n"
+"	border-radius: 7px;\n"
 "}"));
 
         horizontalLayout->addWidget(TempEditButton);
 
         LumEditButton = new QPushButton(gridLayoutWidget);
         LumEditButton->setObjectName(QStringLiteral("LumEditButton"));
+        LumEditButton->setFont(font);
         LumEditButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "	font-family:\"Segoe UI\", sans-serif;\n"
@@ -156,9 +168,10 @@ public:
 "	outline: 0;\n"
 "	background: #0288d1;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
@@ -168,9 +181,10 @@ public:
 "	outline: 0;\n"
 "	background: #2e6da4;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}"));
 
         horizontalLayout->addWidget(LumEditButton);
@@ -188,13 +202,14 @@ public:
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         tempTxtlabel = new QLabel(gridLayoutWidget);
         tempTxtlabel->setObjectName(QStringLiteral("tempTxtlabel"));
+        tempTxtlabel->setFont(font);
         tempTxtlabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
 "border: 0;\n"
 "padding: 10px;\n"
-"color: #4d4d4d;\n"
+"color: #AAA;\n"
 "font-size: 12px;\n"
 "\n"
 ""));
@@ -204,13 +219,18 @@ public:
 
         LumTxtLabel = new QLabel(gridLayoutWidget);
         LumTxtLabel->setObjectName(QStringLiteral("LumTxtLabel"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Montserrat,sans-serif"));
+        font1.setBold(true);
+        font1.setWeight(75);
+        LumTxtLabel->setFont(font1);
         LumTxtLabel->setStyleSheet(QLatin1String("font-family: \"Montserrat\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
 "border: 0;\n"
 "padding: 10px;\n"
-"color: #4d4d4d;\n"
+"color: #AAA;\n"
 "font-size: 12px;\n"
 "\n"
 ""));
@@ -242,56 +262,62 @@ public:
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         PlanningEditButton = new QPushButton(gridLayoutWidget);
         PlanningEditButton->setObjectName(QStringLiteral("PlanningEditButton"));
+        PlanningEditButton->setFont(font);
         PlanningEditButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Segoe UI\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Segoe UI\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}"));
 
         horizontalLayout_3->addWidget(PlanningEditButton);
 
         ConfigEditButton = new QPushButton(gridLayoutWidget);
         ConfigEditButton->setObjectName(QStringLiteral("ConfigEditButton"));
+        ConfigEditButton->setFont(font);
         ConfigEditButton->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
-"	font-family:\"Segoe UI\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"	font-family:\"Segoe UI\", sans-serif;\n"
+"font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}"));
 
         horizontalLayout_3->addWidget(ConfigEditButton);
@@ -305,12 +331,13 @@ public:
         DateLabel = new QLabel(gridLayoutWidget);
         DateLabel->setObjectName(QStringLiteral("DateLabel"));
         DateLabel->setMaximumSize(QSize(16777215, 50));
+        DateLabel->setFont(font);
         DateLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "border: 0;\n"
 "padding: 5px;\n"
-"color: #4d4d4d;\n"
+"color: #AAA;\n"
 "font-size: 12px;\n"
 "\n"
 ""));
@@ -320,12 +347,13 @@ public:
 
         roomLabel = new QLabel(gridLayoutWidget);
         roomLabel->setObjectName(QStringLiteral("roomLabel"));
+        roomLabel->setFont(font);
         roomLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "border: 0;\n"
 "padding: 10px;\n"
-"color: #4d4d4d;\n"
+"color: #AAA;\n"
 "font-size: 12px;\n"
 "\n"
 ""));

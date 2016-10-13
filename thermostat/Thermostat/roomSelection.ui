@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">Background: #232123;
+</string>
+  </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
@@ -22,6 +26,12 @@
      <height>32</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton
 {
@@ -30,21 +40,23 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #5cb85c;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }
 
 QPushButton:hover
 {
-font-family:&quot;Segoe UI&quot;, sans-serif;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
 	text-transform: uppercase;
 	outline: 0;
 	background: #449d44;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }</string>
    </property>
    <property name="orientation">
@@ -63,6 +75,14 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
      <height>51</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
@@ -70,8 +90,8 @@ outline: 0;
 width: 100%;
 border: 0;
 padding: 10px;
-color: #4d4d4d;
-font-size: 12px;</string>
+color: #AAA;
+font-size: 14px;</string>
    </property>
    <property name="text">
     <string>Entrer le code de la salle</string>
@@ -89,14 +109,23 @@ font-size: 12px;</string>
      <height>61</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
-border: 0;
+border: 2;
+background: #444;
 padding: 10px;
-color: #4d4d4d;
+color: #AAA;
 font-size: 12px;</string>
    </property>
    <property name="maxLength">
@@ -113,7 +142,7 @@ font-size: 12px;</string>
    <property name="geometry">
     <rect>
      <x>24</x>
-     <y>80</y>
+     <y>70</y>
      <width>271</width>
      <height>41</height>
     </rect>

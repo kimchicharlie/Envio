@@ -300,7 +300,12 @@ void MainWindow::tempValChanged(double newVal) {
     if (_curRoom == Q_NULLPTR)
         return;
     _curRoom->setTemp(newVal);
-    _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
+    int x = 145 - (int)(_curRoom->getTemp() / 10 - 16) * 5;
+    QColor color = QColor(255, x, 83, 255);
+    QString format("<font color=\"%1\">%2</font>");
+    QString text = QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp();
+    _tempLbl->setText(format.arg(color.name(), text));
+//    _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
      if (!_network->testConnection())
          return;
 
@@ -336,7 +341,12 @@ void MainWindow::lumValChanged(int newVal) {
     if (_curRoom == Q_NULLPTR)
         return;
     _curRoom->setLum(newVal);
-    _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
+    int x = 55 + (int)(_curRoom->getLum()) * 2;
+    QColor color = QColor(0, x, x, 255);
+    QString format("<font color=\"%1\">%2</font>");
+    QString text = QString::number(_curRoom->getLum()) + "%";
+    _lumLbl->setText(format.arg(color.name(), text));
+//    _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
      if (!_network->testConnection())
          return;
 
@@ -466,11 +476,22 @@ void    MainWindow::parseRep() {
         _curRoom->setLum(std::stoi(m.at("light")));
 //        _curRoom->setOpac(std::stoi(m.at("opacification")));
         _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
-        if (_curRoom->getTempDispVal() == 1)
-            _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
-        else
+        if (_curRoom->getTempDispVal() == 1) {
+            int x = 145 - (int)(_curRoom->getTemp() - 16) * 5;
+            QColor color = QColor(255, x, 83, 255);
+            QString format("<font color=\"%1\">%2</font>");
+            QString text = QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp();
+            _tempLbl->setText(format.arg(color.name(), text));
+//            _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
+        } else {
             _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°F");
-        _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
+        }
+        int x = 55 + (int)(_curRoom->getLum()) * 2;
+        QColor color = QColor(0, x, x, 255);
+        QString format("<font color=\"%1\">%2</font>");
+        QString text = QString::number(_curRoom->getLum()) + "%";
+        _lumLbl->setText(format.arg(color.name(), text));
+//        _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
         _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
 
         _tempWin->setTempDisp(_curRoom->getTempDispVal());

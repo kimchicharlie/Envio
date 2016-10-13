@@ -59,6 +59,11 @@ public:
         horizontalLayoutBtn1->setObjectName(QStringLiteral("horizontalLayoutBtn1"));
         AccueilBtn = new QPushButton(gridLayoutWidget);
         AccueilBtn->setObjectName(QStringLiteral("AccueilBtn"));
+        QFont font;
+        font.setFamily(QStringLiteral("Segoe UI,sans-serif"));
+        font.setBold(true);
+        font.setWeight(75);
+        AccueilBtn->setFont(font);
         AccueilBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -87,6 +92,7 @@ public:
 
         TempEditBtn = new QPushButton(gridLayoutWidget);
         TempEditBtn->setObjectName(QStringLiteral("TempEditBtn"));
+        TempEditBtn->setFont(font);
         TempEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -115,6 +121,7 @@ public:
 
         LumEditBtn = new QPushButton(gridLayoutWidget);
         LumEditBtn->setObjectName(QStringLiteral("LumEditBtn"));
+        LumEditBtn->setFont(font);
         LumEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -175,6 +182,7 @@ public:
         horizontalLayoutBtn2->setObjectName(QStringLiteral("horizontalLayoutBtn2"));
         PlanningEditBtn = new QPushButton(gridLayoutWidget);
         PlanningEditBtn->setObjectName(QStringLiteral("PlanningEditBtn"));
+        PlanningEditBtn->setFont(font);
         PlanningEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -203,6 +211,7 @@ public:
 
         ConfigEditBtn = new QPushButton(gridLayoutWidget);
         ConfigEditBtn->setObjectName(QStringLiteral("ConfigEditBtn"));
+        ConfigEditBtn->setFont(font);
         ConfigEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"

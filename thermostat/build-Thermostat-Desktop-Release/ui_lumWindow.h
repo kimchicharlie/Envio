@@ -46,12 +46,12 @@ public:
         if (LumWindow->objectName().isEmpty())
             LumWindow->setObjectName(QStringLiteral("LumWindow"));
         LumWindow->resize(320, 240);
-        LumWindow->setStyleSheet(QStringLiteral(""));
+        LumWindow->setStyleSheet(QStringLiteral("Background: #232123;"));
         centralwidget = new QWidget(LumWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(-1, 0, 321, 241));
+        gridLayoutWidget->setGeometry(QRect(10, 10, 301, 221));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -59,6 +59,9 @@ public:
         horizontalLayoutBtn1->setObjectName(QStringLiteral("horizontalLayoutBtn1"));
         AccueilBtn = new QPushButton(gridLayoutWidget);
         AccueilBtn->setObjectName(QStringLiteral("AccueilBtn"));
+        QFont font;
+        font.setFamily(QStringLiteral("Segoe UI,sans-serif"));
+        AccueilBtn->setFont(font);
         AccueilBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -66,9 +69,10 @@ public:
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
@@ -78,15 +82,17 @@ public:
 "	outline: 0;\n"
 "	background: #449d44;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}"));
 
         horizontalLayoutBtn1->addWidget(AccueilBtn);
 
         TempEditBtn = new QPushButton(gridLayoutWidget);
         TempEditBtn->setObjectName(QStringLiteral("TempEditBtn"));
+        TempEditBtn->setFont(font);
         TempEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -95,9 +101,10 @@ public:
 "	background: #d9534f;\n"
 "	width: 100%;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
@@ -108,9 +115,10 @@ public:
 "	background: #c9302c;\n"
 "	width: 100%;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}"));
 
         horizontalLayoutBtn1->addWidget(TempEditBtn);
@@ -125,13 +133,18 @@ public:
 
         LumFixLabel = new QLabel(gridLayoutWidget);
         LumFixLabel->setObjectName(QStringLiteral("LumFixLabel"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Segoe UI,sans-serif"));
+        font1.setBold(true);
+        font1.setWeight(75);
+        LumFixLabel->setFont(font1);
         LumFixLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 " text-transform: uppercase;\n"
 " outline: 0; \n"
 "width: 100%; \n"
 "border: 0;\n"
 " padding: 10px;\n"
-"color: #4d4d4d;\n"
+"color: #AAA;\n"
 "font-size: 14px;"));
 
         gridLayout->addWidget(LumFixLabel, 2, 1, 1, 1);
@@ -140,11 +153,12 @@ public:
         LumHorizontalSlider->setObjectName(QStringLiteral("LumHorizontalSlider"));
         LumHorizontalSlider->setStyleSheet(QLatin1String("QSlider::groove:horizontal {\n"
 "border: 1px solid #bbb;\n"
-"background: white;\n"
+"background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,\n"
+"    stop: 0 #003737, stop: 1 #00cccc);\n"
 "height: 10px;\n"
 "border-radius: 4px;\n"
 "}\n"
-"\n"
+"/*\n"
 "QSlider::sub-page:horizontal {\n"
 "background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,\n"
 "    stop: 0 #00CCCC, stop: 1 #008C8C);\n"
@@ -154,17 +168,16 @@ public:
 "height: 10px;\n"
 "border-radius: 4px;\n"
 "}\n"
-"\n"
+"*/\n"
 "QSlider::add-page:horizontal {\n"
-"background: #fff;\n"
+"background: transparent;\n"
 "border: 1px solid #777;\n"
 "height: 10px;\n"
 "border-radius: 4px;\n"
 "}\n"
 "\n"
 "QSlider::handle:horizontal {\n"
-"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-"    stop:0 #eee, stop:1 #ccc);\n"
+"background: #1D797B;\n"
 "border: 1px solid #777;\n"
 "width: 13px;\n"
 "margin-top: -2px;\n"
@@ -173,14 +186,13 @@ public:
 "}\n"
 "\n"
 "QSlider::handle:horizontal:hover {\n"
-"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-"    stop:0 #fff, stop:1 #ddd);\n"
+"background: #1D797B;\n"
 "border: 1px solid #444;\n"
-"border-radius:"
-                        " 4px;\n"
+"border-radius: 4px;\n"
 "}\n"
 "\n"
-"QSlider::sub-page:horizontal:disabled {\n"
+"QSlider::sub-page:ho"
+                        "rizontal:disabled {\n"
 "background: #bbb;\n"
 "border-color: #999;\n"
 "}\n"
@@ -209,6 +221,7 @@ public:
         horizontalLayoutBtn2->setObjectName(QStringLiteral("horizontalLayoutBtn2"));
         PlanningEditBtn = new QPushButton(gridLayoutWidget);
         PlanningEditBtn->setObjectName(QStringLiteral("PlanningEditBtn"));
+        PlanningEditBtn->setFont(font);
         PlanningEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -216,9 +229,10 @@ public:
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
@@ -228,15 +242,17 @@ public:
 "	outline: 0;\n"
 "	background: #449d44;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}"));
 
         horizontalLayoutBtn2->addWidget(PlanningEditBtn);
 
         ConfigEditBtn = new QPushButton(gridLayoutWidget);
         ConfigEditBtn->setObjectName(QStringLiteral("ConfigEditBtn"));
+        ConfigEditBtn->setFont(font);
         ConfigEditBtn->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -244,9 +260,10 @@ public:
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
@@ -256,9 +273,10 @@ public:
 "	outline: 0;\n"
 "	background: #449d44;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}"));
 
         horizontalLayoutBtn2->addWidget(ConfigEditBtn);
@@ -268,7 +286,17 @@ public:
 
         LumLabel = new QLabel(gridLayoutWidget);
         LumLabel->setObjectName(QStringLiteral("LumLabel"));
-        LumLabel->setStyleSheet(QStringLiteral("font-family:\"Segoe UI\", sans-serif;text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #0288d1;font-size: 48px;"));
+        LumLabel->setFont(font1);
+        LumLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
+"text-transform: uppercase;\n"
+"outline: 0;\n"
+"width: 100%;\n"
+"border: 0;\n"
+"padding: 10px;\n"
+"color: #0288d1;\n"
+"font-size: 46px;\n"
+"margin: 0, -5, 0,0;"));
+        LumLabel->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(LumLabel, 3, 1, 1, 1);
 
@@ -285,7 +313,7 @@ public:
         AccueilBtn->setText(QApplication::translate("LumWindow", "Accueil", 0));
         TempEditBtn->setText(QApplication::translate("LumWindow", "Temp\303\251rature", 0));
         OpacEditBtn->setText(QApplication::translate("LumWindow", "Vitres", 0));
-        LumFixLabel->setText(QApplication::translate("LumWindow", "Lumi\303\250re", 0));
+        LumFixLabel->setText(QApplication::translate("LumWindow", "Lumi\303\250re :", 0));
         PlanningEditBtn->setText(QApplication::translate("LumWindow", "Planning", 0));
         ConfigEditBtn->setText(QApplication::translate("LumWindow", "Configuration", 0));
         LumLabel->setText(QApplication::translate("LumWindow", "TextLabel", 0));

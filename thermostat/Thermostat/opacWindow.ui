@@ -31,6 +31,14 @@
       <layout class="QHBoxLayout" name="horizontalLayoutBtn1">
        <item>
         <widget class="QPushButton" name="AccueilBtn">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
@@ -63,6 +71,14 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
        </item>
        <item>
         <widget class="QPushButton" name="TempEditBtn">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
@@ -95,6 +111,14 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
        </item>
        <item>
         <widget class="QPushButton" name="LumEditBtn">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
@@ -175,6 +199,14 @@ font-size: 12px;
       <layout class="QHBoxLayout" name="horizontalLayoutBtn2">
        <item>
         <widget class="QPushButton" name="PlanningEditBtn">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
@@ -207,6 +239,14 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
        </item>
        <item>
         <widget class="QPushButton" name="ConfigEditBtn">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {

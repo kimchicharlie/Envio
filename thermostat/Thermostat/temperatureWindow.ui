@@ -14,16 +14,17 @@
    <string>Envio - Thermostat</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background: #232123;
+border: 0px;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>-1</x>
-      <y>-1</y>
-      <width>321</width>
-      <height>241</height>
+      <x>10</x>
+      <y>10</y>
+      <width>301</width>
+      <height>221</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -31,6 +32,12 @@
       <layout class="QHBoxLayout" name="horizontalLayoutBtn1">
        <item>
         <widget class="QPushButton" name="AccueilBtn">
+         <property name="font">
+          <font>
+           <family>Montserrat,sans-serif</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
@@ -39,9 +46,10 @@
 	outline: 0;
 	background: #5cb85c;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }
 
 QPushButton:hover
@@ -51,9 +59,10 @@ QPushButton:hover
 	outline: 0;
 	background: #449d44;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }</string>
          </property>
          <property name="text">
@@ -63,6 +72,12 @@ QPushButton:hover
        </item>
        <item>
         <widget class="QPushButton" name="LumEditBtn">
+         <property name="font">
+          <font>
+           <family>Montserrat,sans-serif</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
@@ -71,9 +86,10 @@ QPushButton:hover
 	outline: 0;
 	background: #286090;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }
 
 QPushButton:hover
@@ -83,9 +99,10 @@ QPushButton:hover
 	outline: 0;
 	background: #245680;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }</string>
          </property>
          <property name="text">
@@ -104,6 +121,12 @@ QPushButton:hover
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="TempFixLabel">
+       <property name="font">
+        <font>
+         <family>Segoe UI,sans-serif</family>
+         <pointsize>-1</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
@@ -111,11 +134,128 @@ outline: 0;
 width: 100%;
 border: 0;
 padding: 10px;
-color: #4d4d4d;
+color: #AAA;
 font-size: 14px;</string>
        </property>
        <property name="text">
-        <string>Temperature</string>
+        <string>Temperature :</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayoutBtn2">
+       <item>
+        <widget class="QPushButton" name="PlanningEditBtn">
+         <property name="font">
+          <font>
+           <family>Montserrat,sans-serif</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}</string>
+         </property>
+         <property name="text">
+          <string>Planning</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="ConfigEditBtn">
+         <property name="font">
+          <font>
+           <family>Montserrat,sans-serif</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Montserrat&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}</string>
+         </property>
+         <property name="text">
+          <string>Configuration</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="TempLabel">
+       <property name="font">
+        <font>
+         <family>Segoe UI,sans-serif</family>
+         <pointsize>-1</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #FF6406;
+font-size: 44px;
+text-align: center;</string>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <property name="indent">
+        <number>3</number>
        </property>
       </widget>
      </item>
@@ -124,32 +264,37 @@ font-size: 14px;</string>
        <property name="styleSheet">
         <string notr="true">QSlider::groove:horizontal {
 border: 1px solid #bbb;
-background: white;
+background: qlineargradient(x1: 0, y1: 0,    x2: 1, y2: 0,
+    stop: 0 #FF9153, stop: 1 #FF4B53);
 height: 10px;
 border-radius: 4px;
 }
 
 QSlider::sub-page:horizontal {
-background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
-    stop: 0 #FF8F20, stop: 1 #FF2020);
-background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,
-    stop: 0 #FF8F20, stop: 1 #FF2020);
 border: 1px solid #777;
 height: 10px;
 border-radius: 4px;
 }
-
+/*
 QSlider::add-page:horizontal {
 background: #fff;
 border: 1px solid #777;
 height: 10px;
 border-radius: 4px;
 }
+*/
+QSlider::add-page:qlineargradient {
+background: transparent;
+border-top-right-radius: 9px;
+border-bottom-right-radius: 9px;
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+}
 
+/* thumb */
 QSlider::handle:horizontal {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #eee, stop:1 #ccc);
-border: 1px solid #777;
+background: #FF6406;
+border: 1px solid #555;
 width: 13px;
 margin-top: -2px;
 margin-bottom: -2px;
@@ -157,9 +302,8 @@ border-radius: 4px;
 }
 
 QSlider::handle:horizontal:hover {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #fff, stop:1 #ddd);
-border: 1px solid #444;
+background: #FF6406;
+border: 1px solid #222;
 border-radius: 4px;
 }
 
@@ -183,7 +327,7 @@ border-radius: 4px;
         <number>160</number>
        </property>
        <property name="maximum">
-        <number>400</number>
+        <number>300</number>
        </property>
        <property name="singleStep">
         <number>5</number>
@@ -196,97 +340,6 @@ border-radius: 4px;
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayoutBtn2">
-       <item>
-        <widget class="QPushButton" name="PlanningEditBtn">
-         <property name="styleSheet">
-          <string notr="true">QPushButton
-{
-	font-family:&quot;Montserrat&quot;, sans-serif;
-	text-transform: uppercase;
-	outline: 0;
-	background: #5cb85c;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 12px;
-}
-
-QPushButton:hover
-{
-	font-family:&quot;Montserrat&quot;, sans-serif;
-	text-transform: uppercase;
-	outline: 0;
-	background: #449d44;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 12px;
-}</string>
-         </property>
-         <property name="text">
-          <string>Planning</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="ConfigEditBtn">
-         <property name="styleSheet">
-          <string notr="true">QPushButton
-{
-	font-family:&quot;Montserrat&quot;, sans-serif;
-	text-transform: uppercase;
-	outline: 0;
-	background: #5cb85c;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 12px;
-}
-
-QPushButton:hover
-{
-	font-family:&quot;Montserrat&quot;, sans-serif;
-	text-transform: uppercase;
-	outline: 0;
-	background: #449d44;
-	border: 0;
-	padding: 10px;
-	color: #FFFFFF;
-	font-size: 12px;
-}</string>
-         </property>
-         <property name="text">
-          <string>Configuration</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="TempLabel">
-       <property name="styleSheet">
-        <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
-text-transform: uppercase;
-outline: 0;
-width: 100%;
-border: 0;
-padding: 10px;
-color: #b71c1c;
-font-size: 48px;</string>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-       <property name="margin">
-        <number>0</number>
-       </property>
-       <property name="indent">
-        <number>3</number>
        </property>
       </widget>
      </item>
