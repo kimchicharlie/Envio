@@ -59,7 +59,10 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: false
     },
     data: DataTypes.JSON,
-    planning: DataTypes.ARRAY(DataTypes.JSON),
+    planning: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      defaultValue: []
+    },
     m: {
       type: DataTypes.FLOAT,
       validate: {

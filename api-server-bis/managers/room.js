@@ -344,12 +344,12 @@ var addEventPlanning = function (options, cb) {
         'dateEnd': null  
     }
 
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
+    var planningArray = [];
+
+    if (options.roomID != null) {     
+        models.Room.findById(options.roomID).then(function(room) {
+            if (!room) {
+                result.error = "Room not found";
                 cb(result);
             } else {
                 if (options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
@@ -358,16 +358,22 @@ var addEventPlanning = function (options, cb) {
                     eventPlanning.dateBegin = options.dateBegin;
                     eventPlanning.dateEnd = options.dateEnd;
 
-                    room.planning.push(eventPlanning);
-                    room.save(function (error) {
-                        if (error) {
-                            result.error = error;
+                    planningArray = room.dataValues.planning;
+                    planningArray.push(eventPlanning);
+                    
+
+                    models.Room.update({
+                        "planning": planningArray
+                    }, {
+                      where: {
+                        id: options.roomID,
+                      },
+                    }).then(function(res) {
+                        models.Room.findById(options.roomID).then(function(room) {
+                            result.room = room.dataValues;
                             cb(result);
-                        } else {
-                            result.room = room;
-                            cb(result);
-                        }
-                    });
+                        })
+                    })
                 } else {
                     result.error = "Des informations nécessaires sont manquantes";
                     cb(result);
@@ -387,30 +393,43 @@ var removeEventPlanning = function (options, cb) {
         'error': null,
         'room': null
     };
-    if (options.roomID != null) {
-        db.Rooms
-        .findOne({'_id': options.roomID})
-        .exec(function (err, room) {
-            if (err) {
-                result.error = err;
+
+    var eventPlanning = {
+        'name': null,
+        'mode': null,
+        'dateBegin': null,
+        'dateEnd': null  
+    }
+
+    var planningArray = [];
+
+    if (options.roomID != null) {     
+        models.Room.findById(options.roomID).then(function(room) {
+            if (!room) {
+                result.error = "Room not found";
                 cb(result);
             } else {
                 if (options.eventName && options.dateBegin) {
-                    for (var i = 0; i < room.planning.length; i++) {
-                        if (room.planning[i].name == options.eventName && room.planning[i].dateBegin == options.dateBegin) {
-                            room.planning.splice(i, 1);
+                    planningArray = room.dataValues.planning;
+
+                    for (var i = 0; i < planningArray.length; i++) {
+                        if (planningArray[i].name == options.eventName && planningArray[i].dateBegin == options.dateBegin) {
+                            planningArray.splice(i, 1);
                         }
                     };
 
-                    room.save(function (error) {
-                        if (error) {
-                            result.error = error;
+                    models.Room.update({
+                        "planning": planningArray
+                    }, {
+                      where: {
+                        id: options.roomID,
+                      },
+                    }).then(function(res) {
+                        models.Room.findById(options.roomID).then(function(room) {
+                            result.room = room.dataValues;
                             cb(result);
-                        } else {
-                            result.room = room;
-                            cb(result);
-                        }
-                    });
+                        })
+                    })
                 } else {
                     result.error = "Des informations nécessaires sont manquantes";
                     cb(result);
@@ -447,30 +466,38 @@ var modifyEventPlanning = function (options, cb) {
         planning.dateEnd = options.newDateEnd;
 
         if (options.roomID != null) {
-            db.Rooms
-            .findOne({'_id': options.roomID})
-            .exec(function (err, room) {
-                if (err) {
-                    result.error = err;
+            models.Room.findById(options.roomID).then(function(room) {
+                if (!room) {
+                    result.error = "Room not found";
                     cb(result);
                 } else {
-                    
-                    for (var i = 0; i < room.planning.length; i++) {
-                        if (room.planning[i].name == options.eventName && room.planning[i].dateBegin == options.dateBegin && room.planning[i].dateEnd == options.dateEnd ) {
-                            room.planning.splice(i, 1);
-                        }
-                    };
+                    if (options.eventName && options.dateBegin) {
+                        planningArray = room.dataValues.planning;
 
-                    room.planning.push(planning);
-                    room.save(function (error, res) {
-                        if (error) {
-                            result.error = error;
-                            cb(result);
-                        } else {
-                            result.room = room;
-                            cb(result);
-                        }
-                    });
+                        for (var i = 0; i < planningArray.length; i++) {
+                            if (planningArray[i].name == options.eventName && planningArray[i].dateBegin == options.dateBegin) {
+                                planningArray.splice(i, 1);
+                            }
+                        };
+
+                        planningArray.push(planning);
+
+                        models.Room.update({
+                            "planning": planningArray
+                        }, {
+                          where: {
+                            id: options.roomID,
+                          },
+                        }).then(function(res) {
+                            models.Room.findById(options.roomID).then(function(room) {
+                                result.room = room.dataValues;
+                                cb(result);
+                            })
+                        })
+                    } else {
+                        result.error = "Des informations nécessaires sont manquantes";
+                        cb(result);
+                    }
                 }
             })
         } else {
