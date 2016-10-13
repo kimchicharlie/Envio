@@ -6,7 +6,9 @@ var lookAtPos = new THREE.Object3D(), cameraAngle = 45;
 var mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
-var MAIN_URL = "http://localhost:1337", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
+var MAIN_URL = "http://localhost:1337";
+//var MAIN_URL = "http://137.74.40.245:8081";
+var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function viewer()
 {
@@ -247,6 +249,7 @@ function onMouseMove (event) {
 function onMouseDown (event) {
 
 	event.preventDefault();
+	event.stopPropagation();
 
 	raycaster.setFromCamera( mouse, camera );
 
@@ -273,7 +276,7 @@ function onMouseUp (event) {
 }
 
 function displayInfo (object) {
-	if(object.info)
+	if (object.info)
 		$("#name").text(object.info.name);
 
 	// Retrieving room's info from database
@@ -290,9 +293,6 @@ function displayInfo (object) {
 	    success: function(text) {
 			$("#name").text(object.info.name + " -- Température actuelle : " + text["room"]["realTemperature"] + "°C -- Température paramétrée : " + text["room"]["temperature"] + "°C -- Luminosité ambiante : " + text["room"]["light"] + "%");
 
-	    },
-	    error:   function() {
-	        // An error occurred
 	    }
 	});	
 }
@@ -331,7 +331,7 @@ function makeTextSprite( message, parameters )
 	
 	var borderThickness = parameters.hasOwnProperty("borderThickness") ? 
 		parameters["borderThickness"] : 4;
-	
+
 	var borderColor = parameters.hasOwnProperty("borderColor") ?
 		parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
 	

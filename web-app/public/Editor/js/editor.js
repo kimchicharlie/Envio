@@ -6,8 +6,8 @@ var editor_lookAtPos = new THREE.Object3D();
 var editor_mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
-//var MAIN_URL = "http://localhost:1337";
-var MAIN_URL = "http://137.74.40.245:8081";
+var MAIN_URL = "http://localhost:1337";
+//var MAIN_URL = "http://137.74.40.245:8081";
 var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function editor()
@@ -80,7 +80,7 @@ function editor_init() {
 	editor_container.appendChild( editor_renderer.domElement );
 
 
-	window.addEventListener( 'resize', onWindowResize, false );
+	window.addEventListener( 'resize', editor_onWindowResize, false );
 	editor_renderer.domElement.addEventListener( 'mousedown', editor_onMouseDown );
 	editor_renderer.domElement.addEventListener( 'mouseup', editor_onMouseUp );
 	editor_renderer.domElement.addEventListener( 'mousemove', editor_onMouseMove );
@@ -225,7 +225,7 @@ function editor_addRoom (size, position, infos) {
 
 	if (typeof(infos) === "undefined")
 		infos = {name:"<Nameless Room>"};
-	var spritey = makeTextSprite( " " + infos.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
+	var spritey = editor_makeTextSprite( " " + infos.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
 	spritey.position.set(position.x, position.y, position.z);
 	spritey.info = infos;
 	spritey.name = "SPRITEY_" + infos.name;
@@ -241,7 +241,7 @@ function editor_getDirectionVector (object) {
 	return lookAtVector;
 }
 
-function onWindowResize() {
+function editor_onWindowResize() {
 
 	editor_camera.left = window.innerWidth / - 2;
 	editor_camera.right = window.innerWidth / 2;
@@ -272,13 +272,14 @@ function editor_onMouseMove (event) {
 		editor_lookAtPos.translateX(-delta.x / 2);
 		editor_lookAtPos.translateZ(-delta.z / 2);
 
-		editor_mouseDownPos = intersects.point;
-	}
+		editor_mouseDownPos = intersects.point
+;	}
 }
 
 function editor_onMouseDown (event) {
 
 	event.preventDefault();
+	event.stopPropagation();
 
 	editor_raycaster.setFromCamera( editor_mouse, editor_camera );
 	var intersects = editor_raycaster.intersectObjects( editor_objects );
@@ -292,7 +293,7 @@ function editor_onMouseDown (event) {
 
 	// Create associated name sprite
 	if (editor_selected != null && editor_selected != intersects[0].object) {
-		var spritey = makeTextSprite( " " + editor_selected.info.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
+		var spritey = editor_makeTextSprite( " " + editor_selected.info.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
 		spritey.position.set(editor_selected.position.x, editor_selected.position.y, editor_selected.position.z);
 		spritey.info = editor_selected.info;
 		spritey.name = "SPRITEY_" + editor_selected.info.name;
@@ -303,7 +304,7 @@ function editor_onMouseDown (event) {
 	// On room click, display its informations
 	if (editor_INTERSECTED && intersects[0].object.name != "SCENE_GROUND" && intersects.length > 1) {
 		if (!editor_hasMoved && intersects.length != 0) {
-			displayInfo(intersects[0].object);
+			editor_displayInfo(intersects[0].object);
 			var object = editor_scene.getObjectByName("SPRITEY_" + intersects[0].object.info.name);
 			editor_scene.remove(object);
 			editor_selected = intersects[0].object;
@@ -315,7 +316,7 @@ function editor_onMouseUp (event) {
 	editor_INTERSECTED = null;
 }
 
-function displayInfo (object) {
+function editor_displayInfo (object) {
 	if (object.info)
 		$("#name").text(object.info.name);
 	$("#height").val(object.geometry.parameters.width);
@@ -343,11 +344,7 @@ function editor_render() {
 	editor_renderer.render( editor_scene, editor_camera );
 }
 
-function DegToRad (deg) {
-	return deg * Math.PI / 180;
-}
-
-function makeTextSprite( message, parameters )
+function editor_makeTextSprite( message, parameters )
 {
 	if ( parameters === undefined ) parameters = {};
 	
