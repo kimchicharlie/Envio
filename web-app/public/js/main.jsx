@@ -18,28 +18,37 @@ var Header = React.createClass({
 
 var Sidemenu = React.createClass({
     render() {
+        let adminSpace = '';
+        
+        if (!!this.props.isAdmin) {
+            adminSpace = (
+                <div className={"link " + (this.props.route == "Admin" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Admin")}>
+                    <span>Admin</span>
+                </div>
+            );
+        }
         return (
             <div>
-
-            <nav id="nav">
-                <img className="logosm" src="images/Envio2.png"/>
-                <div className={"link " + (this.props.route == "Planning" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Planning")}>
-                    <span>Planning</span>
-                </div>
-                <div className={"link " + (this.props.route == "Rooms" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Rooms")}>
-                    <span>Salles</span>
-                </div>
-                <div className={"link " + (this.props.route == "Modes" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Modes")}>
-                    <span>Modes</span>
-                </div>
-                <div className={"link " + (this.props.route == "Simulateur" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Simulateur")}>
-                    <span>Visionneuse</span>
-                </div>
-                <div className={"link " + (this.props.route == "Editor" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Editor")}>
-                    <span>Editeur</span>
-                </div>                
-            </nav>
-            </div>  
+                <nav id="nav">
+                    <img className="logosm" src="images/Envio2.png"/>
+                    <div className={"link " + (this.props.route == "Planning" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Planning")}>
+                        <span>Planning</span>
+                    </div>
+                    <div className={"link " + (this.props.route == "Rooms" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Rooms")}>
+                        <span>Salles</span>
+                    </div>
+                    <div className={"link " + (this.props.route == "Modes" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Modes")}>
+                        <span>Modes</span>
+                    </div>
+                    <div className={"link " + (this.props.route == "Simulateur" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Simulateur")}>
+                        <span>Visionneuse</span>
+                    </div>
+                    <div className={"link " + (this.props.route == "Editor" ? " bg_c-grey" : "")} onClick={this.props.setRoute.bind(null, "Editor")}>
+                        <span>Editeur</span>
+                    </div>
+                    {adminSpace}
+                </nav>
+            </div>
         );
     }
 });
@@ -51,14 +60,19 @@ var Home = React.createClass({
         var route = null;
         var content = "";
         var logoutButton = <button className="butsty btn btn-info btn-lg" onClick={this.props.doLogout}><i className="fa fa-sign-out" aria-hidden="true"></i> Deconnexion</button>
+        var isAdmin = false;
 
-        switch (this.props.selectedRoute) 
+        if (this.props.user && this.props.user.isAdmin) {
+            isAdmin = true;
+        }
+
+        switch (this.props.selectedRoute)
         {
             case "Rooms" :
                 content = (
                     <div>
                         <div className="top-menu">
-                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
                             {logoutButton}
                         </div>
                         <Rooms Organisation={this.props.Organisation}/>
@@ -69,7 +83,7 @@ var Home = React.createClass({
                 content = (
                     <div>
                         <div className="top-menu">
-                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
                             {logoutButton}
                         </div>
                         <Modes Organisation={this.props.Organisation}/>
@@ -80,7 +94,7 @@ var Home = React.createClass({
                 content = (
                     <div>
                         <div className="top-menu">
-                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
                             {logoutButton}
                         </div>
                         <Planning Organisation={this.props.Organisation}/>
@@ -91,7 +105,7 @@ var Home = React.createClass({
                 content = (
                     <div>
                         <div className="top-menu">
-                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
                             {logoutButton}
                         </div>
                         <Simulateur/>
@@ -102,14 +116,25 @@ var Home = React.createClass({
                 content = (
                     <div>
                         <div className="top-menu">
-                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute}/>
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
                             {logoutButton}
                         </div>
                         <Editor/>
                     </div>
                 )
-                break;                
-            case "Login" :                
+                break;
+            case "Admin" :
+                content = (
+                    <div>
+                        <div className="top-menu">
+                            <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
+                            {logoutButton}
+                        </div>
+                        <Admin Organisation={this.props.Organisation}/>
+                    </div>
+                )
+                break;
+            case "Login" :
                 content = (
                     <div>
                         <Login setRoute={this.props.setRoute}
@@ -181,7 +206,7 @@ ErrorMessage = React.createClass({
 var Login = React.createClass({
     getInitialState() {
         return {
-            error : false  
+            error : false
         };
     },
     handleSubmit : function(event) {
@@ -189,12 +214,12 @@ var Login = React.createClass({
 
         var that = this;
         var email = ReactDOM.findDOMNode(this.refs.email).value;
-        var pass = ReactDOM.findDOMNode(this.refs.pass).value;     
+        var pass = ReactDOM.findDOMNode(this.refs.pass).value;
 
         HttpPost('/login', {
             'email': email,
             'password': pass,
-        }, function(ret) {          
+        }, function(ret) {
             var rep = jQuery.parseJSON(ret);
             if(rep.error == null){
                 that.props.doLogin(rep);
@@ -207,7 +232,7 @@ var Login = React.createClass({
     },
     render() {
         return (
-            <div className="form">  
+            <div className="form">
                 <form role="form" onSubmit={this.handleSubmit}>
                     <ErrorMessage className="error" content={this.state.error}/>
                     <div className="input-list">
@@ -248,12 +273,11 @@ var Register = React.createClass({
             'password': pass,
             'firstname': firstname,
             'lastname': lastname,
-            'organisation' : organisation            
+            'organisation' : organisation
         }, function(rep) {
             rep = jQuery.parseJSON(rep);
-            console.log("rep : ", rep)
             if(rep.error == null){
-                that.setState({registered: rep})      
+                that.setState({registered: rep})
 
             }
             else{
@@ -272,14 +296,14 @@ var Register = React.createClass({
     render() {
         if(this.state.registered && this.state.registered.error == null){
                 return (
-                     
+
                      <div className="form">
                          <span className="label-c">Vous etes desormais inscrit !<br>Bienvenue dans l&#39;experience Envio !</br></span>
                          <br/><button className="button-medium" onClick={this.reloadPage}><i className="fa fa-plug" aria-hidden="true"></i> Se connecter</button>
                      </div>
-                );                    
+                );
         }
-        
+
         return (
             <div className="form">
                 <div className="bar bar-header-secondary">
@@ -296,11 +320,11 @@ var Register = React.createClass({
                                 <input className="input-medium" ref="email" type="text" placeholder="E-mail"/>
                             </div>
                             <div className="input-container">
-                                <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>                     
-                            </div>                              
+                                <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>
+                            </div>
                             <div className="input-container">
                                 <input className="input-medium" ref="pass" type="password" placeholder="Mot de passe"/>
-                            </div>                          
+                            </div>
                         </div>
                         <button className="button-medium" type="submit"><i className="fa fa-check" aria-hidden="true"></i> Valider</button>
                     </form>
@@ -311,14 +335,12 @@ var Register = React.createClass({
     }
 });
 
-
 var App = React.createClass({
     getInitialState: function() {
         return {
             userId: Cookie.load('userId'),
             organisation: Cookie.load('organisation'),
             selectedRoute: null,
-
             error : false
         };
     },
@@ -328,15 +350,14 @@ var App = React.createClass({
         });
     },
     doLogin: function(userId) {
-                        console.log(userId)
-        this.setState({userId : userId.guid});
-        this.setState({organisation : userId.user.organisation});
         Cookie.save('userId', userId.guid);
         Cookie.save('organisation', userId.user.organisation);
+        this.setState({userId : userId.guid});
+        this.setState({organisation : userId.user.organisation});
         this.setRoute('Rooms');
     },
     doLogout: function(event) {
-        var that = this;  
+        var that = this;
 
         HttpPost('/logout', {
             'guid': Cookie.load('userId')
@@ -345,18 +366,30 @@ var App = React.createClass({
                 that.setState({error : rep.error.message || rep.error});
             } else {
 
-                Cookie.remove('userId');            
-                Cookie.remove('organisation');            
+                Cookie.remove('userId');
+                Cookie.remove('organisation');
                 that.setState({userId: false});
                 that.setRoute("Login");
             }
         });
     },
     componentWillMount: function () {
-        if (this.state.userId) {
-            this.setRoute("Rooms");                 
-        } else {   
-            this.setRoute("Login");
+        var that = this;
+        if (that.state.userId) {
+            HttpPost('/getUser', {
+                'guid': that.state.userId,
+            }, function(rep) {
+                rep = jQuery.parseJSON(rep);
+                if (rep.error === null){
+                  that.setState({user: rep.user});
+                }
+                else{
+                  that.setState({error:rep.error});
+                }
+            });
+            that.setRoute("Rooms");
+        } else {
+            that.setRoute("Login");
         }
     },
      render() {
@@ -368,23 +401,23 @@ var App = React.createClass({
                         <img className="logo" src="images/Envio2.png"/>
                         <h2 className="pres"> Adoptez la domotique de Demain </h2>
                         <span className="subpres"> Pour commencer, entrez <b>vos identifiants</b> </span>
-                   </div>                
-                    <Home selectedRoute={this.state.selectedRoute}
-                        doLogout={this.doLogout} 
+                   </div>
+                    <Home
+                        selectedRoute={this.state.selectedRoute}
+                        doLogout={this.doLogout}
                         doLogin={this.doLogin}
                         setRoute={this.setRoute}/>
                     <ErrorModal content={this.state.error} title="logout"/>
                 </div>
             );
 
-        }
-        else
-        {
-            //console.log(this.state.organisation)
+        } else {
             return (
-                <div className="envio-logged main-content" id="wrapped">                
-                    <Home selectedRoute={this.state.selectedRoute}
-                        doLogout={this.doLogout} 
+                <div className="envio-logged main-content" id="wrapped">
+                    <Home
+                        user={this.state.user}
+                        selectedRoute={this.state.selectedRoute}
+                        doLogout={this.doLogout}
                         doLogin={this.doLogin}
                         setRoute={this.setRoute}
                         Organisation={this.state.organisation}/>

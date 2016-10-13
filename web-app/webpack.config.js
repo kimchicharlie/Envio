@@ -3,6 +3,7 @@ var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
     entry: {
         main : "./public/js/main.jsx",
+        admin: "./public/js/admin.jsx",
         room : "./public/js/room.jsx",
         mode : "./public/js/mode.jsx",
         planning : "./public/js/planning.jsx",
