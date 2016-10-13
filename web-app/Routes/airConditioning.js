@@ -8,7 +8,6 @@ exports.routes = [
         "middlewares": [multipartMiddleware],
         handler: function (req, res)
         {
-            console.log(req.body)
             airConditioningManager.createAirConditioning({
                 "room" : req.body.room,
                 "temperatureWanted" : req.body.temperaturewanted,
