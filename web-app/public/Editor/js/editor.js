@@ -90,14 +90,14 @@ function editor_init() {
 	$("editor_canvas").parent().attr("id", "containerEditor");	
 	$("#containerEditor")
 		.append($('<div><p id="name">--</p></div><br/>'))
-		.append($('<label for="height">Largeur :</label><input type="number" onblur="applyChanges()" id="height" value="0"></input><br/>'))
-		.append($('<label for="width">Longueur :</label><input type="number" onblur="applyChanges()" id="width" value="0"></input><br/>'))
-		.append($('<label for="posX">Position X :</label><input type="number" onblur="applyChanges()" id="posX" value="0"></input><br/>'))
-		.append($('<label for="posY">Position Y :</label><input type="number" onblur="applyChanges()" id="posY" value="0"></input><br/>'))
-		.append($('<button id="saveChanges" onclick="saveChanges()">Enregistrer</button>'));
+		.append($('<label for="height">Largeur :</label><input type="number" onchange="editor_applyChanges()" id="height" value="0"></input><br/>'))
+		.append($('<label for="width">Longueur :</label><input type="number" onchange="editor_applyChanges()" id="width" value="0"></input><br/>'))
+		.append($('<label for="posX">Position X :</label><input type="number" onchange="editor_applyChanges()" id="posX" value="0"></input><br/>'))
+		.append($('<label for="posY">Position Y :</label><input type="number" onchange="editor_applyChanges()" id="posY" value="0"></input><br/>'))
+		.append($('<button id="saveChanges" onclick="editor_saveChanges()">Enregistrer</button>'));
 }
 
-function saveChanges() {
+function editor_saveChanges() {
 	for (var i = editor_objects.length - 1; i >= 0; i--) {
 		if (editor_objects[i].name == "SCENE_GROUND")
 			continue;
@@ -122,7 +122,7 @@ function saveChanges() {
 	}
 }
 
-function applyChanges() {
+function editor_applyChanges() {
 	editor_selected.geometry.parameters.width = parseInt($("#height").val());
 	editor_selected.geometry.parameters.height = parseInt($("#width").val());
 	editor_selected.position.z = -parseInt($("#posX").val());
@@ -199,7 +199,7 @@ function editor_placeUnplacedRooms() {
 		if (editor_objects[i].name != "SCENE_GROUND" && editor_objects[i].position.z + editor_objects[i].geometry.parameters.height / 2 > right) right = editor_objects[i].position.z + editor_objects[i].geometry.parameters.height / 2;
 	}
 	for (var i = editor_unplacedRooms.length - 1; i >= 0; i--) {
-		editor_addRoom({"height": 40, "width": 100, "length": 100}, {"x": 0, "y": 0, "z": right + 50}, unplacedRooms[i]["room"]);
+		editor_addRoom({"height": 40, "width": 100, "length": 100}, {"x": 0, "y": 0, "z": right + 50}, editor_unplacedRooms[i]["room"]);
 		right += 100;
 	}
 }
@@ -310,6 +310,9 @@ function editor_onMouseDown (event) {
 			editor_selected = intersects[0].object;
 		}
 	}
+	if (intersects[0].object.name == "SCENE_GROUND") {
+		editor_displayInfo(null);
+	}
 }
 
 function editor_onMouseUp (event) {
@@ -317,25 +320,28 @@ function editor_onMouseUp (event) {
 }
 
 function editor_displayInfo (object) {
-	if (object.info)
-		$("#name").text(object.info.name);
-	$("#height").val(object.geometry.parameters.width);
-	$("#width").val(object.geometry.parameters.height);
-	$("#posX").val(-object.position.z);
-	$("#posY").val(-object.position.x);
-	editor_animate();
+	if (object == null) {
+		$("#name").text("--");
+		$("#height").val("");
+		$("#width").val("");
+		$("#posX").val("");
+		$("#posY").val("");
+	} else {
+		if (object.info)
+			$("#name").text(object.info.name);
+		$("#height").val(object.geometry.parameters.width);
+		$("#width").val(object.geometry.parameters.height);
+		$("#posX").val(-object.position.z);
+		$("#posY").val(-object.position.x);
+	}
 }
 
 function editor_animate() {
-
-	requestAnimationFrame( editor_animate );
-
 	editor_render();
-
+	requestAnimationFrame( editor_animate );
 }
 
-function editor_render() {
-
+function editor_render(t) {
 	editor_camera.position.x = editor_lookAtPos.position.x;
 	editor_camera.position.z = editor_lookAtPos.position.z;
 	
