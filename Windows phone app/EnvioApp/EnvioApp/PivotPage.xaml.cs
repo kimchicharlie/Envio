@@ -20,6 +20,7 @@ using Windows.UI.Popups;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -40,6 +41,7 @@ namespace EnvioApp
         private RoomContainer room = null;
         private Boolean _conf = false;
         private int _index;
+        private int changed = 1;
 
         private double _tempVal;
         private int _lumVal;
@@ -50,22 +52,30 @@ namespace EnvioApp
         DispatcherTimer timer;
 
         //network part
+        /**
         private string urlSingleRoom = "http://127.0.0.1:1337/api/getRoom";
         private string urlAllRooms = "http://127.0.0.1:1337/api/getRooms";
         private string urlChangeTemp = "http://127.0.0.1:1337/api/changeTemperature";
         private string urlChangeLight = "http://127.0.0.1:1337/api/changeLight";
         private string urlPlanning = "http://127.0.0.1:1337/api/getRoomPlanning";
         private string urlDisco = "http://127.0.0.1:1337/api/logout";
-        /*
+        /**/
+        /**
         private string urlSingleRoom = "http://176.31.127.14:1337/api/getRoom";
         private string urlAllRooms = "http://176.31.127.14:1337/api/getRooms";
         private string urlChangeTemp = "http://176.31.127.14:1337/api/changeTemperature";
         private string urlChangeLight = "http://176.31.127.14:1337/api/changeLight";
         private string urlPlanning = "http://176.31.127.14:1337/api/getRoomPlanning";
         private string urlDisco = "http://176.31.127.14:1337/api/logout";        
-        */
-        //        private string url = "http://176.31.127.14:1337/api/getRoom";
-        //        private string url = "http://176.31.127.14:1337/api/getRoom";
+        /**/
+        /**/
+        private string urlSingleRoom = "http://137.74.40.245:1337/api/getRoom";
+        private string urlAllRooms = "http://137.74.40.245:1337/api/getRooms";
+        private string urlChangeTemp = "http://137.74.40.245:1337/api/changeTemperature";
+        private string urlChangeLight = "http://137.74.40.245:1337/api/changeLight";
+        private string urlPlanning = "http://137.74.40.245:1337/api/getRoomPlanning";
+        private string urlDisco = "http://137.74.40.245:1337/api/logout";
+        /**/
 
         public PivotPage()
         {
@@ -87,6 +97,8 @@ namespace EnvioApp
             timer = new DispatcherTimer();
             timer.Tick += dispatcherTimer_Tick;
             timer.Interval = new TimeSpan(0, 0, 10); // every 30 seconds
+
+            room = null;
         }
 
         /// <summary>
@@ -209,11 +221,12 @@ namespace EnvioApp
             else
                 tmp = newIdex - calOldIndex;
             calOldIndex = calendarPivot.SelectedIndex;
+            // change the date accordingly
             _date = _date.AddDays(tmp);
             Debug.WriteLine("adding: " + tmp + " to date");
 
             (calendarPivot.SelectedItem as PivotItem).Header = _date.Date.ToString("d"); ;
-            // have to change the title of the items
+            // have to change the title of the items depending of the current's index date
             if (calOldIndex == 0)
             {
                 (calendarPivot.Items.ElementAt(1) as PivotItem).Header = _date.AddDays(1).Date.ToString("d");
@@ -231,7 +244,7 @@ namespace EnvioApp
             // configure the listBox of the item
             if (calOldIndex == 0)
                 confFirstView();
-            if (calOldIndex == 1)
+            else if (calOldIndex == 1)
                 confSecondView();
             else
                 confThirdView();
@@ -241,11 +254,13 @@ namespace EnvioApp
         {
             try
             {
+                // avoid an exception if there is no rooms actually set
                 if (_conf != false)
                 {
                     _tempVal = e.NewValue;
                     if (TempLabel != null)
                         TempLabel.Text = "Température\t\t" + _tempVal + "°C";
+                    // wait to process the slider change and get the last value
                     await System.Threading.Tasks.Task.Delay(1000); // 1s
                     List<KeyValuePair<string, string>> values = new List<KeyValuePair<string, string>>
                     {
@@ -274,11 +289,13 @@ namespace EnvioApp
         {
             try
             {
+                // avoid an exception if there is no rooms actually set
                 if (_conf != false)
                 {
                     _lumVal = (int)e.NewValue;
                     if (LumLabel != null)
                         LumLabel.Text = "Luminosité\t\t" + _lumVal + "%";
+                    // wait to process the slider change and get the last value
                     await System.Threading.Tasks.Task.Delay(1000); // 1s
                     List<KeyValuePair<string, string>> values = new List<KeyValuePair<string, string>>
                     {
@@ -370,7 +387,11 @@ namespace EnvioApp
                 HttpResponseMessage response = await httpClient.PostAsync(urlSingleRoom, new FormUrlEncodedContent(values));
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
-                room = JsonConvert.DeserializeObject<RoomContainer>(responseString);
+                //                room = JsonConvert.DeserializeObject<RoomContainer>(responseString);
+                RoomContainer tmpRoom = JsonConvert.DeserializeObject<RoomContainer>(responseString);
+                if (room != null && String.Compare(tmpRoom.room._id, room.room._id) != 0)
+                    changed = 1;
+                room = tmpRoom;
                 //response for signle room
 //                Debug.WriteLine(responseString.ToString());
                 TempSlider.Value = Int32.Parse(room.room.temperature);
@@ -383,13 +404,6 @@ namespace EnvioApp
                     LumLabel.Text = "Luminosité\t\t" + _lumVal + "%";
                 _conf = true;
 
-                /*
-                calendarPivot.SelectedIndex = 0;
-                _date = DateTime.Today;
-                (calendarPivot.SelectedItem as PivotItem).Header = _date.Date.ToString("d"); ;
-                (calendarPivot.Items.ElementAt(1) as PivotItem).Header = _date.AddDays(1).Date.ToString("d");
-                (calendarPivot.Items.ElementAt(2) as PivotItem).Header = _date.AddDays(2).Date.ToString("d");
-                */
                 await getPlanning(index);
             }
             catch
@@ -420,12 +434,14 @@ namespace EnvioApp
                 // take directly the array of rooms
                 int ind = responseString.IndexOf("[");
 
-                calendarPivot.SelectedIndex = 0;
-                _date = DateTime.Today;
-                (calendarPivot.Items.ElementAt(0) as PivotItem).Header = _date.Date.ToString("d"); ;
-                (calendarPivot.Items.ElementAt(1) as PivotItem).Header = _date.AddDays(1).Date.ToString("d");
-                (calendarPivot.Items.ElementAt(2) as PivotItem).Header = _date.AddDays(2).Date.ToString("d");
-
+                if (changed == 1) {
+                    calendarPivot.SelectedIndex = 0;
+                    _date = DateTime.Today;
+                    (calendarPivot.Items.ElementAt(0) as PivotItem).Header = _date.Date.ToString("d"); ;
+                    (calendarPivot.Items.ElementAt(1) as PivotItem).Header = _date.AddDays(1).Date.ToString("d");
+                    (calendarPivot.Items.ElementAt(2) as PivotItem).Header = _date.AddDays(2).Date.ToString("d");
+                    changed = 0;
+                }
                 if (ind + 1 != responseString.IndexOf("]"))
                 {
                     room.room.planning.Clear();
@@ -437,6 +453,7 @@ namespace EnvioApp
                         room.room.planning.ElementAt(i).parseStrings();
                     }
                     confFirstView();
+                    UpdateCalendar(_date);
                 }
             }
             catch
@@ -539,7 +556,56 @@ namespace EnvioApp
                 MessageDialog msgbox = new MessageDialog("An error has occured. Please try again in a moment.");
                 await msgbox.ShowAsync();
             }
-
         }
+
+        public void UpdateCalendar(DateTime objdate)
+        {
+            CalendarHeader.Text = objdate.ToString("MMMM yyyy");
+            objdate = new DateTime(objdate.Year, objdate.Month, 1);
+            int dayOfWeek = (int)objdate.DayOfWeek + 1;
+            int daysOfMonth = DateTime.DaysInMonth(objdate.Year, objdate.Month);
+            int i = 1;
+            foreach (var o1 in Calendar.Children)
+            {
+                foreach (var o2 in (o1 as StackPanel).Children)
+                {
+                    var o3 = (o2 as Grid).Children[0] as TextBlock;
+                    var o4 = (o2 as Grid).Children[1] as Image;
+                    if (i >= dayOfWeek && i < (daysOfMonth + dayOfWeek))
+                    {
+                        o3.Text = (i - dayOfWeek + 1).ToString();
+
+                        modesThirdList = new ObservableCollection<Planning>();
+                        for (int a = 0; a < room.room.planning.Count(); a++)
+                        {
+                            DateTime tmp = new DateTime(_date.Year, objdate.Month, i - dayOfWeek + 1);
+                            if (room.room.planning.ElementAt(i).dtStart.Date == tmp.Date)
+                                o4.Source = new BitmapImage(new Uri("ms-appx:///Assets/rond-vert-mousse.png"));
+                        }
+
+                    }
+                    else
+                    {
+                        o3.Text = "";
+                    }
+                    i++;
+                }
+            }
+        }
+        private void previousMonth(object sender, RoutedEventArgs e)
+        {
+//            calendarDate = calendarDate.AddMonths(-1);
+//            UpdateCalendar(calendarDate);
+            _date = _date.AddMonths(-1);
+            UpdateCalendar(_date);
+        }
+        private void nextMonth(object sender, RoutedEventArgs e)
+        {
+//            calendarDate = calendarDate.AddMonths(1);
+//            UpdateCalendar(calendarDate);
+            _date = _date.AddMonths(1);
+            UpdateCalendar(_date);
+        }
+
     }
 }

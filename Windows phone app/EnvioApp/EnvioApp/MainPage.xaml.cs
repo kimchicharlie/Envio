@@ -32,7 +32,8 @@ namespace EnvioApp
 
         //network part
 //        private string url = "http://176.31.127.14:1337/api/login";
-        private string url = "http://127.0.0.1:1337/api/login";
+//        private string url = "http://127.0.0.1:1337/api/login";
+        private string url = "http://137.74.40.245:1337/api/login";
 
         public MainPage()
         {

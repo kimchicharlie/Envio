@@ -16,14 +16,25 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">Background: #232123;</string>
+  </property>
   <widget class="QLabel" name="TitleLbl">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>80</x>
      <y>10</y>
-     <width>141</width>
+     <width>151</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
@@ -32,7 +43,7 @@ outline: 0;
 width: 100%;
 border: 0;
 padding: 10px;
-color: #4d4d4d;
+color: #AAA;
 font-size: 12px;</string>
    </property>
    <property name="text">
@@ -48,6 +59,12 @@ font-size: 12px;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
@@ -55,11 +72,10 @@ outline: 0;
 width: 100%;
 border: 0;
 padding: 10px;
-color: #4d4d4d;
 font-size: 12px;</string>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QSpinBox" name="hourStartSpin">
@@ -71,8 +87,17 @@ font-size: 12px;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;</string>
+    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
+background: #777;
+</string>
    </property>
    <property name="maximum">
     <number>23</number>
@@ -87,8 +112,17 @@ font-size: 12px;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;</string>
+    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
+background: #777;
+</string>
    </property>
    <property name="maximum">
     <number>55</number>
@@ -106,8 +140,16 @@ font-size: 12px;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;</string>
+    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
+background: #777;</string>
    </property>
    <property name="minimum">
     <number>30</number>
@@ -128,18 +170,26 @@ font-size: 12px;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
 outline: 0;
 width: 100%;
 border: 0;
-padding: 10px;
-color: #4d4d4d;
+padding: 7px;
+color: #AAA;
 font-size: 12px;</string>
    </property>
    <property name="text">
-    <string>Heure de début</string>
+    <string>Heure de début :</string>
    </property>
   </widget>
   <widget class="QLabel" name="durationLbl">
@@ -151,6 +201,14 @@ font-size: 12px;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
@@ -158,11 +216,11 @@ outline: 0;
 width: 100%;
 border: 0;
 padding: 10px;
-color: #4d4d4d;
+color: #AAA;
 font-size: 12px;</string>
    </property>
    <property name="text">
-    <string>Durée</string>
+    <string>Durée :</string>
    </property>
   </widget>
   <widget class="QPushButton" name="validateBtn">
@@ -174,6 +232,12 @@ font-size: 12px;</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton
 {
@@ -182,9 +246,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #5cb85c;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }
 
 QPushButton:hover
@@ -194,9 +259,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #449d44;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }</string>
    </property>
    <property name="text">
@@ -212,6 +278,12 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton
 {
@@ -220,9 +292,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #5cb85c;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }
 
 QPushButton:hover
@@ -232,9 +305,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #449d44;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }</string>
    </property>
    <property name="text">
@@ -253,10 +327,20 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
    <property name="font">
     <font>
      <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;</string>
+    <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 7px;
+color: #AAA;
+font-size: 12px;</string>
    </property>
    <property name="text">
     <string>:</string>
@@ -271,10 +355,48 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
      <height>24</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
+background: #777;
+text-transform: uppercase;
+font-size: 12px;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>150</y>
+     <width>55</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI,sans-serif</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">font-family: &quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 7px;
+color: #AAA;
 font-size: 12px;</string>
+   </property>
+   <property name="text">
+    <string>min</string>
    </property>
   </widget>
  </widget>

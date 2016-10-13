@@ -13,14 +13,17 @@
   <property name="windowTitle">
    <string>Envio - Thermostat</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">Background: #232123;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>321</width>
-      <height>241</height>
+      <x>10</x>
+      <y>10</y>
+      <width>301</width>
+      <height>221</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -30,6 +33,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QPushButton" name="AccueilBtn">
+           <property name="font">
+            <font>
+             <family>Segoe UI,sans-serif</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">QPushButton
 {
@@ -38,9 +47,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #5cb85c;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }
 
 QPushButton:hover
@@ -50,9 +60,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #449d44;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }</string>
            </property>
            <property name="text">
@@ -68,8 +79,8 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
       <widget class="QListView" name="listView">
        <property name="styleSheet">
         <string notr="true">QListView {
-	background: #f2f2f2;
-font-family:&quot;Segoe UI&quot;, sans-serif;
+	background: #444;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
     show-decoration-selected: 1; 
 }
 
@@ -83,12 +94,12 @@ QListView::item:selected {
 
 QListView::item:selected:!active {
     background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                                stop: 0 #ABAFE5, stop: 1 #8588B2);
+                                stop: 0 #8588B2, stop: 1 #ABAFE5);
 }
 
 QListView::item:selected:active {
     background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                                stop: 0 #4cae4c, stop: 1 #265726);
+                                stop: 0 #265726, stop: 1 #4cae4c);
 }
 
 QListView::item:hover {
@@ -104,17 +115,17 @@ background: #f2f2f2;
 box-sizing: border-box;
 font-size: 12px;
 }
-
+*/
 QListView::item
 {
     padding-left:10px;
     width:80px;
     height:20px;
-    color: #5a5a5a;
+    color: #EEE;
     border-bottom :1px solid #f0f0f0;
 	font-size: 12px;
 }
-*/</string>
+</string>
        </property>
       </widget>
      </item>
@@ -122,6 +133,12 @@ QListView::item
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QPushButton" name="TempDispButton">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
@@ -130,9 +147,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #5cb85c;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }
 
 QPushButton:hover
@@ -142,9 +160,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #449d44;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }</string>
          </property>
          <property name="text">
@@ -154,6 +173,12 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
        </item>
        <item>
         <widget class="QPushButton" name="HourDispButton">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
@@ -162,9 +187,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #5cb85c;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }
 
 QPushButton:hover
@@ -174,9 +200,10 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
 	outline: 0;
 	background: #449d44;
 	border: 0;
-	padding: 10px;
+	padding: 7px;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 14px;
+	border-radius: 7px;
 }</string>
          </property>
          <property name="text">
@@ -188,6 +215,12 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="msgLabel">
+       <property name="font">
+        <font>
+         <family>Segoe UI,sans-serif</family>
+         <pointsize>-1</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
 text-transform: uppercase;
@@ -195,12 +228,15 @@ outline: 0;
 width: 100%;
 border: 0;
 padding: 5px;
-color: #4d4d4d;
+color: #AAA;
 font-size: 12px;
 </string>
        </property>
        <property name="text">
         <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>

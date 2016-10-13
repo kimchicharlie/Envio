@@ -34,9 +34,15 @@ public:
         if (RoomSelection->objectName().isEmpty())
             RoomSelection->setObjectName(QStringLiteral("RoomSelection"));
         RoomSelection->resize(320, 240);
+        RoomSelection->setStyleSheet(QLatin1String("Background: #232123;\n"
+""));
         buttonBox = new QDialogButtonBox(RoomSelection);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
         buttonBox->setGeometry(QRect(10, 200, 301, 32));
+        QFont font;
+        font.setBold(true);
+        font.setWeight(75);
+        buttonBox->setFont(font);
         buttonBox->setStyleSheet(QLatin1String("QPushButton\n"
 "{\n"
 "font-family:\"Segoe UI\", sans-serif;\n"
@@ -44,53 +50,62 @@ public:
 "	outline: 0;\n"
 "	background: #5cb85c;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}\n"
 "\n"
 "QPushButton:hover\n"
 "{\n"
-"font-family:\"Segoe UI\", sans-serif;\n"
+"	font-family:\"Segoe UI\", sans-serif;\n"
 "	text-transform: uppercase;\n"
 "	outline: 0;\n"
 "	background: #449d44;\n"
 "	border: 0;\n"
-"	padding: 10px;\n"
+"	padding: 7px;\n"
 "	color: #FFFFFF;\n"
-"	font-size: 12px;\n"
+"	font-size: 14px;\n"
+"	border-radius: 7px;\n"
 "}"));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         label = new QLabel(RoomSelection);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(20, 20, 281, 51));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Segoe UI,sans-serif"));
+        font1.setBold(true);
+        font1.setWeight(75);
+        label->setFont(font1);
         label->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
 "border: 0;\n"
 "padding: 10px;\n"
-"color: #4d4d4d;\n"
-"font-size: 12px;"));
+"color: #AAA;\n"
+"font-size: 14px;"));
         label->setAlignment(Qt::AlignCenter);
         lineEdit = new QLineEdit(RoomSelection);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setGeometry(QRect(20, 110, 281, 61));
+        lineEdit->setFont(font1);
         lineEdit->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
 "width: 100%;\n"
-"border: 0;\n"
+"border: 2;\n"
+"background: #444;\n"
 "padding: 10px;\n"
-"color: #4d4d4d;\n"
+"color: #AAA;\n"
 "font-size: 12px;"));
         lineEdit->setMaxLength(8);
         lineEdit->setEchoMode(QLineEdit::Password);
         lineEdit->setAlignment(Qt::AlignCenter);
         errorLbl = new QLabel(RoomSelection);
         errorLbl->setObjectName(QStringLiteral("errorLbl"));
-        errorLbl->setGeometry(QRect(24, 80, 271, 41));
+        errorLbl->setGeometry(QRect(24, 70, 271, 41));
         errorLbl->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"
