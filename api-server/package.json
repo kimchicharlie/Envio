@@ -10,6 +10,7 @@
     "connect-multiparty": "^2.0.0",
     "cors": "^2.7.1",
     "express": "^4.13.3",
+    "forever": "^0.15.3",
     "mongoose": "^4.2.4",
     "nodemailer": "^1.8.0",
     "request": "^2.65.0",
