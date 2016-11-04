@@ -11,11 +11,11 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QByteArray>
-#include <QJsonArray>
 #include <QJsonDocument>
 #include <QUrl>
 #include <QUrlQuery>
 #include <QHttpPart>
+#include <QSettings>
 
 #include <boost/algorithm/string/trim.hpp>
 
@@ -23,9 +23,10 @@
 #include <iostream>
 #include <sstream>
 
+#include "netConnection.h"
 #include "temperatureWindow.h"
 #include "lumWindow.h"
-#include "opacWindow.h"
+//#include "opacWindow.h"
 #include "planningWindow.h"
 #include "configWindow.h"
 #include "roomstate.h"
@@ -44,11 +45,13 @@ public:
 
     TemperatureWindow*  getTempWin();
     LumWindow*          getLumWin();
-    OpacWindow*          getOpacWin();
+    //OpacWindow*          getOpacWin();
     PlanningWindow*     getPlanWin();
     ConfigWindow*       getConfigWin();
     void                roomValFromAPI();
     void                parseRep();
+    QString*                getHostName();
+    quint16                 getHostPort();
 
 
 private slots:
@@ -104,18 +107,16 @@ private:
     // Other windows
     TemperatureWindow   *_tempWin;
     LumWindow           *_lumWin;
-    OpacWindow          *_opacWin;
+//    OpacWindow          *_opacWin;
     PlanningWindow      *_planWin;
     ConfigWindow        *_configWin;
 
     // Network
+    NetConnection           *_network;
+
     QNetworkAccessManager   *_netMan;
     QNetworkReply           *_netRep;
-    //http://176.31.127.14/
-    QString                 *_hostName = new QString("176.31.127.14");
-//    QString                 *_hostName = new QString("127.0.0.1");
-    quint16                 _hostPort = 1337;
-    QUrl                    _url;
+    QString                 _idRoom;
     QHttpMultiPart          *_multiPart;
     QByteArray              _reply;
     QJsonArray              *_jsonArr;

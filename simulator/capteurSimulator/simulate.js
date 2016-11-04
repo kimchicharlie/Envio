@@ -26,8 +26,7 @@ var getCoherance = function(cb)
         });
         response.on('end', function() {
             // Data reception is done, do whatever with it!
-            var parsed = JSON.parse(body);    
-                        console.log('/forecast/e64f1c8f686542cc6dccca139e627713/'+parsed.coord.lat +','+parsed.coord.lon)
+            var parsed = JSON.parse(body);
             https.get({
                 host: 'api.forecast.io',
                 path: '/forecast/e64f1c8f686542cc6dccca139e627713/'+parsed.coord.lat +','+parsed.coord.lon
@@ -39,7 +38,8 @@ var getCoherance = function(cb)
                 });
                 response.on('end', function() {
                     var darkparsed = JSON.parse(body);
-                    cb(parsed.main.temp,darkparsed.currently.visibility * 4000)
+                    cb(parsed.main.temp,50000 * ((1 - darkparsed.currently.cloudCover) + 0.2))
+
                     })
                 });
             });  
@@ -73,37 +73,23 @@ var main = function (){
 }
 
 app.get('/', function (req, res) {  
-        console.log("la")  
         if (coherance){
-            console.log("cohe")
             getCoherance(function(coheTemparature,coheLightOutSide){
                 var toSend = {
-                    "temparature" : coheTemparature,
                     "lightOutSide" : coheLightOutSide,
-                    "lightInSide" : lightInSide,
                     }
+                console.log(toSend);
                 res.send(toSend);
             })
         }else{
-            console.log("non cohe")
             var toSend = {
-                "temparature" : temparature,
                 "lightOutSide" : lightOutSide,
-                "lightInSide" : lightInSide,
                 }
+            console.log(toSend);
             res.send(toSend); 
         }                
 });
 
-app.post('/ChangeLightInSide', function (req, res) {
-    lightInSide = req.body.lightInSide
-    res.send({"lightInSide" : lightInSide});
-});
-
-app.post('/ChangeTemparature', function (req, res) {
-    temparature = req.body.temparature
-    res.send({"temparature" : temparature});
-});
 
 app.post('/ChangeLightOutSide', function (req, res) {
     lightOutSide = req.body.lightOutSide

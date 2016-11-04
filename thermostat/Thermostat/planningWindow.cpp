@@ -1,4 +1,5 @@
 #include "planningWindow.h"
+#include "mainwindow.h"
 #include "ui_planningWindow.h"
 #include <iostream>
 #include <QTimeZone>
@@ -14,9 +15,15 @@ PlanningWindow::PlanningWindow(QWidget *parent) :
     connect(_planModel, SIGNAL(remove(Planning*)), this, SLOT(removeMode(Planning*)));
 
     //setup network part
+    MainWindow *tmp = (MainWindow*)parent;
+    _network = new NetConnection(this, *(tmp->getHostName()),
+                                 tmp->getHostPort());
+
+/**
     _netMan = new QNetworkAccessManager(this);
     _netMan->setNetworkAccessible(QNetworkAccessManager::Accessible);
-    _netMan->connectToHost(*_hostName, _hostPort);
+    _netMan->connectToHost(*(_network->getHostName()), _network->getHostPort());
+/**/
     _netRep = Q_NULLPTR;
 
     _planning = ui->tableView;
@@ -97,16 +104,15 @@ void    PlanningWindow::checkPlan(QString modeName, int hour, int min, int dur, 
 }
 
 void PlanningWindow::toAPI(Planning *plan) {
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
+     if (!_network->testConnection())
          return;
-     delete socket;
+
+      QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                            QString("/api/addEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
+      QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
+
 
      _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/addEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/addEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
@@ -172,7 +178,8 @@ void PlanningWindow::toAPI(Planning *plan) {
     textPart.setBody(tmp);
     _multiPart->append(textPart);
 
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
 }
 
@@ -184,16 +191,15 @@ void PlanningWindow::on_tableView_doubleClicked(const QModelIndex &index)
 
 void PlanningWindow::removeMode(Planning *plan) {
     qDebug() << "will remove";
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
-         return;
-     delete socket;
+    if (!_network->testConnection())
+        return;
+
+     QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                           QString("/api/removeEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
+
 
      _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/removeEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/removeEventPlanning?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
@@ -232,7 +238,8 @@ void PlanningWindow::removeMode(Planning *plan) {
     textPart.setBody(tmp);
     _multiPart->append(textPart);
 
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
 
 }
@@ -245,15 +252,13 @@ void    PlanningWindow::show() {
 }
 
 void    PlanningWindow::getRoomsModeFromAPI() {
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
-         return;
-     delete socket;
+    if (!_network->testConnection())
+        return;
 
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
+     QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                           QString("/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
+
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
@@ -263,7 +268,8 @@ void    PlanningWindow::getRoomsModeFromAPI() {
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
 
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
     connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
@@ -286,12 +292,8 @@ void PlanningWindow::httpFinished()
 
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    if(!redirectionTarget.isNull()) {
-        const QUrl newUrl = _url.resolved(redirectionTarget.toUrl());
-        _url = newUrl;
-        QNetworkRequest request(_url);
-        _netRep = _netMan->post(request, _multiPart);
-    }
+    if(!redirectionTarget.isNull())
+        _network->redirectUrl(redirectionTarget, _multiPart);
 }
 
 void    PlanningWindow::parseRep() {

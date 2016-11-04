@@ -1,3 +1,4 @@
+var db = require("../database");
 var utils = require('../utils');
 var config = require('../config').config;
 
@@ -15,4 +16,27 @@ exports.checkKey = function (req, res, next)
 	} else {
 		res.send("Error : Wrong API Access");
 	}
+};
+
+exports.checkAdmin = function (req, res, next)
+{
+    if (utils.checkProperty(req.body.guid)) {
+        db.ConnectedUser.findOne({
+            'guid': req.body.guid
+        })
+        .populate('user')
+        .exec(function (err, connectedUser) {
+            if (err) {
+            	res.send("Error : Access not authorized");
+            } else {
+                if (connectedUser === null || connectedUser.user == null) {
+                    res.send("Error : Access not authorized");
+                } else if (connectedUser.user.isAdmin) {
+                    next()
+                }
+            }
+        });
+    } else {
+        res.send("Error : Access not authorized");
+    };
 };

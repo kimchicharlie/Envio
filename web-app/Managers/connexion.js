@@ -33,6 +33,18 @@ var isConnected = function (options, cb)
 	})
 };
 
+var getUser = function (options, cb)
+{
+	cb = (typeof cb == "function") ? cb : function (){};
+	options = (typeof options == "object") ? options : {};
+
+	options.api_key = config.envioApiAccessKey;
+	rest.post(config.apiAddress + '/getUser', options, function (response) {
+		cb(response);
+	})
+};
+
+
 var logout = function (options, cb)
 {
 	cb = (typeof cb == "function") ? cb : function (){};
@@ -47,4 +59,5 @@ var logout = function (options, cb)
 exports.register = register;
 exports.login = login;
 exports.isConnected = isConnected;
+exports.getUser = getUser;
 exports.logout = logout;

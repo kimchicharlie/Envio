@@ -1,7 +1,7 @@
 var utils = require('../utils');
 var async = require("async");
 var db = require("../database");
-var bcrypt = require("bcrypt");
+var bcrypt = require("bcryptjs");
 
 var mailManager = require("./mail");
 
@@ -273,6 +273,7 @@ var getUser = function (options, cb) {
     });
 };
 
+
 var changePasswordRandom = function (options, cb) {
     cb = cb || function () {};
     options = options || {};
@@ -356,11 +357,154 @@ var changePassword = function (options, cb) {
     }
 }
 
+var getUsersAdmin = function (options, cb) {
+    cb = cb || function () {};
+    options = options || {};
+
+    var result = {
+        'error': null,
+        'users': []
+    };
+
+    db.Users
+    .find()
+    .exec(function (err, rep) {
+        if (err) {
+            result.error = err;
+            cb(result);
+        } else {
+            result.users = rep;
+            cb(result);
+        }
+    });
+};
+
+var updateUser = function (options, cb) {
+    cb = cb || function () {};
+    options = options || {};
+
+    var result = {
+        'error': null,
+        'user': null
+    };
+
+    if (utils.checkProperty(options.userId)) {
+        db.Users.findById(options.userId)
+        .exec(function (err, user) {
+            if (!user) {
+                result.error = "Cet utilisateur n'existe pas dans la base de données";
+                cb(result);
+            } else {
+                async.series([
+                    function (callback) {
+                        if (utils.checkProperty(options.password)) {
+                            bcrypt.genSalt(10, function(err, salt) {
+                                bcrypt.hash(options.password, salt, function(err, hash) {
+                                    user.password = hash;
+                                    callback();
+                                });
+                            });
+                        } else {
+                            callback();
+                        }
+                    },
+                    function (callback) {
+                        if (utils.checkProperty(options.firstname) && options.firstname !== user.firstname) {
+                            user.firstname = options.firstname;
+                            callback();
+                        } else {
+                            callback();
+                        }
+                    },
+                    function (callback) {
+                        if (utils.checkProperty(options.lastname) && options.lastname !== user.lastname) {
+                            user.lastname = options.lastname;
+                            callback();
+                        } else {
+                            callback();
+                        }
+                    },
+                    function (callback) {
+                        if (utils.checkProperty(options.email) && options.email !== user.email) {
+                            user.email = options.email;
+                            callback();
+                        } else {
+                            callback();
+                        }
+                    },
+                    function (callback) {
+                        if (utils.checkProperty(options.organisation) && options.organisation !== user.organisation) {
+                            user.organisation = options.organisation;
+                            callback();
+                        } else {
+                            callback();
+                        }
+                    },
+                ], function () {
+                    user.save(function (err)
+                    {
+                        if (err) {
+                            result.error = err;
+                            cb(result);
+                        } else {
+                            result.user = user;
+                            cb(result);
+                        }
+                    });
+                })
+                
+            }
+        })
+    } else {
+        result.error = "L'userId n'est pas valide";
+        cb(result);
+    }
+}
+
+var deleteUser = function (options, cb) {
+    cb = cb || function () {};
+    options = options || {};
+
+    var result = {
+        'error': null,
+        'user': null
+    };
+
+    if (utils.checkProperty(options.userId)) {
+        db.Users
+        .findOne({'_id': options.userId})
+        .exec(function (err, user) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else if (!user) {
+                result.error = "Cet utilisateur n'existe pas";
+                cb(result);
+            } else {
+                user.remove(function (error) {
+                    if (error) {
+                        result.error = error;
+                        cb(result);
+                    } else {
+                        cb(result);
+                    }
+                });
+            }
+        })
+    } else {
+        result.error = "Requête incorrecte";
+        cb(result);
+    }
+}
+
 exports.login = login;
 exports.logout = logout;
 exports.register = register;
 exports.getConnectedUser = getConnectedUser;
 exports.isConnected = isConnected;
 exports.getUser = getUser;
+exports.getUsersAdmin = getUsersAdmin;
+exports.updateUser = updateUser;
+exports.deleteUser = deleteUser;
 exports.changePassword = changePassword;
 exports.changePasswordRandom = changePasswordRandom;

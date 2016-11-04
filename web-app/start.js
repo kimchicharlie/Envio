@@ -8,7 +8,7 @@ var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 
 // personal modules
-var config = require("./config").config;
+var config = require("./config_dist").config;
 var rest = require("./rest");
 var WebpackConfig = require('./webpack.config')
 
@@ -50,7 +50,8 @@ var routes = [
 	require("./Routes/airConditioning").routes,
 	require("./Routes/captor").routes,
 	require("./Routes/event").routes,
-	require("./Routes/default").routes
+	require("./Routes/default").routes,
+	require("./Routes/admin").routes
 ];
 for (var i = 0; i < routes.length; i++)
 {

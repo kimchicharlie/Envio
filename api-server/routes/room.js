@@ -81,6 +81,20 @@ exports.routes = [
         }
     },
     {
+        "path": "/getRoomPlanning",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            roomManager.getRoomPlanning({
+                'roomID': req.body.roomID
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },    
+    {
         "path": "/getRoomPlusHardware",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
@@ -192,7 +206,6 @@ exports.routes = [
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
         handler: function (req, res)
         {
-            console.log(req.body)
             roomManager.removeEventPlanning({
                 'roomID': req.body.roomID,
                 'eventName': req.body.eventName,
@@ -212,7 +225,7 @@ exports.routes = [
                 'roomID': req.body.roomID,
                 'eventName': req.body.eventName,
                 'newName': req.body.newName,
-                'roomID': req.body.roomID,
+                'modeID': req.body.modeID,
                 'dateBegin': req.body.dateBegin,
                 'dateEnd': req.body.dateEnd,
                 'newDateBegin': req.body.newDateBegin,

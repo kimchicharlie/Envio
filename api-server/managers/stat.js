@@ -11,7 +11,7 @@ var addStat = function (options, cb) {
     if (Number(options.realLight) && Number(options.neededLight) && Number(options.realTemperature) && Number(options.neededTemperature) && options.roomID) {
           
         var newStat = new db.Stats({
-            "realLight" : options.realLight * 10000,
+            "realLight" : options.realLight,
             "neededLight" : options.neededLight,
             "realTemperature" : options.realTemperature,
             "neededTemperature" : options.neededTemperature,
@@ -50,7 +50,6 @@ var CalcTrendLine = function (roomID, cb)
                     var sumY = 0.00;
                     var sumXY = 0.00;
                     var sumXsquare = 0.00;
-
                         for (i in result){
                             //console.log("{"+ result[i][X] + "," + result[i][Y]+"}")
                             sumX += result[i][X]
@@ -74,7 +73,11 @@ var CalcTrendLine = function (roomID, cb)
 
                 }
                 else{
-                    cb();
+                    cb(
+                    {
+                        "m" : 0,
+                        "off" : 0
+                    });
                 }
             }
         })

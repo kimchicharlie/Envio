@@ -1,13 +1,14 @@
-	var container;
+var container;
 var hasMoved, raycaster, mouse, camera, scene, renderer, plane, INTERSECTED = null,
-	objects = [], gui, guiObject = null, guiElements;
+	objects = [];
+var GUIObject = null;
 var lookAtPos = new THREE.Object3D(), cameraAngle = 45;
 var mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
-var loader;
-
-var direction;
+var MAIN_URL = "http://localhost:1337";
+//var MAIN_URL = "http://137.74.40.245:8081";
+var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function viewer()
 {
@@ -16,8 +17,6 @@ function viewer()
 }
 
 function init() {
-
-	// Adding help message
 
 	container = document.getElementById("container")
 	// document.body.appendChild( container );
@@ -34,9 +33,7 @@ function init() {
 
 	scene = new THREE.Scene();
 
-	// JSON Loader
-
-	loader = new Loader(scene);
+	loadRoomsFromDatabase();
 
 	// Plane
 	//	It is used for raycast intersections.
@@ -50,110 +47,7 @@ function init() {
 	scene.add( plane );
 	plane.info = null;
 	objects.push(plane);
-
-	addRoom(200, 200, 40, {x:0, y:0, z:0}, {name: "Square Room", reqTemp: "Cool", actTemp: "Kinda cold", reqLumi: "Dark", actLumi: "Dark as hell"});
-	addRoom(600, 200, 40, {x:-300, y:0, z:200}, {name: "Large Room", reqTemp: "Warm", actTemp: "Average", reqLumi: "Bright", actLumi: "Pretty well lightened"});
-	addRoom(400, 200, 40, {x:200, y:0, z:200}, {name: "Medium Room", reqTemp: "Warm", actTemp: "Average", reqLumi: "Bright", actLumi: "Pretty well lightened"});
-	addRoom(200, 300, 40, {x:-200, y:0, z:-50}, {name: "Side Room", reqTemp: "Warm", actTemp: "Average", reqLumi: "Bright", actLumi: "Pretty well lightened"});
-	addRoom(200, 100, 40, {x:0, y:0, z:-150}, {name: "Copy Room", reqTemp: "Warm", actTemp: "Average", reqLumi: "Bright", actLumi: "Pretty well lightened"});
-	addRoom(400, 200, 40, {x:-100, y:0, z:-300}, {name: "Random Room", reqTemp: "Warm", actTemp: "Average", reqLumi: "Bright", actLumi: "Pretty well lightened"});
-	addRoom(600, 300, 40, {x:400, y:0, z:-350}, {name: "Community Room", reqTemp: "Warm", actTemp: "Average", reqLumi: "Bright", actLumi: "Pretty well lightened"});
-	addRoom(300, 500, 40, {x:550, y:0, z:50}, {name: "Lol Room", reqTemp: "Cool", actTemp: "Kinda cold", reqLumi: "Dark", actLumi: "Dark as hell"});
-
-
 	
-function loadRoomFromDatabase (url)
-	{
-		$.ajax({
-		    type:    "GET",
-		    url:     url,
-		    success: function(text) {
-		    	console.log(text);
-		    	var test = {name:"model"};
-		    	var jsonData = JSON.parse(text);
-				loader.handleJSON(jsonData, test, "model.json");
-		    },
-		    error:   function() {
-		        // An error occurred
-		    }
-		});
-	}
-	// width -> z axis
-	// length -> x axis
-	// height -> y axis
-	// Add a "name" parameter in the object added to objects
-	function addRoom (width, length, height, center, infos) {
-
-		// Parent object
-		var parent = new THREE.Object3D();
-
-		// Ground
-		var material = new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
-		var geometry = new THREE.PlaneGeometry(width, length, WALL_X_DETAIL, WALL_Y_DETAIL);
-		var ground = new THREE.Mesh(geometry, material);	
-		ground.position.y = center.y;
-		ground.position.x = center.x;
-		ground.position.z = center.z;
-		ground.rotation.x = -90 * (Math.PI/180);
-		ground.info = infos;
-		parent.add( ground );
-		scene.add( ground );
-
-		// Walls
-
-		var geometry = new THREE.PlaneGeometry(length, height, WALL_X_DETAIL, WALL_Y_DETAIL);
-		var wallBotRight = new THREE.Mesh(geometry, material);	
-		wallBotRight.position.y = center.y + height / 2;
-		wallBotRight.position.x = center.x + width / 2;
-		wallBotRight.position.z = center.z;
-		wallBotRight.rotation.y = -90 * (Math.PI/180);
-		wallBotRight.info = infos;
-		parent.add( wallBotRight );
-		scene.add( wallBotRight );
-
-		var wallTopLeft = new THREE.Mesh(geometry, material);
-		wallTopLeft.position.y = center.y + height / 2;
-		wallTopLeft.position.x = center.x - width / 2;
-		wallTopLeft.position.z = center.z;
-		wallTopLeft.rotation.y = 90 * (Math.PI/180);
-		wallTopLeft.info = infos;
-		parent.add( wallTopLeft );
-		scene.add( wallTopLeft );
-
-		var geometry = new THREE.PlaneGeometry(width, height, WALL_X_DETAIL, WALL_Y_DETAIL);
-		var wallBotLeft = new THREE.Mesh(geometry, material);	
-		wallBotLeft.position.y = center.y + height / 2;
-		wallBotLeft.position.x = center.x;
-		wallBotLeft.position.z = center.z + length / 2;
-		wallBotLeft.rotation.y = 180 * (Math.PI/180);
-		wallBotLeft.info = infos;
-		parent.add( wallBotLeft );
-		scene.add( wallBotLeft );
-
-		var wallTopRight = new THREE.Mesh(geometry, material);	
-		wallTopRight.position.y = center.y + height / 2;
-		wallTopRight.position.x = center.x;
-		wallTopRight.position.z = center.z - length / 2;
-		wallTopRight.rotation.y = 0;
-		wallTopRight.info = infos;
-		parent.add( wallTopRight );
-		scene.add( wallTopRight );
-
-		if (typeof(infos) === "undefined")
-			infos = {name:"<Nameless Room>"};
-		var spritey = makeTextSprite( " " + infos.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
-		spritey.position.set(center.x, center.y, center.z);
-		spritey.info = infos;
-		parent.add( spritey );
-		scene.add( spritey );
-		scene.add( parent );
-		objects.push(ground);
-		objects.push(wallTopRight);
-		objects.push(wallBotLeft);
-		objects.push(wallTopLeft);
-		objects.push(wallBotRight);
-
-	}
 	
 	// Lights
 
@@ -178,14 +72,8 @@ function loadRoomFromDatabase (url)
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	container.appendChild( renderer.domElement );
 
-	// GUI
-
-	//gui = new dat.GUI();
-	//console.log()
-
 
 	window.addEventListener( 'resize', onWindowResize, false );
-	window.addEventListener( 'keydown', onKeyDown );
 	renderer.domElement.addEventListener( 'mousedown', onMouseDown );
 	renderer.domElement.addEventListener( 'mouseup', onMouseUp );
 	renderer.domElement.addEventListener( 'mousemove', onMouseMove );
@@ -194,82 +82,127 @@ function loadRoomFromDatabase (url)
 
 	$("canvas").parent().attr("id", "container");	
 	$("#container")
-	.append($('<img src="./Viewer/img/rotateLeft.png">')
-		.attr({'id': 'rotateLeft', 'draggable': false})
-		.on('click', function () {
-				cameraAngle = (cameraAngle + 15 > 360 ? 15 : cameraAngle + 15);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveForward.png">')
-		.attr({'id': 'moveForward', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				lookAtPos.translateX(-direction.x * 20);
-				lookAtPos.translateZ(-direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/rotateRight.png">')
-		.attr({'id': 'rotateRight', 'draggable': false})
-		.on('click', function () {
-				cameraAngle = (cameraAngle - 15 < 0 ? 345 : cameraAngle - 15);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveLeft.png">')
-		.attr({'id': 'moveLeft', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				direction.applyAxisAngle(new THREE.Vector3(0, 1, 0), DegToRad(-90));
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveBackward.png">')
-		.attr({'id': 'moveBackward', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<img src="./Viewer/img/moveRight.png">')
-		.attr({'id': 'moveRight', 'draggable': false})
-		.on('click', function () {
-				direction = getDirectionVector(camera)
-				direction.applyAxisAngle(new THREE.Vector3(0, 1, 0), DegToRad(90));
-				lookAtPos.translateX(direction.x * 20);
-				lookAtPos.translateZ(direction.z * 20);
-			})
-		)
-	.append($('<div><p id="name">--</p></div>'));
+		.append($('<div><p id="name">--</p></div>'));
 }
 
-function updateDatabase() {
-	var output = parent.toJSON();
-	try {
-		output = JSON.stringify( output, null, '\t' );
-		output = output.replace( /[\n\t]+([\d\.e\-\[\]]+)/g, '$1' );
-	} catch ( e ) {
-		output = JSON.stringify( output );
-	}
+function loadRoomFromDatabase (id)
+{
 	var data = {
-		api_key: 'f8c5e1xx5f48e56s4x8',
-		organisation: 'envio',
-		name: 'testRoom',
-		volume: 10
+		api_key: API_KEY,
+		organisation: ORGANISATION,
+		roomID: id
 	};
 	$.ajax({
-		type: 'POST',
-		headers: {"Access-Control-Allow-Credentials": true},
-		data: JSON.stringify(data),
-		contentType: 'application/json',
-		url: 'http://localhost:1337/createRoom',
-		success: function (data) {
-			console.log('Success');
-		},
-		fail: function (data) {
-			console.log('Fail');
-		}
+	    type:    "POST",
+	    url:     MAIN_URL + "/api/getRoom/",
+	    data:    data,
+	    success: function(text) {
+	    	var parsed = $.parseJSON(text["room"]["data"]);
+	    	addRoom(parsed["size"], parsed["position"], text["room"]);
+	    },
+	    error:   function(error) {
+	    }
 	});
+}
+
+function loadRoomsFromDatabase ()
+{
+	var data = {
+		api_key: API_KEY,
+		organisation: 'Envio',
+	};
+	$.ajax({
+	    type:    "POST",
+	    url:     MAIN_URL + "/api/getRooms/",
+	    data:    data,
+	    success: function(text) {
+	    	for (var key in text["rooms"]) {
+				if (text["rooms"].hasOwnProperty(key)) {
+    				loadRoomFromDatabase(text["rooms"][key]._id);
+  				}
+			}
+	    },
+	    error:   function() {
+	        // An error occurred
+	    }
+	});
+}
+
+// width -> z axis
+// length -> x axis
+// height -> y axis
+// Add a "name" parameter in the object added to objects
+function addRoom (size, position, infos) {
+
+	// Parent object
+	var parent = new THREE.Object3D();
+
+	// Ground
+	var material = new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
+	var geometry = new THREE.PlaneGeometry(size.length, size.width, WALL_X_DETAIL, WALL_Y_DETAIL);
+	var ground = new THREE.Mesh(geometry, material);	
+	ground.position.y = position.y;
+	ground.position.x = position.x;
+	ground.position.z = position.z;
+	ground.rotation.x = -90 * (Math.PI/180);
+	ground.info = infos;
+	parent.add( ground );
+	scene.add( ground );
+
+	// Walls
+
+	var geometry = new THREE.PlaneGeometry(size.width, size.height, WALL_X_DETAIL, WALL_Y_DETAIL);
+	var wallBotRight = new THREE.Mesh(geometry, material);	
+	wallBotRight.position.y = position.y + size.height / 2;
+	wallBotRight.position.x = position.x + size.length / 2;
+	wallBotRight.position.z = position.z;
+	wallBotRight.rotation.y = -90 * (Math.PI/180);
+	wallBotRight.info = infos;
+	parent.add( wallBotRight );
+	scene.add( wallBotRight );
+
+	var wallTopLeft = new THREE.Mesh(geometry, material);
+	wallTopLeft.position.y = position.y + size.height / 2;
+	wallTopLeft.position.x = position.x - size.length / 2;
+	wallTopLeft.position.z = position.z;
+	wallTopLeft.rotation.y = 90 * (Math.PI/180);
+	wallTopLeft.info = infos;
+	parent.add( wallTopLeft );
+	scene.add( wallTopLeft );
+
+	var geometry = new THREE.PlaneGeometry(size.length, size.height, WALL_X_DETAIL, WALL_Y_DETAIL);
+	var wallBotLeft = new THREE.Mesh(geometry, material);	
+	wallBotLeft.position.y = position.y + size.height / 2;
+	wallBotLeft.position.x = position.x;
+	wallBotLeft.position.z = position.z + size.width / 2;
+	wallBotLeft.rotation.y = 180 * (Math.PI/180);
+	wallBotLeft.info = infos;
+	parent.add( wallBotLeft );
+	scene.add( wallBotLeft );
+
+	var wallTopRight = new THREE.Mesh(geometry, material);	
+	wallTopRight.position.y = position.y + size.height / 2;
+	wallTopRight.position.x = position.x;
+	wallTopRight.position.z = position.z - size.width / 2;
+	wallTopRight.rotation.y = 0;
+	wallTopRight.info = infos;
+	parent.add( wallTopRight );
+	scene.add( wallTopRight );
+
+	if (typeof(infos) === "undefined")
+		infos = {name:"<Nameless Room>"};
+	var spritey = makeTextSprite( " " + infos.name + " ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} } );
+	spritey.position.set(position.x, position.y, position.z);
+	spritey.info = infos;
+	parent.add( spritey );
+	scene.add( spritey );
+	scene.add( parent );
+	objects.push(ground);
+	objects.push(wallTopRight);
+	objects.push(wallBotLeft);
+	objects.push(wallTopLeft);
+	objects.push(wallBotRight);
+
 }
 
 function getDirectionVector (object) {
@@ -313,52 +246,10 @@ function onMouseMove (event) {
 	}
 }
 
-function onMouseUp (argument) {
-	if (INTERSECTED) {
-		var intersects = raycaster.intersectObjects ( objects );
-		if (!hasMoved && intersects.length != 0) {
-			displayInfo(intersects[0].object);
-		}
-		INTERSECTED = null;
-	}
-}
-
-function displayInfo (object) {
-	if(object.info)
-	$("#name").text(object.info.name);
-	// if (guiObject != null) {
-	// 	for (var elem in guiElements) {
-	// 		gui.remove(guiElements[elem]);
-	// 	}
-	// }
-	// guiElements = {};
-	// guiObject = object
-	// for (var elem in object.info) {
-	// 	guiElements[elem] = gui.add(object.info, elem).name(getPropertyName(elem));
-	// }
-	// gui.open();
-}
-
-function getPropertyName (prop) {
-	switch (prop) {
-		case "name":
-			return "Nom de la salle";
-		case "reqTemp":
-			return "T° demandée";
-		case "actTemp":
-			return "T° actuelle";
-		case "reqLumi":
-			return "Lumi demandée";
-		case "actLumi":
-			return "Lumi actuelle";
-		default:
-			return "";
-	}
-}
-
 function onMouseDown (event) {
 
 	event.preventDefault();
+	event.stopPropagation();
 
 	raycaster.setFromCamera( mouse, camera );
 
@@ -370,20 +261,41 @@ function onMouseDown (event) {
 	hasMoved = false;
 	INTERSECTED = intersects[intersects.length -1];
 	mouseDownPos = INTERSECTED.point;
-}
 
-// TODO: Replace by on screen buttons
-function onKeyDown (event) {
-	
-	if (event.keyIdentifier == "Left") {
-		cameraAngle = (cameraAngle + 15 > 360 ? 15 : cameraAngle + 15);
-	} else if (event.keyIdentifier == "Right") {
-		cameraAngle = (cameraAngle - 15 > 360 ? 15 : cameraAngle - 15);
+	// On room click, display its informations
+	if (INTERSECTED && intersects.length > 1) {
+		var intersects = raycaster.intersectObjects ( objects );
+		if (!hasMoved && intersects.length != 0) {
+			displayInfo(intersects[0].object);
+		}
 	}
-	camera.lookAt( scene.position );
 }
 
-//
+function onMouseUp (event) {
+	INTERSECTED = null;
+}
+
+function displayInfo (object) {
+	if (object.info)
+		$("#name").text(object.info.name);
+
+	// Retrieving room's info from database
+	var data = {
+		api_key: API_KEY,
+		organisation: ORGANISATION,
+		roomID: object.info._id
+	};
+
+	$.ajax({
+	    type:   "POST",
+	    data: 	data,
+	    url:     MAIN_URL + "/api/getRoom",
+	    success: function(text) {
+			$("#name").text(object.info.name + " -- Température actuelle : " + text["room"]["realTemperature"] + "°C -- Température paramétrée : " + text["room"]["temperature"] + "°C -- Luminosité ambiante : " + text["room"]["light"] + "%");
+
+	    }
+	});	
+}
 
 function animate() {
 
@@ -419,7 +331,7 @@ function makeTextSprite( message, parameters )
 	
 	var borderThickness = parameters.hasOwnProperty("borderThickness") ? 
 		parameters["borderThickness"] : 4;
-	
+
 	var borderColor = parameters.hasOwnProperty("borderColor") ?
 		parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
 	

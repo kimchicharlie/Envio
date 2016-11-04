@@ -15,7 +15,7 @@ exports.routes = [
                 'neededLight': req.body.neededLight,
                 'realTemperature': req.body.realTemperature,
                 'neededTemperature': req.body.neededTemperature,
-                'room': req.body.roomID
+                'roomID': req.body.roomID
             }, function (rep)
             {
                 res.send(rep);

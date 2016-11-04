@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
 var Modal = require('react-modal');
 var Select = require('react-select');
-
+var utils = require('../../utils');
 
 var modalStyles = {overlay: {zIndex: 10}};
 
@@ -30,7 +30,7 @@ var Header = React.createClass({
         return (
             <header className="bar bar-nav">
                 <a href="#" className={"icon icon-left-nav pull-left" + (this.props.back==="true"?"":" hidden")}></a>
-                <h1 className="title">{this.props.text}</h1>
+                <h2 className="title">{this.props.text}</h2>
             </header>
         );
     }
@@ -53,14 +53,14 @@ Planning = React.createClass({
       componentDidMount: function() {
         react = this;
         HttpPost('/getModes', {
-               'organisation': 'Envio',// a changer avec les info users            
+               'organisation': react.props.Organisation,// a changer avec les info users            
                 }, function(rep) {         
                 rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
                   var selectOptions = [];
                   for (var key in rep.modes)
                   {
-                    selectOptions.push({value: rep.modes[key]._id , label: rep.modes[key].name})
+                    selectOptions.push({value: rep.modes[key][utils.getIdType()] , label: rep.modes[key].name})
                   }
                   react.setState({ListOfModes : selectOptions})              
                   react.setState({modes: rep.modes})
@@ -73,19 +73,20 @@ Planning = React.createClass({
         this.creatCalendar();
       },
       getRooms: function(index){
+                react = this
                 HttpPost('/getRooms', {
-                'organisation': 'Envio',// a changer avec les info users            
+                'organisation': react.props.Organisation,// a changer avec les info users            
                 }, function(rep) {         
                 rep = jQuery.parseJSON(rep)
                 if (rep.error == null){
                   var selectOptions = [];
                   for (var key in rep.rooms)
                   {
-                    selectOptions.push({value: rep.rooms[key]._id , label: rep.rooms[key].name})
+                    selectOptions.push({value: rep.rooms[key][utils.getIdType()] , label: rep.rooms[key].name})
                   }
                   react.setState({ListOfRooms : selectOptions})              
                   react.setState({rooms: rep.rooms})
-                  react.setState({selectedRoom: rep.rooms[index]._id})
+                  react.setState({selectedRoom: rep.rooms[index][utils.getIdType()]})
                   react.setCalendar(rep.rooms[index].planning)
                 }
                 else{
@@ -117,9 +118,9 @@ Planning = React.createClass({
             eventDrop: function(event, delta, revertFunc) {
                 start = new Date((event.start._d - delta))
                 end = new Date((event.end._d - delta))
-                var id=findLabelByValue(react.state.ListOfModes, event.title, true)
+                var id=findLabelByValue(react.state.ListOfModes, event.title, true)                
                 HttpPost('/modifyEvent', {
-                  organisation : "Envio", //a changer plus tard
+                  organisation : react.props.Organisation, //a changer plus tard
                   roomID : react.state.selectedRoom,
                   modeID : id,
                   eventName: react.state.start.title,
@@ -132,7 +133,7 @@ Planning = React.createClass({
                   rep = jQuery.parseJSON(rep)
                     react.setState({modalDeleteIsOpen: false});
                     for (var i = 0; i < react.state.rooms.length; i++) {
-                      if (react.state.rooms[i]._id === rep.room._id) {
+                      if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
                         react.state.rooms[i].planning = rep.room.planning
                         react.setCalendar(react.state.rooms[i].planning)
                       }
@@ -147,7 +148,7 @@ Planning = React.createClass({
                 end = new Date((event.end._d - delta))
                 var id=findLabelByValue(react.state.ListOfModes, event.title, true)
                 HttpPost('/modifyEvent', {
-                  organisation : "Envio", //a changer plus tard
+                  organisation : react.props.Organisation, //a changer plus tard
                   roomID : react.state.selectedRoom,
                   modeID : id,
                   eventName: react.state.start.title,
@@ -160,7 +161,7 @@ Planning = React.createClass({
                   rep = jQuery.parseJSON(rep)
                     react.setState({modalDeleteIsOpen: false});
                     for (var i = 0; i < react.state.rooms.length; i++) {
-                      if (react.state.rooms[i]._id === rep.room._id) {
+                      if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
                         react.state.rooms[i].planning = rep.room.planning
                         react.setCalendar(react.state.rooms[i].planning)
                       }
@@ -184,8 +185,8 @@ Planning = React.createClass({
         trueDateEnd = new Date(this.state.end._d).toISOString();
         var label= findLabelByValue(this.state.ListOfModes, val);
         HttpPost('/createEvent', {
-          organisation : "Envio", //a changer plus tard
-          roomID : this.state.selectedRoom,
+          organisation : react.props.Organisation, //a changer plus tard
+          roomID : react.state.selectedRoom,
           modeID : val,
           eventName: label,
           dateBegin : trueDateBegin,
@@ -194,7 +195,7 @@ Planning = React.createClass({
           rep = jQuery.parseJSON(rep);
             react.setState({modalCreatIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
-              if (react.state.rooms[i]._id === rep.room._id) {
+              if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
                 react.state.rooms[i].planning = rep.room.planning;
                 react.setCalendar(react.state.rooms[i].planning);
               }
@@ -203,10 +204,9 @@ Planning = React.createClass({
         })        
       },
       modifyEvent: function(val) {
-        react=this;
         var label= findLabelByValue(react.state.ListOfModes, val);
         HttpPost('/modifyEvent', {
-          organisation : "Envio", //a changer plus tard
+          organisation : react.props.Organisation, //a changer plus tard
           roomID : this.state.selectedRoom,
           modeID : val,
           eventName: this.state.start.title,
@@ -219,7 +219,7 @@ Planning = React.createClass({
           rep = jQuery.parseJSON(rep);
             react.setState({modalDeleteIsOpen: false});
             for (var i = 0; i < react.state.rooms.length; i++) {
-              if (react.state.rooms[i]._id === rep.room._id) {
+              if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
                 react.state.rooms[i].planning = rep.room.planning;
                 react.setCalendar(react.state.rooms[i].planning);
               }
@@ -228,9 +228,8 @@ Planning = React.createClass({
         })        
       },
       deleteEvent: function() {
-        react=this
         HttpPost('/deleteEvent', {
-          organisation : "Envio", //a changer plus tard
+          organisation : react.props.Organisation, //a changer plus tard
           roomID : this.state.selectedRoom,
           eventName: this.state.start.title,
           dateBegin : this.state.start.start._d,
@@ -238,7 +237,7 @@ Planning = React.createClass({
           rep = jQuery.parseJSON(rep)
           react.setState({modalDeleteIsOpen: false});
           for (var i = 0; i < react.state.rooms.length; i++) {
-            if (react.state.rooms[i]._id === rep.room._id) {
+            if (react.state.rooms[i][utils.getIdType()] === rep.room[utils.getIdType()]) {
               react.state.rooms[i].planning = rep.room.planning
               react.setCalendar(react.state.rooms[i].planning)
             }
@@ -247,7 +246,7 @@ Planning = React.createClass({
       },      
       selectRoom: function(val){ 
         for (var i = 0; i < this.state.rooms.length; i++) {
-          if (this.state.rooms[i]._id === val) {
+          if (this.state.rooms[i][utils.getIdType()] === val) {
             react.setCalendar(this.state.rooms[i].planning)
           }
         }        
@@ -274,18 +273,17 @@ Planning = React.createClass({
       render() {
           return (
               <div>
-                <div className="content">
-                  <Select simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
+                <div className="label-s content">
+                  <Select className="calendar-dd" className="dropdown-toggle" simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
                   <div id='calendar'></div>
                 </div>
-                <Modal isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
-                    <Select simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
-                    <button onClick={this.closeCreatModal}>annuler</button>
+                <Modal className="form form-modal" isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
+                    <Select className="label-m" simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
+                    <button className="btn red-b" onClick={this.closeCreatModal}><i className="fa fa-ban" aria-hidden="true"></i> Annuler</button>
                 </Modal>
-                <Modal isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
-                  <Select simpleValue options={this.state.ListOfModes} onChange={this.modifyEvent}/>
-                    <button onClick={this.deleteEvent}>supprimer cet event</button>
-                    <button onClick={this.closeDeleteModal}>annuler</button>
+                <Modal className="form form-modal-2" isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
+                    <button className="btn red-b" onClick={this.deleteEvent}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer cet evenement</button>
+                    <button className="btn" onClick={this.closeDeleteModal}><i className="fa fa-chevron-left" aria-hidden="true"></i> Annuler</button>
                 </Modal>                  
               </div>
           );

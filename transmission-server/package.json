@@ -4,12 +4,14 @@
   "description": "Envio Transmission Server",
   "main": "start.js",
   "dependencies": {
-    "express": "^4.13.3",
+    "async": "^1.5.0",
     "body-parser": "^1.14.1",
-    "cors": "^2.7.1",
-    "request": "^2.65.0",
     "connect-multiparty": "^2.0.0",
-    "async": "^1.5.0"
-    },
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "forever": "^0.15.3",
+    "johnny-five": "^0.10.0",
+    "request": "^2.65.0"
+  },
   "author": "Charlie HENIN"
 }

@@ -13,14 +13,18 @@
   <property name="windowTitle">
    <string>Envio - Thermostat</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">Background: #232123;
+</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>301</width>
-      <height>211</height>
+      <width>305</width>
+      <height>221</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
@@ -28,8 +32,27 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="TempLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">	font-family:&quot;Segoe UI&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+border: 0;
+padding: 10px;
+padding-top: -15px;
+color: #b71c1c;
+font-size: 24px;
+</string>
+         </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -38,8 +61,28 @@
        </item>
        <item>
         <widget class="QLabel" name="LumLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">	font-family:&quot;Segoe UI&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+padding-top: -15px;
+color: #0288d1;
+font-size: 24px;
+</string>
+         </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -48,6 +91,18 @@
        </item>
        <item>
         <widget class="QLabel" name="OpacLabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -62,6 +117,41 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="TempEditButton">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Segoe UI&quot;, sans-serif;
+	text-transform: uppercase;
+	background: #D9534F;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	outline: 0;
+	border: 0;
+	border-radius: 7px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Segoe UI&quot;, sans-serif;	
+	text-transform: uppercase;
+	background: #b71c1c;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	outline: 0;
+	border: 0;
+	border-radius: 7px;
+}</string>
+         </property>
          <property name="text">
           <string>Température</string>
          </property>
@@ -69,6 +159,41 @@
        </item>
        <item>
         <widget class="QPushButton" name="LumEditButton">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+	font-family:&quot;Segoe UI&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #0288d1;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}
+
+QPushButton:hover
+{
+	font-family:&quot;Segoe UI&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #2e6da4;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}</string>
+         </property>
          <property name="text">
           <string>Luminosité</string>
          </property>
@@ -87,6 +212,26 @@
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QLabel" name="tempTxtlabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #AAA;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>Température</string>
          </property>
@@ -97,6 +242,26 @@
        </item>
        <item>
         <widget class="QLabel" name="LumTxtLabel">
+         <property name="font">
+          <font>
+           <family>Montserrat,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #AAA;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>Luminosité</string>
          </property>
@@ -107,6 +272,18 @@
        </item>
        <item>
         <widget class="QLabel" name="opacTxtLabel">
+         <property name="styleSheet">
+          <string notr="true">font-family: &quot;Montserrat&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+width: 100%;
+border: 0;
+padding: 10px;
+color: #4d4d4d;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>Opacité</string>
          </property>
@@ -121,6 +298,41 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QPushButton" name="PlanningEditButton">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+font-family:&quot;Segoe UI&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}
+
+QPushButton:hover
+{
+font-family:&quot;Segoe UI&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}</string>
+         </property>
          <property name="text">
           <string>Planning</string>
          </property>
@@ -128,6 +340,41 @@
        </item>
        <item>
         <widget class="QPushButton" name="ConfigEditButton">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton
+{
+font-family:&quot;Segoe UI&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #5cb85c;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}
+
+QPushButton:hover
+{
+font-family:&quot;Segoe UI&quot;, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #449d44;
+	border: 0;
+	padding: 7px;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 7px;
+}</string>
+         </property>
          <property name="text">
           <string>Configuration</string>
          </property>
@@ -145,15 +392,59 @@
            <height>50</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+border: 0;
+padding: 5px;
+color: #AAA;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="roomLabel">
+         <property name="font">
+          <font>
+           <family>Segoe UI,sans-serif</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family:&quot;Segoe UI&quot;, sans-serif;
+text-transform: uppercase;
+outline: 0;
+border: 0;
+padding: 10px;
+color: #AAA;
+font-size: 12px;
+
+</string>
+         </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>

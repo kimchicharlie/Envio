@@ -59,7 +59,7 @@ var modifyCaptor = function (options, cb) {
                 result.error = err;
                 cb(result);
             } else if (!captor) {
-                result.error = "Cette vitre n'existe pas";
+                result.error = "Ce Capteur n'existe pas";
                 cb(result);
             } else {
                 async.parallel([

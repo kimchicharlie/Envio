@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Envio</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="titreCalendrier">Calendrier</string>
+    <string name="action_settings">Déconnexion</string>
+    <string name="roomname">Aucune salle existante</string>
+    <string name="temperatureUnit">Température (°C)</string>
+    <string name="room">Aucune salle existante</string>
+    <string name="tempValue">--.-</string>
+    <string name="LumValue">--.-</string>
+    <string name="lumTitle">Luminosité (%)</string>
+    <string name="ActualConditionTitle">Conditions actuelles</string>
+    <string name="LocationValue">Location</string>
+    <string name="TempOutsideValue">--.-</string>
+    <string name="LumOutsideTitle">Luminosité Extérieure (%)</string>
+    <string name="TempOutsideTitle">Temperature Extérieure (°C)</string>
+    <string name="LumOutsideValue">--.-</string>
+</resources>

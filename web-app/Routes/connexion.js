@@ -68,5 +68,19 @@ exports.routes = [
                 res.send(result);
             });
         }
+    },
+    {
+        "path": "/getUser",
+        "method": "post",
+        "middlewares": [multipartMiddleware],
+        handler: function (req, res)
+        {
+            connexionManager.getUser({
+                'guid': req.body.guid
+            }, function (result)
+            {
+                res.send(result);
+            });
+        }
     }
 ];

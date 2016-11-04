@@ -9,6 +9,18 @@ OpacWindow::OpacWindow(QWidget *parent) :
     _slider = ui->OpacHorizontalSlider;
     _label = ui->LumLabel;
     _label->setText(QString::number(_slider->value()) + "%");
+/*
+    ui->AccueilBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #4CAF50; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
+    ui->LumEditBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #0288d1; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
+    ui->TempEditBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #6a1b9a; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
+
+    ui->PlanningEditBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #4CAF50; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
+    ui->ConfigEditBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #4CAF50; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
+
+    ui->LumFixLabel->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #4d4d4d;font-size: 12px;");
+*/
+    _label->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #6a1b9a;font-size: 12px;");
+
 }
 
 OpacWindow::~OpacWindow()

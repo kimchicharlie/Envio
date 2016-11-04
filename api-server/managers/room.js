@@ -10,7 +10,6 @@ var createRoom = function (options, cb) {
         'error': null,
         'room': null
     };
-
     if (options.name && options.volume && options.organisation) {
         db.Rooms
         .findOne({'name': options.name})
@@ -42,6 +41,9 @@ var createRoom = function (options, cb) {
                 });
             }
         })
+    } else {
+        result.error = "Des informations nécessaires sont manquantes";
+        cb(result);
     }
 };
 
@@ -78,7 +80,7 @@ var modifyRoom = function (options, cb) {
             }
         })
     } else {
-        result.error = "Requête incorrecte";
+        result.error = "Des informations nécessaires sont manquantes";
         cb(result);
     }
 }
@@ -116,7 +118,6 @@ var deleteRoom = function (options, cb) {
         cb(result);
     }
 }
-
 
 var modifyData = function (options, cb) {
     cb = cb || function () {};
@@ -173,6 +174,30 @@ var getRoom = function (options, cb) {
                 cb(result);
             } else {
                 result.room = room;
+                cb(result);
+            }
+        })
+    }
+};
+
+
+var getRoomPlanning = function (options, cb) {
+    cb = cb || function () {};
+
+    var result = {
+        'error': null,
+        'roomPlanning': null
+    };
+
+    if (options.roomID != null) {
+        db.Rooms
+        .findOne({'_id': options.roomID})
+        .exec(function (err, room) {
+            if (err) {
+                result.error = err;
+                cb(result);
+            } else {
+                result.roomPlanning = room.planning;
                 cb(result);
             }
         })
@@ -571,7 +596,7 @@ var modifyEventPlanning = function (options, cb) {
         'error': null,
         'room': null
     };
-    if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.dateBegin && options.dateEnd) {
+    if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.roomID && options.dateBegin && options.dateEnd) {
         
         var planning = {
             "name": options.eventName,
@@ -639,3 +664,4 @@ exports.modifyEventPlanning = modifyEventPlanning;
 exports.switchIA = switchIA;
 exports.changeLightWithoutStat = changeLightWithoutStat;
 exports.changeTemperatureWithoutStat = changeTemperatureWithoutStat;
+exports.getRoomPlanning = getRoomPlanning;

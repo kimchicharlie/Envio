@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
+  <Identity Name="138f88b6-bed8-4fce-bbd1-adebc6718200" Publisher="CN=Arkayl" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="138f88b6-bed8-4fce-bbd1-adebc6718200" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>EnvioApp</DisplayName>
+    <PublisherDisplayName>Arkayl</PublisherDisplayName>
+    <Logo>Assets\2017_logo_envio_50x50.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.1</OSMinVersion>
+    <OSMaxVersionTested>6.3.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="EnvioApp.App">
+      <m3:VisualElements DisplayName="EnvioApp" Square150x150Logo="Assets\2017_logo_envio_150x150.png" Square44x44Logo="Assets\2017_logo_envio_44x44.png" Description="EnvioApp" ForegroundText="light" BackgroundColor="transparent">
+        <m3:LockScreen Notification="badge" BadgeLogo="Assets\2017_logo_envio_24x24.png" />
+        <m3:DefaultTile Wide310x150Logo="Assets\2017_logo_envio_310x150.png" Square71x71Logo="Assets\2017_logo_envio_71x71.png">
+        </m3:DefaultTile>
+        <m3:SplashScreen Image="Assets\2017_logo_envio_480x800.png" />
+        <m3:InitialRotationPreference>
+          <m3:Rotation Preference="portrait" />
+        </m3:InitialRotationPreference>
+      </m3:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClientServer" />
+  </Capabilities>
+</Package>

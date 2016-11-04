@@ -8,18 +8,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    this->setStyleSheet("./style/thermostatStyleSheet.");
+
+    // get the configured id and host info
+    QSettings settings("config.ini", QSettings::IniFormat);
+    _idRoom = settings.value("id","config").toString();
+    QString name = settings.value("name","config").toString();
+    quint16 port = settings.value("port","config").toString().toInt();
 
     //setup network part
+    _network = new NetConnection(this, name, port);
+/**/
     _netMan = new QNetworkAccessManager(this);
     _netMan->setNetworkAccessible(QNetworkAccessManager::Accessible);
-    _netMan->connectToHost(*_hostName, _hostPort);
+    _netMan->connectToHost(*(_network->getHostName()), _network->getHostPort());
+/**/
     _netRep = Q_NULLPTR;
 
     QHttpPart textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
-    textPart.setBody("5717462479f34d720f0248b6");
 
+    // get the configured id
+    QByteArray tmp2;
+    tmp2.append(_idRoom);
+    textPart.setBody(tmp2);
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
     _toSend = true;
@@ -41,11 +52,20 @@ MainWindow::MainWindow(QWidget *parent) :
     _tempLbl = this->ui->TempLabel;
     _lumLbl = this->ui->LumLabel;
     _opacLbl = this->ui->OpacLabel;
+    _opacLbl->hide();
+    QLabel *tmp = this->ui->opacTxtLabel;
+    tmp->hide();
+
+    // label style
+//    _opacLbl->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; width: 100%; border: 0; padding: 10px;color: #6a1b9a;font-size: 12px;");
 
     _tempBtn = this->ui->TempEditButton;
     _lumBtn = this->ui->LumEditButton;
     _opacBtn = this->ui->OpacEditButton;
+    _opacBtn->hide();
 
+    // buttons style
+//    _opacBtn->setStyleSheet("font-family: \"Montserrat\", sans-serif; text-transform: uppercase; outline: 0; background: #6a1b9a; width: 100%; border: 0; padding: 10px;color: #FFFFFF;font-size: 12px;");
     this->_date = new QDateTime();
     this->updateVals();
 
@@ -57,8 +77,12 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(backToMain()));
     connect(_tempWin, SIGNAL(goToLum()),
             this, SLOT(on_LumEditButton_clicked()));
-    connect(_tempWin, SIGNAL(goToOpac()),
-            this, SLOT(on_OpacEditButton_clicked()));
+//    connect(_tempWin, SIGNAL(goToOpac()),
+//            this, SLOT(on_OpacEditButton_clicked()));
+    connect(_tempWin, SIGNAL(goToPlan()),
+            this, SLOT(on_PlanningEditButton_clicked()));
+    connect(_tempWin, SIGNAL(goToConfig()),
+            this, SLOT(on_ConfigEditButton_clicked()));
 
     // lum window and associated signals/slots
     _lumWin = new LumWindow(this);
@@ -69,11 +93,16 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(backToMain()));
     connect(_lumWin, SIGNAL(goToTemp()),
             this, SLOT(on_TempEditButton_clicked()));
-    connect(_lumWin, SIGNAL(goToOpac()),
-            this, SLOT(on_OpacEditButton_clicked()));
+//    connect(_lumWin, SIGNAL(goToOpac()),
+//            this, SLOT(on_OpacEditButton_clicked()));
+    connect(_lumWin, SIGNAL(goToPlan()),
+            this, SLOT(on_PlanningEditButton_clicked()));
+    connect(_lumWin, SIGNAL(goToConfig()),
+            this, SLOT(on_ConfigEditButton_clicked()));
 
 
     // opac window and associated signals/slots
+    /*
     _opacWin = new OpacWindow(this);
     _opacWin->setSliderVal(_curRoom->getOpac());
     connect(_opacWin, SIGNAL(opacChange(int)),
@@ -84,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(on_TempEditButton_clicked()));
     connect(_opacWin, SIGNAL(goToLum()),
             this, SLOT(on_LumEditButton_clicked()));
-
+*/
     // planning window and associated signals/slots
     _planWin = new PlanningWindow(this);
     connect(_planWin, SIGNAL(returnToMain()),
@@ -116,7 +145,7 @@ MainWindow::~MainWindow()
     delete _opacBtn;
     delete _tempWin;
     delete _lumWin;
-    delete _opacWin;
+    //delete _opacWin;
     delete _planWin;
     delete _configWin;
     delete _timer;
@@ -131,11 +160,11 @@ LumWindow* MainWindow::getLumWin() {
     return (_lumWin);
 }
 
-
+/*
 OpacWindow* MainWindow::getOpacWin() {
     return (_opacWin);
 }
-
+*/
 
 PlanningWindow* MainWindow::getPlanWin() {
     return (_planWin);
@@ -151,7 +180,7 @@ void MainWindow::on_TempEditButton_clicked()
     // change window to TemperatureWindow
     _toSend = false;
     this->hide();
-    _tempWin->hide();
+    //_opacWin->hide();
     _lumWin->hide();
     _planWin->hide();
     _configWin->hide();
@@ -164,7 +193,7 @@ void MainWindow::on_LumEditButton_clicked()
     _toSend = false;
     this->hide();
     _tempWin->hide();
-    _opacWin->hide();
+    //_opacWin->hide();
     _planWin->hide();
     _configWin->hide();
     this->_lumWin->show();
@@ -172,6 +201,7 @@ void MainWindow::on_LumEditButton_clicked()
 
 void MainWindow::on_OpacEditButton_clicked()
 {
+    /*
     _toSend = false;
     this->hide();
     _tempWin->hide();
@@ -179,6 +209,7 @@ void MainWindow::on_OpacEditButton_clicked()
     _planWin->hide();
     _configWin->hide();
     this->_opacWin->show();
+    */
 }
 
 void MainWindow::on_PlanningEditButton_clicked()
@@ -187,7 +218,7 @@ void MainWindow::on_PlanningEditButton_clicked()
     this->hide();
     _tempWin->hide();
     _lumWin->hide();
-    _opacWin->hide();
+//    _opacWin->hide();
     _configWin->hide();
     _planWin->show();
 }
@@ -198,7 +229,7 @@ void MainWindow::on_ConfigEditButton_clicked()
     this->hide();
     _tempWin->hide();
     _lumWin->hide();
-    _opacWin->hide();
+//    _opacWin->hide();
     _planWin->hide();
     _configWin->show();
 }
@@ -212,30 +243,27 @@ void    MainWindow::updateVals() {
 //    static int i = 0;
     if (_curRoom != Q_NULLPTR) {
         if (_curRoom->getHourDisp() == 2)
-            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm:ss"));
+            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm"));
         else
-            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("h:m:s AP"));
+            this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("h:m AP"));
     }
     else
-        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm:ss"));
+        this->ui->DateLabel->setText(QDate::currentDate().toString() + "  " + QTime::currentTime().toString("hh:mm"));
 }
 
 void    MainWindow::roomValFromAPI() {
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
-         return;
-     delete socket;
-
+    if (!_network->testConnection())
+        return;
      _toSend = false;
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(_network->getUrl());
 //     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/getRoom?api_key=f8c5e1xx5f48e56s4x8"));
     QHttpPart textPart = QHttpPart();
     QByteArray tmp;
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"roomID\""));
-    if (_curRoom->getID().compare("-1") == 0)
-        textPart.setBody("5717462479f34d720f0248b6");
+    if (_curRoom == Q_NULLPTR){
+        tmp.append(_idRoom);
+        textPart.setBody(tmp);
+    }
     else {
         tmp.append(_curRoom->getID());
         textPart.setBody(tmp);
@@ -244,7 +272,8 @@ void    MainWindow::roomValFromAPI() {
     _multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     _multiPart->append(textPart);
 
-    _netRep = _netMan->post(netReq, _multiPart);
+    _netRep = _network->post(netReq, _multiPart);
+//    _netRep = _netMan->post(netReq, _multiPart);
     connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
     connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
     connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
@@ -253,14 +282,14 @@ void    MainWindow::roomValFromAPI() {
 void MainWindow::changeCurRoom(RoomState* room) {
     _curRoom = room;
     _planWin->setRoomId(_curRoom->getID());
-    ui->roomLabel->setText("- Salle: " + _curRoom->getName());
+    ui->roomLabel->setText(" Salle: <font color=#007999>" + _curRoom->getName() + "</font>");
     roomValFromAPI();
 }
 
 void    MainWindow::backToMain() {
     _tempWin->hide();
     _lumWin->hide();
-    _opacWin->hide();
+//    _opacWin->hide();
     _planWin->hide();
     _configWin->hide();
     this->show();
@@ -268,19 +297,23 @@ void    MainWindow::backToMain() {
 }
 
 void MainWindow::tempValChanged(double newVal) {
+    if (_curRoom == Q_NULLPTR)
+        return;
     _curRoom->setTemp(newVal);
-    _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
-
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
+    int x = 145 - (int)(_curRoom->getTemp() / 10 - 16) * 5;
+    QColor color = QColor(255, x, 83, 255);
+    QString format("<font color=\"%1\">%2</font>");
+    QString text = QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp();
+    _tempLbl->setText(format.arg(color.name(), text));
+//    _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
+     if (!_network->testConnection())
          return;
-     delete socket;
-    //send new temp to API
 
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
+     qDebug() << "connected to API";
+    //send new temp to API
+     QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                           QString("/api/changeTemperature?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
 
     QByteArray tmp;
     QHttpPart textPart = QHttpPart();
@@ -290,32 +323,39 @@ void MainWindow::tempValChanged(double newVal) {
     textPart.setBody(tmp);
     multiPart->append(textPart);
     tmp.clear();
+    textPart = QHttpPart();
     textPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"temperature\""));
     tmp.append(QString::number(newVal));
     textPart.setBody(tmp);
     multiPart->append(textPart);
+//    _netRep = _network->post(netReq, _multiPart);
+    /**
+    connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
+    connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
+    connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
+    /**/
     _netMan->post(netReq, multiPart);
-
-/*    if (_curRoom->gettempDispVal() == 1)
-        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
-    else
-        _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°F");
-*/
 }
 
 void MainWindow::lumValChanged(int newVal) {
+    if (_curRoom == Q_NULLPTR)
+        return;
     _curRoom->setLum(newVal);
-    _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
-    QAbstractSocket *socket = new QAbstractSocket(QAbstractSocket::TcpSocket, this);
-    socket->connectToHost("176.31.127.14", 1337);
-//    socket->connectToHost("127.0.0.1", 1337);
-     if (!socket->waitForConnected(1000))
+    int x = 55 + (int)(_curRoom->getLum()) * 2;
+    QColor color = QColor(0, x, x, 255);
+    QString format("<font color=\"%1\">%2</font>");
+    QString text = QString::number(_curRoom->getLum()) + "%";
+    _lumLbl->setText(format.arg(color.name(), text));
+//    _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
+     if (!_network->testConnection())
          return;
-     delete socket;
+
 
      //send new temp to API
-     QNetworkRequest netReq = QNetworkRequest(QUrl("http://176.31.127.14:1337/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
-//     QNetworkRequest netReq = QNetworkRequest(QUrl("http://127.0.0.1:1337/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
+     QString tmpStr = QString(QString("http://") + *(_network->getHostName()) + QString(":") + QString::number(_network->getHostPort()) +
+                           QString("/api/changeLight?api_key=f8c5e1xx5f48e56s4x8"));
+     QNetworkRequest netReq = QNetworkRequest(QUrl(tmpStr.toStdString().c_str()));
+
 
     QByteArray tmp;
     QHttpPart textPart = QHttpPart();
@@ -329,11 +369,19 @@ void MainWindow::lumValChanged(int newVal) {
     tmp.append(QString::number(newVal));
     textPart.setBody(tmp);
     multiPart->append(textPart);
+//    _netRep = _network->post(netReq, _multiPart);
+    /**
+    connect(_netRep, SIGNAL(finished()), this, SLOT(httpFinished()));
+    connect(_netRep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(httpFailed(QNetworkReply::NetworkError)));
+    connect(_netRep, SIGNAL(readyRead()), this, SLOT(httpReadyRead()));
+    /**/
     _netMan->post(netReq, multiPart);
 
 }
 
 void MainWindow::opacValChanged(int newVal) {
+    (void)(newVal);
+    /*
     _curRoom->setOpac(newVal);
     _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
 
@@ -345,7 +393,11 @@ void MainWindow::opacValChanged(int newVal) {
          return;
      delete socket;
 
+     if (!_network->testConnection())
+         return;
+
      //send new temp to API
+     */
 }
 
 void MainWindow::tempDispChanged(int val) {
@@ -381,12 +433,8 @@ void MainWindow::httpFinished()
 
     QVariant redirectionTarget  = _netRep->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    if(!redirectionTarget.isNull()) {
-        const QUrl newUrl = _url.resolved(redirectionTarget.toUrl());
-        _url = newUrl;
-        QNetworkRequest request(_url);
-        _netRep = _netMan->post(request, _multiPart);
-    }
+    if(!redirectionTarget.isNull())
+        _network->redirectUrl(redirectionTarget, _multiPart);
 }
 
 void    MainWindow::parseRep() {
@@ -408,27 +456,48 @@ void    MainWindow::parseRep() {
         }
         // if there is no room configure, configure it with the API reply
         if (_curRoom == Q_NULLPTR) {
+            if (m.find("name") == m.cend() || m.find("_id") == m.cend()) {
+                ui->roomLabel->setText("<font color='red'>Pas de salle</font>");
+                return;
+            }
             std::string name = m.at("name");
             std::string id = m.at("_id");
             _curRoom = new RoomState(QString::fromStdString(name), QString::fromStdString(id));
             _planWin->setRoomId(_curRoom->getID());
-            ui->roomLabel->setText("- Salle: " + _curRoom->getName());
+            //    ui->roomLabel->setText(" Salle: " + _curRoom->getName());
+                ui->roomLabel->setText(" Salle: <font color=#007999>" + _curRoom->getName() + "</font>");
+        }
+        if (m.find("temperature") == m.cend() || m.find("light") == m.cend()) {
+            ui->roomLabel->setText("<font color='red'>Pas de salle</font>");
+            this->on_ConfigEditButton_clicked();
+            return;
         }
         _curRoom->setTemp(std::stoi(m.at("temperature")));
         _curRoom->setLum(std::stoi(m.at("light")));
 //        _curRoom->setOpac(std::stoi(m.at("opacification")));
         _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());
-        if (_curRoom->getTempDispVal() == 1)
-            _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
-        else
+        if (_curRoom->getTempDispVal() == 1) {
+            int x = 145 - (int)(_curRoom->getTemp() - 16) * 5;
+            QColor color = QColor(255, x, 83, 255);
+            QString format("<font color=\"%1\">%2</font>");
+            QString text = QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp();
+            _tempLbl->setText(format.arg(color.name(), text));
+//            _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°C");
+        } else {
             _tempLbl->setText(QString::number(_curRoom->getTemp()) + "°F");
-        _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
+        }
+        int x = 55 + (int)(_curRoom->getLum()) * 2;
+        QColor color = QColor(0, x, x, 255);
+        QString format("<font color=\"%1\">%2</font>");
+        QString text = QString::number(_curRoom->getLum()) + "%";
+        _lumLbl->setText(format.arg(color.name(), text));
+//        _lumLbl->setText(QString::number(_curRoom->getLum()) + "%");
         _opacLbl->setText(QString::number(_curRoom->getOpac()) + "%");
 
         _tempWin->setTempDisp(_curRoom->getTempDispVal());
         _tempWin->setSliderVal(_curRoom->getTemp());
         _lumWin->setSliderVal(_curRoom->getLum());
-        _opacWin->setSliderVal(_curRoom->getOpac());
+//        _opacWin->setSliderVal(_curRoom->getOpac());
 }
 
 void MainWindow::httpFailed(QNetworkReply::NetworkError err) {
@@ -438,4 +507,12 @@ void MainWindow::httpFailed(QNetworkReply::NetworkError err) {
 void MainWindow::httpReadyRead()
 {
     qDebug() << "Reply finish: " << _netRep->isFinished();
+}
+
+QString* MainWindow::getHostName() {
+    return (_network->getHostName());
+}
+
+quint16 MainWindow::getHostPort() {
+    return (_network->getHostPort());
 }

@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var cookie = require('react-cookie');
+var utils = require('../../utils');
 
 
 var Header = React.createClass({
@@ -16,20 +17,19 @@ var Header = React.createClass({
 
 ModeListItem = React.createClass({
     ModifMode : function (){
-      this.props.changeToModif(this.props.mode._id);
+      this.props.changeToModif(this.props.mode[utils.getIdType()]);
     },
     DeleteMode : function (){
-      this.props.changeToDelete(this.props.mode._id);
+      this.props.changeToDelete(this.props.mode[utils.getIdType()]);
     },
 	render: function () {
 		return (
-			<li className="mode-elem">
-				<span className="w_20p">Nom : {this.props.mode.name}</span>
-				<span className="w_20p">Luminosité: {this.props.mode.light}</span>
-				<span className="w_20p">Opacité : {this.props.mode.opacity}</span>
-				<span className="w_20p">Température : {this.props.mode.temperature}</span>
-				<button className="list-button w_15p" onClick={this.ModifMode}>Modifier</button>
-				<button className="list-button w_15p" onClick={this.DeleteMode}>Supprimer</button>
+			<li className="panel panel-success mode-elem">
+				<span className="w_20p">Nom : <h3 className="teal">{this.props.mode.name}</h3></span>
+				<span className="w_20p">Luminosité: <h3 className="blue"> {this.props.mode.light}</h3></span>
+				<span className="w_20p">Température : <h3 className="red"> {this.props.mode.temperature}</h3></span>
+				<button className="btn btn-primary list-button w_20p pads " onClick={this.ModifMode}><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
+				<button className="btn btn-danger list-button w_20p pads" onClick={this.DeleteMode}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer</button>
 			</li>
 		);
 	}
@@ -40,7 +40,7 @@ ModeList = React.createClass({
 		var react = this;
 		var items = this.props.modes.map(function (mode) {
 			return (
-				<ModeListItem key={mode._id} mode={mode} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
+				<ModeListItem key={mode[utils.getIdType()]} mode={mode} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
 			);
 		});
 		return (
@@ -79,7 +79,7 @@ Modes = React.createClass({
       changeToModeList: function(){
       	react = this;
 		  HttpPost('/getModes', {
-			'organisation': 'Envio',// a changer avec les info users            
+			'organisation': this.props.Organisation,// a changer avec les info users            
 		}, function(rep) {         
 			rep = jQuery.parseJSON(rep);
 			if (rep.error == null){
@@ -98,9 +98,10 @@ Modes = React.createClass({
 		});          
       },  
 	  componentDidMount: function() {
+		console.log(this.props.Organisation)
 		react = this;
-		  HttpPost('/getModes', {
-			'organisation': 'Envio',// a changer avec les info users            
+		  	HttpPost('/getModes', {
+			'organisation': this.props.Organisation,            
 		}, function(rep) {         
 			rep = jQuery.parseJSON(rep);
 			if (rep.error === null){
@@ -114,11 +115,11 @@ Modes = React.createClass({
 	  },
 	  render() {
           var cat = <ModeList modes={this.state.modes} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
-          var createButton = <button className="button-medium" onClick={this.changeToCreate}>Créer Mode</button>;
+          var createButton = <button className="button-medium-cl btn btn-success" onClick={this.changeToCreate}><i className="fa fa-plus-square" aria-hidden="true"></i> Créer Mode</button>;
           if (this.state.creat !== null) 
           {
-              cat = <CreateMode changeToModeList={this.changeToModeList}/>;
-              creatbutton = null;
+              cat = <CreateMode Organisation={this.props.Organisation} changeToModeList={this.changeToModeList}/>;
+              createButton = null;
           }                  
           if(this.state.modif !== null )
           {
@@ -127,7 +128,7 @@ Modes = React.createClass({
           if(this.state.delete !== null )
           {
               cat = <DeleteMode Id={this.state.delete} changeToModeList={this.changeToModeList}/>;
-              creatbutton = null;
+              createButton = null;
           }	  	  
 		  return (
 			  <div>
@@ -166,14 +167,13 @@ ModifMode = React.createClass({
 		event.preventDefault();
 		var newName = ReactDOM.findDOMNode(this.refs.newName).value;
 		var light = ReactDOM.findDOMNode(this.refs.light).value;
-		var opacity = ReactDOM.findDOMNode(this.refs.opacity).value;
 		var temperature = ReactDOM.findDOMNode(this.refs.temperature).value;
 		react = this;
 		HttpPost('/modifyMode', {
 			'modeID' : react.props.Id,
 			'newName' : newName,
 			'light' : light,
-			'opacity' : opacity,
+			'opacity' : 0,
 			'temperature' : temperature
 		}, function(rep) {          
 			rep = jQuery.parseJSON(rep)
@@ -188,30 +188,31 @@ ModifMode = React.createClass({
 	},
 	render() {    
 		return (
-		<div className="bar bar-header-secondary">
+		<div className="form bar bar-header-secondary">
 			 <form role="form" onSubmit={this.handleSubmit}>
-				 <div className="form-group">
+			 	 <h2 className="label-g"> Modifiez votre mode :<br></br> </h2>
+			 	 <ErrorMessage content={this.state.status}/>
+				 <div className="">
 					<div className="input-container">
 		            	<input className="input-medium" ref="newName" type="text" placeholder="Nom"/>
 		            </div>
 		            <div className="input-container">
-		            	<input className="input-medium" ref="light" type="text" placeholder="Luminosité"/>
+		            	<input className="input-medium" ref="light" type="number" placeholder="Luminosité" min="0" max="100"/>
 		            </div>
 		            <div className="input-container">
-		            	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
-		            </div>
-		            <div className="input-container">
-		            	<input className="input-medium" ref="temperature" type="text" placeholder="Température"/>
+		            	<input className="input-medium" ref="temperature" type="number" placeholder="Température" min="15" max="40"/>
 		            </div>
 				</div>
-				<button className="button-medium" type="submit">Modifier</button>
+				<button className="btn button-medium" type="submit"><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
 			  </form>
-			  <button className="button-medium" onClick={this.props.changeToModeList}>Retour</button>
-			  <ErrorMessage content={this.state.status}/>
+			  <button className="red-b btn button-medium" onClick={this.props.changeToModeList}><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
 		</div>
 		);
 	}
 });
+		            // <div className="input-container">
+		            // 	<input className="input-medium" ref="opacity" type="number" placeholder="Opacité" min="0" max="100"/>
+		            // </div>
 
 
 CreateMode = React.createClass({
@@ -222,17 +223,16 @@ CreateMode = React.createClass({
 	},
 	handleSubmit(event) {
 		event.preventDefault();
-		var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
+		//var organisation = ReactDOM.findDOMNode(this.refs.organisation).value
 		var name = ReactDOM.findDOMNode(this.refs.name).value
 		var light = ReactDOM.findDOMNode(this.refs.light).value
-		var opacity = ReactDOM.findDOMNode(this.refs.opacity).value
 		var temperature = ReactDOM.findDOMNode(this.refs.temperature).value
 		react = this;
 		HttpPost('/createMode', {
-			'organisation': organisation,
+			'organisation': this.props.Organisation,
 			'name': name,
 			'light': light,
-			'opacity': opacity,
+			'opacity': 0,
 			'temperature': temperature
 			
 		}, function(rep) {
@@ -248,33 +248,35 @@ CreateMode = React.createClass({
 	},
 	render() {
 		return (
-			<div className="bar bar-header-secondary">
+			<div className="form bar bar-header-secondary">
 				<form role="form" onSubmit={this.handleSubmit}>
+				 <h2 className="label-g"> Créez votre mode de salle<br></br> </h2>
 					<div className="form-group">
-						<div className="input-container">
-		                	<input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>
-		                </div>
+						<ErrorMessage content={this.state.status}/>
 		                <div className="input-container">
 		                	<input className="input-medium" ref="name" type="text" placeholder="Nom"/>
 		                </div>
 		                <div className="input-container">
-		                	<input className="input-medium" ref="light" type="text" placeholder="Luminosité"/>
+		                	<input className="input-medium" ref="light" type="number" placeholder="Luminosité" min="0" max="100"/>
 		                </div>
 		                <div className="input-container">
-		                	<input className="input-medium" ref="opacity" type="text" placeholder="Opacité"/>
-		                </div>
-		                <div className="input-container">
-		                	<input className="input-medium" ref="temperature" type="text" placeholder="Température"/>
+		                	<input className="input-medium" ref="temperature" type="number" placeholder="Température" min="15" max="40"/>
 		                </div>
 					</div>
-					<button className="button-medium" type="submit" >Créer</button>
+					<button className="btn btn-success button-medium" type="submit" ><i className="fa fa-plus-square" aria-hidden="true"></i> Créer</button>
 				</form>
-				<button className="button-medium" onClick={this.props.changeToModeList} >Retour</button>
-				<ErrorMessage content={this.state.status}/>
+				<button className="red-b btn btn-success button-medium" onClick={this.props.changeToModeList} ><i className="fa fa-chevron-left" aria-hidden="true"></i> Retour</button>
 			</div>
 		);
 	}
 });
+
+						// <div className="input-container">
+					    // <input className="input-medium" ref="organisation" type="text" placeholder="Organisation"/>
+					    // </div>
+		                // <div className="input-container">
+		                // 	<input className="input-medium" ref="opacity" type="number" placeholder="Opacité" min="0" max="100"/>
+		                // </div>
 
 
 DeleteMode = React.createClass({
@@ -299,10 +301,10 @@ DeleteMode = React.createClass({
     },
 	render: function () {
 			return (
-			<div>
-			Êtes-vous sûr ?
-			<button className="button-medium" onClick={this.deleteMode}>Oui</button>
-			<button className="button-medium" onClick={this.props.changeToModeList} >Non</button>
+			<div className="form">
+			<h2 className="label-g">Êtes-vous sûr ?<br></br> </h2>
+			<button className=" btn button-medium" onClick={this.deleteMode}><i className="fa fa-check" aria-hidden="true"></i> Oui</button>
+			<button className="red-b btn button-medium" onClick={this.props.changeToModeList}><i className="fa fa-ban" aria-hidden="true"></i> Non</button>
 			<ErrorMessage content={this.state.error}/>
 			</div>
 		);
