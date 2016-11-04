@@ -9,6 +9,7 @@
     "connect-multiparty": "^2.0.0",
     "cors": "^2.7.1",
     "express": "^4.13.3",
+    "forever": "^0.15.3",
     "johnny-five": "^0.10.0",
     "request": "^2.65.0"
   },

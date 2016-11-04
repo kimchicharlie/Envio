@@ -16,6 +16,7 @@
     "eslint-plugin-jsx-a11y": "^1.2.0",
     "eslint-plugin-react": "^5.1.1",
     "express": "^4.13.3",
+    "forever": "^0.15.3",
     "history": "^1.13.0",
     "jsx-loader": "^0.13.2",
     "react": "^0.14.2",
