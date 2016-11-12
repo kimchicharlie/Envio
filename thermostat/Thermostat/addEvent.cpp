@@ -7,12 +7,14 @@ AddEvent::AddEvent(QWidget *parent) :
     ui(new Ui::AddEvent)
 {
     ui->setupUi(this);
+
+//    setStyleSheet(" QComboBox QAbstractItemView { border: 2px solid white; selection-background-color: lightgray; background-color: white; background: white; } QComboBox QAbstractView { border: 2px solid darkgray; selection-background-color: lightgray; background-color: white; background: white; } QComboBox QListView { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #D5D500, stop: 1 #EE00EE); }");
+
     _modeCbBox = ui->modeComboBox;
     _hourSpin = ui->hourStartSpin;
     _minSpin = ui->minStartSpin;
     _durSpin = ui->durationSpin;
     _errorLbl = ui->errorLbl;
-
     QSettings settings("config.ini", QSettings::IniFormat);
     _organisation = settings.value("organisation","config").toString();
 

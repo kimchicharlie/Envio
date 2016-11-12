@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'configWindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -49,7 +49,7 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(10, 10, 301, 221));
+        gridLayoutWidget->setGeometry(QRect(10, 10, 301, 211));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -98,10 +98,77 @@ public:
 
         listView = new QListView(gridLayoutWidget);
         listView->setObjectName(QStringLiteral("listView"));
-        listView->setStyleSheet(QLatin1String("QListView {\n"
-"	background: #444;\n"
+        listView->setStyleSheet(QLatin1String("QAbstractItemView {\n"
+"show-decoration-selected: 1;\n"
+"}\n"
+"QAbstractItemView, QFrame {\n"
+"border: 3px;\n"
+"border-color: #349890;\n"
+"}\n"
+"QAbstractScrollArea {\n"
+"border-left: 3px;\n"
+"}\n"
+"QListView {\n"
+"border: 3px;\n"
+"border-color: #349890;\n"
+"}\n"
+"\n"
+"QLineEdit, QTextEdit, QSpinBox, QListWidget, QCheckbox {\n"
+"    margin-left: 2px;\n"
+"    margin-right: 2px;\n"
+"    margin-top: 2px;\n"
+"    padding: 7px;\n"
+"    vertical-align:middle;\n"
+"    font-size: 12px;\n"
+"	background: transparent;\n"
 "	font-family:\"Segoe UI\", sans-serif;\n"
 "    show-decoration-selected: 1; \n"
+"    color: #CCC;\n"
+"}\n"
+"\n"
+"QLineEdit, QTextEdit, QListWidget, QSpinBox, QListWidget {\n"
+"    padding: 7px;\n"
+"    border: 1px solid #777;\n"
+"	border-radius: 10px\n"
+"}\n"
+"\n"
+"QListView\n"
+"{\n"
+"    border: 1px solid #777;\n"
+"	border-radius: 5px;\n"
+"	text-align: center;\n"
+"}\n"
+"QListView::item\n"
+"{\n"
+"	text-align: center;\n"
+"    padding-left:10px;\n"
+"    width:80px;\n"
+"    height:20px;\n"
+"    color: #CCC"
+                        ";\n"
+"    border-bottom :1px dashed #777;\n"
+"	font-size: 12px;\n"
+"}\n"
+"\n"
+"QListView::item:selected {\n"
+"    border: 1px solid #6a6ea9;\n"
+"}\n"
+"\n"
+"QListView::item:selected:!active {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\n"
+"                                stop: 0 #8588B2, stop: 1 #ABAFE5);\n"
+"}\n"
+"\n"
+"QListView::item:selected:active {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\n"
+"                                stop: 0 #265726, stop: 1 #4cae4c);\n"
+"}\n"
+"\n"
+"QListView::item:hover {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\n"
+"                                stop: 0 #449d44, stop: 1 #5cb85c);\n"
+"}\n"
+"/*QListView {\n"
 "}\n"
 "\n"
 "QListView::item:alternate {\n"
@@ -114,7 +181,8 @@ public:
 "\n"
 "QListView::item:selected:!active {\n"
 "    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\n"
-"                                stop: 0 #8588B2, stop: 1 #ABAFE5);\n"
+"                                stop: 0 #8588B2, s"
+                        "top: 1 #ABAFE5);\n"
 "}\n"
 "\n"
 "QListView::item:selected:active {\n"
@@ -136,10 +204,10 @@ public:
 "font-size: 12px;\n"
 "}\n"
 "*/\n"
+"/*\n"
 "QListView::item\n"
 "{\n"
-"    padding-left:"
-                        "10px;\n"
+"    padding-left:10px;\n"
 "    width:80px;\n"
 "    height:20px;\n"
 "    color: #EEE;\n"

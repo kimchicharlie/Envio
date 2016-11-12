@@ -23,7 +23,7 @@
       <x>10</x>
       <y>10</y>
       <width>301</width>
-      <height>221</height>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -78,10 +78,76 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
      <item row="6" column="0">
       <widget class="QListView" name="listView">
        <property name="styleSheet">
-        <string notr="true">QListView {
-	background: #444;
+        <string notr="true">QAbstractItemView {
+show-decoration-selected: 1;
+}
+QAbstractItemView, QFrame {
+border: 3px;
+border-color: #349890;
+}
+QAbstractScrollArea {
+border-left: 3px;
+}
+QListView {
+border: 3px;
+border-color: #349890;
+}
+
+QLineEdit, QTextEdit, QSpinBox, QListWidget, QCheckbox {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    padding: 7px;
+    vertical-align:middle;
+    font-size: 12px;
+	background: transparent;
 	font-family:&quot;Segoe UI&quot;, sans-serif;
     show-decoration-selected: 1; 
+    color: #CCC;
+}
+
+QLineEdit, QTextEdit, QListWidget, QSpinBox, QListWidget {
+    padding: 7px;
+    border: 1px solid #777;
+	border-radius: 10px
+}
+
+QListView
+{
+    border: 1px solid #777;
+	border-radius: 5px;
+	text-align: center;
+}
+QListView::item
+{
+	text-align: center;
+    padding-left:10px;
+    width:80px;
+    height:20px;
+    color: #CCC;
+    border-bottom :1px dashed #777;
+	font-size: 12px;
+}
+
+QListView::item:selected {
+    border: 1px solid #6a6ea9;
+}
+
+QListView::item:selected:!active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #8588B2, stop: 1 #ABAFE5);
+}
+
+QListView::item:selected:active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #265726, stop: 1 #4cae4c);
+}
+
+QListView::item:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #449d44, stop: 1 #5cb85c);
+}
+/*QListView {
 }
 
 QListView::item:alternate {
@@ -116,6 +182,7 @@ box-sizing: border-box;
 font-size: 12px;
 }
 */
+/*
 QListView::item
 {
     padding-left:10px;

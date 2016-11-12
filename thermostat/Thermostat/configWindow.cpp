@@ -10,6 +10,32 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //get the rooms attach to the thermostat and put them in the list
+    setStyleSheet("QScrollBar:vertical {"
+                  "    border: 1px solid #999999;"
+                  "    background:white;"
+                  "    width:10px;    "
+                  "    margin: 0px 0px 0px 0px;"
+                  "}"
+                  "QScrollBar::handle:vertical {"
+                  "    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
+                  "    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));"
+                  "    min-height: 0px;"
+                  ""
+                  "}"
+                  "QScrollBar::add-line:vertical {"
+                  "    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
+                  "    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));"
+                  "    height: px;"
+                  "    subcontrol-position: bottom;"
+                  "    subcontrol-origin: margin;"
+                  "}"
+                  "QScrollBar::sub-line:vertical {"
+                  "    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
+                  "    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));"
+                  "    height: 0px;"
+                  "    subcontrol-position: top;"
+                  "    subcontrol-origin: margin;"
+                  "}");
     _rooms = new QList<RoomState*>();
 
     QSettings settings("config.ini", QSettings::IniFormat);

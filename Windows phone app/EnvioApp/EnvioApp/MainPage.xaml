@@ -28,22 +28,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="10,32,-10,433" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <Image x:Name="logo" Source="/Assets/2017_logo_envio.png" VerticalAlignment="Top" HorizontalAlignment="Center" Height="153" Margin="119,-32,138.833,0" IsHitTestVisible="False" />
+            <Image x:Name="logo" Source="/Assets/ic_launcher.png" VerticalAlignment="Top" HorizontalAlignment="Center" Height="153" Margin="119,-32,138.833,0" IsHitTestVisible="False" />
         </StackPanel>
 
-        <!--TODO: Content should be placed within the following grid   
-        Btn dans la stack
-        <Button x:Name="button" Content="Connection" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Background="#FF5CB85C" BorderBrush="#FF449D44" RequestedTheme="Dark" Click="button_Click"/>
-        // Background="#AAFFFFFF"-->
+        <TextBlock HorizontalAlignment="Center" Text="Bienvenue sur Envio" FontSize="30" FontWeight="Bold" Grid.ColumnSpan="2" Margin="0,151,0,452" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Center" Text="Pour commencer, connectez-vous" FontSize="20" Grid.ColumnSpan="2" Margin="0,212,0,383" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Center" Text="avec vos identifiants Envio" FontSize="20" Grid.ColumnSpan="2" Margin="0,237,0,370" Grid.Row="1"/>
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.833,19,0" Grid.ColumnSpan="2">
-            <Border CornerRadius="30" Background="#AAFFFFFF" Margin="9,188,11,226"/>
-            <StackPanel Grid.Row="0" Margin="9,224,10,155" RenderTransformOrigin="0.5,0.5" >
-                <TextBox x:Name="AccountTxtBox" Margin="10,20,10,10" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" PlaceholderText="Email"/>
-                <PasswordBox x:Name="PwdTextBox" Margin="10,15,10,0" VerticalAlignment="Stretch" PlaceholderText="Mot de Passe"/>
-            </StackPanel>
-            <Button x:Name="buton" Content="Connection" HorizontalAlignment="center" Margin="0,517,0,0" VerticalAlignment="Top" Background="#FF5CB85C" BorderBrush="#FF449D44" RequestedTheme="Dark" Click="button_Click"/>
+            <TextBox x:Name="AccountTxtBox" BorderBrush="White" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Email" Margin="10,306,10,280"/>
+            <PasswordBox x:Name="PwdTextBox" Margin="10,385,10,201" VerticalAlignment="Stretch" PlaceholderText="Mot de Passe"/>
+            <Button x:Name="button" FontSize="25" Content="Connection" HorizontalAlignment="center" Margin="0,493,0,0" VerticalAlignment="Top" Background="#FF5CB85C" BorderBrush="#FF449D44" RequestedTheme="Dark" Click="button_Click" Height="81" Width="169"/>
         </Grid>
     </Grid>
 </Page>

@@ -24,7 +24,7 @@
       <x>10</x>
       <y>10</y>
       <width>301</width>
-      <height>221</height>
+      <height>224</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -34,8 +34,6 @@
         <font>
          <family>Segoe UI,sans-serif</family>
          <pointsize>-1</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
         </font>
        </property>
        <property name="styleSheet">
@@ -73,7 +71,62 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
      <item row="5" column="0">
       <widget class="QTableView" name="tableView">
        <property name="styleSheet">
-        <string notr="true">QTableView {
+        <string notr="true">QLineEdit, QTextEdit, QSpinBox, QListWidget, QCheckbox {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    padding: 7px;
+    vertical-align:middle;
+    font-size: 12px;
+	background: transparent;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
+    show-decoration-selected: 1; 
+    color: #CCC;
+}
+
+QLineEdit, QTextEdit, QListWidget, QSpinBox, QListWidget {
+    padding: 7px;
+    border: 1px solid #777;
+	border-radius: 10px
+}
+
+QTableView
+{
+    border: 1px solid #777;
+	border-radius: 5px;
+	text-align: center;
+}
+
+QTableView::item
+{
+	text-align: center;
+    padding-left:10px;
+    width:80px;
+    height:20px;
+    color: #CCC;
+    border-bottom :1px dashed #777;
+	font-size: 12px;
+}
+
+QTableView::item:selected {
+    border: 1px solid #6a6ea9;
+}
+
+QTableView::item:selected:!active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #8588B2, stop: 1 #ABAFE5);
+}
+
+QTableView::item:selected:active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #265726, stop: 1 #4cae4c);
+}
+
+QTableView::item:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                stop: 0 #449d44, stop: 1 #5cb85c);
+}
+/*QTableView {
 	background: #444;
 	font-family:&quot;Segoe UI&quot;, sans-serif;
     show-decoration-selected: 1; 
@@ -130,8 +183,6 @@ QTableView::item
         <font>
          <family>Segoe UI,sans-serif</family>
          <pointsize>-1</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
         </font>
        </property>
        <property name="styleSheet">
@@ -161,8 +212,6 @@ font-size: 12px;
           <font>
            <family>Segoe UI,sans-serif</family>
            <pointsize>-1</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -207,8 +256,6 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
           <font>
            <family>Segoe UI,sans-serif</family>
            <pointsize>-1</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -249,8 +296,6 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
           <font>
            <family>Segoe UI,sans-serif</family>
            <pointsize>-1</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
