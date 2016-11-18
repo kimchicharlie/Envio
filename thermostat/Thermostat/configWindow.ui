@@ -78,7 +78,67 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
      <item row="6" column="0">
       <widget class="QListView" name="listView">
        <property name="styleSheet">
-        <string notr="true">QAbstractItemView {
+        <string notr="true">QScrollBar:vertical
+{
+      background: #777;
+      width: 15px;
+      margin: 16px 0 16px 0;
+      border: 1px solid #222222;
+}
+
+QScrollBar::handle:vertical
+{
+      background: #CCC;
+      min-height: 20px;
+      border-radius: 2px;
+}
+
+QScrollBar::add-line:vertical {
+	image: url(:/style/arrow-down.png);
+      background: #CCC;
+	height: 13px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+	image: url(:/style/up-down.png);
+      background: #CCC;
+	height: 13px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical
+{
+      border: 1px solid #1b1b19;
+      border-radius: 2px;
+      background: #CCC;
+      height: 14px;
+      subcontrol-position: bottom;
+      subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical
+{
+      border: 1px solid #1b1b19;
+      border-radius: 2px;
+      background: #CCC;
+      height: 14px;
+      subcontrol-position: top;
+      subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical {
+	background-image: url(http://opencoffee.lnxteam.org/downloads/pub/pics/scrollbar_bg_bottom.png);
+	background-repeat: no repeat;
+}
+
+QScrollBar::down-arrow:vertical {
+	background-image: url(:/style/arrow-down.png);
+	background-repeat: no repeat;
+}
+
+QAbstractItemView {
 show-decoration-selected: 1;
 }
 QAbstractItemView, QFrame {
@@ -193,6 +253,15 @@ QListView::item
 	font-size: 12px;
 }
 </string>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
        </property>
       </widget>
      </item>

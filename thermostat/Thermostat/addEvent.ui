@@ -824,31 +824,140 @@ QComboBox::down-arrow {
     
 }
 
-QComboBox QAbstractItemView {
-   border: 1px solid gray;
-}
-
 QLabel {  
   background-color:transparent;
 }
 
-QLineEdit, QTextEdit {  
-   background:white;
-   min-width: 80px;  
-   min-height: 16px; 
-   border-right: 1px solid rgb(255, 255, 255);
-   border-bottom: 1px solid rgb(255, 255, 255);
-   border-top: 2px solid rgb(136, 163, 205);
-   border-left: 2px solid rgb(136, 163, 205);
-   
-   padding:3px;
-   border-radius: 8px;
+QScrollBar:vertical
+{
+      background: #777;
+      width: 15px;
+      margin: 16px 0 16px 0;
+      border: 1px solid #222222;
 }
 
-QComboBox QAbstractItemView {
-   border: 1px solid gray;
-}</string>
+QScrollBar::handle:vertical
+{
+      background: #CCC;
+      min-height: 20px;
+      border-radius: 2px;
+}
+
+QScrollBar::add-line:vertical {
+	image: url(:/style/arrow-down.png);
+      background: #CCC;
+	height: 13px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+	image: url(:/style/up-down.png);
+      background: #CCC;
+	height: 13px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical
+{
+      border: 1px solid #1b1b19;
+      border-radius: 2px;
+      background: #CCC;
+      height: 14px;
+      subcontrol-position: bottom;
+      subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical
+{
+      border: 1px solid #1b1b19;
+      border-radius: 2px;
+      background: #CCC;
+      height: 14px;
+      subcontrol-position: top;
+      subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical {
+	background-image: url(http://opencoffee.lnxteam.org/downloads/pub/pics/scrollbar_bg_bottom.png);
+	background-repeat: no repeat;
+}
+
+QScrollBar::down-arrow:vertical {
+	background-image: url(:/style/arrow-down.png);
+	background-repeat: no repeat;
+}
+
+QAbstractScrollArea {
+	border-left: 3px;
+}
+QAbstractItemView, QListView {
+border: 3px;
+border-color: #349890;
+}
+
+QLineEdit, QTextEdit, QSpinBox, QListWidget, QCheckbox {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    padding: 7px;
+    vertical-align:middle;
+    font-size: 12px;
+	background: transparent;
+	font-family:&quot;Segoe UI&quot;, sans-serif;
+    show-decoration-selected: 1; 
+    color: #CCC;
+}
+
+QLineEdit, QTextEdit, QListWidget, QSpinBox, QListWidget {
+    padding: 7px;
+    border: 1px solid #777;
+	border-radius: 10px
+}
+
+QComboBox QAbstractItemView
+{
+    border: 2px solid #CCC;
+    background: #777;
+    selection-background-color:#777;
+	selection-color: #777;
+}
+
+QComboBox QAbstractItemView::item
+{
+    color:red;
+}
+
+QListView::item {
+	background: green;
+	margin: 2px;
+}
+ 
+QListView::item:selected {
+	background: orange;
+}
+
+
+/*
+QComboBox QAbstractView{
+	background-color: #4f4f4f;
+	color: #999999;
+ 
+	selection-background-color: #999999;
+	selection-color: #4f4f4f;
+}
+*/</string>
    </property>
+   <item>
+    <property name="text">
+     <string>salut</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>coucou</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">

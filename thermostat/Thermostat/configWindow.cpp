@@ -10,7 +10,8 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //get the rooms attach to the thermostat and put them in the list
-    setStyleSheet("QScrollBar:vertical {"
+/*
+     setStyleSheet("QScrollBar:vertical {"
                   "    border: 1px solid #999999;"
                   "    background:white;"
                   "    width:10px;    "
@@ -36,6 +37,8 @@ ConfigWindow::ConfigWindow(QWidget *parent) :
                   "    subcontrol-position: top;"
                   "    subcontrol-origin: margin;"
                   "}");
+*/
+
     _rooms = new QList<RoomState*>();
 
     QSettings settings("config.ini", QSettings::IniFormat);
