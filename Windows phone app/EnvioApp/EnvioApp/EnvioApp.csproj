@@ -122,6 +122,7 @@
     <Content Include="Assets\2017_logo_envio_50x50.png" />
     <Content Include="Assets\2017_logo_envio_71x71.png" />
     <Content Include="Assets\envio-main.jpg" />
+    <Content Include="Assets\ic_launcher.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\rond-vert-mousse.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />

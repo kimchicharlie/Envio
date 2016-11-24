@@ -21,7 +21,7 @@
 #include <sstream>
 
 #include "netConnection.h"
-
+#include "modeModel.h"
 
 namespace Ui {
 class AddEvent;
@@ -64,6 +64,7 @@ private:
     QLabel       *_errorLbl;
     std::map<int, std::string>         _mapName;
     std::map<int, std::string>         _mapID;
+    ModeModel                         *_modeList;
 
     // Network
     NetConnection           *_network;

@@ -1,9 +1,9 @@
 ORG = envio
-NAME = api-server
+NAME = web-app
 SHA1 = $(shell git log -1 --pretty=oneline | cut -c-10)
 BRANCH = $(shell git branch -a --contains $(SHA1) | egrep '(remotes/|\*)' | egrep -v "(HEAD|detached)" | head -1 | sed -e "s/\* //" -e "s/.*\///")
 VERSION = $(BRANCH)-$(SHA1)
-API_PORT = 1337
+WEB_PORT = 8081
 
 all: build
 
@@ -12,12 +12,12 @@ build:
 	docker tag  $(ORG)/$(NAME):${VERSION} $(ORG)/$(NAME):$(BRANCH)-latest
 
 clean:
-	docker kill api-server && docker rm api-server
+	docker kill web-app && docker rm web-app
 
 run:
 	docker run \
-		--name api-server \
-		-p $(API_PORT):$(API_PORT) \
+		--name web-app \
+		-p $(WEB_PORT):$(WEB_PORT) \
 		--net="host" \
 		-e TZ="Europe/Paris" \
 		-v $(shell pwd):/src \

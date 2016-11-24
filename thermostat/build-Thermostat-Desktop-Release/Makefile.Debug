@@ -56,7 +56,8 @@ SOURCES       = ..\Thermostat\main.cpp \
 		..\Thermostat\planningmodel.cpp \
 		..\Thermostat\roomSelection.cpp \
 		..\Thermostat\addEvent.cpp \
-		..\Thermostat\netConnection.cpp debug\moc_temperatureWindow.cpp \
+		..\Thermostat\netConnection.cpp \
+		..\Thermostat\modeModel.cpp debug\moc_temperatureWindow.cpp \
 		debug\moc_lumWindow.cpp \
 		debug\moc_opacWindow.cpp \
 		debug\moc_mainwindow.cpp \
@@ -66,7 +67,8 @@ SOURCES       = ..\Thermostat\main.cpp \
 		debug\moc_roomlistmodel.cpp \
 		debug\moc_planningmodel.cpp \
 		debug\moc_roomSelection.cpp \
-		debug\moc_addEvent.cpp
+		debug\moc_addEvent.cpp \
+		debug\moc_modeModel.cpp
 OBJECTS       = debug\main.obj \
 		debug\temperatureWindow.obj \
 		debug\lumWindow.obj \
@@ -81,6 +83,7 @@ OBJECTS       = debug\main.obj \
 		debug\roomSelection.obj \
 		debug\addEvent.obj \
 		debug\netConnection.obj \
+		debug\modeModel.obj \
 		debug\moc_temperatureWindow.obj \
 		debug\moc_lumWindow.obj \
 		debug\moc_opacWindow.obj \
@@ -91,7 +94,8 @@ OBJECTS       = debug\main.obj \
 		debug\moc_roomlistmodel.obj \
 		debug\moc_planningmodel.obj \
 		debug\moc_roomSelection.obj \
-		debug\moc_addEvent.obj
+		debug\moc_addEvent.obj \
+		debug\moc_modeModel.obj
 
 DIST          =  ..\Thermostat\temperatureWindow.h \
 		..\Thermostat\lumWindow.h \
@@ -105,7 +109,8 @@ DIST          =  ..\Thermostat\temperatureWindow.h \
 		..\Thermostat\planningmodel.h \
 		..\Thermostat\roomSelection.h \
 		..\Thermostat\addEvent.h \
-		..\Thermostat\netConnection.h ..\Thermostat\main.cpp \
+		..\Thermostat\netConnection.h \
+		..\Thermostat\modeModel.h ..\Thermostat\main.cpp \
 		..\Thermostat\temperatureWindow.cpp \
 		..\Thermostat\lumWindow.cpp \
 		..\Thermostat\opacWindow.cpp \
@@ -118,7 +123,8 @@ DIST          =  ..\Thermostat\temperatureWindow.h \
 		..\Thermostat\planningmodel.cpp \
 		..\Thermostat\roomSelection.cpp \
 		..\Thermostat\addEvent.cpp \
-		..\Thermostat\netConnection.cpp
+		..\Thermostat\netConnection.cpp \
+		..\Thermostat\modeModel.cpp
 QMAKE_TARGET  = Thermostat
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = Thermostat.exe
@@ -210,7 +216,7 @@ dist:
 	$(ZIP) Thermostat.zip $(SOURCES) $(DIST) ..\Thermostat\Thermostat.pro C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\spec_pre.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\common\angle.conf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\common\msvc-base.conf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\common\msvc-desktop.conf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\qconfig.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_core.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_help.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_labscontrols_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_labstemplates_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_location.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_network.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_script.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webengine.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webengine_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginecore.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginecore_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginecoreheaders_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webview.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_webview_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\qt_functions.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\qt_config.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\qt_config.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\spec_post.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exclusive_builds.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\default_pre.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\default_pre.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\resolve_config.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\default_post.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\build_pass.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\rtti.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\precompile_header.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\warn_on.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\qt.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\resources.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\moc.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\opengl.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\uic.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\file_copies.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\win32\windows.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\testcase_targets.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\exceptions.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\yacc.prf C:\Qt\Qt5.6.1\5.6\msvc2013_64\mkspecs\features\lex.prf ..\Thermostat\Thermostat.pro C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\qtmaind.prl C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Widgetsd.prl C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Guid.prl C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Networkd.prl C:\Qt\Qt5.6.1\5.6\msvc2013_64\lib\Qt5Cored.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.obj debug\temperatureWindow.obj debug\lumWindow.obj debug\opacWindow.obj debug\mainwindow.obj debug\roomstate.obj debug\planningWindow.obj debug\configWindow.obj debug\roomlistmodel.obj debug\planning.obj debug\planningmodel.obj debug\roomSelection.obj debug\addEvent.obj debug\netConnection.obj debug\moc_temperatureWindow.obj debug\moc_lumWindow.obj debug\moc_opacWindow.obj debug\moc_mainwindow.obj debug\moc_roomstate.obj debug\moc_planningWindow.obj debug\moc_configWindow.obj debug\moc_roomlistmodel.obj debug\moc_planningmodel.obj debug\moc_roomSelection.obj debug\moc_addEvent.obj
+	-$(DEL_FILE) debug\main.obj debug\temperatureWindow.obj debug\lumWindow.obj debug\opacWindow.obj debug\mainwindow.obj debug\roomstate.obj debug\planningWindow.obj debug\configWindow.obj debug\roomlistmodel.obj debug\planning.obj debug\planningmodel.obj debug\roomSelection.obj debug\addEvent.obj debug\netConnection.obj debug\modeModel.obj debug\moc_temperatureWindow.obj debug\moc_lumWindow.obj debug\moc_opacWindow.obj debug\moc_mainwindow.obj debug\moc_roomstate.obj debug\moc_planningWindow.obj debug\moc_configWindow.obj debug\moc_roomlistmodel.obj debug\moc_planningmodel.obj debug\moc_roomSelection.obj debug\moc_addEvent.obj debug\moc_modeModel.obj
 	-$(DEL_FILE) debug\Thermostat.exp debug\Thermostat.ilk debug\Thermostat.idb
 	-$(DEL_FILE) debug\thermostat.res
 
@@ -231,9 +237,9 @@ compiler_no_pch_compiler_make_all:
 compiler_no_pch_compiler_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: debug\moc_temperatureWindow.cpp debug\moc_lumWindow.cpp debug\moc_opacWindow.cpp debug\moc_mainwindow.cpp debug\moc_roomstate.cpp debug\moc_planningWindow.cpp debug\moc_configWindow.cpp debug\moc_roomlistmodel.cpp debug\moc_planningmodel.cpp debug\moc_roomSelection.cpp debug\moc_addEvent.cpp
+compiler_moc_header_make_all: debug\moc_temperatureWindow.cpp debug\moc_lumWindow.cpp debug\moc_opacWindow.cpp debug\moc_mainwindow.cpp debug\moc_roomstate.cpp debug\moc_planningWindow.cpp debug\moc_configWindow.cpp debug\moc_roomlistmodel.cpp debug\moc_planningmodel.cpp debug\moc_roomSelection.cpp debug\moc_addEvent.cpp debug\moc_modeModel.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_temperatureWindow.cpp debug\moc_lumWindow.cpp debug\moc_opacWindow.cpp debug\moc_mainwindow.cpp debug\moc_roomstate.cpp debug\moc_planningWindow.cpp debug\moc_configWindow.cpp debug\moc_roomlistmodel.cpp debug\moc_planningmodel.cpp debug\moc_roomSelection.cpp debug\moc_addEvent.cpp
+	-$(DEL_FILE) debug\moc_temperatureWindow.cpp debug\moc_lumWindow.cpp debug\moc_opacWindow.cpp debug\moc_mainwindow.cpp debug\moc_roomstate.cpp debug\moc_planningWindow.cpp debug\moc_configWindow.cpp debug\moc_roomlistmodel.cpp debug\moc_planningmodel.cpp debug\moc_roomSelection.cpp debug\moc_addEvent.cpp debug\moc_modeModel.cpp
 debug\moc_temperatureWindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qmainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -1178,6 +1184,7 @@ debug\moc_mainwindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainW
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qspinbox.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QComboBox \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
+		..\Thermostat\modeModel.h \
 		..\Thermostat\configWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QStringListModel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlistmodel.h \
@@ -1891,6 +1898,7 @@ debug\moc_planningWindow.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QM
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
+		..\Thermostat\modeModel.h \
 		..\Thermostat\planningWindow.h
 	C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/mkspecs/win32-msvc2013 -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat/boost_1_61_0 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtGui -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtNetwork -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtCore -I. ..\Thermostat\planningWindow.h -o debug\moc_planningWindow.cpp
 
@@ -3305,8 +3313,81 @@ debug\moc_addEvent.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialog 
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
+		..\Thermostat\modeModel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		..\Thermostat\addEvent.h
 	C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/mkspecs/win32-msvc2013 -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat/boost_1_61_0 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtGui -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtNetwork -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtCore -I. ..\Thermostat\addEvent.h -o debug\moc_addEvent.cpp
+
+debug\moc_modeModel.cpp: C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvariant.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qglobal.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qconfig.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qfeatures.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtypetraits.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qisenum.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsysinfo.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlogging.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qflags.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmutex.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qnumeric.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qversiontagging.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_gcc.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv7.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv6.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv5.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_ia64.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_x86.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_unix.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbytearray.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qrefcount.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qnamespace.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qarraydata.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstring.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qchar.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qalgorithms.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qiterator.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qpair.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregexp.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmetatype.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmap.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qdebug.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qhash.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtextstream.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qiodevice.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobject.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreevent.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlocale.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvector.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qpoint.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qset.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcontiguouscache.h \
+		..\Thermostat\modeModel.h
+	C:\Qt\Qt5.6.1\5.6\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/mkspecs/win32-msvc2013 -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat -ID:/Epitech/EIP/GIT_dev/Envio/thermostat/Thermostat/boost_1_61_0 -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtGui -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtNetwork -IC:/Qt/Qt5.6.1/5.6/msvc2013_64/include/QtCore -I. ..\Thermostat\modeModel.h -o debug\moc_modeModel.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -3946,6 +4027,7 @@ debug\main.obj: ..\Thermostat\main.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qspinbox.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QComboBox \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
+		../Thermostat/modeModel.h \
 		../Thermostat/configWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QStringListModel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlistmodel.h \
@@ -4077,44 +4159,10 @@ debug\temperatureWindow.obj: ..\Thermostat\temperatureWindow.cpp ../Thermostat/t
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
 		ui_temperatureWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDebug
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\QColor \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDebug \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTime \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qdatetime.h
 
 debug\lumWindow.obj: ..\Thermostat\lumWindow.cpp ../Thermostat/lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -4230,44 +4278,7 @@ debug\lumWindow.obj: ..\Thermostat\lumWindow.cpp ../Thermostat/lumWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		ui_lumWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
+		ui_lumWindow.h
 
 debug\opacWindow.obj: ..\Thermostat\opacWindow.cpp ../Thermostat/opacWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -4383,44 +4394,7 @@ debug\opacWindow.obj: ..\Thermostat\opacWindow.cpp ../Thermostat/opacWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qframe.h \
-		ui_opacWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
+		ui_opacWindow.h
 
 debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -5019,6 +4993,7 @@ debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qspinbox.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QComboBox \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
+		../Thermostat/modeModel.h \
 		../Thermostat/configWindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QStringListModel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlistmodel.h \
@@ -5028,28 +5003,7 @@ debug\mainwindow.obj: ..\Thermostat\mainwindow.cpp ../Thermostat/mainwindow.h \
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QAbstractSocket \
-		ui_mainwindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
+		ui_mainwindow.h
 
 debug\roomstate.obj: ..\Thermostat\roomstate.cpp ../Thermostat/roomstate.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QString \
@@ -5754,6 +5708,7 @@ debug\planningWindow.obj: ..\Thermostat\planningWindow.cpp ../Thermostat/plannin
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
+		../Thermostat/modeModel.h \
 		../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDateTime \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimer \
@@ -5771,27 +5726,6 @@ debug\planningWindow.obj: ..\Thermostat\planningWindow.cpp ../Thermostat/plannin
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
 		ui_planningWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QTimeZone \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtimezone.h
 
@@ -6400,28 +6334,8 @@ debug\configWindow.obj: ..\Thermostat\configWindow.cpp ../Thermostat/configWindo
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qspinbox.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QComboBox \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcombobox.h \
-		ui_configWindow.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QGridLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qgridlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qboxlayout.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QWidget
+		../Thermostat/modeModel.h \
+		ui_configWindow.h
 
 debug\roomlistmodel.obj: ..\Thermostat\roomlistmodel.cpp ../Thermostat/roomlistmodel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
@@ -6728,46 +6642,7 @@ debug\roomSelection.obj: ..\Thermostat\roomSelection.cpp ../Thermostat/roomSelec
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qframe.h \
-		ui_roomSelection.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QVariant \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qicon.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialogButtonBox \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdialogbuttonbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleoption.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qvalidator.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregularexpression.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qslider.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qabstractslider.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyle.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabbar.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtabwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qrubberband.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QLineEdit \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qlineedit.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextcursor.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextformat.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qpen.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qtextoption.h
+		ui_roomSelection.h
 
 debug\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QDialog \
@@ -7341,6 +7216,8 @@ debug\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QUrlQuery \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QSettings \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsettings.h \
+		../Thermostat/modeModel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		../Thermostat/mainwindow.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QMainWindow \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qmainwindow.h \
@@ -7363,7 +7240,6 @@ debug\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QTableWidget \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qtablewidget.h \
 		../Thermostat/planningmodel.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
 		../Thermostat/planning.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QDate \
 		../Thermostat/configWindow.h \
@@ -7375,20 +7251,10 @@ debug\addEvent.obj: ..\Thermostat\addEvent.cpp ../Thermostat/addEvent.h \
 		../Thermostat/roomlistmodel.h \
 		../Thermostat/roomSelection.h \
 		ui_addEvent.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QAction \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qaction.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qactiongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qeventloop.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qguiapplication.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtGui\qinputmethod.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QButtonGroup \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QHeaderView \
-		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qheaderview.h
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QStyledItemDelegate \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qstyleditemdelegate.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\QCompleter \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtWidgets\qcompleter.h
 
 debug\netConnection.obj: ..\Thermostat\netConnection.cpp ../Thermostat/netConnection.h \
 		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtNetwork\QNetworkAccessManager \
@@ -7905,6 +7771,76 @@ debug\netConnection.obj: ..\Thermostat\netConnection.cpp ../Thermostat/netConnec
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\detail\classification.hpp \
 		..\Thermostat\boost_1_61_0\boost\algorithm\string\predicate_facade.hpp
 
+debug\modeModel.obj: ..\Thermostat\modeModel.cpp ../Thermostat/modeModel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\QAbstractTableModel \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvariant.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qglobal.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qconfig.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qfeatures.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtypetraits.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qisenum.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qsysinfo.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlogging.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qflags.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmutex.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qnumeric.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qversiontagging.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_gcc.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv7.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv6.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_armv5.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_ia64.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_x86.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qatomic_unix.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbytearray.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qrefcount.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qnamespace.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qarraydata.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstring.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qchar.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qalgorithms.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qiterator.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qpair.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringlist.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qregexp.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmetatype.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qmap.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qdebug.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qhash.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qtextstream.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qiodevice.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobject.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcoreevent.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qlocale.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qvector.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qpoint.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qset.h \
+		C:\Qt\Qt5.6.1\5.6\msvc2013_64\include\QtCore\qcontiguouscache.h
+
 debug\moc_temperatureWindow.obj: debug\moc_temperatureWindow.cpp 
 
 debug\moc_lumWindow.obj: debug\moc_lumWindow.cpp 
@@ -7926,6 +7862,8 @@ debug\moc_planningmodel.obj: debug\moc_planningmodel.cpp
 debug\moc_roomSelection.obj: debug\moc_roomSelection.cpp 
 
 debug\moc_addEvent.obj: debug\moc_addEvent.cpp 
+
+debug\moc_modeModel.obj: debug\moc_modeModel.cpp 
 
 ####### Install
 

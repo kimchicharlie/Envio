@@ -2,19 +2,27 @@
 #include "mainwindow.h"
 #include "ui_addEvent.h"
 
+#include <QStyledItemDelegate>
+#include <QCompleter>
+
 AddEvent::AddEvent(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddEvent)
 {
     ui->setupUi(this);
+
+//    setStyleSheet(" QComboBox QAbstractItemView { border: 2px solid white; selection-background-color: lightgray; background-color: white; background: white; } QComboBox QAbstractView { border: 2px solid darkgray; selection-background-color: lightgray; background-color: white; background: white; } QComboBox QListView { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #D5D500, stop: 1 #EE00EE); }");
+
     _modeCbBox = ui->modeComboBox;
     _hourSpin = ui->hourStartSpin;
     _minSpin = ui->minStartSpin;
     _durSpin = ui->durationSpin;
     _errorLbl = ui->errorLbl;
-
     QSettings settings("config.ini", QSettings::IniFormat);
     _organisation = settings.value("organisation","config").toString();
+
+    _modeList = new ModeModel(this);
+    _modeCbBox->setModel(_modeList);
 
     //setup network part
     MainWindow *tmp = (MainWindow*)parent->parentWidget();
@@ -119,6 +127,8 @@ void AddEvent::httpFinished()
 
     if(!redirectionTarget.isNull())
         _network->redirectUrl(redirectionTarget, _multiPart);
+
+    _modeList->reset();
 /* {
         const QUrl newUrl = _network->getUrl().resolved(redirectionTarget.toUrl());
         _network->setUrl(newUrl);
@@ -144,12 +154,21 @@ void AddEvent::httpFinished()
             if (m.find(tmp) != m.end() && m.find("_id") != m.end() && m.find("name") != m.end()) {
                 _mapName.insert(std::make_pair(_mapName.size(), m.at("name")));
                 _mapID.insert(std::make_pair(_mapID.size(), m.at("_id")));
-                _modeCbBox->addItem(QString::fromStdString(m.at("name")));
+
+                _modeList->addMode(QString::fromStdString(m.at("name")));
+                //_modeCbBox->addItem(QString::fromStdString(m.at("name")));
                 m.clear();
             }
         }
     }
-
+    QStyledItemDelegate *completerItemDelegate = new QStyledItemDelegate(this);
+    QCompleter *completer = new QCompleter(_modeList);
+    completer->setModel(_modeList);
+    completer->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    completer->setWrapAround(false);
+    completer->popup()->setItemDelegate(completerItemDelegate);
+    _modeCbBox->setCompleter(completer);
 }
 
 void AddEvent::httpFailed(QNetworkReply::NetworkError err) {

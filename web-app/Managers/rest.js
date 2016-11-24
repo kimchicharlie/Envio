@@ -25,6 +25,9 @@ var post = function (url, form, cb) {
         'headers': headers,
         'form': form
     }, function (error, response, body) {
+        console.log("error : ", error)
+        console.log("response : ", response)
+        console.log("body : ", body)
         if (!error && response.statusCode == 200) {
             cb(body);
         }
