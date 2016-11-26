@@ -1,5 +1,5 @@
-var baseURL = "http://localhost:1337/api";
-// var baseURL = "http://137.74.40.245:8081/api";
+// var baseURL = "http://localhost:1337/api";
+var baseURL = "http://137.74.40.245:8081/api";
 
 function HttpPost(API, data, cb){
     $.ajax({
