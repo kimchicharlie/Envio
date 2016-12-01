@@ -21,6 +21,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -42,12 +43,13 @@ namespace EnvioApp
         private Boolean _conf = false;
         private int _index;
         private int changed = 1;
+        TextBlock oldSel = null;
 
         private double _tempVal;
         private int _lumVal;
 
         private DateTime _date;
-        private int calOldIndex;
+        static public ObservableCollection<Planning> modesList { get; set; }
 
         DispatcherTimer timer;
 
@@ -67,7 +69,9 @@ namespace EnvioApp
         private string urlChangeLight = "http://176.31.127.14:1337/api/changeLight";
         private string urlPlanning = "http://176.31.127.14:1337/api/getRoomPlanning";
         private string urlDisco = "http://176.31.127.14:1337/api/logout";        
-        /**/
+        */
+        //        private string url = "http://176.31.127.14:1337/api/getRoom";
+        //        private string url = "http://176.31.127.14:1337/api/getRoom";
         /**/
         private string urlSingleRoom = "http://137.74.40.245:1337/api/getRoom";
         private string urlAllRooms = "http://137.74.40.245:1337/api/getRooms";
@@ -81,8 +85,6 @@ namespace EnvioApp
         {
             this.InitializeComponent();
 
-            //            _roomList = new RoomList();
-            //            _roomList._rooms = new List<Room>();
             rooms = new List<Room>();
             room = new RoomContainer();
 
@@ -92,12 +94,12 @@ namespace EnvioApp
 
             _date = new DateTime();
             _date = DateTime.Today;
-            calOldIndex = 0;
 
             timer = new DispatcherTimer();
             timer.Tick += dispatcherTimer_Tick;
             timer.Interval = new TimeSpan(0, 0, 10); // every 30 seconds
 
+            modesList = new ObservableCollection<Planning>();
             room = null;
         }
 
@@ -129,8 +131,10 @@ namespace EnvioApp
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            await configureRooms();
+            timer.Start();
         }
 
         /// <summary>
@@ -160,10 +164,9 @@ namespace EnvioApp
         /// </summary>
         /// <param name="e">Provides data for navigation methods and event
         /// handlers that cannot cancel the navigation request.</param>
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _user = (UserInfo)e.Parameter;
-            await this.configureRooms();
             timer.Start();
             this.navigationHelper.OnNavigatedTo(e);
         }
@@ -192,62 +195,26 @@ namespace EnvioApp
         {
             if (mainPivot.SelectedIndex == 1)
             {
-                confFirstView();
-                confSecondView();
-                confThirdView();
                 timer.Stop();
             }
             else if (mainPivot.SelectedIndex == 0)
             {
                 timer.Start();
                 if (TempLabel != null)
-                    TempLabel.Text = "Température\t\t" + _tempVal + "°C";
+                    TempLabel.Text = _tempVal + "°C";
                 if (LumLabel != null)
-                    LumLabel.Text = "Luminosité\t\t" + _lumVal + "%";
+                    LumLabel.Text = _lumVal + "%";
             }
-            else
+            else if (mainPivot.SelectedIndex == 3)
+            {
+                UpdateCalendar(_date);
                 timer.Stop();
+            }
+            else timer.Stop();
         }
 
         private void calendarPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // change the selected item of the calendar pivot
-            int newIdex = calendarPivot.SelectedIndex;
-            int tmp;
-            if (newIdex == 2 && calOldIndex == 0)
-                tmp = -1;
-            else if (newIdex == 0 && calOldIndex == 2)
-                tmp = 1;
-            else
-                tmp = newIdex - calOldIndex;
-            calOldIndex = calendarPivot.SelectedIndex;
-            // change the date accordingly
-            _date = _date.AddDays(tmp);
-            Debug.WriteLine("adding: " + tmp + " to date");
-
-            (calendarPivot.SelectedItem as PivotItem).Header = _date.Date.ToString("d"); ;
-            // have to change the title of the items depending of the current's index date
-            if (calOldIndex == 0)
-            {
-                (calendarPivot.Items.ElementAt(1) as PivotItem).Header = _date.AddDays(1).Date.ToString("d");
-                (calendarPivot.Items.ElementAt(2) as PivotItem).Header = _date.AddDays(2).Date.ToString("d");
-            }
-            else if (calOldIndex == 1) {
-                (calendarPivot.Items.ElementAt(2) as PivotItem).Header = _date.AddDays(1).Date.ToString("d");
-                (calendarPivot.Items.ElementAt(0) as PivotItem).Header = _date.AddDays(2).Date.ToString("d");
-            }
-            else {
-                (calendarPivot.Items.ElementAt(0) as PivotItem).Header = _date.AddDays(1).Date.ToString("d");
-                (calendarPivot.Items.ElementAt(1) as PivotItem).Header = _date.AddDays(2).Date.ToString("d");
-            }
-
-            // configure the listBox of the item
-            if (calOldIndex == 0)
-                confFirstView();
-            else if (calOldIndex == 1)
-                confSecondView();
-            else
-                confThirdView();
         }
 
         private async void TempSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
@@ -259,7 +226,9 @@ namespace EnvioApp
                 {
                     _tempVal = e.NewValue;
                     if (TempLabel != null)
-                        TempLabel.Text = "Température\t\t" + _tempVal + "°C";
+                    {
+                        setTempLbl();
+                    }
                     // wait to process the slider change and get the last value
                     await System.Threading.Tasks.Task.Delay(1000); // 1s
                     List<KeyValuePair<string, string>> values = new List<KeyValuePair<string, string>>
@@ -273,7 +242,6 @@ namespace EnvioApp
                     HttpResponseMessage response = await httpClient.PostAsync(urlChangeTemp, new FormUrlEncodedContent(values));
                     response.EnsureSuccessStatusCode();
                     var responseString = await response.Content.ReadAsStringAsync();
-//                    Debug.WriteLine(responseString.ToString());
                 }
             }
             catch
@@ -294,7 +262,7 @@ namespace EnvioApp
                 {
                     _lumVal = (int)e.NewValue;
                     if (LumLabel != null)
-                        LumLabel.Text = "Luminosité\t\t" + _lumVal + "%";
+                        setLumLbl();
                     // wait to process the slider change and get the last value
                     await System.Threading.Tasks.Task.Delay(1000); // 1s
                     List<KeyValuePair<string, string>> values = new List<KeyValuePair<string, string>>
@@ -308,7 +276,6 @@ namespace EnvioApp
                     HttpResponseMessage response = await httpClient.PostAsync(urlChangeLight, new FormUrlEncodedContent(values));
                     response.EnsureSuccessStatusCode();
                     var responseString = await response.Content.ReadAsStringAsync();
-//                    Debug.WriteLine(responseString.ToString());
                 }
             }
             catch
@@ -320,21 +287,41 @@ namespace EnvioApp
             }
         }
 
-        private async Task configureRooms() {
-            // récupérer une salle
+        private void setTempLbl()
+        {
+            TempLabel.Text = _tempVal + "°C";
+            int x = 145 - (byte)((int)(_tempVal) - 16) * 5;
+            byte g = byte.Parse(x.ToString(), System.Globalization.NumberStyles.Integer);
+            TempLabel.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, g, 83));
+        }
+
+        private void setLumLbl()
+        {
+            LumLabel.Text = _lumVal + "%";
+            int x = 55 + (int)(_lumVal) * 2;
+            byte g = byte.Parse(x.ToString(), System.Globalization.NumberStyles.Integer);
+            LumLabel.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, g, g));
+        }
+
+        private async Task configureRooms()
+        {
+            // get alll the rooms
+            Debug.WriteLine("entre dans configureRooms");
             await this.getAllRooms();
+            Debug.WriteLine("sort dans configureRooms");
         }
 
         private async Task getAllRooms()
         {
+            Debug.WriteLine("entre dans le getAllRooms");
             // set the values for the request's body
-            //var values = new List<KeyValuePair<string, string>>
             List<KeyValuePair<string, string>> values = new List<KeyValuePair<string, string>>
                     {
                         new KeyValuePair<string, string>("api_key", "f8c5e1xx5f48e56s4x8"),
                         new KeyValuePair<string, string>("organisation", _user.user.organisation)
                     };
 
+            Debug.WriteLine("list construite");
             try
             {
                 var httpClient = new HttpClient(new HttpClientHandler());
@@ -346,7 +333,8 @@ namespace EnvioApp
                 int ind = responseString.IndexOf("[");
                 responseString += ind;
                 JArray tmp = JArray.Parse(responseString.Substring(ind, responseString.Length - 3 - ind));
-                for (int i = 0; i < tmp.Count; i++) {
+                for (int i = 0; i < tmp.Count; i++)
+                {
                     rooms.Add(JsonConvert.DeserializeObject<Room>(tmp.ElementAt(i).ToString()));
                 }
                 this.comboBox.ItemsSource = rooms;
@@ -365,6 +353,7 @@ namespace EnvioApp
             }
             catch
             {
+                Debug.WriteLine("ALL ROOMS CRASH");
                 // catch an exception if the API gave no response
                 // and display a dialog box
                 MessageDialog msgbox = new MessageDialog("An error has occured. Please try again in a moment.");
@@ -387,21 +376,24 @@ namespace EnvioApp
                 HttpResponseMessage response = await httpClient.PostAsync(urlSingleRoom, new FormUrlEncodedContent(values));
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
-                //                room = JsonConvert.DeserializeObject<RoomContainer>(responseString);
                 RoomContainer tmpRoom = JsonConvert.DeserializeObject<RoomContainer>(responseString);
+                // if the room changed, put changed to 1 in order to notify a new room is set
                 if (room != null && String.Compare(tmpRoom.room._id, room.room._id) != 0)
+                {
                     changed = 1;
+                    _date = DateTime.Today;
+                }
                 room = tmpRoom;
                 //response for signle room
-//                Debug.WriteLine(responseString.ToString());
+                //                Debug.WriteLine(responseString.ToString());
                 TempSlider.Value = Int32.Parse(room.room.temperature);
                 LumSlider.Value = Int32.Parse(room.room.light);
                 _tempVal = TempSlider.Value;
                 _lumVal = (int)LumSlider.Value;
                 if (TempLabel != null)
-                    TempLabel.Text = "Température\t\t" + _tempVal + "°C";
+                    setTempLbl();
                 if (LumLabel != null)
-                    LumLabel.Text = "Luminosité\t\t" + _lumVal + "%";
+                    setLumLbl();
                 _conf = true;
 
                 await getPlanning(index);
@@ -424,24 +416,16 @@ namespace EnvioApp
                         new KeyValuePair<string, string>("roomID", rooms.ElementAt(index)._id),
                     };
 
-            try {
+            try
+            {
                 var httpClient = new HttpClient(new HttpClientHandler());
                 HttpResponseMessage response = await httpClient.PostAsync(urlPlanning, new FormUrlEncodedContent(values));
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine(responseString);
+                //                Debug.WriteLine(responseString);
 
                 // take directly the array of rooms
                 int ind = responseString.IndexOf("[");
-
-                if (changed == 1) {
-                    calendarPivot.SelectedIndex = 0;
-                    _date = DateTime.Today;
-                    (calendarPivot.Items.ElementAt(0) as PivotItem).Header = _date.Date.ToString("d"); ;
-                    (calendarPivot.Items.ElementAt(1) as PivotItem).Header = _date.AddDays(1).Date.ToString("d");
-                    (calendarPivot.Items.ElementAt(2) as PivotItem).Header = _date.AddDays(2).Date.ToString("d");
-                    changed = 0;
-                }
                 if (ind + 1 != responseString.IndexOf("]"))
                 {
                     room.room.planning.Clear();
@@ -452,9 +436,8 @@ namespace EnvioApp
                         room.room.planning.Add(JsonConvert.DeserializeObject<Planning>(tmp.ElementAt(i).ToString()));
                         room.room.planning.ElementAt(i).parseStrings();
                     }
-                    confFirstView();
-                    UpdateCalendar(_date);
                 }
+                UpdateCalendar(_date);
             }
             catch
             {
@@ -467,7 +450,8 @@ namespace EnvioApp
         private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Debug.WriteLine("SelectionChanged: ");
-            try {
+            try
+            {
                 _index = (sender as ComboBox).SelectedIndex;
                 await getSingleRoom(_index);
             }
@@ -479,45 +463,6 @@ namespace EnvioApp
                 await msgbox.ShowAsync();
             }
         }
-
-        static public ObservableCollection<Planning> modesFirstList { get; set; }
-        static public ObservableCollection<Planning> modesSecondList { get; set; }
-        static public ObservableCollection<Planning> modesThirdList { get; set; }
-
-        public void confFirstView()
-        {
-            modesFirstList = new ObservableCollection<Planning>();
-            
-            // get the date and add the modes that match
-            for (int i = 0; i < room.room.planning.Count(); i++)
-            {
-                if (room.room.planning.ElementAt(i).dtStart.Date == _date.Date)
-                    modesFirstList.Add(room.room.planning.ElementAt(i));
-            }
-            ListFirstItem.ItemsSource = modesFirstList;
-        }
-        public void confSecondView()
-        {
-            modesSecondList = new ObservableCollection<Planning>();
-            for (int i = 0; i < room.room.planning.Count(); i++)
-            {
-                if (room.room.planning.ElementAt(i).dtStart.Date == _date.Date)
-                    modesSecondList.Add(room.room.planning.ElementAt(i));
-            }
-            ListSecondItem.ItemsSource = modesSecondList;
-        }
-
-        public void confThirdView()
-        {
-            modesThirdList = new ObservableCollection<Planning>();
-            for (int i = 0; i < room.room.planning.Count(); i++)
-            {
-                if (room.room.planning.ElementAt(i).dtStart.Date == _date.Date)
-                    modesThirdList.Add(room.room.planning.ElementAt(i));
-            }
-            ListThirdItem.ItemsSource = modesThirdList;
-        }
-
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             await Disconnect(e);
@@ -539,7 +484,6 @@ namespace EnvioApp
                 response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
                 _user = null;
-                Debug.WriteLine(responseString);
                 try
                 {
                     Frame.Navigate(typeof(MainPage));
@@ -560,10 +504,20 @@ namespace EnvioApp
 
         public void UpdateCalendar(DateTime objdate)
         {
+            // format the header
             CalendarHeader.Text = objdate.ToString("MMMM yyyy");
             objdate = new DateTime(objdate.Year, objdate.Month, 1);
             int dayOfWeek = (int)objdate.DayOfWeek + 1;
             int daysOfMonth = DateTime.DaysInMonth(objdate.Year, objdate.Month);
+            // remove the image source for each grid
+            foreach (var o1 in Calendar.Children)
+            {
+                foreach (var o2 in (o1 as StackPanel).Children)
+                {
+                    var o4 = (o2 as Grid).Children[1] as Image;
+                    o4.Source = null;
+                }
+            }
             int i = 1;
             foreach (var o1 in Calendar.Children)
             {
@@ -573,38 +527,62 @@ namespace EnvioApp
                     var o4 = (o2 as Grid).Children[1] as Image;
                     if (i >= dayOfWeek && i < (daysOfMonth + dayOfWeek))
                     {
+                        // for each grid, set the day of the month
                         o3.Text = (i - dayOfWeek + 1).ToString();
-
-                        modesThirdList = new ObservableCollection<Planning>();
+                        DateTime tmp = new DateTime(_date.Year, _date.Month, i - dayOfWeek + 1);
                         for (int a = 0; a < room.room.planning.Count(); a++)
                         {
-                            DateTime tmp = new DateTime(_date.Year, objdate.Month, i - dayOfWeek + 1);
-                            if (room.room.planning.ElementAt(i).dtStart.Date == tmp.Date)
+                            // put the img if there is at least one mode for the day
+                            if (room.room.planning.ElementAt(a).dtStart.Date == tmp.Date)
                                 o4.Source = new BitmapImage(new Uri("ms-appx:///Assets/rond-vert-mousse.png"));
                         }
-
-                    }
-                    else
-                    {
-                        o3.Text = "";
+                        if (changed == 1 && tmp.Date == _date.Date)
+                        {
+                            changed = 0;
+                            dispModes(o3, new RoutedEventArgs());
+                        }
                     }
                     i++;
                 }
             }
         }
+
+        // remove one month to the date and update the calendar display
         private void previousMonth(object sender, RoutedEventArgs e)
         {
-//            calendarDate = calendarDate.AddMonths(-1);
-//            UpdateCalendar(calendarDate);
             _date = _date.AddMonths(-1);
+            if (oldSel != null)
+                oldSel.Foreground = new SolidColorBrush(Colors.White);
             UpdateCalendar(_date);
         }
+        // add one month to the date and update the calendar display
         private void nextMonth(object sender, RoutedEventArgs e)
         {
-//            calendarDate = calendarDate.AddMonths(1);
-//            UpdateCalendar(calendarDate);
             _date = _date.AddMonths(1);
+            if (oldSel != null)
+                oldSel.Foreground = new SolidColorBrush(Colors.White);
             UpdateCalendar(_date);
+        }
+
+        private void dispModes(object sender, RoutedEventArgs e)
+        {
+            // change the font color for the old and the new selected textBlock
+            if (oldSel != null)
+                oldSel.Foreground = new SolidColorBrush(Colors.White);
+            TextBlock tmp = sender as TextBlock;
+            tmp.Foreground = new SolidColorBrush(Color.FromArgb(255, 47, 215, 104));
+            modesList = new ObservableCollection<Planning>();
+
+            DateTime toDisp = new DateTime(_date.Year, _date.Month, Int32.Parse(tmp.Text));
+            // display the date followed by "Événements"
+            EventDate.Text = toDisp.Day.ToString() + "/" + (toDisp.Month >= 10 ? toDisp.Month.ToString() : "0"
+                + toDisp.Month.ToString()) + "/" + toDisp.Year.ToString() + " Événements";
+            // get the date and add the modes that match
+            for (int i = 0; i < room.room.planning.Count(); i++)
+                if (room.room.planning.ElementAt(i).dtStart.Date == toDisp)
+                    modesList.Add(room.room.planning.ElementAt(i));
+            ListItems.ItemsSource = modesList;
+            oldSel = tmp;
         }
 
     }

@@ -223,7 +223,6 @@ var Login = React.createClass({
             var rep = jQuery.parseJSON(ret);
             if(rep.error == null){
                 that.props.doLogin(rep);
-                //that.props.doLogin(rep.guid);
             }
             else{
                 that.setState({error : rep.error.message || rep.error});
@@ -295,13 +294,12 @@ var Register = React.createClass({
     },
     render() {
         if(this.state.registered && this.state.registered.error == null){
-                return (
-
-                     <div className="form">
-                         <span className="label-c">Vous etes desormais inscrit !<br>Bienvenue dans l&#39;experience Envio !</br></span>
-                         <br/><button className="button-medium" onClick={this.reloadPage}><i className="fa fa-plug" aria-hidden="true"></i> Se connecter</button>
-                     </div>
-                );
+            return (
+                 <div className="form">
+                     <span className="label-c">Vous etes desormais inscrit !<br>Bienvenue dans l&#39;experience Envio !</br></span>
+                     <br/><button className="button-medium" onClick={this.reloadPage}><i className="fa fa-plug" aria-hidden="true"></i> Se connecter</button>
+                 </div>
+            );
         }
 
         return (
@@ -352,8 +350,10 @@ var App = React.createClass({
     doLogin: function(userId) {
         Cookie.save('userId', userId.guid);
         Cookie.save('organisation', userId.user.organisation);
-        this.setState({userId : userId.guid});
-        this.setState({organisation : userId.user.organisation});
+        this.setState({
+            userId : userId.guid,
+            organisation : userId.user.organisation,
+        });
         this.setRoute('Rooms');
     },
     doLogout: function(event) {
@@ -365,7 +365,6 @@ var App = React.createClass({
             if(rep.error){
                 that.setState({error : rep.error.message || rep.error});
             } else {
-
                 Cookie.remove('userId');
                 Cookie.remove('organisation');
                 that.setState({userId: false});
@@ -379,7 +378,7 @@ var App = React.createClass({
             HttpPost('/getUser', {
                 'guid': that.state.userId,
             }, function(rep) {
-                rep = jQuery.parseJSON(rep);
+                rep = JSON.parse(rep);
                 if (rep.error === null){
                   that.setState({user: rep.user});
                 }

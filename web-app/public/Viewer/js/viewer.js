@@ -1,4 +1,4 @@
-var container;
+var container = null;
 var hasMoved, raycaster, mouse, camera, scene, renderer, plane, INTERSECTED = null,
 	objects = [];
 var GUIObject = null;
@@ -12,8 +12,8 @@ var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function viewer()
 {
-	init();
-	animate();
+		init();
+		animate();
 }
 
 function init() {
@@ -63,9 +63,9 @@ function init() {
 	// Renderer
 
 	if ( Detector.webgl ) {
-	    renderer = new THREE.WebGLRenderer({antialias:true}); 
+		renderer = new THREE.WebGLRenderer({antialias:true}); 
 	} else { 
-	    renderer = new THREE.CanvasRenderer();
+		renderer = new THREE.CanvasRenderer();
 	} 
 	renderer.setClearColor( 0xf0f0f0 );
 	renderer.setPixelRatio( window.devicePixelRatio );
@@ -81,8 +81,6 @@ function init() {
 	// Adding controls
 
 	$("canvas").parent().attr("id", "container");	
-	$("#container")
-		.append($('<div><p id="name">--</p></div>'));
 }
 
 function loadRoomFromDatabase (id)
@@ -93,15 +91,16 @@ function loadRoomFromDatabase (id)
 		roomID: id
 	};
 	$.ajax({
-	    type:    "POST",
-	    url:     MAIN_URL + "/api/getRoom/",
-	    data:    data,
-	    success: function(text) {
-	    	var parsed = $.parseJSON(text["room"]["data"]);
-	    	addRoom(parsed["size"], parsed["position"], text["room"]);
-	    },
-	    error:   function(error) {
-	    }
+		type:    "POST",
+		url:     MAIN_URL + "/api/getRoom/",
+		data:    data,
+		success: function(text) {
+			var parsed = $.parseJSON(text["room"]["data"]);
+			if (parsed)
+				addRoom(parsed["size"], parsed["position"], text["room"]);
+		},
+		error:   function(error) {
+		}
 	});
 }
 
@@ -112,19 +111,19 @@ function loadRoomsFromDatabase ()
 		organisation: 'Envio',
 	};
 	$.ajax({
-	    type:    "POST",
-	    url:     MAIN_URL + "/api/getRooms/",
-	    data:    data,
-	    success: function(text) {
-	    	for (var key in text["rooms"]) {
+		type:    "POST",
+		url:     MAIN_URL + "/api/getRooms/",
+		data:    data,
+		success: function(text) {
+			for (var key in text["rooms"]) {
 				if (text["rooms"].hasOwnProperty(key)) {
-    				loadRoomFromDatabase(text["rooms"][key]._id);
-  				}
+					loadRoomFromDatabase(text["rooms"][key]._id);
+				}
 			}
-	    },
-	    error:   function() {
-	        // An error occurred
-	    }
+		},
+		error:   function() {
+			// An error occurred
+		}
 	});
 }
 
@@ -262,6 +261,7 @@ function onMouseDown (event) {
 	INTERSECTED = intersects[intersects.length -1];
 	mouseDownPos = INTERSECTED.point;
 
+	scene.remove(infoSpritey);
 	// On room click, display its informations
 	if (INTERSECTED && intersects.length > 1) {
 		var intersects = raycaster.intersectObjects ( objects );
@@ -275,10 +275,8 @@ function onMouseUp (event) {
 	INTERSECTED = null;
 }
 
+var infoSpritey = null;
 function displayInfo (object) {
-	if (object.info)
-		$("#name").text(object.info.name);
-
 	// Retrieving room's info from database
 	var data = {
 		api_key: API_KEY,
@@ -287,13 +285,16 @@ function displayInfo (object) {
 	};
 
 	$.ajax({
-	    type:   "POST",
-	    data: 	data,
-	    url:     MAIN_URL + "/api/getRoom",
-	    success: function(text) {
-			$("#name").text(object.info.name + " -- Température actuelle : " + text["room"]["realTemperature"] + "°C -- Température paramétrée : " + text["room"]["temperature"] + "°C -- Luminosité ambiante : " + text["room"]["light"] + "%");
-
-	    }
+		type:   "POST",
+		data: 	data,
+		url:     MAIN_URL + "/api/getRoom",
+		success: function(text) {
+			if (object.info) {
+				infoSpritey = makeTextSprite(" " + object.info.name + " \n T°C : " + text["room"]["realTemperature"] + "°C \n Lumi: " + text["room"]["light"] + "% ", { fontsize: 32, backgroundColor: {r:240, g:240, b:240, a:1} });
+				infoSpritey.position.set(object.position.x + 20, object.position.y + 50, object.position.z + 20);
+				scene.add(infoSpritey);
+			}
+		}
 	});	
 }
 
@@ -337,17 +338,16 @@ function makeTextSprite( message, parameters )
 	
 	var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
 		parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
-
-	//var spriteAlignment = parameters.hasOwnProperty("alignment") ?
-	//	parameters["alignment"] : THREE.SpriteAlignment.topLeft;
 		
 
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
 	context.font = "Bold " + fontsize + "px " + fontface;
-    
+	
 	// get size data (height depends only on font size)
-	var metrics = context.measureText( message );
+	var split = message.split('\n');
+	var longestLine = split.sort(function (a, b) { return b.length - a.length; })[0];
+	var metrics = context.measureText( longestLine );
 	var textWidth = metrics.width;
 	
 	// background color
@@ -358,13 +358,16 @@ function makeTextSprite( message, parameters )
 								  + borderColor.b + "," + borderColor.a + ")";
 
 	context.lineWidth = borderThickness;
-	roundRect(context, borderThickness/2, borderThickness/2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+	roundRect(context, borderThickness/2, borderThickness/2, textWidth + borderThickness, (fontsize + 10) * split.length  + borderThickness, 6);
 	// 1.4 is extra height factor for text below baseline: g,j,p,q.
 	
 	// text color
 	context.fillStyle = "rgba(0, 0, 0, 1.0)";
 
-	context.fillText( message, borderThickness, fontsize + borderThickness);
+	var split = message.split('\n');
+	for (var i = 0; i < split.length; i++) {
+		context.fillText( split[i], borderThickness, (fontsize + borderThickness) * (i + 1) );
+	}
 	
 	// canvas contents will be used for a texture
 	var texture = new THREE.Texture(canvas) 
@@ -378,19 +381,19 @@ function makeTextSprite( message, parameters )
 	return sprite;	
 }
 
-function roundRect(ctx, x, y, w, h, r) 
+function roundRect(ctx, x, y, w, h, r)
 {
-    ctx.beginPath();
-    ctx.moveTo(x+r, y);
-    ctx.lineTo(x+w-r, y);
-    ctx.quadraticCurveTo(x+w, y, x+w, y+r);
-    ctx.lineTo(x+w, y+h-r);
-    ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
-    ctx.lineTo(x+r, y+h);
-    ctx.quadraticCurveTo(x, y+h, x, y+h-r);
-    ctx.lineTo(x, y+r);
-    ctx.quadraticCurveTo(x, y, x+r, y);
-    ctx.closePath();
-    ctx.fill();
+	ctx.beginPath();
+	ctx.moveTo(x+r, y);
+	ctx.lineTo(x+w-r, y);
+	ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+	ctx.lineTo(x+w, y+h-r);
+	ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+	ctx.lineTo(x+r, y+h);
+	ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+	ctx.lineTo(x, y+r);
+	ctx.quadraticCurveTo(x, y, x+r, y);
+	ctx.closePath();
+	ctx.fill();
 	ctx.stroke();   
 }

@@ -5,7 +5,6 @@ var Modal = require('react-modal');
 var Select = require('react-select');
 var utils = require('../../utils');
 
-console.log(utils)
 var modalStyles = {overlay: {zIndex: 10}};
 
 function findLabelByValue(list, value, reverse){

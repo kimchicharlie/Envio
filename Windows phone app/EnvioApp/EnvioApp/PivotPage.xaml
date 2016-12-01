@@ -6,304 +6,488 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#232123">
+    <!-- Pivot Template -->
+    <Page.Resources>
+        <SolidColorBrush x:Key="PivotBackground" Color="#2FCC73"/>
 
-    <Pivot x:Name="mainPivot">
+        <Thickness x:Key="PivotPortraitThemePadding">19,38,0,0</Thickness>
+        <Thickness x:Key="PivotLandscapeThemePadding">19,25,0,0</Thickness>
+        <Style x:Key="PivotStyle1" TargetType="Pivot">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Pivot">
+                        <Grid x:Name="RootElement" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <!--Notice that ContentControl is wrapped in a Grid and Background set to resource furtehr up-->
+                            <Grid VerticalAlignment="Center" Background="{StaticResource PivotBackground}">
+                                <ContentControl x:Name="TitleContentControl" ContentTemplate="{TemplateBinding TitleTemplate}" Content="{TemplateBinding Title}" Style="{StaticResource PivotTitleContentControlStyle}"/>
+                            </Grid>
+                            <ScrollViewer x:Name="ScrollViewer" HorizontalSnapPointsAlignment="Center" HorizontalSnapPointsType="MandatorySingle" HorizontalScrollBarVisibility="Hidden" Margin="{TemplateBinding Padding}" Grid.Row="1" Template="{StaticResource ScrollViewerScrollBarlessTemplate}" VerticalSnapPointsType="None" VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" VerticalContentAlignment="Stretch" ZoomMode="Disabled">
+                                <PivotPanel x:Name="Panel" VerticalAlignment="Stretch">
+                                    <!--Background set to resource further up-->
+                                    <PivotHeaderPanel Background="{StaticResource PivotBackground}" x:Name="Header" >
+                                        <PivotHeaderPanel.RenderTransform>
+                                            <CompositeTransform x:Name="HeaderTranslateTransform" TranslateX="0"/>
+                                        </PivotHeaderPanel.RenderTransform>
+                                    </PivotHeaderPanel>
+                                    <ItemsPresenter x:Name="PivotItemPresenter">
+                                        <ItemsPresenter.RenderTransform>
+                                            <TranslateTransform x:Name="ItemsPresenterTranslateTransform" X="0"/>
+                                        </ItemsPresenter.RenderTransform>
+                                    </ItemsPresenter>
+                                </PivotPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Pivot Template End-->
+
+        <Style x:Key="TempSlid" TargetType="Slider">
+            <!-- slider core-->
+            <Setter Property="Background" Value="#FF5B54"/>
+            <!--
+            gradient:
+            FF8754
+            FF6F56
+            FF5B54
+            -->
+            <!-- slider border -->
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.Resources>
+                                <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <!-- thumb border -->
+                                    <Setter Property="BorderBrush" Value="#FF6406"/>
+                                    <!-- thumb core -->
+                                    <Setter Property="Foreground" Value="#FF6406"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Ellipse StrokeThickness="2" Stroke="{TemplateBinding BorderBrush}" Fill="{TemplateBinding Foreground}"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="SliderContainer" Background="Transparent" Grid.Row="1">
+                                <Grid x:Name="HorizontalTemplate">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="17"/>
+                                    </Grid.RowDefinitions>
+                                    <!-- ligne de fond (orange) Fill="{TemplateBinding Background}" -->
+                                    <Rectangle x:Name="HorizontalTrackRect" Grid.ColumnSpan="3" Fill="#FF6406" Grid.Row="1" Height="2" RadiusX="5" RadiusY="5"/>
+                                    <Rectangle x:Name="HorizontalDecreaseRect"  Margin="0,0,-2,0" Grid.Row="1" Height="7" RadiusX="5" RadiusY="5">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="200,0" MappingMode="Absolute">
+                                                <GradientStop Color="#FF9153" Offset="0"/>
+                                                <GradientStop Color="#FF4B53" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <Rectangle x:Name="HorizontalBorder" Grid.ColumnSpan="3" Grid.Row="1" Stroke="{TemplateBinding BorderBrush}"
+                                StrokeThickness="{TemplateBinding BorderThickness}" Height="10" RadiusX="5" RadiusY="5"/>
+                                    <Thumb x:Name="HorizontalThumb" AutomationProperties.AccessibilityView="Raw" Background="{ThemeResource SliderThumbBackgroundThemeBrush}"
+                                Grid.Column="1" DataContext="{TemplateBinding Value}" Grid.Row="1" Style="{StaticResource SliderThumbStyle}" Height="15" Width="15"/>
+                                </Grid>
+                                <Grid x:Name="VerticalTemplate" Visibility="Collapsed">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="17"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="17"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle x:Name="VerticalTrackRect" Grid.Column="1" Fill="{TemplateBinding Background}" Grid.RowSpan="3" Width="10" RadiusX="5" RadiusY="5"/>
+                                    <Rectangle x:Name="VerticalDecreaseRect" Grid.Column="1" Fill="{TemplateBinding Background}" Grid.Row="2"/>
+                                    <Rectangle x:Name="VerticalBorder" Grid.RowSpan="3" Grid.Column="1"  Stroke="{TemplateBinding BorderBrush}"
+                                StrokeThickness="{TemplateBinding BorderThickness}" Width="10" RadiusX="5" RadiusY="5" />
+                                    <Thumb x:Name="VerticalThumb" AutomationProperties.AccessibilityView="Raw" Background="{ThemeResource SliderThumbBackgroundThemeBrush}"
+                                Grid.Column="1" DataContext="{TemplateBinding Value}" Grid.Row="1" Style="{StaticResource SliderThumbStyle}" Height="5" Width="15"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <!-- Luminosity slider style-->
+        <Style x:Key="LumSlid" TargetType="Slider">
+            <!-- slider core-->
+            <Setter Property="Background" Value="#015457"/>
+            <!-- slider border -->
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.Resources>
+                                <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <!-- thumb border -->
+                                    <Setter Property="BorderBrush" Value="#028C8E"/>
+                                    <!-- thumb core -->
+                                    <Setter Property="Foreground" Value="#028C8E"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Ellipse StrokeThickness="2" Stroke="{TemplateBinding BorderBrush}" Fill="{TemplateBinding Foreground}"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="SliderContainer" Background="Transparent" Grid.Row="1">
+                                <Grid x:Name="HorizontalTemplate">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="17"/>
+                                    </Grid.RowDefinitions>
+                                    <!-- ligne de fond -->
+                                    <Rectangle x:Name="HorizontalTrackRect" Grid.ColumnSpan="3" Fill="#1D797B" Grid.Row="1" Height="2" RadiusX="5" RadiusY="5"/>
+                                    <Rectangle x:Name="HorizontalDecreaseRect"  Margin="0,0,-2,0" Grid.Row="1" Height="7" RadiusX="5" RadiusY="5">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="200,0" MappingMode="Absolute">
+                                                <GradientStop Color="#003737" Offset="0"/>
+                                                <GradientStop Color="#00cccc" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <Rectangle x:Name="HorizontalBorder" Grid.ColumnSpan="3" Grid.Row="1" Stroke="{TemplateBinding BorderBrush}"
+                                StrokeThickness="{TemplateBinding BorderThickness}" Height="10" RadiusX="5" RadiusY="5"/>
+                                    <Thumb x:Name="HorizontalThumb" AutomationProperties.AccessibilityView="Raw" Background="{ThemeResource SliderThumbBackgroundThemeBrush}"
+                                Grid.Column="1" DataContext="{TemplateBinding Value}" Grid.Row="1" Style="{StaticResource SliderThumbStyle}" Height="15" Width="15"/>
+                                </Grid>
+                                <Grid x:Name="VerticalTemplate" Visibility="Collapsed">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="17"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="17"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle x:Name="VerticalTrackRect" Grid.Column="1" Fill="{TemplateBinding Background}" Grid.RowSpan="3" Width="10" RadiusX="5" RadiusY="5"/>
+                                    <Rectangle x:Name="VerticalDecreaseRect" Grid.Column="1" Fill="{TemplateBinding Background}" Grid.Row="2"/>
+                                    <Rectangle x:Name="VerticalBorder" Grid.RowSpan="3" Grid.Column="1"  Stroke="{TemplateBinding BorderBrush}"
+                                StrokeThickness="{TemplateBinding BorderThickness}" Width="10" RadiusX="5" RadiusY="5" />
+                                    <Thumb x:Name="VerticalThumb" AutomationProperties.AccessibilityView="Raw" Background="{ThemeResource SliderThumbBackgroundThemeBrush}"
+                                Grid.Column="1" DataContext="{TemplateBinding Value}" Grid.Row="1" Style="{StaticResource SliderThumbStyle}" Height="5" Width="15"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Pivot x:Name="mainPivot" Style="{StaticResource PivotStyle1}">
         <PivotItem Header="Accueil">
-            <Grid x:Name="ContentPanel" Margin="12,0,12,23" Grid.RowSpan="2">
+            <Grid x:Name="ContentPanel" Margin="12,-10,12,23" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.ColumnSpan="2" Margin="0,43,-0.167,-43">
-                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="0,-10,-0.5,0" VerticalAlignment="Top" Width="338" PlaceholderText="" SelectedIndex="-1" SelectionChanged="comboBox_SelectionChanged"/>
-                    <TextBlock x:Name ="TempLabel"  Foreground="#d9534f" Text="Température                      20°C"  Margin="12,15,11.833,0" Height="30" FontSize="22" FontWeight="Bold"/>
-                    <Slider x:Name="TempSlider" Minimum="16" Maximum="30" Margin="12,0" Background="{x:Null}" Value="20" ValueChanged="TempSlider_ValueChanged">
-                        <Slider.Foreground>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFFF8F20" Offset="0"/>
-                                <GradientStop Color="#FFFF2020" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Slider.Foreground>
+                <StackPanel Grid.ColumnSpan="2" Margin="0,10,-0.5,0">
+                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="0,-20,-0.5,0" VerticalAlignment="Top" Width="338" PlaceholderText="" SelectedIndex="-1" SelectionChanged="comboBox_SelectionChanged" BorderBrush="Transparent" RequestedTheme="Dark" FontWeight="Bold" FontSize="24" Foreground="White"/>
+                    <TextBlock x:Name ="TempLbl"  Text="Température :"  Margin="12,20,11.833,15" Height="30" FontSize="22" FontWeight="Bold"/>
+                    <TextBlock x:Name ="TempLabel" TextAlignment="Center" Foreground="#FF6F56" Text="20°C"  Margin="12,10,12,15" Height="100" FontSize="80" FontWeight="Bold"/>
+                    <Slider x:Name="TempSlider" Minimum="16" Maximum="30" Margin="12,0" Style="{StaticResource TempSlid}" Value="20" ValueChanged="TempSlider_ValueChanged" />
+                    <TextBlock x:Name ="LumLbl" Text="Luminosité :"  Margin="12,20,11.833,15" FontSize="22" FontWeight="Bold"/>
+                    <TextBlock x:Name ="LumLabel" TextAlignment="Center" Text="50%"  Margin="12,10,12,15" Foreground="#02B7B9" Height="100" FontSize="80" FontWeight="Bold"/>
+                    <Slider x:Name="LumSlider" Minimum="0" Maximum="90" Margin="12,0" Style="{StaticResource LumSlid}" Value="50" ValueChanged="LumSlider_ValueChanged" Foreground="White">
                     </Slider>
-                    <TextBlock x:Name ="LumLabel" Text="Luminosité                         50%"  Margin="12,0,11.833,0" FontSize="22" Foreground="#FF286090" FontWeight="Bold"/>
-                    <Slider x:Name="LumSlider" Minimum="0" Maximum="90" Margin="12,0" Background="{x:Null}" Value="50" ValueChanged="LumSlider_ValueChanged">
-                        <Slider.Foreground>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FF008C8C" Offset="0"/>
-                                <GradientStop Color="#FF00CCCC" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Slider.Foreground>
-                    </Slider>
-
                 </StackPanel>
             </Grid>
         </PivotItem>
-        <PivotItem  x:Name="calPivot" Header="Planning">
-            <Pivot x:Name="calendarPivot" SelectionChanged="calendarPivot_SelectionChanged">
-                <Pivot.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" FontSize="26"/>
-                    </DataTemplate>
-                </Pivot.HeaderTemplate>
-                <PivotItem x:Name="firstItem" Header="" FontSize="18">
-                    <ListView x:Name="ListFirstItem" ItemsSource="{Binding modesFirstList}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Height="100">
-                                    <TextBlock Text="{Binding formatted}" FontSize="18"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </PivotItem>
-                <PivotItem x:Name="secondItem" Header="" FontSize="18">
-                    <ListView x:Name="ListSecondItem" ItemsSource="{Binding modesSecondList}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Height="100">
-                                    <TextBlock Text="{Binding formatted}" FontSize="18"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </PivotItem>
-                <PivotItem x:Name="thirdItem" Header="" FontSize="18">
-                    <ListView x:Name="ListThirdItem" ItemsSource="{Binding modesThirdList}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Height="100">
-                                    <TextBlock Text="{Binding formatted}" FontSize="18"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </PivotItem>
-            </Pivot>
-        </PivotItem>
-        <PivotItem Header="Credit">
-            <StackPanel Grid.ColumnSpan="2" Margin="0,0,0,10">
-                <Button HorizontalAlignment="Center" Content="Deconnection" Click="Button_Click"/>
-            </StackPanel>
-        </PivotItem>
-        <PivotItem Header="Planning V2">
-            <StackPanel x:Name="ContentPanel2" Grid.Row="1" Margin="10,0,14,231">
-                <StackPanel HorizontalAlignment="Center" Background="#FF575757">
+        <PivotItem Header="Planning">
+            <StackPanel x:Name="ContentPanel2" Grid.Row="1" Margin="0,0,0,10" Width="362">
+                <StackPanel HorizontalAlignment="Center" Margin="1,0,0,-10" Width="361">
                     <StackPanel>
                         <Grid>
-                            <Button Content="-" BorderBrush="{x:Null}" HorizontalAlignment="Left" Click="previousMonth" />
-                            <TextBlock Name="CalendarHeader" Text="October 2015" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="ExtraLight" FontSize="26" />
-                            <Button Content="+" BorderBrush="{x:Null}" HorizontalAlignment="Right" Click="nextMonth" />
+                            <Button Content="-" BorderBrush="{x:Null}" HorizontalAlignment="Left" Click="previousMonth" FontWeight="Bold" FontSize="22" Width="93" />
+                            <TextBlock Name="CalendarHeader" Text="October 2015" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="26" FontWeight="Bold" />
+                            <Button Content="+" BorderBrush="{x:Null}" HorizontalAlignment="Right" Click="nextMonth" FontWeight="Bold" FontSize="22" />
                         </Grid>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Grid Width="50" Height="50" Background="#FF363636">
-                            <TextBlock Text="S" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" Margin="0,-5,0,0">
+                        <Grid Width="52" Height="40" Background="#FF363636">
+                            <TextBlock Text="S" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
                         </Grid>
-                        <Grid Width="50" Height="50" Background="#FF363636">
-                            <TextBlock Text="M" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Width="52" Height="40" Background="#FF363636">
+                            <TextBlock Text="M" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
                         </Grid>
-                        <Grid Width="50" Height="50" Background="#FF363636">
-                            <TextBlock Text="T" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Width="52" Height="40" Background="#FF363636">
+                            <TextBlock Text="T" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
                         </Grid>
-                        <Grid Width="50" Height="50" Background="#FF363636">
-                            <TextBlock Text="W" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Width="52" Height="40" Background="#FF363636">
+                            <TextBlock Text="W" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
                         </Grid>
-                        <Grid Width="50" Height="50" Background="#FF363636">
-                            <TextBlock Text="T" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Width="52" Height="40" Background="#FF363636">
+                            <TextBlock Text="T" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
                         </Grid>
-                        <Grid Width="50" Height="50" Background="#FF363636">
-                            <TextBlock Text="F" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Width="52" Height="40" Background="#FF363636">
+                            <TextBlock Text="F" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
                         </Grid>
-                        <Grid Width="50" Height="50" Background="#FF363636">
-                            <TextBlock Text="S" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Grid Width="52" Height="40" Background="#FF363636">
+                            <TextBlock Text="S" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" />
                         </Grid>
                     </StackPanel>
                     <StackPanel Name="Calendar" Margin="0, 0, 0, 5">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
-                            </Grid>
-                            <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                             <Grid Width="50" Height="30">
-                                <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
+                                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
+                            </Grid>
+                            <Grid Width="50" Height="30">
+                                <TextBlock Text="" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Tapped="dispModes"/>
                                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="10" Height="10"/>
                             </Grid>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
+                <TextBlock x:Name="EventDate"  Text="Événements" Margin="10,15,0,0" FontSize="30"/>
+                <Border HorizontalAlignment="Center" Width="350" BorderThickness="1" BorderBrush="White"/>
+                <ScrollViewer Margin="0,5,0,0"  Height="150" Background="Transparent" VerticalScrollMode="Enabled">
+                    <ListView Height="160" x:Name="ListItems" ItemsSource="{Binding modesList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Height="55" Margin="0,0,0,0">
+                                    <TextBlock Text="{Binding formatted}" FontSize="18"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
             </StackPanel>
         </PivotItem>
-
+        <PivotItem Header="Credits">
+            <StackPanel Grid.ColumnSpan="2" Margin="0,0,0,10">
+                <Button Background="#2FCC73" HorizontalAlignment="Center" Content="Deconnection" Click="Button_Click" Height="96" Width="182" FontSize="24"/>
+                <Border Margin="0, 10,0,0" HorizontalAlignment="Center" Width="350" BorderThickness="1" BorderBrush="White"/>
+                <Image x:Name="logo" Source="/Assets/ic_launcher.png" VerticalAlignment="Center" HorizontalAlignment="Center" Height="103" Margin="120,0,132.667,0" IsHitTestVisible="False" Width="109" />
+                <TextBlock Margin="0, 10,0,0" HorizontalAlignment="Center" Text="Ce projet a été réalisé avec" FontSize="24"/>
+                <TextBlock HorizontalAlignment="Center" Text="soin par l'équipe Envio" FontSize="24"/>
+                <TextBlock Margin="0, 15,0,0" HorizontalAlignment="Left" Text="Contributions :" FontSize="24"/>
+                <TextBlock Margin="0, 15,0,0" HorizontalAlignment="Center" Text="Charlie Hénin" FontSize="24"/>
+                <TextBlock HorizontalAlignment="Center" Text="Simon Torradou" FontSize="24"/>
+                <TextBlock HorizontalAlignment="Center" Text="Gaetan Flament" FontSize="24"/>
+                <TextBlock HorizontalAlignment="Center" Text="Ilyes Abd-Lillah" FontSize="24"/>
+                <TextBlock HorizontalAlignment="Center" Text="Joseph Demirdji" FontSize="24"/>
+                <TextBlock HorizontalAlignment="Center" Text="Pierre Hennebois" FontSize="24"/>
+            </StackPanel>
+        </PivotItem>
     </Pivot>
 </Page>

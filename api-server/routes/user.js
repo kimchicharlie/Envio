@@ -108,5 +108,50 @@ exports.routes = [
                 res.send(rep);
             });
         }
-    }
+    },
+    {
+        "path": "/updateUser",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            userManager.updateUser({
+                'userId': req.body.userId,
+                'email': req.body.email,
+                'firstname': req.body.firstname,
+                'lastname': req.body.lastname,
+                'organisation': req.body.organisation,
+                'password': req.body.password,
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
+        "path": "/deleteUser",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+        handler: function (req, res)
+        {
+            userManager.deleteUser({
+                'userId': req.body.userId,
+            }, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
+    {
+        "path": "/getUsersAdmin",
+        "method": "post",
+        "middlewares": [multipartMiddleware, middlewareManager.checkKey, middlewareManager.checkAdmin],
+        handler: function (req, res)
+        {
+            userManager.getUsersAdmin({}, function (rep)
+            {
+                res.send(rep);
+            });
+        }
+    },
 ];
