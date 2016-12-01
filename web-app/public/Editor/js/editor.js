@@ -37,8 +37,8 @@ function editor_init() {
 	editor_camera.position.z = 0;
 
 	if (editor_scene) {
+	    while (editor_scene.lastChild) editor_scene.removeChild(editor_scene.lastChild);
 		editor_scene = null;
-
 	}
 	editor_scene = new THREE.Scene();
 
@@ -126,12 +126,15 @@ function editor_saveChanges() {
 }
 
 function editor_applyChanges() {
+	editor_selected.scale.y = parseFloat($("#height").val());
+	editor_selected.scale.x = parseFloat($("#width").val());
 	editor_selected.geometry.dynamic = true;
-	editor_selected.geometry.parameters.width = parseInt($("#height").val());
-	editor_selected.geometry.parameters.height = parseInt($("#width").val());
+/*	editor_selected.geometry.parameters.width = parseInt($("#height").val());
+	editor_selected.geometry.parameters.height = parseInt($("#width").val());*/
 	editor_selected.position.z = -parseInt($("#posX").val());
 	editor_selected.position.x = -parseInt($("#posY").val());
 	editor_selected.geometry.verticesNeedUpdate = true;
+	editor_render();
 }
 
 var editor_unplacedRooms;
@@ -336,16 +339,16 @@ function editor_displayInfo (object) {
 	} else {
 		if (object.info)
 			$("#name").text(object.info.name);
-		$("#height").val(object.geometry.parameters.width);
-		$("#width").val(object.geometry.parameters.height);
+		$("#height").val(object.scale.y);
+		$("#width").val(object.scale.x);
 		$("#posX").val(-object.position.z);
 		$("#posY").val(-object.position.x);
 	}
 }
 
 function editor_animate() {
-	editor_render();
 	requestAnimationFrame( editor_animate );
+	editor_render();
 }
 
 function editor_render(t) {
