@@ -1,5 +1,6 @@
 var editor_container;
 var editor_selected;
+var editor_id = null;
 var editor_hasMoved, editor_raycaster, editor_mouse, editor_camera, editor_scene, editor_renderer, editor_plane, editor_INTERSECTED = null,
 	editor_objects = [];
 var editor_lookAtPos = new THREE.Object3D();
@@ -16,6 +17,10 @@ function editor()
 }
 
 function editor_clean() {
+	if (editor_id) {
+		cancelAnimationFrame(editor_id);
+		editor_id = undefined;
+	}
 	if (editor_renderer)
 	    editor_renderer.domElement.addEventListener('dblclick', null, false); //remove listener to render
 	if (editor_scene)
@@ -358,7 +363,7 @@ function editor_displayInfo (object) {
 }
 
 function editor_animate() {
-	requestAnimationFrame( editor_animate );
+	editor_id = requestAnimationFrame( editor_animate );
 	editor_render();
 }
 

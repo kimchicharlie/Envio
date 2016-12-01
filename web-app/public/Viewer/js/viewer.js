@@ -1,4 +1,5 @@
 var container = null;
+var requetsId = undefined;
 var hasMoved, raycaster, mouse, camera, scene, renderer, plane, INTERSECTED = null,
 	objects = [];
 var GUIObject = null;
@@ -16,6 +17,10 @@ function viewer()
 }
 
 function clean() {
+	if (requestId) {
+		cancelAnimationFrame(render, canvas);
+		requestId = undefined;
+	}
 	if (renderer)
 	    renderer.domElement.addEventListener('dblclick', null, false); //remove listener to render
 	if (scene)
@@ -310,7 +315,7 @@ function displayInfo (object) {
 
 function animate() {
 
-	requestAnimationFrame( animate );
+	requestId = requestAnimationFrame( animate );
 
 	render();
 
