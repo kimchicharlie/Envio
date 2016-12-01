@@ -11,7 +11,6 @@ var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function viewer()
 {
-	clean();
 	init();
 	animate();
 }
