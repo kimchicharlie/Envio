@@ -11,8 +11,20 @@ var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function editor()
 {
-		editor_init();
+	editor_clean();
+	editor_init();
 	editor_animate();
+}
+
+function editor_clean() {
+	if (editor_renderer)
+	    editor_renderer.domElement.addEventListener('dblclick', null, false); //remove listener to render
+	if (editor_scene)
+	for (var i = 0; i < editor_scene.children.length; i++) {
+		delete editor_scene.children[i];
+	}
+    editor_scene = null;
+    editor_camera = null;
 }
 
 function editor_init() {

@@ -11,8 +11,20 @@ var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function viewer()
 {
-		init();
-		animate();
+	clean();
+	init();
+	animate();
+}
+
+function clean() {
+	if (renderer)
+	    renderer.domElement.addEventListener('dblclick', null, false); //remove listener to render
+	if (scene)
+	for (var i = 0; i < scene.children.length; i++) {
+		delete scene.children[i];
+	}
+    scene = null;
+    camera = null;
 }
 
 function init() {
