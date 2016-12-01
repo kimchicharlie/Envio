@@ -6,8 +6,7 @@ var editor_lookAtPos = new THREE.Object3D();
 var editor_mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
-var MAIN_URL = "http://localhost:1337";
-//var MAIN_URL = "http://137.74.40.245:8081";
+var MAIN_URL = "http://137.74.40.245:1337";
 var API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function editor()
@@ -37,6 +36,10 @@ function editor_init() {
 	editor_camera.position.y = 200;
 	editor_camera.position.z = 0;
 
+	if (editor_scene) {
+		editor_scene = null;
+
+	}
 	editor_scene = new THREE.Scene();
 
 	editor_loadRoomsFromDatabase();
@@ -90,10 +93,10 @@ function editor_init() {
 	$("editor_canvas").parent().attr("id", "containerEditor");	
 	$("#containerEditor")
 		.append($('<div><p id="name">--</p></div><br/>'))
-		.append($('<label for="height">Largeur :</label><input type="number" onchange="editor_applyChanges()" id="height" value="0"></input><br/>'))
-		.append($('<label for="width">Longueur :</label><input type="number" onchange="editor_applyChanges()" id="width" value="0"></input><br/>'))
-		.append($('<label for="posX">Position X :</label><input type="number" onchange="editor_applyChanges()" id="posX" value="0"></input><br/>'))
-		.append($('<label for="posY">Position Y :</label><input type="number" onchange="editor_applyChanges()" id="posY" value="0"></input><br/>'))
+		.append($('<label for="height">Largeur :</label><input type="number" onchange="editor_applyChanges()" onblur="editor_applyChanges()" id="height" value="0"></input><br/>'))
+		.append($('<label for="width">Longueur :</label><input type="number" onchange="editor_applyChanges()" onblur="editor_applyChanges()" id="width" value="0"></input><br/>'))
+		.append($('<label for="posX">Position X :</label><input type="number" onchange="editor_applyChanges()" onblur="editor_applyChanges()" id="posX" value="0"></input><br/>'))
+		.append($('<label for="posY">Position Y :</label><input type="number" onchange="editor_applyChanges()" onblur="editor_applyChanges()" id="posY" value="0"></input><br/>'))
 		.append($('<button id="saveChanges" onclick="editor_saveChanges()">Enregistrer</button>'));
 }
 
@@ -123,10 +126,12 @@ function editor_saveChanges() {
 }
 
 function editor_applyChanges() {
+	editor_selected.geometry.dynamic = true;
 	editor_selected.geometry.parameters.width = parseInt($("#height").val());
 	editor_selected.geometry.parameters.height = parseInt($("#width").val());
 	editor_selected.position.z = -parseInt($("#posX").val());
 	editor_selected.position.x = -parseInt($("#posY").val());
+	editor_selected.geometry.verticesNeedUpdate = true;
 }
 
 var editor_unplacedRooms;
@@ -220,6 +225,8 @@ function editor_addRoom (size, position, infos) {
 	ground.position.z = position.z;
 	ground.rotation.x = -90 * (Math.PI/180);
 	ground.info = infos;
+	ground.geometry.dynamic = true;
+	ground.geometry.verticesNeedUpdate = true;
 	parent.add( ground );
 	editor_scene.add( ground );
 
