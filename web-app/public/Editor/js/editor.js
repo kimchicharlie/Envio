@@ -40,7 +40,6 @@ function editor_init() {
 	editor_mouseDownPos = null;
 
 	editor_container = document.getElementById("containerEditor")
-	// document.body.appendChild( editor_container );
 
 	editor_raycaster = new THREE.Raycaster();
 	editor_mouse = new THREE.Vector2();
@@ -106,7 +105,7 @@ function editor_init() {
 	
 	// Adding controls
 
-	$("editor_canvas").parent().attr("id", "containerEditor");	
+	$("canvas").attr("id", "canvasEditor").parent().attr("id", "containerEditor");	
 	$("#containerEditor")
 		.append($('<div><p id="name">--</p></div><br/>'))
 		.append($('<label for="height">Largeur :</label><input type="number" onchange="editor_applyChanges()" onblur="editor_applyChanges()" id="height" value="0"></input><br/>'))

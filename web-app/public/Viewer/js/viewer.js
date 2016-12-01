@@ -34,7 +34,6 @@ function clean() {
 function init() {
 
 	container = document.getElementById("container")
-	// document.body.appendChild( container );
 
 	raycaster = new THREE.Raycaster();
 	mouse = new THREE.Vector2();
