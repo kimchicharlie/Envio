@@ -17,8 +17,8 @@ class TemperatureWindow : public QMainWindow
 public:
     explicit TemperatureWindow(QWidget *parent = 0, int tempDisp = 1, double temp = 20.0);
     ~TemperatureWindow();
-    void setSliderVal(int val);
-    void setTempDisp(int val);
+    void setSliderVal(double val);
+    void setTempDisp(double val);
 
 signals:
     // signal to handle the temp has changed
@@ -44,7 +44,7 @@ private:
     QPixmap                 *_logo;
     QSlider                 *_slider;
     QLabel                  *_label;
-    int                     _tempDisp;
+    double                     _tempDisp;
 };
 
 #endif // TEMPERATUREWINDOW_H

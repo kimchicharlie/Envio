@@ -133,11 +133,7 @@ public:
 
         LumFixLabel = new QLabel(gridLayoutWidget);
         LumFixLabel->setObjectName(QStringLiteral("LumFixLabel"));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Segoe UI,sans-serif"));
-        font1.setBold(true);
-        font1.setWeight(75);
-        LumFixLabel->setFont(font1);
+        LumFixLabel->setFont(font);
         LumFixLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 " text-transform: uppercase;\n"
 " outline: 0; \n"
@@ -286,7 +282,7 @@ public:
 
         LumLabel = new QLabel(gridLayoutWidget);
         LumLabel->setObjectName(QStringLiteral("LumLabel"));
-        LumLabel->setFont(font1);
+        LumLabel->setFont(font);
         LumLabel->setStyleSheet(QLatin1String("font-family:\"Segoe UI\", sans-serif;\n"
 "text-transform: uppercase;\n"
 "outline: 0;\n"

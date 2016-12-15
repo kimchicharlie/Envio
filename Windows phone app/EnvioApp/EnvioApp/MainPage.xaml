@@ -38,7 +38,7 @@
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.833,19,0" Grid.ColumnSpan="2">
             <TextBox x:Name="AccountTxtBox" BorderBrush="White" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Email" Margin="10,306,10,280"/>
             <PasswordBox x:Name="PwdTextBox" Margin="10,385,10,201" VerticalAlignment="Stretch" PlaceholderText="Mot de Passe"/>
-            <Button x:Name="button" FontSize="25" Content="Connection" HorizontalAlignment="center" Margin="0,493,0,0" VerticalAlignment="Top" Background="#FF5CB85C" BorderBrush="#FF449D44" RequestedTheme="Dark" Click="button_Click" Height="81" Width="169"/>
+            <Button x:Name="button" FontSize="25" Content="Connexion" HorizontalAlignment="center" Margin="0,493,0,0" VerticalAlignment="Top" Background="#FF5CB85C" BorderBrush="#FF449D44" RequestedTheme="Dark" Click="button_Click" Height="81" Width="169"/>
         </Grid>
     </Grid>
 </Page>

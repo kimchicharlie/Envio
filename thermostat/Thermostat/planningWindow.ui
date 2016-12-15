@@ -24,7 +24,7 @@
       <x>10</x>
       <y>10</y>
       <width>301</width>
-      <height>224</height>
+      <height>227</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -71,7 +71,69 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
      <item row="5" column="0">
       <widget class="QTableView" name="tableView">
        <property name="styleSheet">
-        <string notr="true">QLineEdit, QTextEdit, QSpinBox, QListWidget, QCheckbox {
+        <string notr="true">QScrollBar:vertical
+{
+      background: #777;
+      width: 15px;
+      margin: 16px 0 16px 0;
+      border: 1px solid #222222;
+}
+
+QScrollBar::handle:vertical
+{
+      background: #CCC;
+      min-height: 20px;
+      border-radius: 2px;
+}
+
+QScrollBar::add-line:vertical {
+	image: url(:/style/arrow-down.png);
+      background: #CCC;
+	height: 13px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+	image: url(:/style/up-down.png);
+      background: #CCC;
+	height: 13px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical
+{
+      border: 1px solid #1b1b19;
+      border-radius: 2px;
+      background: #CCC;
+      height: 14px;
+      subcontrol-position: bottom;
+      subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical
+{
+      border: 1px solid #1b1b19;
+      border-radius: 2px;
+      background: #CCC;
+      height: 14px;
+      subcontrol-position: top;
+      subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical {
+	background-image: url(http://opencoffee.lnxteam.org/downloads/pub/pics/scrollbar_bg_bottom.png);
+	background-repeat: no repeat;
+}
+
+QScrollBar::down-arrow:vertical {
+	background-image: url(:/style/arrow-down.png);
+	background-repeat: no repeat;
+}
+
+
+
+QLineEdit, QTextEdit, QSpinBox, QListWidget, QCheckbox {
     margin-left: 2px;
     margin-right: 2px;
     margin-top: 2px;

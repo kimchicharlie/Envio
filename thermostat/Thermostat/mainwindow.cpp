@@ -472,7 +472,8 @@ void    MainWindow::parseRep() {
             this->on_ConfigEditButton_clicked();
             return;
         }
-        _curRoom->setTemp(std::stoi(m.at("temperature")));
+        _curRoom->setTemp(std::stof(m.at("temperature")));
+        qDebug() << _curRoom->getTemp();
         _curRoom->setLum(std::stoi(m.at("light")));
 //        _curRoom->setOpac(std::stoi(m.at("opacification")));
         _tempLbl->setText(QString::number(_curRoom->getTemp()) + _curRoom->getTempDisp());

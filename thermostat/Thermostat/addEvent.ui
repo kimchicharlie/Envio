@@ -932,6 +932,12 @@ QListView::item {
 	background: green;
 	margin: 2px;
 }
+
+QListView::item::hover {
+	background: #777;
+	margin: 2px;
+}
+ 
  
 QListView::item:selected {
 	background: orange;

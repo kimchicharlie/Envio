@@ -475,7 +475,7 @@
         </PivotItem>
         <PivotItem Header="Credits">
             <StackPanel Grid.ColumnSpan="2" Margin="0,0,0,10">
-                <Button Background="#2FCC73" HorizontalAlignment="Center" Content="Deconnection" Click="Button_Click" Height="96" Width="182" FontSize="24"/>
+                <Button Background="#2FCC73" HorizontalAlignment="Center" Content="Deconnexion" Click="Button_Click" Height="96" Width="182" FontSize="24"/>
                 <Border Margin="0, 10,0,0" HorizontalAlignment="Center" Width="350" BorderThickness="1" BorderBrush="White"/>
                 <Image x:Name="logo" Source="/Assets/ic_launcher.png" VerticalAlignment="Center" HorizontalAlignment="Center" Height="103" Margin="120,0,132.667,0" IsHitTestVisible="False" Width="109" />
                 <TextBlock Margin="0, 10,0,0" HorizontalAlignment="Center" Text="Ce projet a été réalisé avec" FontSize="24"/>

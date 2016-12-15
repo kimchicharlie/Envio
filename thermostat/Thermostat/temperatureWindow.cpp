@@ -43,7 +43,7 @@ TemperatureWindow::~TemperatureWindow()
     delete ui;
 }
 
-void TemperatureWindow::setSliderVal(int val) {
+void TemperatureWindow::setSliderVal(double val) {
     if (_tempDisp == 1) {
         int x = 145 - (int)(val - 16) * 5;
         QColor color = QColor(255, x, 83, 255);
@@ -56,7 +56,7 @@ void TemperatureWindow::setSliderVal(int val) {
     _slider->setValue(val * 10);
 }
 
-void TemperatureWindow::setTempDisp(int val) {
+void TemperatureWindow::setTempDisp(double val) {
     _tempDisp = val;
 }
 

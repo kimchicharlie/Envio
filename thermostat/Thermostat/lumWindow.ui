@@ -126,8 +126,6 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
         <font>
          <family>Segoe UI,sans-serif</family>
          <pointsize>-1</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
         </font>
        </property>
        <property name="styleSheet">
@@ -317,8 +315,6 @@ font-family:&quot;Segoe UI&quot;, sans-serif;
         <font>
          <family>Segoe UI,sans-serif</family>
          <pointsize>-1</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
         </font>
        </property>
        <property name="styleSheet">
