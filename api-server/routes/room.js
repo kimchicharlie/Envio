@@ -50,7 +50,7 @@ exports.routes = [
                 res.send(rep);
             });
         }
-    },    
+    },
     {
         "path": "/modifyData",
         "method": "post",
@@ -93,7 +93,7 @@ exports.routes = [
                 res.send(rep);
             });
         }
-    },    
+    },
     {
         "path": "/getRoomPlusHardware",
         "method": "post",
@@ -107,7 +107,7 @@ exports.routes = [
                 res.send(rep);
             });
         }
-    },    
+    },
     {
         "path": "/getRooms",
         "method": "post",
@@ -153,6 +153,21 @@ exports.routes = [
         }
     },
     {
+      "path": "/changeTemperatureWithoutStat",
+      "method": "post",
+      "middlewares": [multipartMiddleware, middlewareManager.checkKey],
+      handler: function (req, res)
+      {
+        roomManager.changeTemperatureWithoutStat({
+          'roomID': req.body.roomID,
+          'temperature': req.body.temperature
+        }, function (rep)
+        {
+          res.send(rep);
+        });
+      }
+    },
+    {
         "path": "/changeLightWithoutStat",
         "method": "post",
         "middlewares": [multipartMiddleware, middlewareManager.checkKey],
@@ -167,21 +182,6 @@ exports.routes = [
             });
         }
     },
-    {
-        "path": "/changeTemperatureWithoutStat",
-        "method": "post",
-        "middlewares": [multipartMiddleware, middlewareManager.checkKey],
-        handler: function (req, res)
-        {
-            roomManager.changeTemperatureWithoutStat({
-                'roomID': req.body.roomID,
-                'temperature': req.body.temperature
-            }, function (rep)
-            {
-                res.send(rep);
-            });
-        }
-    },   
     {
         "path": "/addEventPlanning",
         "method": "post",
@@ -250,4 +250,3 @@ exports.routes = [
         }
     }
 ];
-

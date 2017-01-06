@@ -26,10 +26,10 @@ exports.routes = [
         handler: function (req, res)
         {
             userManager.register({
-                'firstname': req.body.firstname,
-                'lastname': req.body.lastname,
                 'email': req.body.email,
                 'password': req.body.password,
+                'firstname': req.body.firstname,
+                'lastname': req.body.lastname,
                 'organisation': req.body.organisation
             }, function (rep)
             {
@@ -45,7 +45,6 @@ exports.routes = [
         {
             userManager.changePasswordRandom({
                 'email': req.body.email,
-                'newPassword': req.body.newPassword
             }, function (rep)
             {
                 res.send(rep);
