@@ -27,8 +27,8 @@ Route : "/modifyCaptorValue"
 Methode : "POST"
 Paramètres :
 {
-	'captorID': MongoID du capteur,
-        'value': Valeur désirée,
+	"captorID": "MongoID du capteur",
+        "value": "Valeur désirée"
 }
 ```
 Modifier la température d'un capteur
@@ -37,10 +37,10 @@ Route : "/modifyLight"
 Methode : "POST"
 Paramètres :
 {
-	"captors": MongoID du capteur,
-	"roomID": MongoID de la room,
-	"lightNeeded": Luminosité désirée,
-	"maxLux": Luminosité maximale,
-	"transmission_key": "Clé d'authentification",
+	"captors": "MongoID du capteur",
+	"roomID": "MongoID de la room",
+	"lightNeeded": "Luminosité désirée",
+	"maxLux": "Luminosité maximale",
+	"transmission_key": "Clé d'authentification"
 }
 ```
