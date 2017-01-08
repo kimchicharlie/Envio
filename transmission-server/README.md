@@ -17,6 +17,30 @@ Route : "/"
 Methode : "POST"
 Paramètres :
 {
-	"api_key" : "Clé d'authentification"
+	"transmission_key" : "Clé d'authentification"
+}
+```
+###Communication :
+Modifier la valeur d'un capteur
+```json
+Route : "/modifyCaptorValue"  
+Methode : "POST"
+Paramètres :
+{
+	'captorID': MongoID du capteur,
+        'value': Valeur désirée,
+}
+```
+Modifier la température d'un capteur
+```json
+Route : "/modifyLight"  
+Methode : "POST"
+Paramètres :
+{
+	"captors": MongoID du capteur,
+	"roomID": MongoID de la room,
+	"lightNeeded": Luminosité désirée,
+	"maxLux": Luminosité maximale,
+	"transmission_key": "Clé d'authentification",
 }
 ```
