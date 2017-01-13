@@ -14,6 +14,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     light: {
       type: DataTypes.INTEGER,
+      defaultValue: 0,
       validate: {
         min: 0,
         isInt: true
@@ -21,6 +22,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     opacity: {
       type: DataTypes.INTEGER,
+      defaultValue: 0,
       validate: {
         min: 0,
         isInt: true
@@ -28,6 +30,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     temperature: {
       type: DataTypes.INTEGER,
+      defaultValue: 20,
       validate: {
         isInt: true
       }

@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     opacity: {
       type: DataTypes.INTEGER,
+      defaultValue: 10,
       validate: {
         min: 0,
         isInt: true
@@ -23,6 +24,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     opacityWanted: {
       type: DataTypes.INTEGER,
+      defaultValue: 10,
       validate: {
         min: 0,
         isInt: true

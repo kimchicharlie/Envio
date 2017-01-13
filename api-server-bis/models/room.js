@@ -21,6 +21,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     realLight: {
       type: DataTypes.INTEGER,
+      defaultValue: 25000,
       validate: {
         min: 0,
         isInt: true
@@ -28,6 +29,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     light: {
       type: DataTypes.INTEGER,
+      defaultValue: 50,
       validate: {
         min: 0,
         isInt: true
@@ -35,6 +37,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     maxLux: {
       type: DataTypes.INTEGER,
+      defaultValue: 15000,
       validate: {
         min: 0,
         isInt: true
@@ -42,6 +45,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     realTemperature: {
       type: DataTypes.INTEGER,
+      defaultValue: 20,
       validate: {
         min: 0,
         isInt: true
@@ -49,6 +53,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     temperature: {
       type: DataTypes.INTEGER,
+      defaultValue: 20,
       validate: {
         min: 0,
         isInt: true
@@ -58,19 +63,24 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    data: DataTypes.JSON,
+    data: {
+      type: DataTypes.JSON,
+      defaultValue: null
+    },
     planning: {
       type: DataTypes.ARRAY(DataTypes.JSON),
       defaultValue: []
     },
     m: {
       type: DataTypes.FLOAT,
+      defaultValue: 0,
       validate: {
         isFloat: true
       }
     },
     off: {
       type: DataTypes.FLOAT,
+      defaultValue: 0,
       validate: {
         isFloat: true
       }
