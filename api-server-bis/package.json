@@ -10,6 +10,7 @@
     "connect-multiparty": "^2.0.0",
     "cors": "^2.7.1",
     "express": "^4.13.3",
+    "forever": "^0.15.3",
     "nodemailer": "^1.8.0",
     "path": "^0.12.7",
     "pg": "^6.1.0",
