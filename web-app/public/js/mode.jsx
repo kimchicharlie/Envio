@@ -21,15 +21,16 @@ ModeListItem = React.createClass({
     },
     DeleteMode : function (){
       this.props.changeToDelete(this.props.mode[utils.getIdType()]);
-    },
+    },    
 	render: function () {
+		console.log(this.props.isAdmin)
 		return (
 			<li className="panel panel-success mode-elem">
 				<span className="w_20p">Nom : <h3 className="teal">{this.props.mode.name}</h3></span>
 				<span className="w_20p">Luminosité: <h3 className="blue"> {this.props.mode.light}</h3></span>
 				<span className="w_20p">Température : <h3 className="red"> {this.props.mode.temperature}</h3></span>
-				<button className="btn btn-primary list-button w_20p pads " onClick={this.ModifMode}><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
-				<button className="btn btn-danger list-button w_20p pads" onClick={this.DeleteMode}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer</button>
+				<button disabled={!this.props.isAdmin}  className="btn btn-primary list-button w_20p pads " onClick={this.ModifMode}><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
+				<button disabled={!this.props.isAdmin}  className="btn btn-danger list-button w_20p pads" onClick={this.DeleteMode}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer</button>
 			</li>
 		);
 	}
@@ -40,17 +41,17 @@ ModeList = React.createClass({
 		var react = this;
 		var items = this.props.modes.map(function (mode) {
 			return (
-				<ModeListItem key={mode[utils.getIdType()]} mode={mode} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
+				<ModeListItem isAdmin={react.props.isAdmin}  key={mode[utils.getIdType()]} mode={mode} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
 			);
 		});
 		return (
+			
 			<ul className="modes-list">
 				{items}
 			</ul>
 		);
 	}
 });
-
 Modes = React.createClass({
 	  getInitialState: function() {
 		return {
@@ -114,8 +115,9 @@ Modes = React.createClass({
 		});
 	  },
 	  render() {
-          var cat = <ModeList modes={this.state.modes} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
-          var createButton = <button className="button-medium-cl btn btn-success" onClick={this.changeToCreate}><i className="fa fa-plus-square" aria-hidden="true"></i> Créer Mode</button>;
+	  	console.log(this.props.isAdmin)
+          var cat = <ModeList isAdmin={this.props.isAdmin}  modes={this.state.modes} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
+          var createButton = <button  disabled={!this.props.isAdmin}  className="button-medium-cl btn btn-success" onClick={this.changeToCreate}><i className="fa fa-plus-square" aria-hidden="true"></i> Créer Mode</button>;
           if (this.state.creat !== null) 
           {
               cat = <CreateMode Organisation={this.props.Organisation} changeToModeList={this.changeToModeList}/>;
@@ -187,6 +189,7 @@ ModifMode = React.createClass({
 		})
 	},
 	render() {    
+		console.log()
 		return (
 		<div className="form bar bar-header-secondary">
 			 <form role="form" onSubmit={this.handleSubmit}>

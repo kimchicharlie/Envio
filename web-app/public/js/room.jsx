@@ -28,8 +28,8 @@ RoomListItem = React.createClass({
               <span className="w_20p">Luminosité voulue : <h3 className="blue">{this.props.room.light + "%"}</h3></span>
               <span className="w_20p">Temperature voulue : <h3 className="red">{this.props.room.temperature + "°"}</h3></span>
               <span className="w_20p">Volume: <h3 className="purple">{this.props.room.volume + "m3"}</h3></span>
-              <button className="btn btn-primary list-button w_15p pads" onClick={this.ModifMode}><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
-              <button className="btn btn-danger list-button w_15p pads" onClick={this.DeleteRoom}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer</button>
+              <button disabled={!this.props.isAdmin} className="btn btn-primary list-button w_15p pads" onClick={this.ModifMode}><i className="fa fa-pencil" aria-hidden="true"></i> Modifier</button>
+              <button disabled={!this.props.isAdmin} className="btn btn-danger list-button w_15p pads" onClick={this.DeleteRoom}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer</button>
             </li>
         );
     }
@@ -40,7 +40,7 @@ RoomList = React.createClass({
         var react = this;
         var items = this.props.rooms.map(function (room) {
             return (
-                <RoomListItem key={room[utils.getIdType()]} room={room} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
+                <RoomListItem isAdmin={react.props.isAdmin}  key={room[utils.getIdType()]} room={room} changeToDelete={react.props.changeToDelete} changeToModif={react.props.changeToModif}/>
             );
         });
         return (
@@ -113,8 +113,8 @@ Rooms = React.createClass({
     });
     },
     render() {
-          var cat = <RoomList rooms={this.state.rooms} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
-          var creatbutton = <button className="button-medium-cl btn btn-success" onClick={this.changeToCreat}><i className="fa fa-plus-square" aria-hidden="true"></i> Créer salle</button>;
+          var cat = <RoomList isAdmin={this.props.isAdmin} rooms={this.state.rooms} changeToDelete={this.changeToDelete} changeToModif={this.changeToModif}/>;
+          var creatbutton = <button  disabled={!this.props.isAdmin} className="button-medium-cl btn btn-success" onClick={this.changeToCreat}><i className="fa fa-plus-square" aria-hidden="true"></i> Créer salle</button>;
           if (this.state.creat !== null) 
           {
               cat = <CreateRoom Organisation={this.props.Organisation} changeToRoomList={this.changeToRoomList}/>;
@@ -134,7 +134,7 @@ Rooms = React.createClass({
                 <div className="content">
                     {cat}                   
                     {creatbutton}
-            x    </div>
+                  </div>
                 <ErrorMessage content={this.state.error}/>
               </div>
           );
@@ -155,7 +155,6 @@ ModifRoom = React.createClass({
           }, function(rep) {          
             rep = jQuery.parseJSON(rep);
             if(rep.error == null){
-              console.log(rep.room)
               react.setState({room: rep.room});
             }
             else if(react.state.status == false){

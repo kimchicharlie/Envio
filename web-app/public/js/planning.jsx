@@ -104,8 +104,8 @@ Planning = React.createClass({
           },
             timezone: 'local',
             defaultView: 'agendaWeek',
-            editable: true,
-            selectable: true,
+            editable: this.props.isAdmin ,
+            selectable: this.props.isAdmin,
             eventClick: function(calEvent, jsEvent, view) {
               react.openModal(calEvent, 0, false);
             },        
@@ -274,15 +274,15 @@ Planning = React.createClass({
           return (
               <div>
                 <div className="label-s content">
-                  <Select className="calendar-dd" className="dropdown-toggle" simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
+                  <Select className="calendar-dd"  className="dropdown-toggle" simpleValue options={this.state.ListOfRooms} value={this.state.selectedRoom} onChange={this.selectRoom}/>
                   <div id='calendar'></div>
                 </div>
                 <Modal className="form form-modal" isOpen={this.state.modalCreatIsOpen} style={ modalStyles }>          
-                    <Select className="label-m" simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
+                    <Select className="label-m" disabled={!this.props.isAdmin} disabled={!this.props.isAdmin} simpleValue options={this.state.ListOfModes} onChange={this.creatEvent}/>
                     <button className="btn red-b" onClick={this.closeCreatModal}><i className="fa fa-ban" aria-hidden="true"></i> Annuler</button>
                 </Modal>
                 <Modal className="form form-modal-2" isOpen={this.state.modalDeleteIsOpen} style={ modalStyles }>
-                    <button className="btn red-b" onClick={this.deleteEvent}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer cet evenement</button>
+                    <button className="btn red-b" disabled={!this.props.isAdmin}  onClick={this.deleteEvent}><i className="fa fa-ban" aria-hidden="true"></i> Supprimer cet evenement</button>
                     <button className="btn" onClick={this.closeDeleteModal}><i className="fa fa-chevron-left" aria-hidden="true"></i> Annuler</button>
                 </Modal>                  
               </div>

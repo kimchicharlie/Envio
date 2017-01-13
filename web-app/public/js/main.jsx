@@ -75,7 +75,7 @@ var Home = React.createClass({
                             <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
                             {logoutButton}
                         </div>
-                        <Rooms Organisation={this.props.Organisation}/>
+                        <Rooms Organisation={this.props.Organisation}  isAdmin={isAdmin}/>
                     </div>
                 )
                 break;
@@ -86,18 +86,18 @@ var Home = React.createClass({
                             <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
                             {logoutButton}
                         </div>
-                        <Modes Organisation={this.props.Organisation}/>
+                        <Modes Organisation={this.props.Organisation}  isAdmin={isAdmin}/>
                     </div>
                 )
                 break;
             case "Planning" :
                 content = (
-                    <div>
+                     <div>
                         <div className="top-menu">
                             <Sidemenu route={this.props.selectedRoute} setRoute={this.props.setRoute} isAdmin={isAdmin}/>
                             {logoutButton}
                         </div>
-                        <Planning Organisation={this.props.Organisation}/>
+                        <Planning Organisation={this.props.Organisation}  isAdmin={isAdmin}/>
                     </div>
                 )
                 break;
