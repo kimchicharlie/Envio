@@ -3,7 +3,7 @@ NAME = api-server
 SHA1 = $(shell git log -1 --pretty=oneline | cut -c-10)
 BRANCH = $(shell git branch -a --contains $(SHA1) | egrep '(remotes/|\*)' | egrep -v "(HEAD|detached)" | head -1 | sed -e "s/\* //" -e "s/.*\///")
 VERSION = $(BRANCH)-$(SHA1)
-API_PORT = 1337
+API_PORT = 8089
 
 all: build
 
