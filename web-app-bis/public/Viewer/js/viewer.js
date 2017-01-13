@@ -6,7 +6,7 @@ var lookAtPos = new THREE.Object3D(), cameraAngle = 45;
 var mouseDownPos;
 var WALL_HEIGHT = 40, WALL_WIDTH = 200, WALL_Y_DETAIL = 10, WALL_X_DETAIL = 10
 	PLANE_WIDTH = 10000;
-var MAIN_URL = "http://localhost:1337", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
+var MAIN_URL = "http://localhost:8089", API_KEY = 'f8c5e1xx5f48e56s4x8', ORGANISATION = "Envio"
 
 function viewer()
 {
@@ -45,8 +45,8 @@ function init() {
 	scene.add( plane );
 	plane.info = null;
 	objects.push(plane);
-	
-	
+
+
 	// Lights
 
 	var ambientLight = new THREE.AmbientLight( 0x555555 );
@@ -61,10 +61,10 @@ function init() {
 	// Renderer
 
 	if ( Detector.webgl ) {
-	    renderer = new THREE.WebGLRenderer({antialias:true}); 
-	} else { 
+	    renderer = new THREE.WebGLRenderer({antialias:true});
+	} else {
 	    renderer = new THREE.CanvasRenderer();
-	} 
+	}
 	renderer.setClearColor( 0xf0f0f0 );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( window.innerWidth, window.innerHeight );
@@ -75,10 +75,10 @@ function init() {
 	renderer.domElement.addEventListener( 'mousedown', onMouseDown );
 	renderer.domElement.addEventListener( 'mouseup', onMouseUp );
 	renderer.domElement.addEventListener( 'mousemove', onMouseMove );
-	
+
 	// Adding controls
 
-	$("canvas").parent().attr("id", "container");	
+	$("canvas").parent().attr("id", "container");
 	$("#container")
 		.append($('<div><p id="name">--</p></div>'));
 }
@@ -138,7 +138,7 @@ function addRoom (size, position, infos) {
 	// Ground
 	var material = new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
 	var geometry = new THREE.PlaneGeometry(size.length, size.width, WALL_X_DETAIL, WALL_Y_DETAIL);
-	var ground = new THREE.Mesh(geometry, material);	
+	var ground = new THREE.Mesh(geometry, material);
 	ground.position.y = position.y;
 	ground.position.x = position.x;
 	ground.position.z = position.z;
@@ -150,7 +150,7 @@ function addRoom (size, position, infos) {
 	// Walls
 
 	var geometry = new THREE.PlaneGeometry(size.width, size.height, WALL_X_DETAIL, WALL_Y_DETAIL);
-	var wallBotRight = new THREE.Mesh(geometry, material);	
+	var wallBotRight = new THREE.Mesh(geometry, material);
 	wallBotRight.position.y = position.y + size.height / 2;
 	wallBotRight.position.x = position.x + size.length / 2;
 	wallBotRight.position.z = position.z;
@@ -169,7 +169,7 @@ function addRoom (size, position, infos) {
 	scene.add( wallTopLeft );
 
 	var geometry = new THREE.PlaneGeometry(size.length, size.height, WALL_X_DETAIL, WALL_Y_DETAIL);
-	var wallBotLeft = new THREE.Mesh(geometry, material);	
+	var wallBotLeft = new THREE.Mesh(geometry, material);
 	wallBotLeft.position.y = position.y + size.height / 2;
 	wallBotLeft.position.x = position.x;
 	wallBotLeft.position.z = position.z + size.width / 2;
@@ -178,7 +178,7 @@ function addRoom (size, position, infos) {
 	parent.add( wallBotLeft );
 	scene.add( wallBotLeft );
 
-	var wallTopRight = new THREE.Mesh(geometry, material);	
+	var wallTopRight = new THREE.Mesh(geometry, material);
 	wallTopRight.position.y = position.y + size.height / 2;
 	wallTopRight.position.x = position.x;
 	wallTopRight.position.z = position.z - size.width / 2;
@@ -294,7 +294,7 @@ function displayInfo (object) {
 	    error:   function() {
 	        // An error occurred
 	    }
-	});	
+	});
 }
 
 function animate() {
@@ -309,7 +309,7 @@ function render() {
 
 	camera.position.x = Math.cos( DegToRad( cameraAngle )) * 200 + lookAtPos.position.x;
 	camera.position.z = Math.sin( DegToRad( cameraAngle )) * 200 + lookAtPos.position.z;
-	
+
 	camera.lookAt( lookAtPos.position );
 
 	renderer.render( scene, camera );
@@ -322,34 +322,34 @@ function DegToRad (deg) {
 function makeTextSprite( message, parameters )
 {
 	if ( parameters === undefined ) parameters = {};
-	
-	var fontface = parameters.hasOwnProperty("fontface") ? 
+
+	var fontface = parameters.hasOwnProperty("fontface") ?
 		parameters["fontface"] : "Arial";
-	
-	var fontsize = parameters.hasOwnProperty("fontsize") ? 
+
+	var fontsize = parameters.hasOwnProperty("fontsize") ?
 		parameters["fontsize"] : 18;
-	
-	var borderThickness = parameters.hasOwnProperty("borderThickness") ? 
+
+	var borderThickness = parameters.hasOwnProperty("borderThickness") ?
 		parameters["borderThickness"] : 4;
-	
+
 	var borderColor = parameters.hasOwnProperty("borderColor") ?
 		parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
-	
+
 	var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
 		parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
 
 	//var spriteAlignment = parameters.hasOwnProperty("alignment") ?
 	//	parameters["alignment"] : THREE.SpriteAlignment.topLeft;
-		
+
 
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
 	context.font = "Bold " + fontsize + "px " + fontface;
-    
+
 	// get size data (height depends only on font size)
 	var metrics = context.measureText( message );
 	var textWidth = metrics.width;
-	
+
 	// background color
 	context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
 								  + backgroundColor.b + "," + backgroundColor.a + ")";
@@ -360,25 +360,25 @@ function makeTextSprite( message, parameters )
 	context.lineWidth = borderThickness;
 	roundRect(context, borderThickness/2, borderThickness/2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
 	// 1.4 is extra height factor for text below baseline: g,j,p,q.
-	
+
 	// text color
 	context.fillStyle = "rgba(0, 0, 0, 1.0)";
 
 	context.fillText( message, borderThickness, fontsize + borderThickness);
-	
+
 	// canvas contents will be used for a texture
-	var texture = new THREE.Texture(canvas) 
+	var texture = new THREE.Texture(canvas)
 	texture.minFilter = THREE.NearestFilter;
 	texture.needsUpdate = true;
 
-	var spriteMaterial = new THREE.SpriteMaterial( 
+	var spriteMaterial = new THREE.SpriteMaterial(
 		{ map: texture } );
 	var sprite = new THREE.Sprite( spriteMaterial );
 	sprite.scale.set(125,60,1.0);
-	return sprite;	
+	return sprite;
 }
 
-function roundRect(ctx, x, y, w, h, r) 
+function roundRect(ctx, x, y, w, h, r)
 {
     ctx.beginPath();
     ctx.moveTo(x+r, y);
@@ -392,5 +392,5 @@ function roundRect(ctx, x, y, w, h, r)
     ctx.quadraticCurveTo(x, y, x+r, y);
     ctx.closePath();
     ctx.fill();
-	ctx.stroke();   
+	ctx.stroke();
 }

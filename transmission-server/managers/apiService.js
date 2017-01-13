@@ -23,7 +23,7 @@ board.on("ready", function() {
     freq: 5000
   });
 
-    board.repl.inject({
+  board.repl.inject({
     pot: photoresistor,
     motor: motor
   });
@@ -38,7 +38,7 @@ board.on("ready", function() {
   motor = new five.Motor({
     pins: {
       pwm: 3,//gris , jaune, 2
-      dir: 12 //blanc, bleu, 1 
+      dir: 12 //blanc, bleu, 1
     },
     invertPWM: true
   });
@@ -72,7 +72,7 @@ var getRoom = function(cb) {
         }
 
         request({
-            url: apiUrl + '/getRoomPlusHardware',                    
+            url: apiUrl + '/getRoomPlusHardware',
             method: "POST",
             json: objectToSend
         }, function (error, response, body) {
@@ -242,15 +242,15 @@ var setValues = function (options, cb) {
     }
     if (utils.checkProperty(options.opacity) && utils.checkProperty(options.temperature) && typeof(motor) != "undefined") {
         console.log("opacity voulu = "+ options.opacity)
-        if(LastOpacity - options.opacity > 0 && LastOpacity != options.opacity){
+        if (LastOpacity - options.opacity > 0 && LastOpacity != options.opacity){
             var time = (LastOpacity - options.opacity) * 60
             console.log("forward de "+ time)
             motor.forward(255);
             board.wait(time, function() {
                   motor.stop();
                   LastOpacity = options.opacity;
-            }); 
-        }else if (LastOpacity != options.opacity){
+            });
+        } else if (LastOpacity != options.opacity){
             var time = (LastOpacity - options.opacity) * -60
             console.log("reverse de "+time)
             motor.reverse(255);
@@ -328,7 +328,7 @@ var calculateLight = function (options, cb) {
         }
 
         lightNeededLux = options.lightNeeded * (options.maxLux / 100);
-        
+
         if (lightCaptors.outside.averageValue > lightNeededLux) {
             var tmp = lightNeededLux * 100 / lightCaptors.outside.averageValue;
             opacity = Math.round(100 - tmp);
@@ -416,7 +416,7 @@ var updateRoomValues = function (options, cb) {
                     request({
                         url: apiUrl + "/modifyCaptor",
                         method: "POST",
-                        json: {                        
+                        json: {
                             'captorID' : captor,
                             'type' : CAPTORS[utils.FindIndexByValue(CAPTORS, captor.type , "type")].type,
                             'value' : CAPTORS[utils.FindIndexByValue(CAPTORS, captor.type , "type")].value,
@@ -433,7 +433,7 @@ var updateRoomValues = function (options, cb) {
                 }, function () {
                     callback();
                 })
-            }            
+            }
         ], function () {
             cb(result);
         })
@@ -497,8 +497,8 @@ var applyPlanningMode = function(options, cb) {
                                             cb(result);
                                         }
                                     })
-                                    
-                                }                            
+
+                                }
                             })
                         })
                     } else {
@@ -506,7 +506,7 @@ var applyPlanningMode = function(options, cb) {
                         cb(result);
                     }
             }
-        }) 
+        })
     } else {
         result.error = "applyPlanningMode2 : Des données sont manquantes";
         cb(result);
@@ -522,7 +522,7 @@ var applyUserModifications = function(options, cb) {
     }
     room = options.room
 
-    
+
     if (utils.checkProperty(room.light) && utils.checkProperty(room.maxLux) && utils.checkProperty(room._id) && utils.checkProperty(room.temperature)) {
         var captors = CAPTORS;
         var lightNeeded = room.light;
@@ -602,7 +602,7 @@ var applyIAMode = function(options, cb) {
                                 cb(result);
                             }
                         })
-                    }                            
+                    }
                 })
             })
     }else{
@@ -632,7 +632,7 @@ var handleChanges = function(cb) {
         } else if (!response.room) {
             result.error = "La room n'existe pas";
             cb(result);
-        } else {            
+        } else {
             room = response.room;
             if (saveRoom == null)
                 saveRoom = room
@@ -688,11 +688,11 @@ var handleChanges = function(cb) {
                         }, function (res) {
                             console.log('res User Modifications : ', res);
                         })
-                        callback(); 
+                        callback();
                     } else {
                         callback();
                     }
-                    
+
                 }
             ], function (err) {
                 if (err) {

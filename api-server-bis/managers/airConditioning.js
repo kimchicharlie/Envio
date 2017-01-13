@@ -1,4 +1,5 @@
 var models = require('../models');
+var utils = require('../utils.js');
 
 var createAirConditioning = function (options, cb) {
     cb = cb || function () {};
@@ -11,8 +12,8 @@ var createAirConditioning = function (options, cb) {
             return models.AirConditioning.create({
                 "temperatureWanted" : options.temperatureWanted
             }).then(function(airConditioning) {
-                airConditioning.setRoom(room.id);
-                result.airConditioning = airConditioning.dataValues;
+                airConditioning.setRoom(room.dataValues.id);
+                result.airConditioning = utils.changeIdToMongo(airConditioning);
                 cb(result);
             });
         })
@@ -41,7 +42,7 @@ var modifyAirConditioning = function (options, cb) {
                     id: options.airConditioningID
                 }
             }).then(function(airConditioning) {
-                result.airConditioning = airConditioning.dataValues;
+                result.airConditioning = utils.changeIdToMongo(airConditioning);
                 cb(result);
             })
         })
@@ -64,7 +65,7 @@ var deleteAirConditioning = function (options, cb) {
             id: options.airConditioningID,
           }
         }).then(function (airConditioning) {
-            result.airConditioning = airConditioning.dataValues;
+            result.airConditioning = utils.changeIdToMongo(airConditionin);
             cb(result);
         });
     } else {
@@ -80,13 +81,13 @@ var getAirConditionings = function (options, cb) {
         'error': null,
         'airConditionings': null
     };
-    
+
     models.AirConditioning.findAll({
         where : {
             roomId: options.room
         }
     }).then(function(airConditionings) {
-        result.airConditionings = airConditionings;
+        result.airConditionings = utils.changeArrayIdToMongo(airConditionings);
         cb(result);
     });
 };
@@ -102,7 +103,7 @@ var getAirConditioning = function (options, cb) {
     models.AirConditioning.findById(options.airConditioningID)
     .then(function(airConditioning) {
         if (airConditioning) {
-            result.airConditioning = airConditioning.dataValues;
+            result.airConditioning = utils.changeIdToMongo(airConditioning);
             cb(result);
         } else {
             result.error = "AirConditioning not found";

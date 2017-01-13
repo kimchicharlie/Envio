@@ -1,5 +1,5 @@
-// var baseURL = "http://localhost:8095/api";
-var baseURL = "http://137.74.40.245:8095/api";
+var baseURL = "http://localhost:8095/api";
+// var baseURL = "http://137.74.40.245:8095/api";
 
 function HttpPost(API, data, cb){
 

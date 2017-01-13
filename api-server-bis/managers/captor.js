@@ -1,4 +1,5 @@
 var models = require('../models');
+var utils = require('../utils.js');
 
 var createCaptor = function (options, cb) {
     cb = cb || function () {};
@@ -13,8 +14,8 @@ var createCaptor = function (options, cb) {
                 "type" : options.type,
                 "value" : options.value,
             }).then(function(captor) {
-                captor.setRoom(room.id);
-                result.captor = captor.dataValues;
+                captor.setRoom(room.dataValues.id);
+                result.captor = utils.changeIdToMongo(captor);
                 cb(result);
             });
         })
@@ -43,7 +44,7 @@ var modifyCaptor = function (options, cb) {
                     id: options.captorID
                 }
             }).then(function(captor) {
-                result.captor = captor.dataValues;
+                result.captor = utils.changeIdToMongo(captor);
                 cb(result);
             })
         })
@@ -66,7 +67,7 @@ var deleteCaptor = function (options, cb) {
             id: options.captorID,
           }
         }).then(function (captor) {
-            result.captor = captor.dataValues;
+            result.captor = utils.changeIdToMongo(captor);
             cb(result);
         });
     } else {
@@ -82,13 +83,13 @@ var getCaptors = function (options, cb) {
         'error': null,
         'captors': null
     };
-    
+
     models.Captor.findAll({
         where : {
             roomId: options.room
         }
     }).then(function(captors) {
-        result.captors = captors;
+        result.captors = utils.changeArrayIdToMongo(captors);
         cb(result);
     });
 };
@@ -104,7 +105,7 @@ var getCaptor = function (options, cb) {
     models.Captor.findById(options.captorID)
     .then(function(captor) {
         if (captor) {
-            result.captor = captor.dataValues;
+            result.captor = utils.changeIdToMongo(captor);
             cb(result);
         } else {
             result.error = "Captor not found";

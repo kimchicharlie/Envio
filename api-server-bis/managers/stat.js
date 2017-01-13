@@ -1,4 +1,5 @@
 var models = require('../models');
+var utils = require('../utils.js');
 
 var getStats = function (options, cb) {
     cb = cb || function () {};
@@ -9,7 +10,7 @@ var getStats = function (options, cb) {
     };
 
     models.Stat.findAll().then(function(stats) {
-        result.stats = stats;
+        result.stats = utils.changeArrayIdToMongo(stats);
         cb(result);
     });
 }
@@ -27,7 +28,7 @@ var getStatsFromRoomId = function (options, cb) {
             roomId: options.roomID
         }
     }).then(function(stats) {
-        result.stats = stats;
+        result.stats = utils.changeArrayIdToMongo(stats);
         cb(result);
     });
 }
@@ -83,7 +84,7 @@ var CalcTrendLine = function (roomID, cb)
                         sumX += stats[i][X]
                         sumY += stats[i][Y]
                         sumXY += (stats[i][X] * stats[i][Y])
-                        sumXsquare += (stats[i][X] * stats[i][X]) 
+                        sumXsquare += (stats[i][X] * stats[i][X])
                     }
                 var a = sumXY * n
                 var b = sumX * sumY

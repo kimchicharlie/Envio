@@ -1,4 +1,5 @@
 var models = require('../models');
+var utils = require('../utils.js');
 
 var createWindow = function (options, cb) {
     cb = cb || function () {};
@@ -15,8 +16,8 @@ var createWindow = function (options, cb) {
                 "opacity" : options.opacity,
                 "opacityWanted" : options.opacityWanted,
             }).then(function(window) {
-                window.setRoom(room.id);
-                result.window = window.dataValues;
+                window.setRoom(room.dataValues.id);
+                result.window = utils.changeIdToMongo(window);
                 cb(result);
             });
         })
@@ -45,7 +46,7 @@ var modifyWindow = function (options, cb) {
                     id: options.windowID
                 }
             }).then(function(window) {
-                result.window = window.dataValues;
+                result.window = utils.changeIdToMongo(window);
                 cb(result);
             })
         })
@@ -68,7 +69,7 @@ var deleteWindow = function (options, cb) {
             id: options.windowID,
           }
         }).then(function (window) {
-            result.window = window.dataValues;
+            result.window = utils.changeIdToMongo(window);
             cb(result);
         });
     } else {
@@ -92,7 +93,7 @@ var getWindows = function (options, cb) {
             roomId: options.room
         }
     }).then(function(windows) {
-        result.windows = windows;
+        result.windows = utils.changeArrayIdToMongo(windows);
         cb(result);
     });
 };
@@ -108,7 +109,7 @@ var getWindow = function (options, cb) {
     models.Window.findById(options.windowID)
     .then(function(window) {
         if (window) {
-            result.window = window.dataValues;
+            result.window = utils.changeIdToMongo(window);
             cb(result);
         } else {
             result.error = "Window not found";

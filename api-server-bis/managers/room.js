@@ -2,6 +2,7 @@ var async = require('async');
 var models = require('../models');
 var statManager = require('./stat.js');
 var communicationManager = require('./communication.js');
+var utils = require('../utils.js');
 
 var createRoom = function (options, cb) {
     cb = cb || function () {};
@@ -11,14 +12,8 @@ var createRoom = function (options, cb) {
         'room': null
     };
 
-    models.Room.create(options, {
-        include: [
-            { model: models.Window, as: 'windows' },
-            { model: models.AirConditioning, as: 'airConditionings' },
-            { model: models.Captor, as: 'captors' }
-        ]
-    }).then(function(room) {
-        result.room = room.dataValues;
+    models.Room.create(options).then(function(room) {
+        result.room = utils.changeRoomIdsToMongo(room);
         cb(result);
     })
 }
@@ -40,7 +35,7 @@ var getRoom = function (options, cb) {
     })
     .then(function(room) {
         if (room) {
-            result.room = room.dataValues;
+            result.room = utils.changeRoomIdsToMongo(room);
             cb(result);
         } else {
             result.error = "Room not found";
@@ -72,7 +67,7 @@ var modifyRoom = function (options, cb) {
                 name: options.newName || options.name,
             }
         }).then(function(room) {
-            result.room = room.dataValues;
+            result.room = utils.changeIdToMongo(room);
             cb(result);
         })
     })
@@ -90,13 +85,14 @@ var deleteRoom = function (options, cb) {
         id: options.roomID,
       }
     }).then(function (room) {
-        result.room = room.dataValues;
+        result.room = utils.changeIdToMongo(room);
         cb(result);
     });
 }
 
 var modifyData = function (options, cb) {
     cb = cb || function () {};
+    console.log('options : ', options)
 
     var result = {
         'error': null,
@@ -115,7 +111,8 @@ var modifyData = function (options, cb) {
                 name: options.name,
             }
         }).then(function(room) {
-            result.room = room.dataValues;
+          console.log('room : ', room)
+            result.room = utils.changeIdToMongo(room);
             cb(result);
         })
     })
@@ -141,13 +138,13 @@ var switchIA = function (options, cb) {
         }).then(function(res) {
             models.Room.findById(options.roomID)
             .then(function(room) {
-                result.room = room.dataValues;
+                result.room = utils.changeIdToMongo(room);
                 cb(result);
             })
         })
     })
 
-    
+
 };
 
 var getRoomPlusHardware = function (options, cb) {
@@ -167,7 +164,7 @@ var getRoomPlusHardware = function (options, cb) {
     })
     .then(function(room) {
         if (room) {
-            result.room = room.dataValues;
+            result.room = utils.changeRoomIdsToMongo(room);
             cb(result);
         } else {
             result.error = "Room not found";
@@ -191,7 +188,7 @@ var getRooms = function (options, cb) {
             { model: models.Captor, as: 'captors' }
         ]
     }).then(function(rooms) {
-        result.rooms = rooms;
+        result.rooms = utils.changeArrayRoomIdsToMongo(rooms);
         cb(result);
     });
 };
@@ -213,7 +210,7 @@ var changeLightWithoutStat = function (options, cb) {
       },
     }).then(function(res) {
         models.Room.findById(options.roomID).then(function(room) {
-            result.room = room.dataValues;
+            result.room = utils.changeIdToMongo(room);
             cb(result);
         })
     })
@@ -235,7 +232,7 @@ var changeTemperatureWithoutStat = function (options, cb) {
       },
     }).then(function(res) {
         models.Room.findById(options.roomID).then(function(room) {
-            result.room = room.dataValues;
+            result.room = utils.changeIdToMongo(room);
             cb(result);
         })
     })
@@ -272,10 +269,10 @@ var changeTemperature = function (options, cb) {
                       where: {
                         id: options.roomID,
                       },
-                    }) 
+                    })
                 }
             })
-            result.room = room.dataValues;
+            result.room = utils.changeIdToMongo(room);
             cb(result);
         })
     })
@@ -320,10 +317,10 @@ var changeLight = function (options, cb) {
                       where: {
                         id: options.roomID,
                       },
-                    }) 
+                    })
                 }
             })
-            result.room = room.dataValues;
+            result.room = utils.changeIdToMongo(room);
             cb(result);
         })
     })
@@ -341,12 +338,12 @@ var addEventPlanning = function (options, cb) {
         'name': null,
         'mode': null,
         'dateBegin': null,
-        'dateEnd': null  
+        'dateEnd': null
     }
 
     var planningArray = [];
 
-    if (options.roomID != null) {     
+    if (options.roomID != null) {
         models.Room.findById(options.roomID).then(function(room) {
             if (!room) {
                 result.error = "Room not found";
@@ -360,7 +357,7 @@ var addEventPlanning = function (options, cb) {
 
                     planningArray = room.dataValues.planning;
                     planningArray.push(eventPlanning);
-                    
+
 
                     models.Room.update({
                         "planning": planningArray
@@ -370,7 +367,7 @@ var addEventPlanning = function (options, cb) {
                       },
                     }).then(function(res) {
                         models.Room.findById(options.roomID).then(function(room) {
-                            result.room = room.dataValues;
+                            result.room = utils.changeIdToMongo(room);
                             cb(result);
                         })
                     })
@@ -398,12 +395,12 @@ var removeEventPlanning = function (options, cb) {
         'name': null,
         'mode': null,
         'dateBegin': null,
-        'dateEnd': null  
+        'dateEnd': null
     }
 
     var planningArray = [];
 
-    if (options.roomID != null) {     
+    if (options.roomID != null) {
         models.Room.findById(options.roomID).then(function(room) {
             if (!room) {
                 result.error = "Room not found";
@@ -426,7 +423,7 @@ var removeEventPlanning = function (options, cb) {
                       },
                     }).then(function(res) {
                         models.Room.findById(options.roomID).then(function(room) {
-                            result.room = room.dataValues;
+                            result.room = utils.changeIdToMongo(room);
                             cb(result);
                         })
                     })
@@ -450,7 +447,7 @@ var modifyEventPlanning = function (options, cb) {
         'room': null
     };
     if (options.newDateBegin && options.newDateEnd && options.eventName && options.modeID && options.roomID && options.dateBegin && options.dateEnd) {
-        
+
         var planning = {
             "name": options.eventName,
             "mode": null,
@@ -490,7 +487,7 @@ var modifyEventPlanning = function (options, cb) {
                           },
                         }).then(function(res) {
                             models.Room.findById(options.roomID).then(function(room) {
-                                result.room = room.dataValues;
+                                result.room = utils.changeIdToMongo(room);
                                 cb(result);
                             })
                         })

@@ -1,4 +1,5 @@
 var models = require('../models');
+var utils = require('../utils.js');
 
 var createMode = function (options, cb) {
     cb = cb || function () {};
@@ -9,7 +10,7 @@ var createMode = function (options, cb) {
     };
 
     models.Mode.create(options).then(function(mode) {
-        result.mode = mode.dataValues;
+        result.mode = utils.changeIdToMongo(mode);
         cb(result);
     })
 };
@@ -23,7 +24,7 @@ var modifyMode = function (options, cb) {
     };
 
     var modeObject = {
-        
+
     }
 
     if (options.newName) {
@@ -50,7 +51,7 @@ var modifyMode = function (options, cb) {
                     id: options.modeID,
                 }
             }).then(function(mode) {
-                result.mode = mode.dataValues;
+                result.mode = utils.changeIdToMongo(mode);
                 cb(result);
             })
         })
@@ -73,7 +74,7 @@ var deleteMode = function (options, cb) {
         id: options.modeID,
       }
     }).then(function (mode) {
-        result.mode = mode.dataValues;
+        result.mode = utils.changeIdToMongo(mode);
         cb(result);
     });
 }
@@ -87,7 +88,7 @@ var getModes = function (options, cb) {
     };
 
     models.Mode.findAll().then(function(modes) {
-        result.modes = modes;
+        result.modes = utils.changeArrayIdToMongo(modes);
         cb(result);
     });
 };
@@ -106,7 +107,7 @@ var getMode = function (options, cb) {
       },
     }).then(function(mode) {
         if (mode) {
-            result.mode = mode.dataValues;
+            result.mode = utils.changeIdToMongo(mode);
             cb(result);
         } else {
             result.error = "Mode not found";

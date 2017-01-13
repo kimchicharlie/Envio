@@ -30,7 +30,7 @@ var login = function (options, cb) {
                     models.ConnectedUser.create(newConnectedUser).then(function (connectedUser) {
                         console.log("Login successull with email : " + options.email);
                         connectedUser.setUser(user.dataValues.id);
-                        result.user = user.dataValues;
+                        result.user = utils.changeIdToMongo(user);
                         result.guid = connectedUser.dataValues.guid;
                         cb(result);
                     })
@@ -40,6 +40,7 @@ var login = function (options, cb) {
                 }
             });
         } else {
+					console.log('BIBI')
             result.error = "Cette adresse mail n'existe pas";
             cb(result);
         }
@@ -88,7 +89,7 @@ var register = function (options, cb) {
 
     var userOptions = {};
 
-    
+
 
     if (utils.checkProperty(options.email)) {
         models.User.findOne({
@@ -110,7 +111,7 @@ var register = function (options, cb) {
                             result.error = 'Le champ email est vide';
                             callback();
                         }
-                    }, 
+                    },
                     function (callback) {
                         if (utils.checkProperty(options.firstname)) {
                             userOptions.firstname = options.firstname;
@@ -119,7 +120,7 @@ var register = function (options, cb) {
                             result.error = 'Le champ prénom est vide';
                             callback();
                         }
-                    }, 
+                    },
                     function (callback) {
                         if (utils.checkProperty(options.lastname)) {
                             userOptions.lastname = options.lastname;
@@ -128,7 +129,7 @@ var register = function (options, cb) {
                             result.error = 'Le champ nom est vide';
                             callback();
                         }
-                    }, 
+                    },
                     function (callback) {
                         if (utils.checkProperty(options.password)) {
                             userOptions.password = options.password;
@@ -137,7 +138,7 @@ var register = function (options, cb) {
                             result.error = 'Le champ mot de passe est vide';
                             callback();
                         }
-                    }, 
+                    },
                     function (callback) {
                         if (utils.checkProperty(options.organisation)) {
                             userOptions.organisation = options.organisation;
@@ -153,11 +154,11 @@ var register = function (options, cb) {
                         return;
                     } else {
                         models.User.create(userOptions).then(function(user) {
-                            result.user = user.dataValues;
+                            result.user = utils.changeIdToMongo(user);
                             mailManager.sendMail("envio.contact@gmail.com", userOptions.email, "Votre compte a bien été créé", "Bienvenue " + userOptions.firstname + ' ' + userOptions.lastname);
                             cb(result);
                         })
-                    }                    
+                    }
                 });
             }
         })
@@ -182,7 +183,7 @@ var getConnectedUsers = function (options, cb)
             { model: models.User, as: 'user' }
         ]
     }).then(function(connectedUsers) {
-        result.connectedUsers = connectedUsers;
+        result.connectedUsers = utils.changeArrayIdToMongo(connectedUsers);
         cb(result);
     })
 };
@@ -207,7 +208,7 @@ var getConnectedUser = function (options, cb)
             ]
         }).then(function(connectedUser) {
             if (connectedUser) {
-                result.connectedUser = connectedUser.dataValues;
+                result.connectedUser = utils.changeArrayIdToMongo(connectedUser);
                 if (result.connectedUser === null || result.connectedUser.user == null) {
                     result.error = "Vous devez être connecté";
                     cb(result);
@@ -297,7 +298,7 @@ var changePassword = function (options, cb) {
                     email: options.email
                 }
             }).then(function(user) {
-                result.user = user.dataValues;
+                result.user = utils.changeIdToMongo(user);
                 cb(result);
             })
         })
