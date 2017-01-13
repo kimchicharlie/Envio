@@ -1,5 +1,5 @@
 ORG = envio
-NAME = web-app
+NAME = web-app-bis
 SHA1 = $(shell git log -1 --pretty=oneline | cut -c-10)
 BRANCH = $(shell git branch -a --contains $(SHA1) | egrep '(remotes/|\*)' | egrep -v "(HEAD|detached)" | head -1 | sed -e "s/\* //" -e "s/.*\///")
 VERSION = $(BRANCH)-$(SHA1)
@@ -12,11 +12,11 @@ build:
 	docker tag  $(ORG)/$(NAME):${VERSION} $(ORG)/$(NAME):$(BRANCH)-latest
 
 clean:
-	docker kill web-app && docker rm web-app
+	docker kill web-app-bis && docker rm web-app-bis
 
 run:
 	docker run \
-		--name web-app \
+		--name web-app-bis \
 		-p $(WEB_PORT):$(WEB_PORT) \
 		--net="host" \
 		-e TZ="Europe/Paris" \

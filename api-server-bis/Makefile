@@ -1,5 +1,5 @@
 ORG = envio
-NAME = api-server
+NAME = api-server-bis
 SHA1 = $(shell git log -1 --pretty=oneline | cut -c-10)
 BRANCH = $(shell git branch -a --contains $(SHA1) | egrep '(remotes/|\*)' | egrep -v "(HEAD|detached)" | head -1 | sed -e "s/\* //" -e "s/.*\///")
 VERSION = $(BRANCH)-$(SHA1)
@@ -12,11 +12,11 @@ build:
 	docker tag  $(ORG)/$(NAME):${VERSION} $(ORG)/$(NAME):$(BRANCH)-latest
 
 clean:
-	docker kill api-server && docker rm api-server
+	docker kill api-server-bis && docker rm api-server-bis
 
 run:
 	docker run \
-		--name api-server \
+		--name api-server-bis \
 		-p $(API_PORT):$(API_PORT) \
 		--net="host" \
 		-e TZ="Europe/Paris" \
